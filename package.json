@@ -1,0 +1,9 @@
+{
+  "name": "ai-suplex-777",
+  "version": "1.0.0",
+  "private": true,
+  "description": "File-first self-improving execution framework for AI agents",
+  "scripts": {
+    "test": "node --test AI-Suplex-777/test/"
+  }
+}
