@@ -4,6 +4,12 @@
 
 AI-Suplex is a file-first, markdown-first **self-improving execution framework** — a shared memory layer that any AI agent (Hermes, Claude Code, Zed, Codex, any agent with file + bash access) can read and write. Each session files what happened, extracts lessons, and promotes the durable ones, so **each new session starts smarter than the last.**
 
+## Resources
+
+- 📥 **Get the pre-built vault (free):** [selar.com/270lq55ke0](https://selar.com/270lq55ke0)
+- ▶️ **Walkthrough video:** [youtu.be/R0vLuNf9VUs](https://youtu.be/R0vLuNf9VUs)
+- 🎬 **New demo:** *(uploading)*
+
 ## The loop
 
 ```mermaid
