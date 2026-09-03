@@ -4,6 +4,6 @@
   "private": true,
   "description": "File-first self-improving execution framework for AI agents",
   "scripts": {
-    "test": "node --test AI-Suplex-777/test/"
+    "test": "node --test"
   }
 }
