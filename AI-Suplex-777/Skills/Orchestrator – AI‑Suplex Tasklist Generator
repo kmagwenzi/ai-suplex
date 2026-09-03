@@ -1,0 +1,27 @@
+---
+skill_name: "Orchestrator – AI‑Suplex Tasklist Generator"
+role: "Orchestrator"
+version: "1.0"
+date: 2026-04-10
+tags: [skill, orchestrator, tasklist, ai-suplex]
+---
+
+# Orchestrator Skill: AI‑Suplex Tasklist Generator
+
+## 🎯 Purpose
+
+Convert a Hustler's raw to‑do list (or natural language goals) into a **structured AI‑Suplex Tasklist** with:
+- **Mission** (one sentence)
+- **Tasks** (atomic actions, each with a checkbox)
+- **Success metrics** (measurable outcomes)
+- **Duration** (in minutes)
+- **Nature** (planning/creative/execution/review)
+- **Primary role** (Builder, Architect, Hustler, etc.)
+
+The output follows the format used in the `Tasklists/` folder and can be directly used to generate session start prompts.
+
+---
+
+## 📥 Input
+
+The Hustler will provide a raw to‑do list. Example:
