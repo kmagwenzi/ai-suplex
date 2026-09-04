@@ -6,9 +6,10 @@ AI-Suplex is a file-first, markdown-first **self-improving execution framework**
 
 ## Resources
 
-- 📥 **Get the pre-built vault (free):** [selar.com/270lq55ke0](https://selar.com/270lq55ke0)
-- ▶️ **Walkthrough video:** [youtu.be/R0vLuNf9VUs](https://youtu.be/R0vLuNf9VUs)
-- 🎬 **New demo:** *(uploading)*
+- 📥 **Get the vault (free):** [selar.com/270lq55ke0](https://selar.com/270lq55ke0)
+- ▶️ **Deep Ultra persona — short:** [youtu.be/QLQVJ-5g8IU](https://youtu.be/QLQVJ-5g8IU)
+- ▶️ **Walkthrough:** [youtu.be/R0vLuNf9VUs](https://youtu.be/R0vLuNf9VUs)
+- 🦸 **Ultra Edition preview:** [ai-suplex-ultra-preview.netlify.app](https://ai-suplex-ultra-preview.netlify.app/)
 
 ## The loop
 
@@ -70,7 +71,7 @@ AI-Suplex-777/
 
 ## Open-core
 
-The **library** (this repo) is free and open source. The **harness** — the scheduled, gated, self-driving layer that runs it — is **AI-Suplex Ultra** (code name: Deep Ultra 🦸).
+The **library** (this repo) is free and open source. The **harness** — the scheduled, gated, self-driving layer that runs it — is **AI-Suplex Ultra** (code name: Deep Ultra 🦸). [Preview the Ultra Edition](https://ai-suplex-ultra-preview.netlify.app/).
 
 ## License
 
