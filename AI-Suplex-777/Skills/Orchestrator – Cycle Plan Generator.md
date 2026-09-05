@@ -164,7 +164,7 @@ If the Hustler provides financial targets:
 | Ignoring energy management | Crash by Week 4 | Schedule lighter weeks after heavy ones |
 | Vague success metrics | Can't measure progress | Quantify everything ("3 clients", "$500 revenue") |
 | No review week | No learning cycle | Week 7 must include review + next cycle planning |
-| Too many focuses per week | Context switching kills depth | Max 2 focuses per day, 3 per week |
+| Too many focuses per week | Save Context kills depth | Max 2 focuses per day, 3 per week |
 
 ---
 

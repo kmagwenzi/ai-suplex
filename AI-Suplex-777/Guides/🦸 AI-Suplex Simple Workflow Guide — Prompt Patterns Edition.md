@@ -84,9 +84,9 @@ During your session, capture everything using patterns:
 
 ## Step 8: Switch Context (When Changing Chat Windows)
 
-When switching between chat windows or sessions, use the Context Switching pattern to ensure no knowledge is lost:
+When switching between chat windows or sessions, use the Save Context pattern to ensure no knowledge is lost:
 
-1. Open `Prompt Patterns/📄 Pattern - Context Switching.md`
+1. Open `Prompt Patterns/📄 Pattern - Save Context.md`
 2. Copy the `<prompt-pattern>` block → paste into AI chat
 3. Fill in the Source section with your current session context
 4. Execute — the AI generates a context summary and saves it
@@ -103,7 +103,7 @@ When switching between chat windows or sessions, use the Context Switching patte
 ## Full Pattern Chain
 
 ```
-Tasklist → Session Start → Artifact/B-Bomb/Insight → Session End → Context Switch → Weekly Plan → Weekly Review
+Tasklist → Session Start → Artifact/B-Bomb/Insight → Session End → Save Context → Weekly Plan → Weekly Review
 ```
 
 Every step is a copy-paste pattern. No Obsidian required. No macros. Just AI chat.

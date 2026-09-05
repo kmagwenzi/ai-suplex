@@ -1,16 +1,16 @@
 ---
-title: "Pattern - Context Switching"
+title: "Pattern - Save Context"
 date: 2026-06-22
-tags: [pattern, context-switching, builder, memory]
+tags: [pattern, save-context, builder, memory]
 ---
 
 <prompt-pattern>
   <meta>
-    <name>Context Switching</name>
+    <name>Save Context</name>
     <version>1.0</version>
     <author>AI-Suplex</author>
     <role>Builder</role>
-    <skill>Builder – Context Switching</skill>
+    <skill>Builder – Save Context</skill>
   </meta>
 
   <description>
@@ -54,7 +54,7 @@ tags: [pattern, context-switching, builder, memory]
     </source>
 
     <task>
-      Generate a Context Summary following the AI-Suplex Context Switching protocol:
+      Generate a Context Summary following the AI-Suplex Save Context protocol:
 
       1. Create a context summary file with proper frontmatter
       2. Save to: `AI-Suplex Kick-start/Context Kick-start/Active/YYYY-MM-DD-cycle-X-week-Y-mission-title.md`
@@ -146,7 +146,7 @@ tags: [pattern, context-switching, builder, memory]
     After executing this pattern:
     1. Run `node Tools/3lm.js end` (if ending session)
     2. Run `node Tools/3lm.js learn` (extract lessons)
-    3. Log the context switch in today's episode
+    3. Log the context save in today's episode
   </memory-loop>
 
   <additional-instructions>

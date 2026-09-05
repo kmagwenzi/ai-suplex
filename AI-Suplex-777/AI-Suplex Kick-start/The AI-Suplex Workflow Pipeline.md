@@ -28,7 +28,7 @@ graph LR
     F --> I[B‑Bombs]
     G & H & I --> J[Session End Report]
     J --> K[3lm Memory Loop]
-    K --> L[Context Switch]
+    K --> L[Save Context]
     L --> M[Next Session]
     M --> F
     J --> N[Focus MOC]
@@ -108,7 +108,7 @@ AI-Suplex-777/
 
 ---
 
-## 🔄 CONTEXT SWITCHING PROTOCOL
+## 🔄 Save Context PROTOCOL
 
 **Key Principle:** A Weekly Tasklist is a plan. A Daily Tasklist is a session.
 
@@ -118,9 +118,9 @@ AI-Suplex-777/
 | **Daily Tasklist** | Execution unit for one day (15-20 tasks) | Fits within model context window |
 | **Session** | End-to-end execution of ONE daily tasklist | Enables proper session end + 3lm cycle |
 | **Quick Capture** | 3lm learn after each Artifact/B-Bomb/Insight | Real-time lesson extraction during session |
-| **Context Switch** | Summarize → Save → Archive → Next session loads | Ensures no knowledge is lost |
+| **Save Context** | Summarize → Save → Archive → Next session loads | Ensures no knowledge is lost |
 
-### Context Switch Steps:
+### Save Context Steps:
 1. **Summarize** — Generate context summary with completed tasks, current state, next actions
 2. **Save** — Write to `Context Kick-start/Active/YYYY-MM-DD-cycle-x-week-y-mission-title.md`
 3. **Archive** — Move previous Active context to `Archived/`

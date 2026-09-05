@@ -61,7 +61,7 @@ flowchart TD
 | **Artifact Generation**  | Builder      | Save work‑in‑progress as structured artifacts |
 | **B‑Bomb Promotion**     | Builder      | Polish artifacts into portfolio‑ready assets  |
 | **Batch Insights**       | Builder      | Capture multiple learnings from sessions      |
-| **Context Switching**    | Builder      | Summarize session, save context, archive old  |
+| **Save Context**    | Builder      | Summarize session, save context, archive old  |
 
 **Why Patterns Revolutionize the Twabam Machine:**
 - **Instant activation** – No need to paste skill files or explain roles
@@ -132,7 +132,7 @@ flowchart TD
 - When promoting work – "Builder, promote this to a B‑Bomb"  
 - **Via Patterns:** `📄 Pattern - Artifact Generation.md`, `📄 Pattern - B‑Bomb Promotion.md`
 
-**Skill files:** `Builder – Artifact Capture.md`, `Builder – B‑Bomb Promotion.md`, `Builder – Context Switching.md`.
+**Skill files:** `Builder – Artifact Capture.md`, `Builder – B‑Bomb Promotion.md`, `Builder – Save Context.md`.
 
 > [!note] **Builder Execution Modes**  
 > 1. **Pattern‑first:** Copy-paste patterns into AI chat for guidance  
@@ -185,7 +185,7 @@ graph LR
 - **Navigation View:** MOCs/Trackers organize by focus/cycle/week
 - **Knowledge View:** Wiki interconnects concepts (Ultra Edition)
 
-### Context Switching Protocol
+### Save Context Protocol
 
 **Key Principle:** A Weekly Tasklist is a plan. A Daily Tasklist is a session.
 
@@ -194,9 +194,9 @@ graph LR
 | **Weekly Tasklist** | Strategic plan for the week (75+ tasks) | Too large for a single chat window |
 | **Daily Tasklist** | Execution unit for one day (15-20 tasks) | Fits within model context window |
 | **Session** | End-to-end execution of ONE daily tasklist | Enables proper session end + 3lm cycle |
-| **Context Switch** | Summarize → Save → Archive → Next session loads | Ensures no knowledge is lost |
+| **Save Context** | Summarize → Save → Archive → Next session loads | Ensures no knowledge is lost |
 
-**Context Switch Steps:**
+**Save Context Steps:**
 1. **Summarize** — Generate context summary with completed tasks, current state, next actions
 2. **Save** — Write to `Context Kick-start/Active/YYYY-MM-DD-cycle-x-week-y-mission-title.md`
 3. **Archive** — Move previous Active context to `Archived/`

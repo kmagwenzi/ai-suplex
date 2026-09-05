@@ -1,12 +1,13 @@
 ---
-skill_name: "Builder – Context Switching"
+type: skill
+skill_name: "Builder – Save Context"
 role: "Builder"
 version: "1.0"
 date: 2026-06-22
-tags: [skill, builder, context-switching, memory, session-continuity]
+tags: [skill, builder, save-context, memory, session-continuity]
 ---
 
-# Builder Skill: Context Switching
+# Builder Skill: Save Context
 
 ## 🎯 Purpose
 
@@ -144,14 +145,14 @@ mv "AI-Suplex Kick-start/Context Kick-start/Active/old-file.md" \
 
 ### Step 4: Run 3lm End (if ending session)
 
-If the context switch is also a session end:
+If the context save is also a session end:
 
 ```bash
 node Tools/3lm.js end
 node Tools/3lm.js learn
 ```
 
-This writes the episode and extracts lessons before the context switch.
+This writes the episode and extracts lessons before the context save.
 
 ### Step 5: Verify
 
@@ -180,9 +181,9 @@ Before finalizing the context summary, ensure:
 
 This skill integrates with:
 - **Session End** — Context summary is part of session end protocol
-- **3lm end** — Episode written before context switch
+- **3lm end** — Episode written before the context save
 - **3lm start** — New session loads context from Active
-- **Effective Pipeline** — Context switching is Step 6
+- **Effective Pipeline** — Save Context is Step 6
 
 ---
 

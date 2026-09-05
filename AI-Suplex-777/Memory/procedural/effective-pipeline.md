@@ -12,7 +12,7 @@ The Effective Pipeline defines how AI-Suplex sessions execute from start to fini
 
 **Full workflow:** Cycle Plan → Weekly Plan → Daily Tasklist → Session Start → Execute & Capture → Session End + Report. Ref: `AI-Suplex Kick-start/The AI-Suplex Workflow Pipeline.md`
 
-**Context switching:** Use `Prompt Patterns/📄 Pattern - Context Switching.md` when switching tasks or focus areas within a session.
+**Save Context:** Use `Prompt Patterns/📄 Pattern - Save Context.md` when switching tasks or focus areas within a session.
 
 ---
 
@@ -41,7 +41,7 @@ graph TD
     F --> G[Architect: Session End Report]
     G --> H[3lm: Write Episode]
     H --> I[3lm: Learn - Extract Lessons]
-    I --> J{Context Switch?}
+    I --> J{Save Context?}
     J -->|Yes| K[Summarize to Context Kickstart]
     J -->|No| L[Continue Session]
     K --> M[Next Session: 3lm start loads everything]
@@ -97,7 +97,7 @@ graph TD
 
 **Key Rule:** 3lm runs at the END of each daily session. Not weekly. Not monthly. Daily.
 
-### Step 6: Context Switch Protocol
+### Step 6: Save Context Protocol
 
 When switching between chat windows or sessions:
 
@@ -211,7 +211,7 @@ This is achieved by:
 2. Episodic memory accumulation
 3. Lesson extraction after each session
 4. Promotion of stable patterns to semantic/procedural
-5. Context switching protocol (summarize + save)
+5. Save Context protocol (summarize + save)
 
 ---
 

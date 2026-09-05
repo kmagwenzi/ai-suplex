@@ -144,7 +144,7 @@ tags:
 
 ---
 
-## 🔄 **CONTEXT SWITCHING PROTOCOL (7‑7‑7 Edition)**
+## 🔄 **Save Context PROTOCOL (7‑7‑7 Edition)**
 
 ### **When to Switch Context:**
 - Switching between chat windows
@@ -152,7 +152,7 @@ tags:
 - Taking a break
 - Any time you want to ensure the next session remembers progress
 
-### **Context Switch Steps:**
+### **Save Context Steps:**
 
 1. **Summarize Current Context**
    - What was accomplished (task IDs)
@@ -211,8 +211,8 @@ status: active
 ```
 
 ### **Integration with Session End:**
-- Context switching is part of the session end protocol
-- After session end report, run context switch
+- Save Context is part of the session end protocol
+- After session end report, run Save Context
 - Ensures continuity between sessions
 
 ---
@@ -428,10 +428,10 @@ Source:
 ### **SESSION WORKFLOW WITH PATTERNS:**
 
 ```
-Tasklist → Session Start → Execute → Capture (Artifact/Insight/B-Bomb) → Session End → Memory Loop (3lm) → Context Switch → Next Session
+Tasklist → Session Start → Execute → Capture (Artifact/Insight/B-Bomb) → Session End → Memory Loop (3lm) → Save Context → Next Session
 ```
 
-**Context Switch is the bridge between sessions — it ensures the North Star is achieved: "Each new session starts smarter than the last."**
+**Save Context is the bridge between sessions — it ensures the North Star is achieved: "Each new session starts smarter than the last."**
 1. **Start:** Use Tasklist Pattern to break down your to-do list
 2. **Execute:** Use Session Start Pattern with a Task ID
 3. **Capture:** Use Artifact Pattern during work

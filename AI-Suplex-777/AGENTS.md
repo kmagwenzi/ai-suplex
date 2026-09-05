@@ -28,7 +28,7 @@ AI‑Suplex 7‑7‑7 is a **complete AI‑assisted working framework** built on
 
 > [!note] **Workflow:** Cycle Plan → Weekly Plan → Daily Tasklist → Session Start → Execute & Capture → Session End + Report. See: `AI-Suplex Kick-start/The AI-Suplex Workflow Pipeline.md`
 
-> [!note] **Context switching:** Use `Prompt Patterns/📄 Pattern - Context Switching.md` when switching between tasks or focus areas within a session.
+> [!note] **Save Context:** Use `Prompt Patterns/📄 Pattern - Save Context.md` when switching between tasks or focus areas within a session.
 
 ---
 
@@ -115,7 +115,7 @@ graph TD
     F --> G[Architect: Session End Report]
     G --> H[3lm: Write Episode]
     H --> I[3lm: Learn - Extract Lessons]
-    I --> J{Context Switch?}
+    I --> J{Save Context?}
     J -->|Yes| K[Summarize to Context Kickstart]
     J -->|No| L[Continue Session]
     K --> M[Next Session: 3lm start loads everything]
@@ -129,13 +129,13 @@ graph TD
 3. **Execution:** Builder executes phases, captures artifacts/insights, marks tasks complete
 4. **Session End:** User says "AI-Suplex: Session End" → Architect generates report
 5. **Memory Capture:** `3lm end` → `3lm learn` → episode written, lessons extracted
-6. **Context Switch:** Summarize context → save to Context Kickstart → next session loads via `3lm start`
+6. **Save Context:** Summarize context → save to Context Kickstart → next session loads via `3lm start`
 
 ### Key Rules
 
 - **Daily tasklists are the execution unit** — never try to hold a full week in one chat
 - **3lm runs daily** — not weekly, not monthly. Every session end = 3lm cycle
-- **Context switching protocol** — always summarize before switching chat windows
+- **Save Context protocol** — always summarize before switching chat windows
 - **North Star:** "Each new session starts smarter than the last"
 
 **Your job:** Step in when the Hustler asks for help with task breakdown, prompt generation, quality review, or weekly analysis.
@@ -228,7 +228,7 @@ The `Skills/` folder contains 12 markdown files. Each file teaches you (the AI) 
 | `Builder – Artifact Capture.md`                  | Builder      | Guide on capturing artifacts, B‑Bombs, insights during a session             |
 | `Builder – B‑Bomb Promotion.md`                  | Builder      | Guide on promoting an artifact to B‑Bomb with quality checks                 |
 | `Builder – Session End Report Generator.md`      | Builder      | Generates formatted session-end markdown reports from raw session data       |
-| `Builder – Context Switching.md`                 | Builder      | Context switching protocol — summarize, save, archive, enable next session   |
+| `Builder – Save Context.md`                 | Builder      | Save Context protocol — summarize, save, archive, enable next session   |
 
 **How to use a skill:**  
 If the user says *"Act as Orchestrator and generate a tasklist from this to‑do list"*, you should follow the instructions in `Orchestrator – AI‑Suplex Tasklist Generator.md`. If you don't have the file, ask the user to paste it.

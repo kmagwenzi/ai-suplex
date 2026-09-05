@@ -118,7 +118,7 @@ When the Hustler says *"Orchestrator, generate a weekly plan for Cycle X, Week Y
 - For each day, specify:
   - **AM block** (primary focus + tasks)
   - **PM block** (secondary focus + tasks)
-- Add notes for context switching, hard stops, or special events.
+- Add notes for Save Context, hard stops, or special events.
 
 ### 6. Define Success Metrics
 - 3–5 measurable outcomes for the week.
@@ -184,7 +184,7 @@ When the Hustler says *"Orchestrator, generate a weekly plan for Cycle X, Week Y
 |---|---|---|
 | Overloading Monday | Burnout before midweek | Start strong but not crushing — ease into the week |
 | Ignoring energy patterns | 3pm deep work fails | Schedule creative work for peak hours, admin for low energy |
-| Same focus every day | Context switching fatigue | Max 2 foci per day, alternate across the week |
+| Same focus every day | Save Context fatigue | Max 2 foci per day, alternate across the week |
 | No rest block | Crash by Friday | Schedule at least a half-day of rest |
 | Vague tasks | Hard to execute | Every task should be actionable ("Fix Oracle block" not "Work on WQR") |
 | Ignoring session end next actions | Recurring incompletes | Always scan session ends before planning |

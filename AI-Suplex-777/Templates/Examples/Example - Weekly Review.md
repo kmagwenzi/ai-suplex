@@ -72,7 +72,7 @@
 
 1. **SHIP — no more refining.** The vault has everything needed: descriptions, graphics, INFILTRATION posts. The only thing between the Hustler and Gumroad revenue is the ZIP + upload. Execute T007-B through T014-H today.
 2. **Capture session ends.** As the launch ramps up, don't skip session end reports. They're the fuel for cortexmem and next week's review. Even a 2‑minute macro run captures state.
-3. **Separate launch from WQR rigorously.** The 13:00 hard stop is working. Monday through Wednesday is AI‑Suplex. Thursday onward is WQR. Don't blur — context switching cost is the silent killer.
+3. **Separate launch from WQR rigorously.** The 13:00 hard stop is working. Monday through Wednesday is AI‑Suplex. Thursday onward is WQR. Don't blur — Save Context cost is the silent killer.
 4. **Decide on Graphify.** By end of week: either integrate into launch narrative ("coming soon: Graph RAG") or obliterate. The death‑row limbo wastes mental bandwidth.
 5. **Protect 1 recovery half‑day.** Launch week is high intensity. Build in Saturday afternoon or Sunday morning for rest — the system relies on the Hustler's energy, not just the software.
 

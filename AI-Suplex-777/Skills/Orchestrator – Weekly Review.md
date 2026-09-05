@@ -74,7 +74,7 @@ A markdown document with the following structure:
 | ... | ... | ... | ... |
 
 ## 🚀 Recommendations for Next Week
-- (AI‑generated suggestions based on patterns, e.g., “Start sessions earlier”, “Reduce context switching”, “Protect more time for deep work”)
+- (AI‑generated suggestions based on patterns, e.g., “Start sessions earlier”, “Reduce Save Context”, “Protect more time for deep work”)
 
 ## 📅 Next Week’s Focus Areas
 - (Prioritised list of focuses to work on, based on pending next actions and strategic goals)

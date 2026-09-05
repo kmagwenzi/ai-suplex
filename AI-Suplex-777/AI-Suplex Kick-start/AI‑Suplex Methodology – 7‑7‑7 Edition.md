@@ -208,7 +208,7 @@ Prompt Pattern → AI Generation → Additional Instructions → File Save
 
 ---
 
-## 🔄 Context Switching Protocol
+## 🔄 Save Context Protocol
 
 **Key Principle:** A Weekly Tasklist is a plan. A Daily Tasklist is a session.
 
@@ -218,7 +218,7 @@ An **AI-Suplex Session** is the end-to-end execution of a single Tasklist. Each 
 - Starts with `3lm start` (loads memory)
 - Executes phases from a daily tasklist
 - Ends with `3lm end` (writes episode) + `3lm learn` (extracts lessons)
-- Uses Context Switching to preserve knowledge between sessions
+- Uses Save Context to preserve knowledge between sessions
 
 ### Why Daily Tasklists?
 
@@ -229,7 +229,7 @@ An **AI-Suplex Session** is the end-to-end execution of a single Tasklist. Each 
 | **Session** | End-to-end execution of ONE daily tasklist | Enables proper session end + 3lm cycle |
 | **Phase** | Sub-block within a session (e.g., "Morning Block") | Time-boxed work unit within a session |
 
-### Context Switch Steps
+### Save Context Steps
 
 1. **Summarize** — Generate context summary with completed tasks, current state, next actions
 2. **Save** — Write to `Context Kick-start/Active/YYYY-MM-DD-cycle-x-week-y-mission-title.md`
@@ -240,7 +240,7 @@ An **AI-Suplex Session** is the end-to-end execution of a single Tasklist. Each 
 
 | Method | How to Use | Best For |
 |--------|------------|----------|
-| **Prompt Pattern** | Copy `📄 Pattern - Context Switching.md` into AI chat | 7-7-7 Edition (customer-facing) |
+| **Prompt Pattern** | Copy `📄 Pattern - Save Context.md` into AI chat | 7-7-7 Edition (customer-facing) |
 | **Direct Command** | Say "Switch context" or "Summarize session" | Personal vault (experienced users) |
 | **Session End Protocol** | Part of the session end workflow | Both editions |
 

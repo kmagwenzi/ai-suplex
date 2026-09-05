@@ -33,7 +33,7 @@ status: active
 Planning happens at three levels — strategic, tactical, and operational. Then the daily execution loop takes over. After every session, the 3-layer memory stack extracts lessons and improves the system.
 
 ```
-CYCLE PLAN  →  WEEKLY PLAN  →  TASKLIST  →  START  →  EXECUTE  →  CAPTURE  →  PROMOTE  →  END  →  MEMORY LOOP  →  CONTEXT SWITCH  →  REVIEW
+CYCLE PLAN  →  WEEKLY PLAN  →  TASKLIST  →  START  →  EXECUTE  →  CAPTURE  →  PROMOTE  →  END  →  MEMORY LOOP  →  Save Context  →  REVIEW
                                                                                                      ├─ 3lm end                    ├─ Save to Active
                                                                                                      ├─ 3lm learn                   ├─ Archive old
                                                                                                      ├─ 3lm promote                 └─ Next session loads
@@ -260,14 +260,14 @@ At the end of each week, run these in order:
 
 ---
 
-### STEP 9 — CONTEXT SWITCH: Preserve Knowledge Between Sessions
+### STEP 9 — Save Context: Preserve Knowledge Between Sessions
 
 **Tool:** Prompt Pattern  
-**Pattern:** `📄 Pattern - Context Switching`
+**Pattern:** `📄 Pattern - Save Context`
 
-When switching between chat windows, sessions, or taking a break, run the Context Switch protocol to ensure no knowledge is lost:
+When switching between chat windows, sessions, or taking a break, run the Save Context protocol to ensure no knowledge is lost:
 
-1. Copy `Prompt Patterns/📄 Pattern - Context Switching.md`
+1. Copy `Prompt Patterns/📄 Pattern - Save Context.md`
 2. Paste into AI chat with your current session context
 3. The AI generates a context summary and saves it
 4. Previous context is archived automatically
@@ -277,7 +277,7 @@ When switching between chat windows, sessions, or taking a break, run the Contex
 - Previous context moved to `Archived/`
 - Next session loads via `3lm start` — AI knows exactly where you left off
 
-> 💡 **Key Principle:** A Weekly Tasklist is a plan. A Daily Tasklist is a session. Context switching ensures each daily session compounds into the next.
+> 💡 **Key Principle:** A Weekly Tasklist is a plan. A Daily Tasklist is a session. Save Context ensures each daily session compounds into the next.
 
 ---
 
@@ -286,7 +286,7 @@ When switching between chat windows, sessions, or taking a break, run the Contex
 ```
 Monday    — Closed
 Tuesday   — 📁 Ensure Structure + 🎯 Focus Manager check + generate weekly plan (Pattern) + tasklist (Pattern)
-Wed-Fri   — 🚀 Start → work → 📄 Artifact → 💡 Insight → 🏁 End → 3lm end → learn → index → Context Switch (daily loop)
+Wed-Fri   — 🚀 Start → work → 📄 Artifact → 💡 Insight → 🏁 End → 3lm end → learn → index → Save Context (daily loop)
 Saturday  — 💣 B-Bomb promotion + 3lm promote + 3lm revise + 📊 Enhance + 📊 Aggregate + 🔄 Weekly Review
 Sunday    — Rest or light work
 ```
@@ -315,7 +315,7 @@ Sunday    — Rest or light work
 | Log a quick learning | 💡 **Insight** (macro) |
 | Mark work as reusable/sellable | 💣 **B-Bomb** (macro) or `📄 Pattern - B-Bomb Promotion` |
 | End a session | 🏁 **End** (macro) or `📄 Pattern - Session End Report` |
-| Switch context / save progress | `📄 Pattern - Context Switching` |
+| Switch context / save progress | `📄 Pattern - Save Context` |
 | Write session to episodic memory | `3lm end` (CLI) |
 | Extract lessons from a session | `3lm learn` (CLI) |
 | Promote winning patterns (score 70+) | `3lm promote --min 70` (CLI) |
