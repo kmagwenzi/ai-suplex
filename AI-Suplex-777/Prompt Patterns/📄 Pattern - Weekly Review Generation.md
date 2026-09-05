@@ -113,7 +113,7 @@ When this pattern is used, the AI will generate a weekly review matching the exa
 *   **Lessons Learned** – Compiled from key insights across all sessions
 *   **Blockers & Challenges** – Blockers reported in session ends or trackers
 *   **Progress by Focus Area** – Table with sessions, key insight, and next action per focus
-*   **Recommendations for Next Week** – AI‑generated suggestions based on week patterns (energy, Save Context, deep work)
+*   **Recommendations for Next Week** – AI‑generated suggestions based on week patterns (energy, context switching, deep work)
 *   **Next Week's Focus Areas** – Prioritised list based on pending actions and strategic goals
 
 

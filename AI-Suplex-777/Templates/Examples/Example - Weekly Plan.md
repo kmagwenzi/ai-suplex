@@ -88,7 +88,7 @@ Ship AI-Suplex to Gumroad, execute INFILTRATION blitz across 4+ channels, and re
 | Recovery | 16:00–18:00 | ⚡ | WQR switch, breaks, wind-down |
 
 **Hard Stops:**
-- Mon–Wed: Hard stop 13:00 for WQR Save Context or rest
+- Mon–Wed: Hard stop 13:00 for WQR context switch or rest
 - Saturday: Stop all work by 14:00 latest
 - Sunday: Zero work — full recovery
 
