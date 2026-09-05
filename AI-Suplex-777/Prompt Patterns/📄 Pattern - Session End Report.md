@@ -58,6 +58,16 @@ After generating the Session End Report, extract and report:
    
    If using Obsidian: just click 🏁 End — the macro runs this automatically.
 
+💾 SAVE CONTEXT — write the next-session brief (closes the loop for the next session):
+   The Session End Report closes THIS session; the Context Kickstart opens the NEXT one — the
+   North Star is "each new session starts smarter than the last."
+   1. Follow `Prompt Patterns/📄 Pattern - Save Context.md`.
+   2. Save the brief to: AI-Suplex Kick-start/Context Kick-start/Active/YYYY-MM-DD-cycle-X-week-Y-mission-title.md
+      - Frontmatter: title, date, cycle, week, mission, status: active.
+      - Sections: 🎯 What Was Accomplished · 📊 Current State · 🧠 What the AI Needs to Know Next Session · 🔗 Quick Links · 🎯 Next Actions.
+   3. Archive any existing file in `Context Kick-start/Active/` → `Archived/` FIRST (previous context becomes history).
+   4. Include task IDs + blockers + key decisions for traceability — the brief is what the next session loads.
+
 MEMORY RULES:
 - Promote only stable, repeated truths to semantic memory.
 - Promote only repeatable workflows to procedural memory.
