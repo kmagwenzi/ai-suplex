@@ -292,6 +292,11 @@ def review_cycle_dir(cycle) -> str:
     return _j("Reviews", period_for_cycle(c), "Weekly", f"Cycle {c}")
 
 
+def review_weekly_dir() -> str:
+    """'Reviews/<Period>/Weekly' — the period-level reviews root (no cycle segment)"""
+    return _j("Reviews", read_period()["label"], "Weekly")
+
+
 def review_review_file(cycle, week) -> str:
     """'.../Week 4/Week 4 Review.md' — the narrative review for the week."""
     w = _int(week, "week", 1)
@@ -589,6 +594,7 @@ outreachDir = outreach_dir
 insightDir = insight_dir
 reviewDir = review_dir
 reviewCycleDir = review_cycle_dir
+reviewWeeklyDir = review_weekly_dir
 reviewReviewFile = review_review_file
 reviewDataFile = review_data_file
 mocsDir = mocs_dir

@@ -79,7 +79,7 @@ Loads: semantic + lessons + recent episodic + procedural context
 node Tools/3lm.js end
 node Tools/3lm.js learn
 ```
-Writes: episode file to `Memory/episodic/Cycle-X/Week-Y/`
+Writes: episode file to `Memory/episodic/<Period>/Cycle-X/Week-Y/`
 Extracts: lessons to `Memory/lessons.md`
 
 ### Weekly Promotion (Saturday)
@@ -113,7 +113,7 @@ Sessions/Active/Start/
 ├── 2026-06-22-ibm-wqr-session.md           ← Daily session (Sun)
 └── ...
 
-Memory/episodic/Cycle-1/Week-1/
+Memory/episodic/<Period>/Cycle-1/Week-1/
 ├── 2026-06-21-prelaunch.md                 ← Episode (Sat)
 ├── 2026-06-22-ibm-wqr.md                   ← Episode (Sun)
 └── ...

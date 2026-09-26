@@ -45,7 +45,7 @@ When: First time opening the vault
 ```
 What: Creates Cycle X / Week 1-7 subfolders for Artifacts, B-Bombs, Insights, Next Steps, Plans
 Prompts: Cycle number (1-7)
-Output: 14 folders (7 weeks × [Artifacts + B-Bombs]) + Insights/Cycle X + Next Steps/Cycle X
+Output: 14 folders (7 weeks × [Artifacts + B-Bombs]) + Insights/<Period>/Cycle X + Next Steps/<Period>/Cycle X
 When: Start of each new cycle
 ```
 
@@ -53,7 +53,7 @@ When: Start of each new cycle
 ```
 What: Creates folders for one specific cycle + week
 Prompts: Cycle number, Week number
-Output: Artifacts/Cycle X/Week Y, B-Bombs/Cycle X/Week Y, Plans/Cycle X/Week Y, Insights/Cycle X/WeekY 
+Output: Artifacts/<Period>/Cycle X/Week Y, B-Bombs/<Period>/Cycle X/Week Y, Plans/<Period>/Cycle X/Week Y, Insights/<Period>/Cycle X/WeekY 
 When: Mid-cycle, if a week's folders are missing
 ```
 
@@ -93,7 +93,7 @@ When: Every time you sit down to work
 ```
 What: Save work-in-progress as a structured asset
 Prompts: Focus, Cycle, Week, Artifact content (multiline), Key insights, Next actions
-Output: Artifacts/Cycle X/Week Y/<timestamp>-<title>.md
+Output: Artifacts/<Period>/Cycle X/Week Y/<timestamp>-<title>.md
 When: You've produced something worth saving mid-session
 ```
 
@@ -101,7 +101,7 @@ When: You've produced something worth saving mid-session
 ```
 What: Log a learning or observation
 Prompts: Focus, Cycle, Week, Insight text, Source (session/artifact/b-bomb/report/external)
-Output: Appends a callout block to Insights/Cycle X/Week Y.md
+Output: Appends a callout block to Insights/<Period>/Cycle X/Week Y.md
 When: You realize something worth remembering
 ```
 
@@ -119,7 +119,7 @@ Differs from Insight: Insight stays in your vault for dashboards;
 ```
 What: Promote a polished artifact to a reusable, productizable asset
 Prompts: Focus, Cycle, Week, Title, Description, B-Bomb content, Product potential rating
-Output: B-Bombs/Cycle X/Week Y/<timestamp>-b-bomb-<title>.md
+Output: B-Bombs/<Period>/Cycle X/Week Y/<timestamp>-b-bomb-<title>.md
 When: An artifact is polished enough to be reused, shared, or sold
 ```
 
@@ -147,7 +147,7 @@ When: End of each week, before your weekly review
 ```
 What: Scans all sessions, artifacts, B-Bombs for a given cycle/week and compiles a single source file
 Prompts: Cycle, Week
-Output: Reviews/Weekly/Cycle X/Week Y Source.md (opens automatically)
+Output: Reviews/<Period>/Weekly/Cycle X/Week Y Source.md (opens automatically)
 When: Before running the AI Weekly Review skill — gives the AI a single data file to analyze
 ```
 
@@ -155,7 +155,7 @@ When: Before running the AI Weekly Review skill — gives the AI a single data f
 ```
 What: Scans all files for next_actions frontmatter and appends to a weekly Next Steps file
 Prompts: None (uses last_processed timestamp to find new files)
-Output: Next Steps/Cycle X/Week Y.md (appends dated entries)
+Output: Next Steps/<Period>/Cycle X/Week Y.md (appends dated entries)
 When: Weekly, to collect all outstanding actions in one place
 ```
 
@@ -163,7 +163,7 @@ When: Weekly, to collect all outstanding actions in one place
 ```
 What: Generates a structured weekly review from all session data
 Prompts: Cycle, Week
-Output: Reviews/Weekly/Week X Review.md — executive summary, achievements, lessons, blockers, focus progress table, recommendations
+Output: Reviews/<Period>/Weekly/Week X Review.md — executive summary, achievements, lessons, blockers, focus progress table, recommendations
 When: Every weekend
 ```
 

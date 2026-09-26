@@ -109,7 +109,7 @@ TEMPLATE: @/AI-Suplex-777/Templates/AI-Suplex - Artifact Template
 
 TASK: Act as Builder. Generate a complete AI-Suplex Artifact using the content provided, following the exact structure and formatting from the Artifact Template. Include proper frontmatter with focus, cycle, week, key insights, and next actions.
 
-ADDITIONAL INSTRUCTIONS: NONE - Specify post-generation tasks e.g: "Save file in Artifacts/Cycle 1/Week 1/ folder"
+ADDITIONAL INSTRUCTIONS: NONE - Specify post-generation tasks e.g: "Save file in Artifacts/<Period>/Cycle 1/Week 1/ folder"
 
 CONTENT:
 <content>
@@ -293,12 +293,12 @@ Connect pattern outputs to the broader AI-Suplex pipeline:
 | Template Type            | Pattern File                                   | Example Additional Instructions                                                  |
 | ------------------------ | ---------------------------------------------- | -------------------------------------------------------------------------------- |
 | **Tasklist Generation**  | `📄 Pattern - Tasklist Generation`             | `"Save as AI-Suplex-Tasklist-[project].md in Tasklists/"`                        |
-| **Artifact Generation**  | `📄 Pattern - Artifact Generation`             | `"Save in Artifacts/Cycle [X]/Week [Y]/ with today's date"`                      |
-| **B-Bomb Promotion**     | `📄 Pattern - B-Bomb Promotion`                | `"Save in B-Bombs/Cycle [X]/Week [Y]/ and update product potential"`             |
+| **Artifact Generation**  | `📄 Pattern - Artifact Generation`             | `"Save in Artifacts/<Period>/Cycle [X]/Week [Y]/ with today's date"`                      |
+| **B-Bomb Promotion**     | `📄 Pattern - B-Bomb Promotion`                | `"Save in B-Bombs/<Period>/Cycle [X]/Week [Y]/ and update product potential"`             |
 | **Session Start Prompt** | `📄 Pattern - Session Start Prompt Generation` | `"Save in Sessions/Active/Start/ with session number"`                           |
 | **Session End Prompt**   | `📄 Pattern - Session End Prompt Generation`   | `"Open for editing, fill completion details, then save to Sessions/Active/End/"` |
 | **Session End Report**   | `📄 Pattern - Session End Report`              | `"Generate comprehensive report and save to Sessions/Active/End/"`               |
-| **Batch Insights**       | `📄 Pattern - Batch Insight Generation`        | `"Append to Insights/Cycle [X]/Week [Y].md with timestamp"`                      |
+| **Batch Insights**       | `📄 Pattern - Batch Insight Generation`        | `"Append to Insights/<Period>/Cycle [X]/Week [Y].md with timestamp"`                      |
 
 > [!tip] **Pattern Location:** All patterns are available in `AI-Suplex-777/Prompt Patterns/` and linked from the [[🦸AI-Suplex 7‑7‑7 – Command Center]] dashboard.
 

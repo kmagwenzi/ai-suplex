@@ -18,6 +18,7 @@ module.exports = async (quickAdd) => {
       insightFile: (c,w) => j("AI-Suplex-777","Insights",per(c),`Cycle ${c}`,`Week ${w}.md`),
       reviewDir:   (c,w) => j("AI-Suplex-777","Reviews",per(c),"Weekly",`Cycle ${c}`,`Week ${w}`),
       reviewCycleDir:(c) => j("AI-Suplex-777","Reviews",per(c),"Weekly",`Cycle ${c}`),
+      reviewWeeklyDir: () => j("AI-Suplex-777","Reviews",label,"Weekly"),
       mocsDir:     (c)   => j("AI-Suplex-777","MOCs",per(c),"Weekly",`Cycle ${c}`),
       planDir:     (c)   => j("AI-Suplex-777","Plans",per(c),`Cycle ${c}`),
       periodPlanDir:()   => j("AI-Suplex-777","Plans",label),
@@ -65,7 +66,6 @@ module.exports = async (quickAdd) => {
     "AI-Suplex-777/Skills",
     "AI-Suplex-777/Plans",
     "AI-Suplex-777/Reviews",
-    "AI-Suplex-777/Reviews/Weekly",
     "AI-Suplex-777/Tasklists",
     "AI-Suplex-777/Tasklists/Combined",
     "AI-Suplex-777/Tasklists/RawTasks",
@@ -86,6 +86,7 @@ module.exports = async (quickAdd) => {
   // Outreach is NOT cycle-scoped (Outreach spec §7) — one period-level tree every
   // cycle writes into, so a follow-up never disappears at a cycle boundary.
   await ensureFolder(P.outreachDir());
+  await ensureFolder(P.reviewWeeklyDir());
 
   // Insight files: /AI-Suplex-777/Insights/<Period>/Cycle X/Week Y.md (per-week files, not folders)
   const header = `# Insights – Cycle ${cycle}, Week `;

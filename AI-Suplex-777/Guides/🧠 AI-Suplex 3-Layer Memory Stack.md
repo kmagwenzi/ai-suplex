@@ -10,7 +10,7 @@ The memory stack preserves context across sessions, converts experience into dur
 
 | Layer | Location | What It Stores |
 |-------|----------|---------------|
-| **Episodic** | `memory/episodic/Cycle-X/Week-Y/` | What happened — session records, outcomes, scores |
+| **Episodic** | `memory/episodic/<Period>/Cycle-X/Week-Y/` | What happened — session records, outcomes, scores |
 | **Semantic** | `memory/semantic/` | Stable truths — preferences, rules, glossary, entities |
 | **Procedural** | `memory/procedural/` | Reusable methods — workflows, macros, prompt patterns |
 | **Lessons** | `memory/lessons.md` | Candidate learnings — staging area before promotion |

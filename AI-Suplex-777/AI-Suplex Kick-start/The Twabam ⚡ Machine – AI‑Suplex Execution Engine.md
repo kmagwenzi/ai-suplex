@@ -246,7 +246,7 @@ This flow is **modular and pattern‑first** – users can start with any patter
 5. **Hustler** works on sales page, uses `📄 Pattern - Artifact Generation.md` to save drafts
 6. **Hustler** completes work, uses `📄 Pattern - B‑Bomb Promotion.md` to polish final version
 7. **Result:** `2026-04-13-1834-digital-products--b-bomb-ai-suplex-7-7-7-edition.md` created
-8. **Sweeper** scripts organize file into `B-Bombs/Cycle 1/Week 1/`
+8. **Sweeper** scripts organize file into `B-Bombs/<Period>/Cycle 1/Week 1/`
 9. **Command Center** automatically updates with new B‑Bomb metrics
 10. **Weekly Review** pattern analyses Cycle 1, Week 1 performance
 

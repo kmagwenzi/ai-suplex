@@ -176,7 +176,7 @@ Sessions/Active/Start/
 ├── 2026-06-21-prelaunch-execution.md       ← Daily session (Sat)
 └── ...
 
-Memory/episodic/Cycle-1/Week-1/
+Memory/episodic/<Period>/Cycle-1/Week-1/
 ├── 2026-06-21-prelaunch.md                 ← Episode (Sat)
 ├── 2026-06-22-ibm-wqr.md                   ← Episode (Sun)
 └── ...

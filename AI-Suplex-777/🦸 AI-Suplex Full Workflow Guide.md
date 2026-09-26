@@ -46,13 +46,13 @@ CYCLE PLAN  →  WEEKLY PLAN  →  TASKLIST  →  START  →  EXECUTE  →  CAPT
 
 **Tool:** Prompt Pattern  
 **Pattern:** `📄 Pattern - Cycle Plan Generation`  
-**Saves to:** `Plans/7 Week/Cycle X/Cycle X Plan.md`
+**Saves to:** `Plans/<Period>/Cycle X/Cycle X Plan.md`
 
-1. Run 📁 **Ensure (Cycle)** to create `Plans/7 Week/Cycle X/` and all 7 weekly plan folders
+1. Run 📁 **Ensure (Cycle)** to create `Plans/<Period>/Cycle X/` and all 7 weekly plan folders
 2. Copy `Prompt Patterns/📄 Pattern - Cycle Plan Generation.md`
 3. Paste into AI chat with your cycle goals and context
 4. The AI returns a 7-week breakdown with milestones per week, focus area allocation, and success metrics
-5. Save to `Plans/7 Week/Cycle 1/Cycle 1 Plan.md`
+5. Save to `Plans/<Period>/Cycle 1/Cycle 1 Plan.md`
 
 > 💡 Run this once per cycle (every 7 weeks). The cycle plan is your strategic compass — all weekly plans flow from it.
 
@@ -62,12 +62,12 @@ CYCLE PLAN  →  WEEKLY PLAN  →  TASKLIST  →  START  →  EXECUTE  →  CAPT
 
 **Tool:** Prompt Pattern  
 **Pattern:** `📄 Pattern - Weekly Plan Generation`  
-**Saves to:** `Plans/Weekly/Cycle X/Week Y/`
+**Saves to:** `Plans/<Period>/Cycle X/Week Y/`
 
 1. Copy `Prompt Patterns/📄 Pattern - Weekly Plan Generation.md`
 2. Paste into AI chat with context from your cycle plan + last week's review
 3. The AI returns a scoped weekly plan with task IDs, daily targets, and success metrics
-4. Save to `Plans/Weekly/Cycle 1/Week 3/`
+4. Save to `Plans/<Period>/Cycle 1/Week 3/`
 
 > 💡 The weekly plan bridges your cycle strategy and daily execution. Run it every Tuesday.
 
@@ -120,8 +120,8 @@ Work happens here. Code, write, design, research — whatever the mission demand
 
 | When you... | Click... | What happens |
 |---|---|---|
-| Produce something worth saving | 📄 **Artifact** | Saves work-in-progress to `Artifacts/Cycle X/Week Y/` |
-| Learn something important | 💡 **Insight** | Appends a callout to `Insights/Cycle X/Week Y.md` |
+| Produce something worth saving | 📄 **Artifact** | Saves work-in-progress to `Artifacts/<Period>/Cycle X/Week Y/` |
+| Learn something important | 💡 **Insight** | Appends a callout to `Insights/<Period>/Cycle X/Week Y.md` |
 
 > **AI-assisted capture:** Use `📄 Pattern - Artifact Capture` to have the AI structure your raw work into a properly formatted artifact.
 
@@ -139,7 +139,7 @@ Work happens here. Code, write, design, research — whatever the mission demand
    - **Key insights** — what you learned producing this
    - **Next actions** — what follows from this work
 
-3. File saved to `Artifacts/Cycle X/Week Y/<timestamp>-<title>.md`
+3. File saved to `Artifacts/<Period>/Cycle X/Week Y/<timestamp>-<title>.md`
 
 ---
 
@@ -156,7 +156,7 @@ Not every artifact becomes a B-Bomb. Promote when something is **reusable, refer
 
 **AI-assisted promotion:**
 1. Copy `📄 Pattern - B-Bomb Promotion` into AI chat
-2. Point it at your artifact: *"Scan Artifacts/Cycle 1/Week 2/ for B-Bomb candidates"*
+2. Point it at your artifact: *"Scan Artifacts/<Period>/Cycle 1/Week 2/ for B-Bomb candidates"*
 3. The AI identifies candidates, ranks by innovation quotient, and drafts promotion content
 
 **After promoting:** Run 🔄 **Refresh B-Bomb Index** to re-index.
@@ -218,7 +218,7 @@ Session End Report
      ▼
 ┌─────────────────────────────────┐
 │  EPISODIC MEMORY                │   ← "What happened" — 3lm end writes here
-│  Memory/episodic/Cycle-X/Week-Y/│
+│  Memory/episodic/<Period>/Cycle-X/Week-Y/│
 └─────────────┬───────────────────┘
               │ 3lm learn extracts
               ▼
@@ -293,7 +293,7 @@ Sunday    — Rest or light work
 
 **Start of Cycle (every 7 weeks):**
 - 📁 **Ensure (Cycle)** — creates all cycle + weekly plan folders
-- `📄 Pattern - Cycle Plan Generation` — map the 7 weeks ahead → `Plans/7 Week/Cycle X/Cycle X Plan.md`
+- `📄 Pattern - Cycle Plan Generation` — map the 7 weeks ahead → `Plans/<Period>/Cycle X/Cycle X Plan.md`
 
 **End of Cycle (every 7 weeks):**
 - 🔄 **Generate Cycle Review** — aggregates all cycle data
@@ -307,8 +307,8 @@ Sunday    — Rest or light work
 
 | I want to... | Use this |
 |---|---|
-| Map a 7-week cycle | `📄 Pattern - Cycle Plan Generation` → `Plans/7 Week/Cycle X/Cycle X Plan.md` |
-| Plan this week's work | `📄 Pattern - Weekly Plan Generation` → `Plans/Weekly/Cycle X/Week Y/` |
+| Map a 7-week cycle | `📄 Pattern - Cycle Plan Generation` → `Plans/<Period>/Cycle X/Cycle X Plan.md` |
+| Plan this week's work | `📄 Pattern - Weekly Plan Generation` → `Plans/<Period>/Cycle X/Week Y/` |
 | Generate a session tasklist | `📄 Pattern - Tasklist Generation` → `Tasklists/` |
 | Start a focused session | 🚀 **Start** (macro) or `📄 Pattern - Session Start Prompt Generation` |
 | Save work-in-progress | 📄 **Artifact** (macro) or `📄 Pattern - Artifact Capture` |
@@ -337,20 +337,20 @@ AI-Suplex-777/
 ├── Sessions/Active/Start/     ← 🚀 Start creates these
 ├── Sessions/Active/End/       ← 🏁 End creates these
 ├── Sessions/Archive/          ← 🧹 Sweeper archives here
-├── Artifacts/Cycle X/Week Y/  ← 📄 Artifact saves here
-├── B-Bombs/Cycle X/Week Y/    ← 💣 B-Bomb saves here
-├── Insights/Cycle X/Week Y.md ← 💡 Insight appends here
+├── Artifacts/<Period>/Cycle X/Week Y/  ← 📄 Artifact saves here
+├── B-Bombs/<Period>/Cycle X/Week Y/    ← 💣 B-Bomb saves here
+├── Insights/<Period>/Cycle X/Week Y.md ← 💡 Insight appends here
 ├── memory/                    ← 🧠 3-Layer Memory Stack
-│   ├── episodic/Cycle-X/Week-Y/ ← 3lm end writes episodes
+│   ├── episodic/<Period>/Cycle-X/Week-Y/ ← 3lm end writes episodes
 │   ├── semantic/              ← Stable facts, rules, preferences
 │   ├── procedural/            ← Reusable workflows, prompts, macros
 │   └── lessons.md             ← Candidate learnings (staging area)
 ├── MOCs/                      ← 🗺️ Create MOC generates these
 ├── Trackers/                  ← 📊 Create Tracker generates these
-├── Plans/7 Week/Cycle X/      ← Cycle-level strategic plans
-├── Plans/Weekly/Cycle X/Week Y/ ← Weekly tactical plans
+├── Plans/<Period>/Cycle X/      ← Cycle-level strategic plans
+├── Plans/<Period>/Cycle X/Week Y/ ← Weekly tactical plans
 ├── Tasklists/                 ← AI-generated tasklists from patterns
-├── Reviews/Weekly/            ← 🔄 Weekly Review output
+├── Reviews/<Period>/Weekly/            ← 🔄 Weekly Review output
 ├── Skills/                    ← AI agent blueprints
 ├── Prompt Patterns/           ← Copy-paste templates for AI chat
 ├── scripts/3lm/               ← 3lm CLI — memory loop tool

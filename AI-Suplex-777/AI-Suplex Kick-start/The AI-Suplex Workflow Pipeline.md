@@ -76,7 +76,7 @@ AI-Suplex-777/
 ├── MOCs/                   # Maps of Content (one per focus)
 ├── Trackers/               # Progress trackers (one per focus)
 ├── Tasklists/              # AI‑Suplex & Combined Tasklists
-├── Reviews/Weekly/         # Weekly review files
+├── Reviews/<Period>/Weekly/         # Weekly review files
 ├── Skills/                 # AI agent blueprints (11 files)
 ├── Prompt Patterns/       # Copy‑paste patterns for AI chats
 └── AI-Suplex Kick-start/   # Methodology docs

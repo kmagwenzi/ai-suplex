@@ -65,7 +65,7 @@ During your session, capture everything:
 | 💣 **B-Bomb**         | Ribbon  | Polished, reusable assets                              |
 | 🧠 **Feed 3LM** | Toolbar | Insights into persistent memory - _see Insights after_ |
 
-Files are saved in `Artifacts/Cycle X/Week Y/` and `B-Bombs/Cycle X/Week Y/`.
+Files are saved in `Artifacts/<Period>/Cycle X/Week Y/` and `B-Bombs/<Period>/Cycle X/Week Y/`.
 
 ---
 

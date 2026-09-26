@@ -171,7 +171,7 @@ LIMIT 10
 - [[AI-Suplex-777/MOCs|All MOCs]]
 - [[AI-Suplex-777/Trackers|All Trackers]]
 - [[AI-Suplex-777/Tasklists|Tasklists]]
-- [[AI-Suplex-777/Reviews/Weekly|Weekly Reviews]]
+- [[AI-Suplex-777/Reviews/<Period>/Weekly|Weekly Reviews]]
 
 ---
 
@@ -191,7 +191,7 @@ LIMIT 10
 | `B-Bombs/`                                       | Polished, reusable assets (nested by cycle/week) |
 | `Insights/`                                      | Weekly insight logs                              |
 | `Tasklists/`                                     | AI‑Suplex & Combined Tasklists                   |
-| `Reviews/Weekly/`                                | Weekly review files                              |
+| `Reviews/<Period>/Weekly/`                                | Weekly review files                              |
 | `Plans/`                                         | Phase execution plans                            |
 | `QualityNotes/`                                  | Long Architect review notes                      |
 | `AI-Suplex Kick-start/`                          | Methodology docs and your project notes          |

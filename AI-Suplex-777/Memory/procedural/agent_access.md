@@ -54,7 +54,7 @@ Read files:   read_file memory/semantic/preferences.md
 Write files:  write_file Artifacts/Cycle-1/Week-4/new-artifact.md
 Search:       grep "promotion" memory/lessons.md
 Edit:         edit_file memory/lessons.md
-Create dirs:  mkdir -p memory/episodic/Cycle-1/Week-5
+Create dirs:  mkdir -p memory/episodic/<Period>/Cycle-1/Week-5
 ```
 
 ### Session End

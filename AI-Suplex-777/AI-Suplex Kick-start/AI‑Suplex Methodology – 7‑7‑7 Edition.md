@@ -313,14 +313,14 @@ AI-Suplex-777/
 ├── Sessions/Active/Start        # Session start files
 ├── Sessions/Active/End          # Session end reports
 ├── Sessions/Archive/            # Preserves cycle/week structure
-├── Artifacts/Cycle X/Week Y/    # Work‑in‑progress assets
-├── B-Bombs/Cycle X/Week Y/      # Polished assets (three‑key‑meanings)
+├── Artifacts/<Period>/Cycle X/Week Y/    # Work‑in‑progress assets
+├── B-Bombs/<Period>/Cycle X/Week Y/      # Polished assets (three‑key‑meanings)
 ├── Projects/                    # B‑Bomb collections by project
-├── Insights/Cycle X/Week Y.md   # Weekly insight logs
+├── Insights/<Period>/Cycle X/Week Y.md   # Weekly insight logs
 ├── MOCs/                        # Maps of Content (one per focus)
 ├── Trackers/                    # Progress trackers (one per focus)
 ├── Tasklists/                   # AI‑Suplex and combined tasklists
-├── Reviews/Weekly/              # Weekly review files
+├── Reviews/<Period>/Weekly/              # Weekly review files
 ├── Plans/                       # Phase execution plans
 ├── QualityNotes/                # Long Architect review notes
 ├── Skills/                      # 9 AI skills

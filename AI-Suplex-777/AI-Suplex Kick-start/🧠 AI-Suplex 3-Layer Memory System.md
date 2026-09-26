@@ -30,7 +30,7 @@ Saturday B-Bomb Day → 3lm promote --min 70 (score + promote) → 3lm revise (c
 
 | Store | Location | Type | What It Holds |
 |-------|----------|------|--------------|
-| **Episodic** | `memory/episodic/Cycle-X/Week-Y/` | What happened | Compressed session records — actions, outcomes, scores, lessons |
+| **Episodic** | `memory/episodic/<Period>/Cycle-X/Week-Y/` | What happened | Compressed session records — actions, outcomes, scores, lessons |
 | **Semantic** | `memory/semantic/` | What is true | Stable facts, preferences, project rules, glossary, entities |
 | **Procedural** | `memory/procedural/` | How to do it | Reusable workflows, macros, prompt patterns, execution playbooks |
 | **Lessons** | `memory/lessons.md` | What might be useful | Candidate learnings — staging area before promotion or deprecation |
@@ -145,7 +145,7 @@ Located at `Tools/3lm.js`. Run from inside `AI-Suplex-777/`.
 | Command | Action |
 |---------|--------|
 | `start` | Load semantic + lessons + recent episodic + procedural — generate mission brief |
-| `end` | Read Session End report → write episodic file to `memory/episodic/Cycle-X/Week-Y/` |
+| `end` | Read Session End report → write episodic file to `memory/episodic/<Period>/Cycle-X/Week-Y/` |
 | `learn` | Extract lessons from latest episode → append to `memory/lessons.md` |
 | `promote --min N` | Score lessons → promote ≥N to semantic/procedural (default: 70) |
 | `revise` | Check lessons against semantic truths for contradictions — surface deprecation watch |

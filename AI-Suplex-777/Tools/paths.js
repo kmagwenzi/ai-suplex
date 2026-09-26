@@ -280,6 +280,11 @@ function reviewCycleDir(cycle) {
   return j("Reviews", periodForCycle(cycle), "Weekly", `Cycle ${int(cycle, "cycle", 0)}`);
 }
 
+/** "Reviews/<Period>/Weekly" — the period-level reviews root (no cycle segment). */
+function reviewWeeklyDir() {
+  return j("Reviews", readPeriod().label, "Weekly");
+}
+
 /** "…/Week 4/Week 4 Review.md" — the narrative review for the week. */
 function reviewReviewFile(cycle, week) {
   const w = int(week, "week", 1);
@@ -569,6 +574,7 @@ module.exports = {
   insightDir,
   reviewDir,
   reviewCycleDir,
+  reviewWeeklyDir,
   reviewReviewFile,
   reviewDataFile,
   mocsDir,

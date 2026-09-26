@@ -43,7 +43,7 @@ Open your Artifacts folder. Scan for anything that meets these criteria:
 | Something you'd show a client         | "Sales page structure analysis"        |
 
 **The 60-second B-Bomb scan:**
-- [ ] Open `Artifacts/Cycle 1/Week [current]/` — skim file list
+- [ ] Open `Artifacts/<Period>/Cycle 1/Week [current]/` — skim file list
 - [ ] Identify 2-3 candidates that stand out
 - [ ] For each candidate: run the **💣 B-Bomb** macro
 - [ ] Run **Sweeper – Refresh B-Bomb Index**
@@ -53,7 +53,7 @@ Open your Artifacts folder. Scan for anything that meets these criteria:
 **Alternative — AI-Assisted Promotion (for big artifact weeks):**
 1. Copy the **📄 Pattern - B-Bomb Promotion** from `Prompt Patterns/`
 2. Paste into Claude/ChatGPT/DeepSeek
-3. Replace source with: "Scan Artifacts/Cycle [X]/Week [Y]/ for B-Bomb candidates. Rank by innovation quotient."
+3. Replace source with: "Scan Artifacts/<Period>/Cycle [X]/Week [Y]/ for B-Bomb candidates. Rank by innovation quotient."
 4. Execute — AI identifies candidates and drafts promotion content
 
 ### Step 3: Enhance Dashboards
@@ -63,7 +63,7 @@ Open your Artifacts folder. Scan for anything that meets these criteria:
 
 ### Step 4: Aggregate Week's Data
 - [ ] Run **Sweeper – Aggregate Weekly Data** — compiles all sessions, artifacts, and B-Bombs into one source file
-- [ ] File opens automatically: `Reviews/Weekly/Cycle X/Week Y Source.md`
+- [ ] File opens automatically: `Reviews/<Period>/Weekly/Cycle X/Week Y Source.md`
 
 ### Step 5: Weekly Review
 - [ ] Run **Sweeper – Weekly Review** — generates structured review from session data
