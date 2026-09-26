@@ -1,4 +1,5 @@
 ---
+type: skill
 skill_name: "Builder – Session End Report Generator"
 role: "Builder"
 version: "1.0"

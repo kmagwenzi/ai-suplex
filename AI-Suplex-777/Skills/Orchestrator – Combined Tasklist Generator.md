@@ -1,4 +1,5 @@
 ---
+type: skill
 skill_name: "Orchestrator – Combined Tasklist Generator"
 role: "Orchestrator"
 version: "1.0"
@@ -104,7 +105,7 @@ When invoked, follow these steps:
 ### 1. Identify sources
 - **Session End files** – look in `AI-Suplex-777/Sessions/Active/End/` (and optionally `Archive/End/` if within last 7 days).  
   Extract `next_actions` from frontmatter and/or from the markdown section `## Next Actions`.
-- **Artifacts** – scan `AI-Suplex-777/Artifacts/` (including nested `Cycle X/Week Y` folders).  
+- **Artifacts** – scan `AI-Suplex-777/Artifacts/` (including nested `<Period>/Cycle X/Week Y` folders).  
   Extract `next_actions` from frontmatter.
 - **B‑Bombs** – scan `AI-Suplex-777/B-Bombs/` similarly, but usually B‑Bombs are finished products; `next_actions` there are rare. Still, include them if present.
 - **Insights** – scan `AI-Suplex-777/Insights/` (weekly files). Look for lines that contain actionable language (e.g., “next”, “todo”, “action”).

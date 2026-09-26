@@ -22,7 +22,7 @@
 <prompt-pattern>
 CONTEXT: Generate a tactical weekly plan from cycle strategy, pending tasks, next actions, and focus priorities
 - External Source 1: AI-Suplex-777/Skills/Orchestrator – Weekly Plan Generator
-- External Source 2 [optional]: AI-Suplex-777/Plans/Cycle X Plan.md (current cycle plan)
+- External Source 2 [optional]: AI-Suplex-777/Plans/<Period>/Cycle X/Cycle X Plan.md (current cycle plan)
 - Inline Source: Translating strategic cycle objectives into day-by-day execution blocks
 
 EXAMPLE: AI-Suplex-777/Templates/Examples/Example - Weekly Plan
@@ -48,7 +48,7 @@ MEMORY RULES:
 - Memory is managed via 3lm CLI. The vault is canonical.
 - The markdown vault remains canonical.
 ADDITIONAL INSTRUCTIONS:
-- Save file in AI-Suplex-777/Plans/Weekly/ folder
+- Save file in AI-Suplex-777/Plans/<Period>/Cycle X/ folder
 - Name file as: Week X Plan.md (replace X with week number, e.g., Week 1 Plan.md)
 - After saving, offer to generate daily session start prompts using the Session Start Prompt Generation pattern
 - Respect locked days (e.g., Monday Hustle Days, rest days) — do not schedule work on them
@@ -82,7 +82,7 @@ Source:
 <prompt-pattern>
 CONTEXT: Generate a tactical weekly plan from cycle strategy, pending tasks, next actions, and focus priorities
 - External Source 1: AI-Suplex-777/Skills/Orchestrator – Weekly Plan Generator
-- External Source 2: AI-Suplex-777/Plans/Cycle 1 Plan.md
+- External Source 2: AI-Suplex-777/Plans/<Period>/Cycle 1/Cycle 1 Plan.md
 - Inline Source: Translating strategic cycle objectives into day-by-day execution blocks
 
 EXAMPLE: AI-Suplex-777/Templates/Examples/Example - Weekly Plan
@@ -90,7 +90,7 @@ TEMPLATE: AI-Suplex-777/Templates/AI-Suplex - Weekly Plan Template
 
 TASK: Act as Orchestrator. Generate a complete weekly plan using the raw input provided, following the exact structure and formatting from the template and example. Include a weekly mission, priority tasks by focus, daily breakdown (Tue–Sun), energy map, and success metrics. Respect locked days and energy patterns. Output the plan in chat for Hustler review, then offer to save.
 ADDITIONAL INSTRUCTIONS:
-- Save file in AI-Suplex-777/Plans/Weekly/ folder as Week 1 Plan.md
+- Save file in AI-Suplex-777/Plans/<Period>/Cycle 1/ folder as Week 1 Plan.md
 - After saving, offer to generate daily session start prompts using the Session Start Prompt Generation pattern
 - Monday (Jun 22) is LOCKED — family bulk water business, no work scheduled
 
@@ -159,7 +159,7 @@ When this pattern is used, the AI (acting as Orchestrator) will generate a compl
 | ------------------- | ------------------------------------------------------------------------------------------------- |
 | **Pre-requisite**   | Cycle Plan must exist — the weekly plan executes the cycle, not replaces it                       |
 | **Pre-generation**  | Scan active tasklists + most recent session end files for next actions                            |
-| **Post-generation** | Save file to `AI-Suplex-777/Plans/Weekly/Week X Plan.md`                                          |
+| **Post-generation** | Save file to `AI-Suplex-777/Plans/<Period>/Cycle X/Week X Plan.md`                                |
 | **Daily execution** | Use each day's breakdown as input to the [[📄 Pattern - Session Start Prompt Generation]] pattern |
 | **End of week**     | Feed outcomes into the [[📄 Pattern - Weekly Review Generation]] pattern                          |
 | **3lm**             | Weekly planning decisions extracted via MEMORY LOOP — run 3lm promote to persist                  |

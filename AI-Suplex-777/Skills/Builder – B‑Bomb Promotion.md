@@ -1,4 +1,5 @@
 ---
+type: skill
 skill_name: "Builder – B‑Bomb Promotion"
 role: "Builder"
 version: "1.0"
@@ -12,7 +13,7 @@ tags: [skill, builder, b-bomb, promotion, macro, ai-suplex]
 
 Promote a **polished artifact** (or other substantial work) to a **B‑Bomb** – a product‑ready, reusable asset that can be added to your portfolio, shared with clients, or used across projects. The B‑Bomb includes enhanced frontmatter (product potential, innovation quotient, strategic insights) and structured sections (Applications, Quality Assessment, Integration Points).
 
-This skill is implemented as a **QuickAdd script macro** (`B‑Bomb.js`). The Builder (Hustler or AI) runs the macro, selects or provides the artifact content, and the script creates the B‑Bomb file in the appropriate `B‑Bombs/Cycle X/Week Y/` folder.
+This skill is implemented as a **QuickAdd script macro** (`B‑Bomb.js`). The Builder (Hustler or AI) runs the macro, selects or provides the artifact content, and the script creates the B‑Bomb file in the appropriate `B‑Bombs/<Period>/Cycle X/Week Y/` folder.
 
 ---
 
@@ -52,7 +53,7 @@ The script macro (`B‑Bomb.js`) performs the following steps:
 
 3. **Creates the folder structure** if missing:
    - Core Edition: `AI‑Suplex‑777/B‑Bombs/`
-   - 7‑7‑7 Edition: `AI‑Suplex‑777/B‑Bombs/Cycle X/Week Y/`
+   - 7‑7‑7 Edition: `AI‑Suplex‑777/B‑Bombs/<Period>/Cycle X/Week Y/`
 
 4. **Writes the file** with:
    - YAML frontmatter (tags, focus, cycle, week, product_potential, innovation_quotient, completeness, reusability, documentation, date, time, key_insights, next_actions)

@@ -82,7 +82,7 @@ MEMORY RULES:
 - The markdown vault remains canonical.
 ADDITIONAL INSTRUCTIONS: NONE
 # Specify post-generation tasks: remove the `#` for instructions you want activated post-generation
-# - Save file in AI-Suplex-777/Artifacts/Cycle 1/Week 1/
+# - Save file in AI-Suplex-777/Artifacts/<Period>/Cycle 1/Week 1/
 # - File naming: YYYY-MM-DD-HHMM-multimodal-${modality}-analysis.md
 # - Open saved file in new tab
 
@@ -116,7 +116,7 @@ CONTEXT: Analyze a video file using Xiaomi MiMo-V2.5-Pro's native omnimodal capa
 TEMPLATE: Builder – Multimodal Analysis (Video Analysis Output)
 
 TASK: Act as Builder. Analyze the provided video using MiMo-V2.5-Pro's multimodal API.
-ADDITIONAL INSTRUCTIONS: Save file in Artifacts/Cycle 1/Week 1/ as "demo-video-analysis.md"
+ADDITIONAL INSTRUCTIONS: Save file in Artifacts/<Period>/Cycle 1/Week 1/ as "demo-video-analysis.md"
 
 CONTENT:
 <content>

@@ -37,24 +37,21 @@ After generating insights, extract and report:
 - Any index updates required.
 
 ▶️ 3LM COMMAND:
-   If you have filesystem access (Claude Code, Cursor, Zed):
-   → Append each extracted lesson to Memory/lessons.md under ## Current Lessons
-   
-   If you are web-based (ChatGPT, DeepSeek web):
-   → Print these lessons so the user can paste them into Memory/lessons.md
-   
+   Push each extracted lesson (max 3) via the quick-capture command:
+     node Tools/3lm.js add-lessons --source insight --ref <insight-title> --list "lesson one" "lesson two"
+
+   The LLM knows the lessons — extract them directly, no episode round-trip.
    Lessons are scored on Saturday's 3lm promote --min 70.
    To close the session and run the full loop: click 🏁 End in Obsidian.
 
 
 ▶️ 3LM QUICK CAPTURE — Run after capturing:
-   If you have terminal access (Claude Code, Cursor, Zed):
-   → Run silently: node Tools/3lm.js learn && node Tools/3lm.js index
-   
-   If you are web-based (ChatGPT, DeepSeek web) without terminal access:
-   → Print: "Run from terminal: node Tools/3lm.js learn && node Tools/3lm.js index"
-   
-   This extracts the lesson from your capture immediately.
+   node Tools/3lm.js add-lessons --source insight --ref <insight-title> --list "lesson one" "lesson two" && node Tools/3lm.js index
+
+   ⚠️ ON FAILURE — give the user the exact commands to complete insight capture + 3lm:
+     1. Append insights to Insights/<Period>/Cycle X/Week Y.md
+     2. node Tools/3lm.js add-lessons --source insight --ref <insight-title> --list "lesson one" "lesson two"
+     3. node Tools/3lm.js index
 MEMORY RULES:
 - Promote only stable, repeated truths to semantic memory.
 - Promote only repeatable workflows to procedural memory.
@@ -65,7 +62,7 @@ MEMORY RULES:
 - Memory is managed via 3lm CLI. The vault is canonical.
 - The markdown vault remains canonical.
 ADDITIONAL INSTRUCTIONS: NONE 
-#- Specify post-generation tasks e.g: "Append insights to Insights/Cycle [X]/Week [Y].md"
+#- Specify post-generation tasks e.g: "Append insights to Insights/<Period>/Cycle [X]/Week [Y].md"
 
 CONTENT:
 <content>

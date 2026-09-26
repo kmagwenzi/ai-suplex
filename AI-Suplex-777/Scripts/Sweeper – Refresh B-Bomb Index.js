@@ -42,15 +42,9 @@ module.exports = async (quickAdd) => {
       const title = frontmatter.title || file.basename;
       const date = frontmatter.date || "unknown";
 
-      // Extract summary — prefer ## Description section, fallback to first 300 chars
+      // Extract summary (first 300 chars of body, after frontmatter)
       const body = content.replace(/^---[\s\S]*?---\n/, "").trim();
-      let summary = "";
-      const descMatch = body.match(/## Description\n([\s\S]*?)(?=\n## |$)/);
-      if (descMatch) {
-        summary = descMatch[1].trim().slice(0, 300).replace(/\n/g, " ").replace(/"/g, "'");
-      } else {
-        summary = body.slice(0, 300).replace(/\n/g, " ").replace(/"/g, "'");
-      }
+      let summary = body.slice(0, 300).replace(/\n/g, " ").replace(/"/g, "'");
       if (summary.length === 300) summary += "...";
 
       semanticContent += `## ${title}\n`;

@@ -1,4 +1,5 @@
 ---
+type: skill
 skill_name: "Orchestrator – Cycle Review"
 role: "Orchestrator"
 version: "1.0"
@@ -24,7 +25,7 @@ The review is generated from:
 - Weekly insights and trackers
 - MOCs with cycle‑long highlights
 
-The output is a comprehensive markdown document suitable for saving in `AI-Suplex-777/Reviews/Cycle X Review.md` and serves as the foundation for planning the next 7‑week cycle.
+The output is a comprehensive markdown document suitable for saving in `AI-Suplex-777/Reviews/<Period>/Weekly/Cycle X/Cycle X Review.md` and serves as the foundation for planning the next 7‑week cycle.
 
 ---
 
@@ -40,9 +41,9 @@ If no cycle is specified, the Orchestrator will infer the most recently complete
 
 **Data sources to examine:**
 - `AI-Suplex-777/Sessions/Active/End/` and `/Archive/End/` for all sessions with `cycle: X` in frontmatter
-- `AI-Suplex-777/Artifacts/Cycle X/` – all artifacts across weeks 1‑7
-- `AI-Suplex-777/B-Bombs/Cycle X/` – all B‑Bombs across weeks 1‑7  
-- `AI-Suplex-777/Insights/Cycle X/` – weekly insight files
+- `AI-Suplex-777/Artifacts/<Period>/Cycle X/` – all artifacts across weeks 1‑7
+- `AI-Suplex-777/B-Bombs/<Period>/Cycle X/` – all B‑Bombs across weeks 1‑7  
+- `AI-Suplex-777/Insights/<Period>/Cycle X/` – weekly insight files
 - `AI-Suplex-777/Trackers/` – all tracker files for the cycle
 - `AI-Suplex-777/MOCs/` – Maps of Content with cycle‑long highlights
 - `AI-Suplex-777/Focuses.md` – current focus area definitions
@@ -118,7 +119,7 @@ A markdown document with the following structure:
 - [[Focuses.md]]
 ```
 
-The AI will present the review in chat. The Hustler can then ask to save it to `AI-Suplex-777/Reviews/Cycle {{X}} Review.md`.
+The AI will present the review in chat. The Hustler can then ask to save it to `AI-Suplex-777/Reviews/<Period>/Weekly/Cycle {{X}}/Cycle {{X}} Review.md`.
 
 ---
 
@@ -133,9 +134,9 @@ When the Hustler says *"Orchestrator, generate a cycle review for Cycle 1"* (or 
 
 ### 2. Gather data across all 7 weeks
 - **Session end files** in `AI-Suplex-777/Sessions/Active/End/` and `Archive/End/` with `cycle: X` in frontmatter.
-- **Artifacts** in `AI-Suplex-777/Artifacts/Cycle X/` – scan all week subfolders.
-- **B‑Bombs** in `AI-Suplex-777/B-Bombs/Cycle X/` – scan all week subfolders.
-- **Insights** from `AI-Suplex-777/Insights/Cycle X/Week Y.md` files (1‑7).
+- **Artifacts** in `AI-Suplex-777/Artifacts/<Period>/Cycle X/` – scan all week subfolders.
+- **B‑Bombs** in `AI-Suplex-777/B-Bombs/<Period>/Cycle X/` – scan all week subfolders.
+- **Insights** from `AI-Suplex-777/Insights/<Period>/Cycle X/Week Y.md` files (1‑7).
 - **Trackers** – read all tracker files, extract cycle‑level metrics.
 - **MOCs** – check for cycle‑long highlights or patterns.
 

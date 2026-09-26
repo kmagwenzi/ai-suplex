@@ -1,4 +1,5 @@
 ---
+type: skill
 skill_name: "Orchestrator – Weekly Plan Generator"
 role: "Orchestrator"
 version: "1.0"
@@ -36,7 +37,7 @@ The Hustler provides (or the Orchestrator gathers from vault data):
 
 ## 📤 Output
 
-A markdown document saved to `AI-Suplex-777/Plans/Weekly/Week X Plan.md` with the following structure:
+A markdown document saved to `AI-Suplex-777/Plans/<Period>/Cycle X/Week X Plan.md` with the following structure:
 
 ```markdown
 # Weekly Plan – Cycle X, Week Y
@@ -127,8 +128,8 @@ When the Hustler says *"Orchestrator, generate a weekly plan for Cycle X, Week Y
 
 ### 7. Output the Weekly Plan
 - Present the full plan in chat.
-- Offer to save to `AI-Suplex-777/Plans/Weekly/Week X Plan.md`.
-- Persist planning decisions to CortexMem.
+- Offer to save to `AI-Suplex-777/Plans/<Period>/Cycle X/Week X Plan.md`.
+- Save planning decisions to Memory/lessons.md for 3lm promote.
 
 ---
 
@@ -159,7 +160,7 @@ When the Hustler says *"Orchestrator, generate a weekly plan for Cycle X, Week Y
 | **Session Start Prompts** | Use the daily breakdown to generate precise session start prompts |
 | **Weekly Review** | At week's end, compare actual output vs plan to feed the review |
 | **Cycle Plan** | The weekly plan should directly support the cycle's strategic objectives |
-| **CortexMem** | Save weekly planning decisions: `node cm save_context --context_type decision --content "Weekly Plan: Cycle X/Week Y | Focus: <primary> | Priority: <top-3>"` |
+| **3lm** | Save weekly planning decisions: Append to Memory/lessons.md, then run 3lm promote --min 70 |
 
 ---
 
@@ -184,7 +185,7 @@ When the Hustler says *"Orchestrator, generate a weekly plan for Cycle X, Week Y
 |---|---|---|
 | Overloading Monday | Burnout before midweek | Start strong but not crushing — ease into the week |
 | Ignoring energy patterns | 3pm deep work fails | Schedule creative work for peak hours, admin for low energy |
-| Same focus every day | context switching fatigue | Max 2 foci per day, alternate across the week |
+| Same focus every day | Context switching fatigue | Max 2 foci per day, alternate across the week |
 | No rest block | Crash by Friday | Schedule at least a half-day of rest |
 | Vague tasks | Hard to execute | Every task should be actionable ("Fix Oracle block" not "Work on WQR") |
 | Ignoring session end next actions | Recurring incompletes | Always scan session ends before planning |

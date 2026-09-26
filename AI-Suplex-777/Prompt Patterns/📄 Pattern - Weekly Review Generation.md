@@ -53,7 +53,7 @@ MEMORY RULES:
 - The markdown vault remains canonical.
 ADDITIONAL INSTRUCTIONS: NONE
 # Specify post-generation tasks: Remove `#` for list items below add new post-generation instructions
-# - Save file in AI-Suplex-777/Reviews/Weekly/ folder as `Week <N> Review.md`
+# - Save file in AI-Suplex-777/Reviews/<Period>/Weekly/Cycle <N>/Week <N>/ folder as `Week <N> Review.md`
 # - Open saved file in new tab
 # - Use the review to select focus areas for next week's tasklist
 
@@ -88,7 +88,7 @@ CONTEXT: Generate a structured weekly review from session data, artifacts, and t
 EXAMPLE: AI-Suplex-777/Skills/Orchestrator – Weekly Review.md
 
 TASK: Act as Orchestrator. Generate a complete weekly review using the data sources provided, following the exact structure and methodology from the Weekly Review skill. Include executive summary, key achievements, lessons learned, blockers & challenges, progress by focus area, recommendations for next week, and next week's focus areas.
-ADDITIONAL INSTRUCTIONS: Save the generated review to `AI-Suplex-777/Reviews/Weekly/` as `Week 2 Review.md`.
+ADDITIONAL INSTRUCTIONS: Save the generated review to `AI-Suplex-777/Reviews/<Period>/Weekly/Cycle 1/Week 2/` as `Week 2 Review.md`.
 
 CONTENT:
 <content>
@@ -96,7 +96,7 @@ Source:
 - Cycle Number: "1"
 - Week Number: "2"
 - Strategic Context: "This was launch week for AI-Suplex digital products. Tuesday Reset completed, Bombshell Launch strategy at 10/25 tasks (40%). Today (Wed) is dedicated to full launch push — ZIPs, Gumroad upload, thumbnails, INFILTRATION blitz. Hard stop 13:00 daily for WQR switch. WQR resumes fully Thursday."
-- Data References: "Examine Sessions/Active/End/ and Sessions/Archive/End/ for Cycle 1 Week 2 sessions. Check Artifacts/Cycle 1/Week 2/ (12 artifacts), B-Bombs/Cycle 1/Week 2/ (1 B-Bomb), Insights/Cycle 1/Week 2.md. Review Trackers/Digital Products Tracker.md and Trackers/AI Engineering Tracker.md."
+- Data References: "Examine Sessions/Active/End/ and Sessions/Archive/End/ for Cycle 1 Week 2 sessions. Check Artifacts/<Period>/Cycle 1/Week 2/ (12 artifacts), B-Bombs/<Period>/Cycle 1/Week 2/ (1 B-Bomb), Insights/<Period>/Cycle 1/Week 2.md. Review Trackers/Digital Products Tracker.md and Trackers/AI Engineering Tracker.md."
 - Raw Notes: "Digital Products was the dominant focus this week. AI Engineering had Graph RAG discovery work earlier in the week. Freelance, WQR, and Content Creation had no dedicated sessions. Graphify remains on death row — needs decision by end of week."
 </content>
 

@@ -1,16 +1,33 @@
 // Focus Manager.js – 7‑7‑7 Edition
-// ⚠️ NOTE: CortexMem space creation removed. Focuses.md is canonical.
 // Manages AI-Suplex-777/Focuses.md (add/edit/delete focuses).
-// 3lm handles all memory operations.
+// Integrates cortexmem: creates memory space on new focus creation.
 
 const { execSync } = require("child_process");
 const path = require("path");
 
-// CortexMem removed — Focuses.md is canonical.
-// 3lm handles all memory operations.
+function cortexmem(quickAdd, args) {
+  try {
+    const cmPath = path.join(
+      quickAdd.app.vault.adapter.basePath,
+      "AI-Suplex-777",
+      "cm",
+    );
+    return execSync(`node "${cmPath}" ${args}`, {
+      encoding: "utf8",
+      timeout: 15000,
+      stdio: "pipe",
+    }).trim();
+  } catch (e) {
+    return "";
+  }
+}
 
-function createFocusMemory(focusName) {
-  // Focus synced to Memory/semantic/focuses.md via Sync Focuses to 3lm macro
+function createCortexmemSpace(quickAdd, focusName) {
+  cortexmem(quickAdd, `memory create --space "${focusName}" --if-not-exists`);
+  cortexmem(
+    quickAdd,
+    `save_context --type system --space "${focusName}" --content "Focus: ${focusName} – track all decisions, constraints, and B‑Bombs here"`,
+  );
   return true;
 }
 
@@ -143,8 +160,8 @@ module.exports = async (quickAdd) => {
         description: description || "",
       });
       await writeFocuses(focuses);
-      createFocusMemory(quickAdd, name);
-      new Notice(`✅ Added focus: ${display} (run Sync Focuses to 3lm to update memory)`);
+      createCortexmemSpace(quickAdd, name);
+      new Notice(`✅ Added focus: ${display} + cortexmem space`);
     } else if (choice === "Edit focus") {
       const focusNames = focuses.map((f) => `${f.display} (${f.name})`);
       const selected = await quickAddApi.suggester(

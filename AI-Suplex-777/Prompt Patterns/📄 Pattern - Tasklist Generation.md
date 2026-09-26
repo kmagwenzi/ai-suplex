@@ -25,7 +25,7 @@ CONTEXT: Generate a structured AI-Suplex tasklist from raw to-do items or projec
 
 EXAMPLE: AI-Suplex-777/Templates/Examples/Example - Tasklist
 
-TASK: Act as Orchestrator. Generate a complete AI-Suplex tasklist using the raw input provided, following the exact structure and formatting from the example tasklist. Include proper frontmatter, session breakdowns, role assignments, and an execution command.
+TASK: Act as Orchestrator. Generate a complete AI-Suplex tasklist using the raw input provided, following the exact structure and formatting from the example tasklist. Include proper frontmatter, session breakdowns, role assignments, and an execution command. **Every generated tasklist MUST open with Phase 0 — Context Core: a T000 task running `node Tools/3lm.js start --context`** (staleness guard + generated session context).
 
 MEMORY LOOP:
 After generating the Tasklist, extract and report:
@@ -46,9 +46,11 @@ MEMORY RULES:
 - The markdown vault remains canonical.
 ADDITIONAL INSTRUCTIONS: NONE 
 # Specify post-generation tasks: Remove `#` for list items below add new post-generation instructions
-# - Save file in AI-Suplex-777/Tasklists/ folder
-# - Use the file naming convention: fileName = `YYYY-MM-DD-${mission-title}-tasklist.md`;
-# - Open saved file in new tab 
+- Save file in AI-Suplex-777/Tasklists/ folder
+- Use the file naming convention: fileName = `YYYY-MM-DD-${mission-title}-tasklist.md`;
+- python3 Tools/session_context.py --dry 
+- python3 Tools/session_context.py     
+- Suggest task that might have been overlooked 
 
 CONTENT:
 <content>
@@ -99,6 +101,7 @@ Source:
 When this pattern is used, the AI will generate a tasklist matching the exact format and energy of the provided example . This includes:
 *   A title with the "TWABAM ⚡!" prefix.
 *   Proper YAML frontmatter (date, status, cycle, week, focus, tags).
+*   **Phase 0 — Context Core** opening every tasklist (T000: `node Tools/3lm.js start --context` — staleness guard + generated session context).
 *   Sessions broken down by duration.
 *   Tasks assigned to specific roles (Hustler, Builder, Architect, Sweeper, Orchestrator) with unique IDs (e.g., `T001-H`).
 *   Clear success metrics for each session.
@@ -112,4 +115,4 @@ When this pattern is used, the AI will generate a tasklist matching the exact fo
 #### Sources
 [^1]: [[Orchestrator – AI‑Suplex Tasklist Generator]]
 [^2]: [[👥 AI‑Suplex Worker Roles – 7‑7‑7 Edition]]
-[^3]: [[2026-04-12-ai-suplex-core-&-777-launch-ai-suplex-tasklist]]
+[^3]: [[2026-04-12-ai-suplex-core-&-777-launch-ai-suplex-tasklist 1]]

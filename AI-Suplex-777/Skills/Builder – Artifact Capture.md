@@ -1,4 +1,5 @@
 ---
+type: skill
 skill_name: "Builder – Artifact Capture"
 role: "Builder"
 version: "1.0"
@@ -10,7 +11,7 @@ tags: [skill, builder, artifact, capture, macro, ai-suplex]
 
 ## 🎯 Purpose
 
-Capture a **work‑in‑progress artifact** (code snippet, diagram, prompt pattern, research note, design mockup, etc.) and save it as a structured markdown file in the appropriate folder – flat `Artifacts/` for Core Edition, or nested `Artifacts/Cycle X/Week Y/` for 7‑7‑7 Edition. The artifact includes frontmatter (focus, cycle, week, key insights, next actions) and placeholders for learnings and next steps.
+Capture a **work‑in‑progress artifact** (code snippet, diagram, prompt pattern, research note, design mockup, etc.) and save it as a structured markdown file in the appropriate folder – flat `Artifacts/` for Core Edition, or nested `Artifacts/<Period>/Cycle X/Week Y/` for 7‑7‑7 Edition. The artifact includes frontmatter (focus, cycle, week, key insights, next actions) and placeholders for learnings and next steps.
 
 This skill is implemented as a **QuickAdd script macro** (`Artifact.js`). The Builder (Hustler or AI) runs the macro, fills the prompts, and the script automatically creates the file and opens it for editing.
 
@@ -46,7 +47,7 @@ The script macro (`Artifact.js`) performs the following steps:
 
 3. **Creates the folder structure** if missing:
    - Core Edition: `AI-Suplex-777/Artifacts/`
-   - 7‑7‑7 Edition: `AI-Suplex-777/Artifacts/Cycle X/Week Y/`
+   - 7‑7‑7 Edition: `AI-Suplex-777/Artifacts/<Period>/Cycle X/Week Y/`
 
 4. **Writes the file** with:
    - YAML frontmatter (tags, focus, cycle, week, key_insights, next_actions, date, time)

@@ -1,39 +1,81 @@
 // Build – Daily Insight.js
-// ⚠️ DEPRECATED — Use Insight.js instead.
-// Insight.js captures insights to Memory/lessons.md with 3lm learn.
-// This script is kept for backward compatibility but redirects to Insight.js.
+// ⚠️ LEGACY — CortexMem retired. Use Insight macro for insight logging.
+// 3lm end→learn handles memory automatically on session end.
+// Captures a daily insight directly to cortexmem.
 
 const { execSync } = require("child_process");
+const NODE = "/usr/bin/node";
+const CORTEXMEM = "/home/kmagwenzi/.npm-global/bin/cortexmem";
+
+function cortexmem(args) {
+  // QuickAdd/Obsidian may not have node in PATH, so use full path
+  try {
+    execSync(`${NODE} ${CORTEXMEM} ${args}`, {
+      encoding: "utf8",
+      timeout: 15000,
+      stdio: "pipe",
+    });
+    return true;
+  } catch (e) {
+    console.error(`cortexmem error: ${e.message}`);
+    return false;
+  }
+}
 
 module.exports = async (quickAdd) => {
-  const { app } = quickAdd;
+  const { app, quickAddApi } = quickAdd;
+  const vault = app.vault;
 
-  new Notice("⚠️ Use Insight.js instead — it captures to 3lm memory directly.", 5000);
+  async function getFocuses() {
+    const focusesPath = "AI-Suplex-777/Focuses.md";
+    if (!(await vault.adapter.exists(focusesPath))) {
+      return [
+        "ai-engineering",
+        "wqr",
+        "freelance",
+        "digital-products",
+        "content-creation",
+      ];
+    }
+    const content = await vault.adapter.read(focusesPath);
+    const match = content.match(/^---\n([\s\S]*?)\n---/);
+    if (!match) return [];
+    const frontmatter = match[1];
+    const nameMatches = [...frontmatter.matchAll(/name:\s*(\S+)/g)];
+    return nameMatches.map((m) => m[1]);
+  }
 
-  // Redirect to Insight.js behavior
-  try {
-    const vaultPath = app.vault.adapter.basePath;
-    const cwd = vaultPath + "/AI-Suplex-777";
+  const focusOptions = await getFocuses();
+  const focus = await quickAddApi.suggester(
+    focusOptions,
+    focusOptions,
+    "Select focus area for this insight",
+  );
+  if (!focus) {
+    new Notice("Insight capture cancelled.");
+    return;
+  }
 
-    // Run 3lm learn to extract any pending lessons
-    execSync("node Tools/3lm.js learn", {
-      encoding: "utf8",
-      timeout: 15000,
-      stdio: "pipe",
-      cwd,
-    });
+  const insightText = await quickAddApi.inputPrompt(
+    "What did you learn?",
+    null,
+    { multiline: true },
+  );
+  if (!insightText || !insightText.trim()) {
+    new Notice("No insight entered.");
+    return;
+  }
 
-    // Run 3lm index to refresh
-    execSync("node Tools/3lm.js index", {
-      encoding: "utf8",
-      timeout: 15000,
-      stdio: "pipe",
-      cwd,
-    });
+  const date = new Date().toISOString().slice(0, 10);
+  const safeText = insightText.replace(/"/g, "'").slice(0, 1000);
 
-    new Notice("✅ 3lm learn + index completed. Use Insight.js for future insights.", 3000);
-  } catch (e) {
-    console.error("3lm error: " + e.message);
-    new Notice("⚠️ 3lm not available. Run manually: node Tools/3lm.js learn && index", 3000);
+  const saved = cortexmem(
+    `save_context --type insight --space "${focus}" --content "${safeText}" --tags "${focus},insight,${date}"`,
+  );
+
+  if (saved) {
+    new Notice(`🧠 Insight saved to cortexmem for ${focus}`);
+  } else {
+    new Notice("⚠️ Insight captured but cortexmem save failed");
   }
 };

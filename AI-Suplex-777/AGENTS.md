@@ -61,15 +61,15 @@ When reading the user's vault, you should know these paths:
 | `AI-Suplex-777/Sessions/Active/Start/`     | Session start files (frontmatter includes cycle, week, focus)                             |
 | `AI-Suplex-777/Sessions/Active/End/`       | Session end reports                                                                       |
 | `AI-Suplex-777/Sessions/Archive/`          | Archived sessions                                                                         |
-| `AI-Suplex-777/Artifacts/Cycle X/Week Y/`  | Work‑in‑progress assets organised by cycle/week                                           |
-| `AI-Suplex-777/B-Bombs/Cycle X/Week Y/`    | Polished assets organised by cycle/week                                                   |
+| `AI-Suplex-777/Artifacts/<Period>/Cycle X/Week Y/`  | Work‑in‑progress assets organised by cycle/week                                           |
+| `AI-Suplex-777/B-Bombs/<Period>/Cycle X/Week Y/`    | Polished assets organised by cycle/week                                                   |
 | `AI-Suplex-777/Projects/`                  | B‑Bomb collections organised by project                                                   |
-| `AI-Suplex-777/Insights/Cycle X/Week Y.md` | Weekly insight logs                                                                       |
+| `AI-Suplex-777/Insights/<Period>/Cycle X/Week Y.md` | Weekly insight logs                                                                       |
 | `AI-Suplex-777/MOCs/`                      | Maps of Content (one per focus)                                                           |
 | `AI-Suplex-777/Trackers/`                  | Progress trackers (one per focus)                                                         |
 | `AI-Suplex-777/Focuses.md`                 | YAML file defining focus areas (name, display, description)                               |
 | `AI-Suplex-777/Tasklists/`                 | AI‑Suplex and combined tasklists                                                          |
-| `AI-Suplex-777/Reviews/Weekly/`            | Weekly review files                                                                       |
+| `AI-Suplex-777/Reviews/<Period>/Weekly/`            | Weekly review files                                                                       |
 | `AI-Suplex-777/Skills/`                    | 11 markdown files teaching AI how to assist                                               |
 | `AI-Suplex-777/Prompt Patterns/`           | 11 user-facing patterns for copy-paste AI interaction                                     |
 | `AI-Suplex-777/Scripts/`                   | 22 JavaScript QuickAdd macros (Sweeper + core)                                            |
@@ -148,7 +148,7 @@ AI-Suplex has a **file-first, markdown-first memory stack** that compounds knowl
 
 | Memory Type    | Location                          | Purpose                                     | 3lm Mapping                            |
 | -------------- | --------------------------------- | ------------------------------------------- | -------------------------------------- |
-| **Episodic**   | `Memory/episodic/Cycle-X/Week-Y/` | What happened in each session               | `state`, `discovery`                   |
+| **Episodic**   | `Memory/episodic/<Period>/Cycle-X/Week-Y/` | What happened in each session               | `state`, `discovery`                   |
 | **Semantic**   | `Memory/semantic/`                | Stable facts, rules, preferences, glossary  | `decision`, `preference`, `constraint` |
 | **Procedural** | `Memory/procedural/`              | Reusable workflows, macros, prompt patterns | *(promoted from successful episodes)*  |
 | **Lessons**    | `Memory/lessons.md`               | Candidate learnings waiting for promotion   | *(staging area)*                       |
@@ -175,7 +175,7 @@ node Tools/3lm.js <command> [--param value ...]
 | Command           | Description                                                                             |
 | ----------------- | --------------------------------------------------------------------------------------- |
 | `start`           | Load semantic + lessons + recent episodic + procedural context — generate mission brief |
-| `end`             | Read Session End report → write episodic file to `Memory/episodic/Cycle-X/Week-Y/`      |
+| `end`             | Read Session End report → write episodic file to `Memory/episodic/<Period>/Cycle-X/Week-Y/`      |
 | `learn`           | Extract lessons from latest episode → append to `Memory/lessons.md`                     |
 | `promote --min N` | Score lessons with 100-point rubric → promote ≥70 to semantic/procedural (default: 70)  |
 | `revise`          | Check lessons against semantic truths for contradictions — surface deprecation watch    |
@@ -354,8 +354,8 @@ When the Hustler asks you to assist, load context in THIS order:
 
 1. **AGENTS.md** — You already have this. The Active Mission Context section below has the live state snapshot.
 2. **Profile** — Read `AI-Suplex Kick-start/Context Kick-start/Profile.md` — who you are working with: the Hustler's name, skills, business focus, and battle cry.
-3. **7 Week Plan** — Read the latest cycle plan (`Plans/7 Week/Cycle 1/Cycle 1 Plan.md`) for the 7-week mission schedule, revenue targets, and weekly blockers.
-4. **Triple Assault Plan** — Read `Artifacts/Cycle 1/Week 1/triple-income-assault-v3.md` — the three-stream revenue architecture: WQR (SaaS) + Freelance (Services) + Digital Products (Passive). AI-Suplex is the force multiplier.
+3. **7 Week Plan** — Read the latest cycle plan (`Plans/<Period>/Cycle 1/Cycle 1 Plan.md`) for the 7-week mission schedule, revenue targets, and weekly blockers.
+4. **Triple Assault Plan** — Read `Artifacts/<Period>/Cycle 1/Week 1/triple-income-assault-v3.md` — the three-stream revenue architecture: WQR (SaaS) + Freelance (Services) + Digital Products (Passive). AI-Suplex is the force multiplier.
 5. **Architecture Spec** — Read `AI-Suplex Kick-start/Architecture Spec.md` for the complete 5‑layer architecture.
 6. **Context Kickstart** — Read the latest Context Kick-start (`AI-Suplex Kick-start/Context Kick-start/Active`). It summarises the project state reached in the last execution session — a compact from the chat session. **User tip:** Place Profile.md (stable info) and Active/ files (current session state, goals, blockers) here. The boot sequence loads this folder automatically.
 7. **Tasklists/** — Read the tasklist referenced in the session start's primary tasklist link.

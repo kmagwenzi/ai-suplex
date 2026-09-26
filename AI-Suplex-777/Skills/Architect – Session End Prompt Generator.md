@@ -1,4 +1,5 @@
 ---
+type: skill
 skill_name: "Architect – Session End Prompt Generator"
 role: "Architect"
 version: "1.0"

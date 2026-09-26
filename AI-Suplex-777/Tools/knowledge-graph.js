@@ -1,21 +1,21 @@
 #!/usr/bin/env node
 
 /**
- * graph.js — AI-Suplex Knowledge Graph
+ * knowledge-graph.js — AI-Suplex Knowledge Graph
  *
- * SQLite-backed knowledge graph that reads from LLM Wiki output
+ * SQLite-backed knowledge graph that reads from Vault Index output
  * and enables typed, bidirectional entity relationship queries.
  *
- * Usage: node Tools/graph.js <command> [--param value ...]
+ * Usage: node Tools/knowledge-graph.js <command> [--param value ...]
  *
  * Commands:
- *   --build             Full graph from Memory/wiki-index.md
- *   --build-current     Current week graph from Memory/wiki-current.md
+ *   --build             Full graph from Memory/vault-index.md
+ *   --build-current     Current week graph from Memory/vault-index-current.md
  *   --query <term>      Entity search + all relationships
  *   --path <A> <B>      Shortest path between two entities
  *   --hubs              Top 10 most-connected entities
  *   --orphans           Entities with zero relationships
- *   --export-markdown   Write Memory/graph/ as markdown files
+ *   --export-markdown   Write Memory/knowledge-graph/ as markdown files
  *   --status            Entity/relationship counts
  */
 
@@ -23,26 +23,66 @@ const fs = require("fs");
 const path = require("path");
 const { DatabaseSync } = require("node:sqlite");
 
+// The path contract — one parser for cycle-scoped paths across both layouts
+// (legacy `Cycle N/Week N` and period `<Period>/Cycle N/Week N`).
+const { parseCyclePath } = require("./paths");
+
 const VAULT_ROOT = path.join(__dirname, "..");
-const DB_PATH = path.join(VAULT_ROOT, "Memory", "graph.db");
-const GRAPH_DIR = path.join(VAULT_ROOT, "Memory", "graph");
-const WIKI_INDEX = path.join(VAULT_ROOT, "Memory", "wiki-index.md");
-const WIKI_CURRENT = path.join(VAULT_ROOT, "Memory", "wiki-current.md");
+// Test hooks: override the memory dir + source index files so the test suite can
+// build against temp fixtures without touching the real vault. Unset in
+// production — these resolve to the real Memory/ paths below.
+const MEMORY_DIR = process.env.KG_MEMORY_DIR || path.join(VAULT_ROOT, "Memory");
+const VAULT_INDEX = process.env.KG_VAULT_INDEX || path.join(VAULT_ROOT, "Memory", "vault-index.md");
+const VAULT_INDEX_CURRENT =
+  process.env.KG_VAULT_INDEX_CURRENT || path.join(VAULT_ROOT, "Memory", "vault-index-current.md");
+
+// One mode, one file — a build may only ever clear the file it is rebuilding.
+//   full    → Memory/knowledge-graph.db         (source: vault-index.md)
+//   current → Memory/knowledge-graph-current.db (source: vault-index-current.md)
+// Every read and write routes through dbPathFor(mode); no bare path is used.
+function dbPathFor(mode) {
+  return path.join(
+    MEMORY_DIR,
+    mode === "current" ? "knowledge-graph-current.db" : "knowledge-graph.db",
+  );
+}
+
+function graphDirFor(mode) {
+  return path.join(
+    MEMORY_DIR,
+    mode === "current" ? "knowledge-graph-current" : "knowledge-graph",
+  );
+}
+
+// Open a graph DB for reading. Existence is checked BEFORE open — a bare
+// `new DatabaseSync(path)` would silently create an empty file on a missing
+// current-week DB, so this guards the "nothing crashes" migration path.
+function openDb(mode) {
+  const dbPath = dbPathFor(mode);
+  if (!fs.existsSync(dbPath)) {
+    error(
+      mode === "current"
+        ? "No current-week graph found. Run --build-current first."
+        : "No graph found. Run --build first.",
+    );
+  }
+  return new DatabaseSync(dbPath);
+}
 
 // ── UTILS ──────────────────────────────────────────────
 
 const KITTY = "\n  \\x1b[1;33m╔══════════════════════════════╗\x1b[0m\n  \\x1b[1;33m║                         🦸  ║\x1b[0m\n  \\x1b[1;33m╚══════════════════════════════╝\x1b[0m\n";
 
 function log(label, msg) {
-  console.log(`\x1b[1;32m[graph ${label}]\x1b[0m ${msg}`);
+  console.log(`\x1b[1;32m[knowledge-graph ${label}]\x1b[0m ${msg}`);
 }
 
 function warn(msg) {
-  console.error(`\x1b[1;33m[graph warn]\x1b[0m ${msg}`);
+  console.error(`\x1b[1;33m[knowledge-graph warn]\x1b[0m ${msg}`);
 }
 
 function error(msg) {
-  console.error(`\x1b[1;31m[graph error]\x1b[0m ${msg}`);
+  console.error(`\x1b[1;31m[knowledge-graph error]\x1b[0m ${msg}`);
   process.exit(1);
 }
 
@@ -60,8 +100,8 @@ function writeMarkdown(filePath, content) {
   fs.writeFileSync(filePath, content);
 }
 
-function logToFile(detail) {
-  const logFile = path.join(VAULT_ROOT, "Memory", "graph", "log.md");
+function logToFile(detail, mode = "full") {
+  const logFile = path.join(graphDirFor(mode), "log.md");
   const now = new Date().toISOString();
   const entry = `- **${now}** — ${detail}\n`;
   const dir = path.dirname(logFile);
@@ -102,7 +142,7 @@ function classifyType(sectionHeader) {
 // ── MARKDOWN PARSER ────────────────────────────────────
 
 /**
- * Parse a wiki table row line.
+ * Parse a index table row line.
  * Format: | [Title](path) | date | focus | summary (may contain |) |
  *
  * Uses two-stage extraction: match the link first,
@@ -151,17 +191,15 @@ function parseTableLine(line, section) {
 }
 
 function extractCycleWeek(filePath) {
-  // Artifacts/Cycle 1/Week 4/... → cycle 1, week 4
-  const cwMatch = filePath.match(/Cycle\s+(\d+)\/Week\s+(\d+)/i);
-  if (cwMatch) return { cycle: cwMatch[1], week: cwMatch[2] };
-  // Memory/episodic/Cycle-1/Week-4/...
-  const altMatch = filePath.match(/Cycle-(\d+)\/Week-(\d+)/i);
-  if (altMatch) return { cycle: altMatch[1], week: altMatch[2] };
-  return { cycle: null, week: null };
+  // Delegates to the shared contract (Tools/paths.js) — one parser, both layouts.
+  // Historically this duplicated the regex, which is how the path contract drifted
+  // across ~106 files in the first place.
+  const cw = parseCyclePath(filePath);
+  return cw ? { cycle: cw.cycle, week: cw.week } : { cycle: null, week: null };
 }
 
 /**
- * Parse Entity Tags section from wiki markdown.
+ * Parse Entity Tags section from index markdown.
  * Format: - **#tag** — entity1, entity2, entity3 (+N more)
  */
 function parseEntityTags(content) {
@@ -195,13 +233,13 @@ function parseEntityTags(content) {
 }
 
 /**
- * Parse the full wiki markdown. Returns { entities, sections }.
+ * Parse the full index markdown. Returns { entities, sections }.
  *
  * entities: array of {title, path, type, focus, cycle, week, date, summary, section}
  * Two-pass:
  *   Pass 1 — extract all table rows with their parent section header.
  */
-function parseWikiMarkdown(content) {
+function parseIndexMarkdown(content) {
   const lines = content.split("\n");
   const entities = [];
   let currentSection = null;
@@ -446,30 +484,32 @@ function createSchema(db) {
 // ── BUILD ───────────────────────────────────────────────
 
 function build(useCurrent) {
-  const wikiPath = useCurrent ? WIKI_CURRENT : WIKI_INDEX;
-  const wikiName = useCurrent ? "wiki-current.md" : "wiki-index.md";
+  const vaultPath = useCurrent ? VAULT_INDEX_CURRENT : VAULT_INDEX;
+  const vaultFile = useCurrent ? "vault-index-current.md" : "vault-index.md";
+  const mode = useCurrent ? "current" : "full";
+  const dbPath = dbPathFor(mode);
 
-  if (!fs.existsSync(wikiPath)) {
-    error(`Wiki file not found: ${wikiPath}`);
+  if (!fs.existsSync(vaultPath)) {
+    error(`Vault index file not found: ${vaultPath}`);
   }
 
   console.log(KITTY);
-  log("build", `📚 Knowledge Graph — Reading ${wikiName}...`);
-  const content = readMarkdown(wikiPath);
+  log("build", `📚 Knowledge Graph — Reading ${vaultFile}...`);
+  const content = readMarkdown(vaultPath);
 
-  const parsed = parseWikiMarkdown(content);
+  const parsed = parseIndexMarkdown(content);
   log("parse", `${parsed.length} entities extracted from tables`);
 
-  // Parse entity tags from Entity Tags section (both wiki files have it)
+  // Parse entity tags from Entity Tags section (both vault index files have it)
   const entityTags = parseEntityTags(content);
   log("parse", `${Object.keys(entityTags).length} tag groups found in Entity Tags section`);
 
   // Ensure directory exists
-  const dir = path.dirname(DB_PATH);
+  const dir = path.dirname(dbPath);
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
   // Open DB and create schema
-  const db = new DatabaseSync(DB_PATH);
+  const db = new DatabaseSync(dbPath);
   createSchema(db);
 
   try {
@@ -530,7 +570,7 @@ function build(useCurrent) {
 
   log("rels", `${relInserted} relationships created`);
 
-  // Insert tags from Entity Tags section (both wiki files have it)
+  // Insert tags from Entity Tags section (both vault index files have it)
   if (entityTags && Object.keys(entityTags).length > 0) {
     const insertTag = db.prepare(
       "INSERT OR IGNORE INTO tags (entity_id, tag) VALUES (?, ?)"
@@ -559,12 +599,12 @@ function build(useCurrent) {
 
   // Commit transaction and log
   const relCount = db.prepare("SELECT COUNT(*) as c FROM relationships").get().c;
-  db.exec(`INSERT INTO logs (action, detail) VALUES ('build', 'Built ${wikiName}: ${inserted} entities, ${relCount} relationships')`);
+  db.exec(`INSERT INTO logs (action, detail) VALUES ('build', 'Built ${vaultFile}: ${inserted} entities, ${relCount} relationships')`);
   db.exec("COMMIT");
 
-  const detail = `Built ${wikiName}: ${inserted} entities, ${relCount} relationships`;
+  const detail = `Built ${vaultFile}: ${inserted} entities, ${relCount} relationships`;
   log("done", detail);
-  logToFile(detail);
+  logToFile(detail, mode);
   console.log(`\n  \x1b[1;33mTWABAM ⚡!\x1b[0m\n`);
 
   db.close();
@@ -578,12 +618,8 @@ function build(useCurrent) {
 
 // ── QUERY ───────────────────────────────────────────────
 
-function queryGraph(term) {
-  if (!fs.existsSync(DB_PATH)) {
-    error("No graph found. Run --build or --build-current first.");
-  }
-
-  const db = new DatabaseSync(DB_PATH);
+function queryGraph(term, mode = "full") {
+  const db = openDb(mode);
 
   const results = db.prepare(`
     SELECT * FROM entities
@@ -640,12 +676,8 @@ function queryGraph(term) {
 
 // ── PATH FINDING ────────────────────────────────────────
 
-function findPath(queryA, queryB) {
-  if (!fs.existsSync(DB_PATH)) {
-    error("No graph found. Run --build or --build-current first.");
-  }
-
-  const db = new DatabaseSync(DB_PATH);
+function findPath(queryA, queryB, mode = "full") {
+  const db = openDb(mode);
 
   const findEntity = db.prepare(`
     SELECT * FROM entities WHERE title LIKE ? OR path LIKE ? OR summary LIKE ? LIMIT 1
@@ -729,12 +761,8 @@ function findPath(queryA, queryB) {
 
 // ── HUBS ────────────────────────────────────────────────
 
-function showHubs() {
-  if (!fs.existsSync(DB_PATH)) {
-    error("No graph found. Run --build or --build-current first.");
-  }
-
-  const db = new DatabaseSync(DB_PATH);
+function showHubs(mode = "full") {
+  const db = openDb(mode);
 
   const hubs = db.prepare(`
     SELECT e.title, e.path, e.type, e.focus,
@@ -761,12 +789,8 @@ function showHubs() {
 
 // ── ORPHANS ─────────────────────────────────────────────
 
-function showOrphans() {
-  if (!fs.existsSync(DB_PATH)) {
-    error("No graph found. Run --build or --build-current first.");
-  }
-
-  const db = new DatabaseSync(DB_PATH);
+function showOrphans(mode = "full") {
+  const db = openDb(mode);
 
   const orphans = db.prepare(`
     SELECT e.title, e.path, e.type, e.focus
@@ -795,42 +819,58 @@ function showOrphans() {
 // ── STATUS ──────────────────────────────────────────────
 
 function showStatus() {
-  if (!fs.existsSync(DB_PATH)) {
-    console.log("\n  No graph built yet. Run --build or --build-current first.\n");
+  reportStatus("full");
+  reportStatus("current");
+}
+
+function reportStatus(mode) {
+  const dbPath = dbPathFor(mode);
+  const label = mode === "current" ? "Current-Week Graph" : "Full Graph";
+  const buildCmd = mode === "current" ? "--build-current" : "--build";
+
+  console.log(`\n\x1b[1;36m${label}\x1b[0m`);
+  console.log(`${"─".repeat(60)}`);
+  console.log(`  DB File:       ${dbPath}`);
+
+  // Guard existence BEFORE open — `new DatabaseSync(path)` would silently
+  // create an empty file for a missing DB and the COUNT(*) would throw.
+  if (!fs.existsSync(dbPath)) {
+    console.log(`  Status:        (not built yet — run ${buildCmd})\n`);
     return;
   }
 
-  const db = new DatabaseSync(DB_PATH);
+  const db = new DatabaseSync(dbPath);
 
   const entCount = db.prepare("SELECT COUNT(*) as c FROM entities").get();
   const relCount = db.prepare("SELECT COUNT(*) as c FROM relationships").get();
   const tagCount = db.prepare("SELECT COUNT(*) as c FROM tags").get();
   const lastBuild = db.prepare("SELECT * FROM logs ORDER BY id DESC LIMIT 1").get();
 
-  const typeCounts = db.prepare(`
-    SELECT type, COUNT(*) as c FROM entities GROUP BY type ORDER BY c DESC
-  `).all();
-
-  const focusCounts = db.prepare(`
-    SELECT focus, COUNT(*) as c FROM entities WHERE focus IS NOT NULL GROUP BY focus ORDER BY c DESC
-  `).all();
-
-  const fileSize = fs.statSync(DB_PATH).size;
+  const fileSize = fs.statSync(dbPath).size;
   const sizeKB = (fileSize / 1024).toFixed(1);
 
-  console.log(`\n\x1b[1;36mKnowledge Graph Status\x1b[0m`);
-  console.log(`${"─".repeat(60)}`);
-  console.log(`  Entities:          ${entCount.c}`);
-  console.log(`  Relationships:     ${relCount.c}`);
-  console.log(`  Tags:              ${tagCount.c}`);
-  console.log(`  DB Size:           ${sizeKB} KB`);
-  console.log(`  Last Built:        ${lastBuild ? lastBuild.created_at : "—"}`);
-  if (lastBuild) console.log(`  Detail:            ${lastBuild.detail}`);
+  console.log(`  Entities:      ${entCount.c}`);
+  console.log(`  Relationships: ${relCount.c}`);
+  console.log(`  Tags:          ${tagCount.c}`);
+  console.log(`  DB Size:       ${sizeKB} KB`);
+  console.log(`  Last Built:    ${lastBuild ? lastBuild.created_at : "—"}`);
+  if (lastBuild) console.log(`  Detail:        ${lastBuild.detail}`);
 
-  console.log(`\n  \x1b[1;33mBy Type:\x1b[0m`);
-  for (const t of typeCounts) {
-    const bar = "█".repeat(Math.min(t.c, 40));
-    console.log(`    ${t.type.padEnd(15)} ${bar} ${t.c}`);
+  // By Type / By Focus breakdown — restored (dropped in the mode-separation
+  // refactor; it is per-mode, so each graph reports its own split).
+  const typeCounts = db.prepare(
+    "SELECT type, COUNT(*) as c FROM entities GROUP BY type ORDER BY c DESC"
+  ).all();
+  const focusCounts = db.prepare(
+    "SELECT focus, COUNT(*) as c FROM entities WHERE focus IS NOT NULL GROUP BY focus ORDER BY c DESC"
+  ).all();
+
+  if (typeCounts.length > 0) {
+    console.log(`\n  \x1b[1;33mBy Type:\x1b[0m`);
+    for (const t of typeCounts) {
+      const bar = "█".repeat(Math.min(t.c, 40));
+      console.log(`    ${(t.type || "—").padEnd(15)} ${bar} ${t.c}`);
+    }
   }
 
   if (focusCounts.length > 0) {
@@ -847,16 +887,14 @@ function showStatus() {
 
 // ── EXPORT MARKDOWN ─────────────────────────────────────
 
-function exportMarkdown() {
-  if (!fs.existsSync(DB_PATH)) {
-    error("No graph found. Run --build or --build-current first.");
-  }
-
-  const db = new DatabaseSync(DB_PATH);
+function exportMarkdown(mode = "full") {
+  const db = openDb(mode);
+  const dir = graphDirFor(mode);
+  const linkPrefix = mode === "current" ? "knowledge-graph-current" : "knowledge-graph";
 
   const entities = db.prepare("SELECT * FROM entities ORDER BY title").all();
 
-  if (!fs.existsSync(GRAPH_DIR)) fs.mkdirSync(GRAPH_DIR, { recursive: true });
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
   // Build index
   let indexContent = `# 🧠 Knowledge Graph Index\n\n`;
@@ -870,16 +908,16 @@ function exportMarkdown() {
     byType[t].push(e);
   }
 
-  for (const [type, typeEntities] of Object.entries(byType).sort()) {
+  for (const [type, typeEntities] of Object.entries(byType).sort((a, b) => a[0].localeCompare(b[0]))) {
     indexContent += `## ${type.charAt(0).toUpperCase() + type.slice(1)}\n\n`;
     for (const e of typeEntities) {
       const slug = slugify(e.title);
-      indexContent += `- [${e.title}](graph/${slug}.md)\n`;
+      indexContent += `- [${e.title}](${linkPrefix}/${slug}.md)\n`;
     }
     indexContent += "\n";
   }
 
-  writeMarkdown(path.join(GRAPH_DIR, "index.md"), indexContent);
+  writeMarkdown(path.join(dir, "index.md"), indexContent);
   log("export", "index.md written");
 
   // Write per-entity files
@@ -917,12 +955,12 @@ function exportMarkdown() {
       }
     }
 
-    writeMarkdown(path.join(GRAPH_DIR, `${slug}.md`), content);
+    writeMarkdown(path.join(dir, `${slug}.md`), content);
     written++;
   }
 
-  log("export", `${written} entity pages written to Memory/graph/`);
-  log("done", `Exported ${written} entities to Memory/graph/`);
+  log("export", `${written} entity pages written to ${dir}/`);
+  log("done", `Exported ${written} entities to ${dir}/`);
 
   db.close();
 }
@@ -939,23 +977,26 @@ function slugify(text) {
 
 function showHelp() {
   console.log(`
-\x1b[1;33mgraph\x1b[0m — AI-Suplex Knowledge Graph CLI
+\x1b[1;33mknowledge-graph\x1b[0m — AI-Suplex Knowledge Graph CLI
 
-\x1b[1;36mCommands:\x1b[0m
-  --build             Full graph from Memory/wiki-index.md
-  --build-current     Current week graph from Memory/wiki-current.md
+\x1b[1;36mBuild (one file per mode — a build only ever clears its own DB):\x1b[0m
+  --build             Full graph: Memory/vault-index.md → Memory/knowledge-graph.db
+  --build-current     Current week: Memory/vault-index-current.md → Memory/knowledge-graph-current.db
+
+\x1b[1;36mRead (default FULL graph; append --current for the current-week graph):\x1b[0m
   --query <term>      Search entities + show relationships
   --path <A> <B>      Find shortest path between two entities
   --hubs              Top 10 most-connected entities
   --orphans           List entities with zero relationships
-  --export-markdown   Export graph to Memory/graph/ as markdown
-  --status            Entity/relationship counts + type breakdown
+  --export-markdown   Export to Memory/knowledge-graph[-current]/ as markdown
+  --status            BOTH DBs: entities / relationships / tags / last built
 
 \x1b[1;36mExamples:\x1b[0m
-  node Tools/graph.js --build-current
-  node Tools/graph.js --query POTRAZ
-  node Tools/graph.js --path "POTRAZ V6" "WQR"
-  node Tools/graph.js --hubs
+  node Tools/knowledge-graph.js --build
+  node Tools/knowledge-graph.js --build-current
+  node Tools/knowledge-graph.js --query POTRAZ
+  node Tools/knowledge-graph.js --query POTRAZ --current
+  node Tools/knowledge-graph.js --status
 `);
 }
 
@@ -968,6 +1009,8 @@ if (args.length === 0) {
   process.exit(0);
 }
 
+const isCurrent = args.includes("--current");
+
 switch (args[0]) {
   case "--build":
     build(false);
@@ -978,25 +1021,27 @@ switch (args[0]) {
     break;
 
   case "--query":
-    if (!args[1]) error("--query requires a search term");
-    queryGraph(args[1]);
+    if (!args[1] || args[1] === "--current") error("--query requires a search term");
+    queryGraph(args[1], isCurrent ? "current" : "full");
     break;
 
   case "--path":
-    if (!args[1] || !args[2]) error("--path requires two entity names");
-    findPath(args[1], args[2]);
+    if (args.length < 3 || args[1] === "--current" || args[2] === "--current") {
+      error("--path requires two entity names");
+    }
+    findPath(args[1], args[2], isCurrent ? "current" : "full");
     break;
 
   case "--hubs":
-    showHubs();
+    showHubs(isCurrent ? "current" : "full");
     break;
 
   case "--orphans":
-    showOrphans();
+    showOrphans(isCurrent ? "current" : "full");
     break;
 
   case "--export-markdown":
-    exportMarkdown();
+    exportMarkdown(isCurrent ? "current" : "full");
     break;
 
   case "--status":

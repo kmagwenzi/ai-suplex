@@ -36,24 +36,21 @@ After generating the B‑Bomb, extract and report:
 - Any index updates required.
 
 ▶️ 3LM COMMAND:
-   If you have filesystem access (Claude Code, Cursor, Zed):
-   → Append each extracted lesson to Memory/lessons.md under ## Current Lessons
-   
-   If you are web-based (ChatGPT, DeepSeek web):
-   → Print these lessons so the user can paste them into Memory/lessons.md
-   
+   Push each extracted lesson (max 3) via the quick-capture command:
+     node Tools/3lm.js add-lessons --source b-bomb --ref <b-bomb-title> --list "lesson one" "lesson two"
+
+   The LLM knows the lessons — extract them directly, no episode round-trip.
    Lessons are scored on Saturday's 3lm promote --min 70.
    To close the session and run the full loop: click 🏁 End in Obsidian.
 
 
 ▶️ 3LM QUICK CAPTURE — Run after capturing:
-   If you have terminal access (Claude Code, Cursor, Zed):
-   → Run silently: node Tools/3lm.js learn && node Tools/3lm.js index
-   
-   If you are web-based (ChatGPT, DeepSeek web) without terminal access:
-   → Print: "Run from terminal: node Tools/3lm.js learn && node Tools/3lm.js index"
-   
-   This extracts the lesson from your capture immediately.
+   node Tools/3lm.js add-lessons --source b-bomb --ref <b-bomb-title> --list "lesson one" "lesson two" && node Tools/3lm.js index
+
+   ⚠️ ON FAILURE — give the user the exact commands to complete artifact capture + 3lm:
+     1. Save the B-Bomb to B-Bombs/<Period>/Cycle X/Week Y/
+     2. node Tools/3lm.js add-lessons --source b-bomb --ref <b-bomb-title> --list "lesson one" "lesson two"
+     3. node Tools/3lm.js index
 MEMORY RULES:
 - Promote only stable, repeated truths to semantic memory.
 - Promote only repeatable workflows to procedural memory.
@@ -64,7 +61,7 @@ MEMORY RULES:
 - The markdown vault remains canonical.
 ADDITIONAL INSTRUCTIONS: NONE 
 # Specify post-generation tasks: Remove `#` for list item below add new instruction
-# - AI-Suplex-777/B-Bombs/Cycle 1/Week 1 folder"
+# - AI-Suplex-777/B-Bombs/<Period>/Cycle 1/Week 1 folder"
 # - Use the file naming convention: fileName = `YYYY-MM-DD-b-bomb-${mission-title}-${focus}.md`;
 # - Open saved file in new tab 
 
@@ -99,7 +96,7 @@ CONTEXT: Promote an AI-Suplex artifact to a polished B-Bomb with productization 
 TEMPLATE: AI-Suplex-777/Templates/AI-Suplex - B-Bomb Template
 
 TASK: Act as Builder. Generate a complete AI-Suplex B-Bomb by promoting the provided artifact content, following the exact structure and formatting from the B-Bomb Template.
-ADDITIONAL INSTRUCTIONS: Save file in B-Bombs/Cycle 1/Week 1/ folder as "WQR-Paynow-Webhook-B-Bomb.md"
+ADDITIONAL INSTRUCTIONS: Save file in B-Bombs/<Period>/Cycle 1/Week 1/ folder as "WQR-Paynow-Webhook-B-Bomb.md"
 
 CONTENT:
 <content>

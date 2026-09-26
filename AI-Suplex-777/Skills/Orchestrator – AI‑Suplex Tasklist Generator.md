@@ -1,4 +1,5 @@
 ---
+type: skill
 skill_name: "Orchestrator – AI‑Suplex Tasklist Generator"
 role: "Orchestrator"
 version: "1.0"
@@ -8,6 +9,7 @@ tags: [skill, orchestrator, tasklist, ai-suplex]
 # Orchestrator Skill: AI‑Suplex Tasklist Generator
 ## 🎯 Purpose
 Convert a Hustler's raw to‑do list (or natural language goals) into a **structured AI‑Suplex Tasklist** with:
+- **Phase 0 — Context Core** (every daily tasklist starts with `node Tools/3lm.js start --context`)
 - **Mission** (one sentence)
 - **Tasks** (atomic actions, each with a checkbox)
 - **Success metrics** (measurable outcomes)
@@ -45,12 +47,25 @@ Success_Metrics:
 
 **Duration:** 120 min  
 **Nature:** execution
+```
 
-text
+**Every generated tasklist MUST also start with the Context Core phase (add before any other phase):**
+
+```
+## ⚡ Phase 0 — Context Core (Session Start)
+| ID | Role | Duration | Task | Nature |
+|----|------|----------|------|--------|
+| T000 | Hustler | 5 min | Run `node Tools/3lm.js start --context` — staleness guard + generated session context (Graph RAG Impl 2) | Execution |
+
+**Success:**
+- [ ] `✅ Context fresh.` (staleness guard green)
+- [ ] Generated 5-section session context loaded (last sessions · blockers · B-Bombs · insights · cross-focus)
+```
 
 ---
 ## 🧠 Workflow Instructions
 When the Hustler gives a raw to‑do list:
+0. **Add Phase 0 — Context Core first:** every generated daily tasklist opens with T000: run `node Tools/3lm.js start --context` (staleness guard + generated session context). This primes the mission brief before execution.
 1. **Group related tasks** into a single mission if they belong together.
 2. **Break each mission into atomic tasks** (max 5‑7 per block). Each task should start with a verb.
 3. **Define success metrics** – concrete, verifiable outcomes.
@@ -61,6 +76,7 @@ When the Hustler gives a raw to‑do list:
 8. **If tasks are for different roles**, create separate blocks (e.g., one for Builder, one for Hustler).
 ---
 ## ✅ Quality Checklist
+- [ ] Phase 0 — Context Core included as the first phase (`node Tools/3lm.js start --context`).
 - [ ] Mission is a single sentence.
 - [ ] Each task starts with a verb and is actionable.
 - [ ] Success metrics are measurable (not vague).

@@ -1,4 +1,5 @@
 ---
+type: skill
 skill_name: "Orchestrator – Cycle Plan Generator"
 role: "Orchestrator"
 version: "1.0"
@@ -34,7 +35,7 @@ The Hustler provides:
 
 ## 📤 Output
 
-A markdown document saved to `AI-Suplex-777/Plans/Cycle X Plan.md` with the following structure:
+A markdown document saved to `AI-Suplex-777/Plans/<Period>/Cycle X/Cycle X Plan.md` with the following structure:
 
 ```markdown
 # 🎯 7-WEEK CYCLE X – [STRATEGIC THEME]
@@ -116,8 +117,8 @@ If the Hustler provides financial targets:
 
 ### 8. Output the Plan
 - Present the plan in chat for Hustler review.
-- Offer to save to `AI-Suplex-777/Plans/Cycle X Plan.md`.
-- Offer to persist strategic decisions to CortexMem.
+- Offer to save to `AI-Suplex-777/Plans/<Period>/Cycle X/Cycle X Plan.md`.
+- Offer to save strategic decisions to Memory/lessons.md for 3lm promote.
 
 ---
 
@@ -128,7 +129,7 @@ If the Hustler provides financial targets:
 | **Previous Cycle Review** | Load Cycle X-1 review for context before planning |
 | **Focuses.md** | Reference current focus areas for alignment |
 | **Tasklist Generation** | After plan is approved, generate Week 1 tasklist |
-| **CortexMem** | Save strategic decisions: `node cm save_context --context_type decision --content "Cycle X Plan: <strategic theme> | phases: <phase summary>"` |
+| **3lm** | Save strategic decisions: Append to Memory/lessons.md, then run 3lm promote --min 70 |
 | **Session Planning** | Use weekly deliverables to drive session start prompts |
 | **B‑Bomb Promotion** | Wee-ends of Phase 2+ for promoting key deliverables |
 
@@ -164,7 +165,7 @@ If the Hustler provides financial targets:
 | Ignoring energy management | Crash by Week 4 | Schedule lighter weeks after heavy ones |
 | Vague success metrics | Can't measure progress | Quantify everything ("3 clients", "$500 revenue") |
 | No review week | No learning cycle | Week 7 must include review + next cycle planning |
-| Too many focuses per week | context switching kills depth | Max 2 focuses per day, 3 per week |
+| Too many focuses per week | Context switching kills depth | Max 2 focuses per day, 3 per week |
 
 ---
 

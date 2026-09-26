@@ -151,4 +151,4 @@ References: [[2026-04-12-AI-Suplex-Tasklist-ai-suplex-core-&-777-launch]]
 
 #### Sources
 [^1]: [[Architect – Session Start Prompt Generator]]
-[^2]: [[2026-04-12-ai-suplex-core-&-777-launch-ai-suplex-tasklist]]
+[^2]: [[2026-04-12-ai-suplex-core-&-777-launch-ai-suplex-tasklist 1]]

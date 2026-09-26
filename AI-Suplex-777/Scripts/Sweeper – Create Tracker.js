@@ -5,6 +5,33 @@ module.exports = async (quickAdd) => {
     const { app, quickAddApi } = quickAdd;
     const vault = app.vault;
 
+    // ── Paths (Period Structure, decision ④): shared module + inlined fallback ──
+    const PC = (() => { try { return require("Scripts/lib/paths.js"); } catch (_) {
+      const PERIOD_FILE = "AI-Suplex-777/period.md", PRE = "0000-Build";
+      const j = (...p) => p.map(x => String(x).replace(/^\/+|\/+$/g, "")).filter(Boolean).join("/");
+      const bind = (label) => { const per = c => Number(c) === 0 ? PRE : label; return {
+        label,
+        artifactDir: (c,w) => j("AI-Suplex-777","Artifacts",per(c),`Cycle ${c}`,`Week ${w}`),
+        bBombDir:    (c,w) => j("AI-Suplex-777","B-Bombs",per(c),`Cycle ${c}`,`Week ${w}`),
+        insightDir:  (c)   => j("AI-Suplex-777","Insights",per(c),`Cycle ${c}`),
+        insightFile: (c,w) => j("AI-Suplex-777","Insights",per(c),`Cycle ${c}`,`Week ${w}.md`),
+        reviewDir:   (c,w) => j("AI-Suplex-777","Reviews",per(c),"Weekly",`Cycle ${c}`,`Week ${w}`),
+        reviewCycleDir:(c) => j("AI-Suplex-777","Reviews",per(c),"Weekly",`Cycle ${c}`),
+        mocsDir:     (c)   => j("AI-Suplex-777","MOCs",per(c),"Weekly",`Cycle ${c}`),
+        planDir:     (c)   => j("AI-Suplex-777","Plans",per(c),`Cycle ${c}`),
+        periodPlanDir:()   => j("AI-Suplex-777","Plans",label),
+        episodicDir: (c,w) => j("AI-Suplex-777","Memory","episodic",per(c),`Cycle-${c}`,`Week-${w}`),
+        nextStepsDir:(c)   => j("AI-Suplex-777","Next Steps",per(c),`Cycle ${c}`),
+        cycleDir: (tree,c) => j("AI-Suplex-777",tree,per(c),`Cycle ${c}`),
+      }; };
+      return { VAULT_PREFIX: "AI-Suplex-777", PRE_PERIOD: PRE, PERIOD_FILE, parseLabel: raw => { const m = String(raw||"").match(/^\s*period_label:\s*"?([^"\n]+?)"?\s*$/m); return m ? m[1].trim() : null; }, periodFor: (c,l) => Number(c)===0?PRE:l, joinPath: j, bind };
+    } })();
+    const P = await (async () => {
+      const label = PC.parseLabel(await app.vault.adapter.read(PC.PERIOD_FILE));
+      if (!label) throw new Error("period.md has no readable period_label");
+      return PC.bind(label);
+    })();
+
     // --- Helper: read focuses from Focuses.md ---
     async function readFocuses() {
         const focusesPath = "AI-Suplex-777/Focuses.md";
@@ -98,7 +125,7 @@ module.exports = async (quickAdd) => {
         let count = 0;
         const folders = ["AI-Suplex-777/Artifacts", "AI-Suplex-777/B-Bombs"];
         for (const folder of folders) {
-            const path = `${folder}/Cycle ${cycle}/Week ${week}`;
+            const path = folder.includes("Artifacts") ? P.artifactDir(cycle, week) : P.bBombDir(cycle, week);
             if (await vault.adapter.exists(path)) {
                 const files = vault.getMarkdownFiles().filter(f => f.path.startsWith(path));
                 count += files.length;
@@ -108,7 +135,7 @@ module.exports = async (quickAdd) => {
     }
 
     async function countInsights(cycle, week) {
-        const path = `AI-Suplex-777/Insights/Cycle ${cycle}/Week ${week}.md`;
+        const path = P.insightFile(cycle, week);
         if (!(await vault.adapter.exists(path))) return 0;
         const content = await vault.read(vault.getAbstractFileByPath(path));
         const matches = content.match(/^-\s+/gm);

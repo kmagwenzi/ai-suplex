@@ -95,7 +95,7 @@ tags: [context, kickstart, cycle-X, week-Y]
 |----------|----------|
 | Tasklist | `Tasklists/Active/[filename].md` |
 | Session Start | `Sessions/Active/Start/[filename].md` |
-| Artifacts | `Artifacts/Cycle X/Week Y/` |
+| Artifacts | `Artifacts/<Period>/Cycle X/Week Y/` |
 
 ---
 

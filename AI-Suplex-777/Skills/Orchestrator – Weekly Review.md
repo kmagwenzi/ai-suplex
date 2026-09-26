@@ -1,4 +1,5 @@
 ---
+type: skill
 skill_name: "Orchestrator – Weekly Review"
 role: "Orchestrator"
 version: "1.0"
@@ -23,7 +24,7 @@ The review can be generated from:
 - Directly from session end reports, insights, and trackers
 - A combination of the above
 
-The output is a markdown document suitable for saving in `AI-Suplex-777/Reviews/Weekly/` and for use in planning the next cycle/week.
+The output is a markdown document suitable for saving in `AI-Suplex-777/Reviews/<Period>/Weekly/` and for use in planning the next cycle/week.
 
 ---
 
@@ -86,7 +87,7 @@ A markdown document with the following structure:
 - [[Tasklists/Combined/]]
 ```
 
-The AI will present the review in the chat. The Hustler can then ask to save it to `AI-Suplex-777/Reviews/Weekly/Week {{Y}} Review.md`.
+The AI will present the review in the chat. The Hustler can then ask to save it to `AI-Suplex-777/Reviews/<Period>/Weekly/Cycle {{X}}/Week {{Y}}/Week {{Y}} Review.md`.
 
 ---
 
@@ -102,7 +103,7 @@ When the Hustler says *“Orchestrator, generate a weekly review for Cycle 1, We
 ### 2. Gather data
 - **Session end files** in `AI-Suplex-777/Sessions/Active/End/` (and optionally `Archive/End/`) that match the cycle and week.
 - **Artifacts** and **B‑Bombs** created during that period (check `date` in frontmatter or file modification time).
-- **Insights** from `AI-Suplex-777/Insights/Cycle X/Week Y.md` (if exists).
+- **Insights** from `AI-Suplex-777/Insights/<Period>/Cycle X/Week Y.md` (if exists).
 - **MOCs** and **Trackers** – optionally read them for enhanced highlights (if the Hustler ran the Sweeper enhance script).
 
 ### 3. Calculate aggregates
@@ -150,7 +151,7 @@ When the Hustler says *“Orchestrator, generate a weekly review for Cycle 1, We
 
 ### 10. Present the review
 - Output the markdown.
-- Ask the Hustler if they want to save it to `Reviews/Weekly/`. If yes, write the file.
+- Ask the Hustler if they want to save it to `Reviews/<Period>/Weekly/Cycle {{X}}/Week {{Y}}/`. If yes, write the file.
 
 ---
 

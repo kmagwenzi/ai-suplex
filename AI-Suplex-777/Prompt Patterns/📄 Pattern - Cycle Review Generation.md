@@ -53,7 +53,7 @@ MEMORY RULES:
 - The markdown vault remains canonical.
 ADDITIONAL INSTRUCTIONS: NONE 
 # Specify post-generation tasks: Remove `#` for list items below add new post-generation instructions
-# - Save file in AI-Suplex-777/Reviews/ folder as `Cycle X Review.md`
+# - Save file in AI-Suplex-777/Reviews/<Period>/Weekly/Cycle X/ folder as `Cycle X Review.md`
 # - Open saved file in new tab 
 # - Use the review to generate tasklist for next cycle
 
@@ -87,14 +87,14 @@ CONTEXT: Generate a comprehensive 7‑week cycle review from session data, artif
 EXAMPLE: AI-Suplex-777/Skills/Orchestrator – Cycle Review.md
 
 TASK: Act as Orchestrator. Generate a complete 7‑week cycle review using the data sources provided, following the exact structure and methodology from the Cycle Review skill. Include executive summary, focus area performance, cycle achievements, lessons learned, strategic recommendations, and next cycle goals.
-ADDITIONAL INSTRUCTIONS: Save the generated review to the `AI-Suplex-777/Reviews/` folder as `Cycle 1 Review.md`.
+ADDITIONAL INSTRUCTIONS: Save the generated review to the `AI-Suplex-777/Reviews/<Period>/Weekly/Cycle 1/` folder as `Cycle 1 Review.md`.
 
 CONTENT:
 <content>
 Source:
 - Cycle Number: "Cycle 1"
 - Strategic Context: "This was the inaugural cycle of AI-Suplex 7‑7‑7 system. Focus was on system setup, testing, and creating launch assets."
-- Data References: "Examine all sessions in Cycle 1 folders, artifacts in Artifacts/Cycle 1/, B-Bombs in B-Bombs/Cycle 1/, and trackers for all focus areas."
+- Data References: "Examine all sessions in Cycle 1 folders, artifacts in Artifacts/<Period>/Cycle 1/, B-Bombs in B-Bombs/<Period>/Cycle 1/, and trackers for all focus areas."
 - Raw Notes: "Pay special attention to Digital Products focus as it had the most activity. Look for patterns in session energy and productivity."
 </content>
 

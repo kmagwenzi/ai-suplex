@@ -47,7 +47,7 @@ MEMORY RULES:
 - Memory is managed via 3lm CLI. The vault is canonical.
 - The markdown vault remains canonical.
 ADDITIONAL INSTRUCTIONS:
-- Save file in AI-Suplex-777/Plans/ folder
+- Save file in AI-Suplex-777/Plans/<Period>/Cycle X/ folder
 - Name file as: Cycle X Plan.md (replace X with cycle number)
 - After saving, offer to generate a Week 1 tasklist using the Tasklist Generation pattern
 
@@ -87,7 +87,7 @@ TEMPLATE: AI-Suplex-777/Templates/AI-Suplex - Cycle Plan Template
 
 TASK: Act as Orchestrator. Generate a complete 7-week cycle plan using the raw input provided, following the exact structure and formatting from the example. Include cycle structure (4 phases), week-by-week breakdown (Weeks 1, 2–3, 4–5, 6–7), financial forecast table, and critical success factors. Output the plan in chat for Hustler review, then offer to save.
 ADDITIONAL INSTRUCTIONS:
-- Save file in AI-Suplex-777/Plans/ folder as Cycle 2 Plan.md
+- Save file in AI-Suplex-777/Plans/<Period>/Cycle 2/ folder as Cycle 2 Plan.md
 - After saving, offer to generate a Week 1 tasklist using the Tasklist Generation pattern
 
 CONTENT:
@@ -149,7 +149,7 @@ When this pattern is used, the AI (acting as Orchestrator) will generate a compl
 | Stage | Action |
 |-------|--------|
 | **Pre-requisite** | Run `Sweeper – Generate Cycle Review` to close previous cycle (skip for Cycle 1) |
-| **Post-generation** | Save file to `AI-Suplex-777/Plans/Cycle X Plan.md` |
+| **Post-generation** | Save file to `AI-Suplex-777/Plans/<Period>/Cycle X/Cycle X Plan.md` |
 | **Week 1 Tasklist** | Use the [[📄 Pattern - Tasklist Generation]] pattern to generate Week 1 tasks from the plan |
 | **Session Planning** | Reference weekly deliverables when generating session start prompts |
 | **3lm** | Cycle plan decisions routed via MEMORY LOOP in pattern — run 3lm promote to persist |

@@ -1,10 +1,37 @@
 // Extract Next Steps from Frontmatter – AI‑Suplex Sweeper Skill (Fixed)
 // Scans Artifacts, B‑Bombs, Session End files for next_actions frontmatter
-// Appends to Next Steps/Cycle X/Week X.md, respecting last processed timestamp
+// Appends to Next Steps/<Period>/Cycle X/Week X.md, respecting last processed timestamp
 
 module.exports = async (quickAdd) => {
     const { app, quickAddApi } = quickAdd;
     const vault = app.vault;
+
+    // ── Paths (Period Structure, decision ④): shared module + inlined fallback ──
+    const PC = (() => { try { return require("Scripts/lib/paths.js"); } catch (_) {
+      const PERIOD_FILE = "AI-Suplex-777/period.md", PRE = "0000-Build";
+      const j = (...p) => p.map(x => String(x).replace(/^\/+|\/+$/g, "")).filter(Boolean).join("/");
+      const bind = (label) => { const per = c => Number(c) === 0 ? PRE : label; return {
+        label,
+        artifactDir: (c,w) => j("AI-Suplex-777","Artifacts",per(c),`Cycle ${c}`,`Week ${w}`),
+        bBombDir:    (c,w) => j("AI-Suplex-777","B-Bombs",per(c),`Cycle ${c}`,`Week ${w}`),
+        insightDir:  (c)   => j("AI-Suplex-777","Insights",per(c),`Cycle ${c}`),
+        insightFile: (c,w) => j("AI-Suplex-777","Insights",per(c),`Cycle ${c}`,`Week ${w}.md`),
+        reviewDir:   (c,w) => j("AI-Suplex-777","Reviews",per(c),"Weekly",`Cycle ${c}`,`Week ${w}`),
+        reviewCycleDir:(c) => j("AI-Suplex-777","Reviews",per(c),"Weekly",`Cycle ${c}`),
+        mocsDir:     (c)   => j("AI-Suplex-777","MOCs",per(c),"Weekly",`Cycle ${c}`),
+        planDir:     (c)   => j("AI-Suplex-777","Plans",per(c),`Cycle ${c}`),
+        periodPlanDir:()   => j("AI-Suplex-777","Plans",label),
+        episodicDir: (c,w) => j("AI-Suplex-777","Memory","episodic",per(c),`Cycle-${c}`,`Week-${w}`),
+        nextStepsDir:(c)   => j("AI-Suplex-777","Next Steps",per(c),`Cycle ${c}`),
+        cycleDir: (tree,c) => j("AI-Suplex-777",tree,per(c),`Cycle ${c}`),
+      }; };
+      return { VAULT_PREFIX: "AI-Suplex-777", PRE_PERIOD: PRE, PERIOD_FILE, parseLabel: raw => { const m = String(raw||"").match(/^\s*period_label:\s*"?([^"\n]+?)"?\s*$/m); return m ? m[1].trim() : null; }, periodFor: (c,l) => Number(c)===0?PRE:l, joinPath: j, bind };
+    } })();
+    const P = await (async () => {
+      const label = PC.parseLabel(await app.vault.adapter.read(PC.PERIOD_FILE));
+      if (!label) throw new Error("period.md has no readable period_label");
+      return PC.bind(label);
+    })();
 
     // --- Helper: ensure folder exists ---
     async function ensureFolder(folderPath) {
@@ -49,7 +76,7 @@ module.exports = async (quickAdd) => {
 
     // --- Helper: append entry to weekly Next Steps file ---
     async function appendNextStep(cycle, week, capturedDate, taskText, sourcePath) {
-        const folderPath = `AI-Suplex-777/Next Steps/Cycle ${cycle}`;
+        const folderPath = P.nextStepsDir(cycle);
         await ensureFolder(folderPath);
         const filePath = `${folderPath}/Week ${week}.md`;
         let file = vault.getAbstractFileByPath(filePath);
@@ -99,7 +126,7 @@ module.exports = async (quickAdd) => {
         let cycle = frontmatter.cycle;
         let week = frontmatter.week;
         if (!cycle || !week) {
-            // Fallback: try to extract from path (e.g., Artifacts/Cycle 1/Week 2/...)
+            // Fallback: try to extract from path (e.g., Artifacts/<Period>/Cycle 1/Week 2/...)
             const cycleMatch = filePath.match(/Cycle (\d+)/i);
             const weekMatch = filePath.match(/Week (\d+)/i);
             if (cycleMatch) cycle = parseInt(cycleMatch[1]);

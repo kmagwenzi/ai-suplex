@@ -1,29 +1,41 @@
 #!/usr/bin/env node
 /**
- * 🦸 LLM Wiki — Vault Awareness Engine for AI-Suplex
+ * 🦸 Vault Index — Vault Awareness Engine for AI-Suplex
  *
- * Karpathy-style LLM Wiki adapted for AI-Suplex's file-first paradigm.
- * Scans the vault, extracts frontmatter + summaries, builds a tiered index
- * so the AI agent knows every file without manual path references.
+ * A Karpathy-style knowledge index adapted for AI-Suplex's file-first paradigm.
+ * Scans the vault, extracts frontmatter + summaries, and emits a clean
+ * four-file contract (plus an append-only log) so each file does ONE job:
+ *
+ *   vault-context.md       — agent-facing session brief (READ ALWAYS). Never parsed by the graph.
+ *   vault-full.md          — full search index (SEARCH ON DEMAND). All tiers, deduplicated.
+ *   vault-index.md         — MACHINE graph node/edge source (read by knowledge-graph.js --build).
+ *   vault-index-current.md — current-window graph source (read by knowledge-graph.js --build-current).
+ *   vault-log.md           — append-only audit log.
  *
  * Usage:
- *   node Tools/llm-wiki.js           # Full scan — all tiers
- *   node Tools/llm-wiki.js --quick   # Tier 1 only (fast, for session start)
- *
- * Output:
- *   Memory/wiki-index.md  — Tier 1 compact index (agent reads every session)
- *   Memory/wiki-full.md   — All tiers (searchable reference)
- *   Memory/wiki-log.md    — Chronological append-only log
+ *   node Tools/vault-index.js           # Full scan — all tiers (index + full + log)
+ *   node Tools/vault-index.js --quick   # Tier 1 only (graph source + log)
+ *   node Tools/vault-index.js --current # Session brief + current graph source
+ *   node Tools/vault-index.js --days N  # retention window for the brief (default 14)
  *
  * TWABAM ⚡!
  */
 
 const fs = require("fs");
 const path = require("path");
+const { execFileSync } = require("child_process");
+
+// — Path contract (single source of truth) ————————————————————————————————
+// Every cycle-scoped path resolves through Tools/paths.js. `P.resolve()` keeps this
+// tool correct on BOTH layouts during the Period migration (Phase 3 before Phase 4):
+// it returns whichever path actually exists, and falls back to the layout the tree
+// is currently in — so output stays identical to the pre-migration baseline.
+const P = require("./paths");
+const { parseCyclePath } = P;
 
 // — Config ——————————————————————————————————————————————————————————————
 const ROOT = path.resolve(__dirname, "..");
-const WIKI_DIR = path.join(ROOT, "Memory");
+const VAULT_DIR = path.join(ROOT, "Memory");
 const NOW = new Date().toISOString().replace("T", " ").slice(0, 19);
 const DATE = new Date().toISOString().slice(0, 10);
 const TIME = new Date().toTimeString().slice(0, 8).replace(/:/g, "");
@@ -46,7 +58,7 @@ const SKIP_PATTERNS = [
 // — Tier Definitions ———————————————————————————————————————————————————————
 const TIERS = {
   1: {
-    label: "Core Knowledge — Agent reads every session",
+    label: "Core Knowledge — graph node/edge source",
     dirs: [
       "Artifacts",
       "B-Bombs",
@@ -54,6 +66,8 @@ const TIERS = {
       "Memory/procedural",
       "Memory/episodic",
       "Memory/governance",
+      "Projects/Agents Terminal V3/Agents Terminal V3 — Specification.md",
+      "Projects/Agents Terminal V3/Agents Terminal/orchestrator",
     ],
     filter: (fp) => {
       if (!fp.endsWith(".md")) return false;
@@ -101,7 +115,7 @@ const TIERS = {
 
 // — Helpers ———————————————————————————————————————————————————————————————
 function log(label, msg) {
-  console.log(`\x1b[1;36m[llm-wiki ${label}]\x1b[0m ${msg}`);
+  console.log(`\x1b[1;36m[vault-index ${label}]\x1b[0m ${msg}`);
 }
 
 function shouldSkip(relPath) {
@@ -169,9 +183,10 @@ function getEntityTags(fm, summary) {
   if (fm.focus) tags.push(fm.focus);
   // Key entities from summary
   const entities = [
-    "3lm", "memory", "semantic", "procedural", "episodic",
-    "artifact", "b-bomb", "insight", "session", "tasklist",
-    "skill", "prompt pattern", "orchestrator", "promote", "knowledge graph",
+    "WQR", "AI-Suplex", "Agents Terminal", "POTRAZ", "compound loop",
+    "3lm", "Saturday Promote", "EcoCash", "Voice AI", "DeepSeek",
+    "Fireworks", "AMD", "n8n", "Redis", "PostgreSQL", "WhatsApp",
+    "B-Bomb", "artifact", "memory", "orchestrator", "sub-agent",
   ];
   for (const e of entities) {
     if (summary.toLowerCase().includes(e.toLowerCase())) {
@@ -179,6 +194,11 @@ function getEntityTags(fm, summary) {
     }
   }
   return [...new Set(tags)]; // deduplicate
+}
+
+function isBBombCandidate(fm) {
+  const v = fm.b_bomb_candidate;
+  return v === true || v === "true" || fm.status === "candidate";
 }
 
 // — Scanner ———————————————————————————————————————————————————————————————
@@ -212,6 +232,7 @@ function scanDirectory(dirRel) {
           tags,
           size: stat.size,
           modified: stat.mtime.toISOString().slice(0, 19),
+          b_bomb_candidate: isBBombCandidate(fm),
         });
       } catch (e) {
         log("warn", `Could not read: ${dirRel}`);
@@ -253,6 +274,7 @@ function scanDirectory(dirRel) {
             tags,
             size: stat.size,
             modified: stat.mtime.toISOString().slice(0, 19),
+            b_bomb_candidate: isBBombCandidate(fm),
           });
         } catch (e) {
           log("warn", `Could not read: ${subRel}`);
@@ -287,9 +309,9 @@ function scanTier(tierNum, tierConfig) {
 }
 
 // — Generator —————————————————————————————————————————————————————————————
-function generateWikiIndex(tierData, label) {
+function generateVaultIndex(tierData, label) {
   let md = "";
-  md += "# 🦸 AI-Suplex Wiki Index\n\n";
+  md += "# 🦸 AI-Suplex Vault Index\n\n";
   md += `> ${label}\n`;
   md += `> Generated: ${NOW}\n\n`;
 
@@ -299,9 +321,10 @@ function generateWikiIndex(tierData, label) {
     const parent = path.dirname(entry.path).split(path.sep)[0];
     let group = parent;
 
-    // More specific grouping
-    if (entry.path.includes("Artifacts/Cycle")) group = "Artifacts";
-    else if (entry.path.includes("B-Bombs/Cycle")) group = "B-Bombs";
+    // More specific grouping — parse the path, never string-match a layout
+    const cw = parseCyclePath(entry.path);
+    if (cw && entry.path.startsWith("Artifacts/")) group = "Artifacts";
+    else if (cw && entry.path.startsWith("B-Bombs/")) group = "B-Bombs";
     else if (entry.path.includes("Memory/episodic")) group = "Memory — Episodic";
     else if (entry.path.includes("Memory/semantic")) group = "Memory — Semantic";
     else if (entry.path.includes("Memory/procedural")) group = "Memory — Procedural";
@@ -346,17 +369,284 @@ function generateWikiIndex(tierData, label) {
     md += `- **#${tag}** — ${titles}${tagMap[tag].length > 5 ? ` (+${tagMap[tag].length - 5} more)` : ""}\n`;
   }
 
-  md += "\n---\n*Generated by vault-index — Deep Ultra 🦸. TWABAM ⚡!*\n";
+  md += "\n---\n*Generated by Vault Index — Deep Ultra 🦸. TWABAM ⚡!*\n";
   return md;
 }
 
-function generateWikiLog(entries, prevLogContent) {
+// — Brief Generator (vault-context.md) —————————————————————————————————
+function withinDays(dateStr, days) {
+  if (!dateStr) return false;
+  const d = new Date(dateStr.slice(0, 10));
+  if (isNaN(d.getTime())) return false;
+  return Date.now() - d.getTime() <= days * 86400000;
+}
+
+function normalizeTitle(t) {
+  return String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function truncateText(s, n) {
+  s = String(s || "").replace(/\s+/g, " ").trim();
+  return s.length > n ? s.slice(0, n - 1) + "…" : s;
+}
+
+function scanActiveTasklists() {
+  const dir = path.join(ROOT, "Tasklists", "Active");
+  if (!fs.existsSync(dir)) return [];
+  const files = fs.readdirSync(dir)
+    .filter((f) => f.endsWith(".md"))
+    .map((f) => path.join("Tasklists", "Active", f))
+    .sort((a, b) => fs.statSync(path.join(ROOT, b)).mtime - fs.statSync(path.join(ROOT, a)).mtime);
+  const out = [];
+  for (const rel of files.slice(0, 3)) {
+    try {
+      const content = fs.readFileSync(path.join(ROOT, rel), "utf8");
+      const fm = parseFrontmatter(content);
+      const h1 = content.match(/^#\s+(.+)$/m);
+      const title = fm.title || (h1 ? h1[1].trim() : path.basename(rel, ".md"));
+      const open = [];
+      for (const line of content.split("\n")) {
+        if (!/^\|\s*T\d{3}\s*\|/.test(line) || line.includes("✅")) continue;
+        const taskText = (line.split("|").map((c) => c.trim())[4] || "").replace(/\*\*/g, "");
+        if (!taskText) continue;
+        open.push(truncateText(taskText, 80));
+        if (open.length >= 3) break;
+      }
+      out.push({ title, path: rel, open });
+    } catch {}
+  }
+  return out;
+}
+
+function scanBlockers() {
+  const dir = path.join(ROOT, "Sessions", "Active", "End");
+  if (!fs.existsSync(dir)) return [];
+  const files = fs.readdirSync(dir)
+    .filter((f) => f.endsWith(".md"))
+    .map((f) => path.join("Sessions", "Active", "End", f))
+    .sort((a, b) => fs.statSync(path.join(ROOT, b)).mtime - fs.statSync(path.join(ROOT, a)).mtime);
+  if (!files.length) return [];
+  const content = fs.readFileSync(path.join(ROOT, files[0]), "utf8");
+  const m = content.match(/^blockers:\s*\n((?:^\s+-\s+.+\n?)+)/m);
+  if (!m) return [];
+  return m[1].split("\n")
+    .map((l) => l.replace(/^\s+-\s+/, "").trim())
+    .filter((l) => l && !/none|structural|transient|^—$/i.test(l));
+}
+
+/**
+ * Gate A — overdue outreach follow-ups (Outreach Entity spec §6).
+ *
+ * A record is OVERDUE when it is `sent` and its `follow_up_at` is in the past.
+ * `dormant` is EXCLUDED by design (spec §4.2): dormant is parked deliberately,
+ * never lost — it still renders on the board, but it must never count as overdue.
+ */
+function scanOverdueOutreach() {
+  let dir;
+  try {
+    dir = path.join(ROOT, P.outreachDir());
+  } catch {
+    return []; // no period resolved — degrade quietly, never crash the brief
+  }
+  if (!fs.existsSync(dir)) return [];
+  const out = [];
+  for (const f of fs.readdirSync(dir)) {
+    if (!f.endsWith(".md")) continue;
+    let fm;
+    try {
+      fm = parseFrontmatter(fs.readFileSync(path.join(dir, f), "utf8"));
+    } catch {
+      continue;
+    }
+    // only `sent` carries the overdue clock; `dormant` is deliberately excluded
+    if (String(fm.status || "").trim() !== "sent") continue;
+    const due = String(fm.follow_up_at || "").trim();
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(due)) continue;
+    if (due >= DATE) continue;
+    const days = Math.round((Date.parse(DATE) - Date.parse(due)) / 86400000);
+    const who = fm.counterparty || f.replace(/\.md$/, "");
+    const next = fm.next_action ? ` — ${String(fm.next_action).split(".")[0]}` : "";
+    out.push({ due, line: `⏰ OVERDUE ${days}d — follow up with **${who}** (due ${due})${next}` });
+  }
+  return out.sort((a, b) => a.due.localeCompare(b.due)).map((o) => o.line);
+}
+
+function scanInsights() {
+  const root = path.join(ROOT, "Insights");
+  if (!fs.existsSync(root)) return [];
+  const files = [];
+  const walk = (rel) => {
+    const full = path.join(ROOT, rel);
+    if (!fs.existsSync(full)) return;
+    for (const e of fs.readdirSync(full, { withFileTypes: true })) {
+      const sub = path.join(rel, e.name);
+      if (e.isDirectory()) walk(sub);
+      else if (e.name.endsWith(".md")) files.push(sub);
+    }
+  };
+  walk("Insights");
+  files.sort((a, b) => fs.statSync(path.join(ROOT, b)).mtime - fs.statSync(path.join(ROOT, a)).mtime);
+  const bullets = [];
+  for (const f of files) {
+    if (bullets.length >= 3) break;
+    const lines = fs.readFileSync(path.join(ROOT, f), "utf8")
+      .split("\n").map((l) => l.trim()).filter((l) => l.startsWith("- "));
+    for (let i = lines.length - 1; i >= 0 && bullets.length < 3; i--) {
+      bullets.push(truncateText(lines[i].slice(2), 140));
+    }
+  }
+  return bullets;
+}
+
+/**
+ * Find the newest Cycle/Week that actually holds content — layout-agnostic.
+ *
+ * Replaces the old "highest `Cycle N` directory at the Artifacts root" heuristic,
+ * which broke the moment a Period level was introduced (and, on rollover, would
+ * still report the previous period's Cycle 7). Walks directories only, bounded.
+ */
+function detectLatestCycleWeek() {
+  let best = { cycle: 1, week: 1 };
+  const walk = (rel, depth) => {
+    if (depth > 3) return;
+    let entries;
+    try {
+      entries = fs.readdirSync(path.join(ROOT, rel), { withFileTypes: true });
+    } catch {
+      return;
+    }
+    for (const e of entries) {
+      if (!e.isDirectory()) continue;
+      const sub = `${rel}/${e.name}`;
+      const cw = parseCyclePath(sub);
+      if (cw) {
+        const c = parseInt(cw.cycle, 10);
+        const w = cw.week ? parseInt(cw.week, 10) : 1;
+        if (c > best.cycle || (c === best.cycle && w > best.week)) best = { cycle: c, week: w };
+      }
+      walk(sub, depth + 1);
+    }
+  };
+  walk("Artifacts", 0);
+  return best;
+}
+
+function getTopHubs() {
+  const db = path.join(ROOT, "Memory", "knowledge-graph.db");
+  if (!fs.existsSync(db)) return [];
+  try {
+    // Reads the FULL graph (Memory/knowledge-graph.db) — stable week-to-week
+    // so the injected hubs don't churn with the current-week window.
+    const out = execFileSync(
+      "node", [path.join(ROOT, "Tools", "knowledge-graph.js"), "--hubs"],
+      { encoding: "utf8", timeout: 8000, stdio: ["ignore", "pipe", "pipe"] }
+    );
+    const hubs = [];
+    for (const line of out.split("\n")) {
+      const m = line.match(/^\s+(.+?)\s+\((\d+) connections\)/);
+      if (m) {
+        const clean = m[1].replace(/\x1b\[[0-9;]*m/g, "").trim();
+        hubs.push(`${clean} (${m[2]})`);
+      }
+      if (hubs.length >= 5) break;
+    }
+    return hubs;
+  } catch {
+    return [];
+  }
+}
+
+function pendingBBombs(entries, days) {
+  const candidates = entries
+    .filter((e) => e.path.startsWith("Artifacts/") && withinDays(e.date || e.modified, days))
+    .filter((e) => e.b_bomb_candidate);
+  if (!candidates.length) return [];
+  const promoted = new Set(
+    entries.filter((e) => e.path.startsWith("B-Bombs/")).map((e) => normalizeTitle(e.title))
+  );
+  return candidates.filter((c) => {
+    const sig = normalizeTitle(c.title);
+    for (const p of promoted) {
+      if (p && sig && (p.includes(sig) || sig.includes(p))) return false;
+    }
+    return true;
+  });
+}
+
+function generateVaultContext({ cycle, week, entries, days }) {
+  const L = [];
+  const none = "— none —";
+
+  L.push("# 🦸 Vault Context", "", `> Cycle ${cycle} · Week ${week} · Generated ${NOW}`, "");
+
+  L.push("## 🎯 Active Mission", "");
+  const tasklists = scanActiveTasklists();
+  if (tasklists.length) {
+    for (const tl of tasklists) {
+      L.push(`- [[${tl.path}|${tl.title}]]`);
+      if (tl.open.length) for (const t of tl.open) L.push(`  - ${t}`);
+      else L.push(`  - ${none}`);
+    }
+  } else {
+    L.push(`- ${none}`);
+  }
+  L.push("");
+
+  L.push("## 🧱 Unresolved Blockers", "");
+  // Gate A (Outreach Entity spec §6): overdue follow-ups render FIRST — they are
+  // the only blockers carrying an external clock, and the outside loop only
+  // closes if it surfaces here. Fed by the empty socket, no new UI invented.
+  const blockers = [...scanOverdueOutreach(), ...scanBlockers()];
+  if (blockers.length) for (const b of blockers) L.push(`- ${b}`);
+  else L.push(`- ${none}`);
+  L.push("");
+
+  L.push("## 💣 Pending B-Bombs", "");
+  const pending = pendingBBombs(entries, days);
+  if (pending.length) for (const p of pending) L.push(`- [[${p.path}|${p.title}]]`);
+  else L.push(`- ${none} *(flag an Artifact with \`b_bomb_candidate: true\` to surface it here)*`);
+  L.push("");
+
+  L.push("## 🆕 Recent Artifacts", "");
+  const recent = entries
+    .filter((e) => e.path.startsWith("Artifacts/") && withinDays(e.date || e.modified, days))
+    .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+  if (recent.length) {
+    const cap = 12;
+    for (const a of recent.slice(0, cap)) L.push(`- [[${a.path}|${a.title}]] — ${truncateText(a.summary, 80)}`);
+    if (recent.length > cap) L.push(`- …and ${recent.length - cap} more (last ${days} days)`);
+  } else {
+    L.push(`- ${none}`);
+  }
+  L.push("");
+
+  L.push("## 🧠 Recent Insights", "");
+  const insights = scanInsights();
+  if (insights.length) for (const ins of insights) L.push(`- ${ins}`);
+  else L.push(`- ${none}`);
+  L.push("");
+
+  L.push("## 🔗 Cross-Focus Connections", "");
+  const hubs = getTopHubs();
+  if (hubs.length) for (const h of hubs) L.push(`- ${h}`);
+  else L.push(`- ${none} *(build the graph: \`node Tools/knowledge-graph.js --build\`)*`);
+  L.push("");
+
+  L.push("## 📚 Memory Map", "");
+  L.push("- [[Memory/index.md|memory index]] · [[Memory/lessons.md|lessons]] · [[Memory/vault-full.md|full index (search)]] · [[Memory/vault-index.md|graph index]]");
+  L.push("");
+
+  L.push("---", "*Generated by Vault Index — Deep Ultra 🦸. TWABAM ⚡!*");
+  return L.join("\n") + "\n";
+}
+
+function generateVaultLog(entries, prevLogContent) {
   const prevEntries = prevLogContent
     ? prevLogContent.match(/-\s\[(.*?)\]\s(.*?)\s—\s(.*?)(?=\n-\s\[|$)/g)
     : [];
 
   let md = "";
-  md += "# 🗓️ Wiki Log — Chronological\n\n";
+  md += "# 🗓️ Vault Log — Chronological\n\n";
   md += `> Append-only record of indexed files and operations.\n\n`;
 
   // New entries
@@ -386,14 +676,14 @@ function generateWikiLog(entries, prevLogContent) {
     }
   }
 
-  md += "\n---\n*Generated by vault-index — Deep Ultra 🦸.*\n";
+  md += "\n---\n*Generated by Vault Index — Deep Ultra 🦸.*\n";
   return md;
 }
 
 // — Main ——————————————————————————————————————————————————————————————————
 function main() {
   console.log("\x1b[1;36m╔══════════════════════════════════╗\x1b[0m");
-  console.log("\x1b[1;36m║  🧠 LLM Wiki — Vault Indexer     ║\x1b[0m");
+  console.log("\x1b[1;36m║  🧠 Vault Index — Vault Awareness   ║\x1b[0m");
   console.log("\x1b[1;36m╚══════════════════════════════════╝\x1b[0m\n");
 
   const quick = process.argv.includes("--quick");
@@ -404,7 +694,7 @@ function main() {
   const daysIdx = process.argv.indexOf("--days");
   const days = daysIdx > -1 ? parseInt(process.argv[daysIdx + 1], 10) : null;
 
-  fs.mkdirSync(WIKI_DIR, { recursive: true });
+  fs.mkdirSync(VAULT_DIR, { recursive: true });
 
   // — OKF Compliance ————————————————————————————————————————————————
   if (okfCheck || okfInit) {
@@ -423,43 +713,29 @@ function main() {
       "Memory/lessons.md",
       "Memory/index.md",
       "AGENTS.md",
+      "Projects/Agents Terminal V3/Agents Terminal V3 — Specification.md",
     ];
 
     // Determine cycle and week
     const ci = process.argv.indexOf("--cycle");
     const wi = process.argv.indexOf("--week");
-    // Auto-detect the latest cycle (highest "Cycle N" dir under Artifacts) when not passed
-    let cycle = ci > -1 ? process.argv[ci + 1] : "1";
-    if (ci <= -1) {
-      const artRoot = path.join(ROOT, "Artifacts");
-      let maxCycle = 0;
-      if (fs.existsSync(artRoot)) {
-        for (const d of fs.readdirSync(artRoot, { withFileTypes: true })) {
-          if (!d.isDirectory()) continue;
-          const m = d.name.match(/^Cycle\s+(\d+)$/i);
-          if (m) maxCycle = Math.max(maxCycle, parseInt(m[1], 10));
-        }
-      }
-      cycle = String(maxCycle || 1);
-    }
-    const thisWeek = parseInt(wi > -1 ? process.argv[wi + 1] : (() => {
-      // Auto-detect: find latest week directory in Artifacts
-      for (let w = 10; w >= 1; w--) {
-        const d = `Artifacts/Cycle ${cycle}/Week ${w}`;
-        if (fs.existsSync(path.join(ROOT, d))) return w;
-      }
-      return 1;
-    })());
+    // Detect the current cycle/week by PARSING the tree, not by max-directory guessing.
+    // The old "highest Cycle N under Artifacts" heuristic is the exact bug class this
+    // refactor removes: after a period rollover it would still report Cycle 7 and
+    // silently mis-brief every session.
+    const detected = detectLatestCycleWeek();
+    const cycle = ci > -1 ? process.argv[ci + 1] : String(detected.cycle);
+    const thisWeek = parseInt(wi > -1 ? process.argv[wi + 1] : String(detected.week));
     const prevWeek = Math.max(1, thisWeek - 1);
 
     log("current", `Cycle ${cycle}, Week ${thisWeek} (prev: ${prevWeek})`);
 
-    // Scan weekly directories
+    // Scan weekly directories — resolved through the contract (works pre- and post-migration)
     const thisWeekDirs = [
-      `Artifacts/Cycle ${cycle}/Week ${thisWeek}`,
-      `B-Bombs/Cycle ${cycle}/Week ${thisWeek}`,
-      `Artifacts/Cycle ${cycle}/Week ${prevWeek}`,
-      `B-Bombs/Cycle ${cycle}/Week ${prevWeek}`,
+      P.resolve(P.artifactDir(cycle, thisWeek)),
+      P.resolve(P.bBombDir(cycle, thisWeek)),
+      P.resolve(P.artifactDir(cycle, prevWeek)),
+      P.resolve(P.bBombDir(cycle, prevWeek)),
     ];
 
     let entries = [];
@@ -478,8 +754,8 @@ function main() {
 
     // Also scan episodic for current + previous week
     const episodicWeeks = [
-      `Memory/episodic/Cycle-${cycle}/Week-${thisWeek}`,
-      `Memory/episodic/Cycle-${cycle}/Week-${prevWeek}`,
+      P.resolve(P.episodicDir(cycle, thisWeek)),
+      P.resolve(P.episodicDir(cycle, prevWeek)),
     ];
     for (const dir of episodicWeeks) {
       log("scan", `Episodic: ${dir}`);
@@ -496,15 +772,26 @@ function main() {
 
     log("current", `${unique.length} files (Cycle ${cycle}, Weeks ${prevWeek}-${thisWeek})`);
 
-    const idx = generateWikiIndex(unique, `Current Focus — Cycle ${cycle}, Weeks ${prevWeek}-${thisWeek}`);
-    const idxPath = path.join(WIKI_DIR, "wiki-current.md");
-    fs.writeFileSync(idxPath, idx);
-    log("write", `wiki-current.md → ${unique.length} entries`);
+    const briefDays = days || 14;
+
+    // Current-window graph source (Option A: machine table, read by --build-current)
+    const currentLabel = `Current window — Cycle ${cycle}, Weeks ${prevWeek}-${thisWeek} (graph node/edge source)`;
+    fs.writeFileSync(
+      path.join(VAULT_DIR, "vault-index-current.md"),
+      generateVaultIndex(unique, currentLabel)
+    );
+    log("write", `vault-index-current.md → ${unique.length} entries (graph current source)`);
+
+    // Agent-facing session brief (read-always; never parsed by the graph)
+    const brief = generateVaultContext({ cycle, week: thisWeek, entries: unique, days: briefDays });
+    fs.writeFileSync(path.join(VAULT_DIR, "vault-context.md"), brief);
+    log("write", `vault-context.md → ${brief.split("\n").length} lines (session brief)`);
 
     console.log(`\n\x1b[1;32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\x1b[0m`);
-    console.log(`\x1b[1;32m  🧠 Wiki-Current Generated\x1b[0m`);
+    console.log(`\x1b[1;32m  🧠 Vault Context + Graph Source Generated\x1b[0m`);
     console.log(`\x1b[1;32m  ${unique.length} files — Cycle ${cycle}, Weeks ${prevWeek}–${thisWeek}\x1b[0m`);
-    console.log(`\x1b[1;32m  → Memory/wiki-current.md\x1b[0m`);
+    console.log(`\x1b[1;32m  → Memory/vault-context.md (session brief)\x1b[0m`);
+    console.log(`\x1b[1;32m  → Memory/vault-index-current.md (graph current source)\x1b[0m`);
     console.log(`\x1b[1;32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\x1b[0m`);
     console.log(`\x1b[1;33m  TWABAM ⚡!\x1b[0m\n`);
     return;
@@ -523,11 +810,11 @@ function main() {
     totalScanned += tierResults[tierNum].length;
   }
 
-  // Generate Tier 1 index (compact, agent reads every session)
+  // Generate Tier 1 index (graph node/edge source)
   const tier1Full = tierResults["1"] || [];
   let tier1IndexData = tier1Full;
 
-  // Retention: with --days N, the every-session index keeps only the last N days of
+  // Retention: with --days N, the graph index keeps only the last N days of
   // time-series content (Artifacts / B-Bombs / Episodic). Stable memory files
   // (semantic / procedural / governance / lessons / index) always stay.
   if (days && days > 0) {
@@ -543,10 +830,10 @@ function main() {
     log("retain", `--days ${days} → ${before} scanned → ${tier1IndexData.length} in index (last ${days} days)`);
   }
 
-  const idx1 = generateWikiIndex(tier1IndexData, TIERS["1"].label);
-  const idx1Path = path.join(WIKI_DIR, "wiki-index.md");
+  const idx1 = generateVaultIndex(tier1IndexData, "Graph node/edge source — read by knowledge-graph.js --build");
+  const idx1Path = path.join(VAULT_DIR, "vault-index.md");
   fs.writeFileSync(idx1Path, idx1);
-  log("write", `wiki-index.md → ${tier1IndexData.length} entries (Tier 1 only)`);
+  log("write", `vault-index.md → ${tier1IndexData.length} entries (Tier 1 only)`);
 
   // Generate full index (all tiers, searchable)
   if (!quick) {
@@ -556,31 +843,31 @@ function main() {
     for (const e of allData) {
       if (!seen.has(e.path)) { seen.add(e.path); deduped.push(e); }
     }
-    const idxFull = generateWikiIndex(deduped, "Full Vault Index — All tiers");
-    const idxFullPath = path.join(WIKI_DIR, "wiki-full.md");
+    const idxFull = generateVaultIndex(deduped, "Full search index — all tiers (search on demand)");
+    const idxFullPath = path.join(VAULT_DIR, "vault-full.md");
     fs.writeFileSync(idxFullPath, idxFull);
-    log("write", `wiki-full.md → ${deduped.length} entries (all tiers)`);
+    log("write", `vault-full.md → ${deduped.length} entries (all tiers)`);
   }
 
   // Generate log
-  const logPath = path.join(WIKI_DIR, "wiki-log.md");
+  const logPath = path.join(VAULT_DIR, "vault-log.md");
   const prevLog = fs.existsSync(logPath) ? fs.readFileSync(logPath, "utf8") : null;
   const allEntries = Object.values(tierResults).flat();
-  const logMd = generateWikiLog(allEntries, prevLog);
+  const logMd = generateVaultLog(allEntries, prevLog);
   fs.writeFileSync(logPath, logMd);
-  log("write", `wiki-log.md → ${allEntries.length} files indexed`);
+  log("write", `vault-log.md → ${allEntries.length} files indexed`);
 
   // Summary
   console.log(`\n\x1b[1;32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\x1b[0m`);
-  console.log(`\x1b[1;32m  🧠 LLM Wiki Complete\x1b[0m`);
+  console.log(`\x1b[1;32m  🧠 Vault Index Complete\x1b[0m`);
   console.log(`\x1b[1;32m  ${totalScanned} total files scanned\x1b[0m`);
   for (const [tierNum, data] of Object.entries(tierResults)) {
     const t = TIERS[tierNum];
     console.log(`\x1b[1;32m  Tier ${tierNum}: ${data.length} files — ${t.label}\x1b[0m`);
   }
-  console.log(`\x1b[1;32m  → Memory/wiki-index.md (agent auto-loads)\x1b[0m`);
-  console.log(`\x1b[1;32m  → Memory/wiki-full.md (searchable reference)\x1b[0m`);
-  console.log(`\x1b[1;32m  → Memory/wiki-log.md (chronological)\x1b[0m`);
+  console.log(`\x1b[1;32m  → Memory/vault-index.md (graph node/edge source)\x1b[0m`);
+  console.log(`\x1b[1;32m  → Memory/vault-full.md (search on demand)\x1b[0m`);
+  console.log(`\x1b[1;32m  → Memory/vault-log.md (append-only audit)\x1b[0m`);
   console.log(`\x1b[1;32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\x1b[0m`);
   console.log(`\x1b[1;33m  TWABAM ⚡!\x1b[0m\n`);
 }
@@ -643,7 +930,7 @@ function okfCheckConformance() {
   else if (pct >= 70) console.log(`  \x1b[1;33m⚠️  Needs improvement\x1b[0m`);
   else console.log(`  \x1b[1;31m❌ Not OKF compliant\x1b[0m`);
 
-  console.log(`\n  Fix: \x1b[1;33mnode Tools/llm-wiki.js --okf-init\x1b[0m\n`);
+  console.log(`\n  Fix: \x1b[1;33mnode Tools/vault-index.js --okf-init\x1b[0m\n`);
   console.log(`\x1b[1;33m  TWABAM ⚡!\x1b[0m\n`);
 }
 
@@ -656,10 +943,11 @@ function okfInitConformance() {
   for (const f of files) {
     if (f.fm.type) { skipped++; continue; }
 
-    // Auto-detect type from path
+    // Auto-detect type from path (parsed, never layout-matched)
     let inferredType = "document";
-    if (f.path.includes("Artifacts/Cycle")) inferredType = "artifact";
-    else if (f.path.includes("B-Bombs/Cycle")) inferredType = "b-bomb";
+    const cw = parseCyclePath(f.path);
+    if (cw && f.path.startsWith("Artifacts/")) inferredType = "artifact";
+    else if (cw && f.path.startsWith("B-Bombs/")) inferredType = "b-bomb";
     else if (f.path.includes("Memory/episodic")) inferredType = "episodic";
     else if (f.path.includes("Memory/semantic")) inferredType = "semantic";
     else if (f.path.includes("Memory/procedural")) inferredType = "procedural";
@@ -700,7 +988,7 @@ function okfInitConformance() {
   console.log(`  ${updated} files updated with 'type' field`);
   console.log(`  ${skipped} files already had 'type' (skipped)`);
   console.log(`  \x1b[1;36mAI-Suplex vault is now OKF v0.1 compliant\x1b[0m`);
-  console.log(`\n  Verify: \x1b[1;33mnode Tools/llm-wiki.js --okf-check\x1b[0m`);
+  console.log(`\n  Verify: \x1b[1;33mnode Tools/vault-index.js --okf-check\x1b[0m`);
   console.log(`\n\x1b[1;33m  TWABAM ⚡!\x1b[0m\n`);
 }
 

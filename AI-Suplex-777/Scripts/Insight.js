@@ -3,24 +3,32 @@ module.exports = async (quickAdd) => {
     const { quickAddApi, app } = quickAdd;
     const vault = app.vault;
 
-    // Helper: run 3lm learn to extract lesson from capture
-    function exec3lm(command) {
-        try {
-            const { execSync } = require("child_process");
-            const vaultPath = app.vault.adapter.basePath;
-            const cwd = vaultPath + "/AI-Suplex-777";
-            return execSync(`node Tools/3lm.js ${command}`, {
-                encoding: "utf8",
-                timeout: 15000,
-                stdio: "pipe",
-                cwd,
-            });
-        } catch (e) {
-            console.error("3lm " + command + " error: " + e.message);
-            return null;
-        }
-    }
-
+    // ── Paths (Period Structure, decision ④): shared module + inlined fallback ──
+    const PC = (() => { try { return require("Scripts/lib/paths.js"); } catch (_) {
+      const PERIOD_FILE = "AI-Suplex-777/period.md", PRE = "0000-Build";
+      const j = (...p) => p.map(x => String(x).replace(/^\/+|\/+$/g, "")).filter(Boolean).join("/");
+      const bind = (label) => { const per = c => Number(c) === 0 ? PRE : label; return {
+        label,
+        artifactDir: (c,w) => j("AI-Suplex-777","Artifacts",per(c),`Cycle ${c}`,`Week ${w}`),
+        bBombDir:    (c,w) => j("AI-Suplex-777","B-Bombs",per(c),`Cycle ${c}`,`Week ${w}`),
+        insightDir:  (c)   => j("AI-Suplex-777","Insights",per(c),`Cycle ${c}`),
+        insightFile: (c,w) => j("AI-Suplex-777","Insights",per(c),`Cycle ${c}`,`Week ${w}.md`),
+        reviewDir:   (c,w) => j("AI-Suplex-777","Reviews",per(c),"Weekly",`Cycle ${c}`,`Week ${w}`),
+        reviewCycleDir:(c) => j("AI-Suplex-777","Reviews",per(c),"Weekly",`Cycle ${c}`),
+        mocsDir:     (c)   => j("AI-Suplex-777","MOCs",per(c),"Weekly",`Cycle ${c}`),
+        planDir:     (c)   => j("AI-Suplex-777","Plans",per(c),`Cycle ${c}`),
+        periodPlanDir:()   => j("AI-Suplex-777","Plans",label),
+        episodicDir: (c,w) => j("AI-Suplex-777","Memory","episodic",per(c),`Cycle-${c}`,`Week-${w}`),
+        nextStepsDir:(c)   => j("AI-Suplex-777","Next Steps",per(c),`Cycle ${c}`),
+        cycleDir: (tree,c) => j("AI-Suplex-777",tree,per(c),`Cycle ${c}`),
+      }; };
+      return { VAULT_PREFIX: "AI-Suplex-777", PRE_PERIOD: PRE, PERIOD_FILE, parseLabel: raw => { const m = String(raw||"").match(/^\s*period_label:\s*"?([^"\n]+?)"?\s*$/m); return m ? m[1].trim() : null; }, periodFor: (c,l) => Number(c)===0?PRE:l, joinPath: j, bind };
+    } })();
+    const P = await (async () => {
+      const label = PC.parseLabel(await app.vault.adapter.read(PC.PERIOD_FILE));
+      if (!label) throw new Error("period.md has no readable period_label");
+      return PC.bind(label);
+    })();
     async function getFocuses() {
         const focusesPath = "AI-Suplex-777/Focuses.md";
         if (!(await vault.adapter.exists(focusesPath))) {
@@ -52,9 +60,9 @@ module.exports = async (quickAdd) => {
     const sourceOptions = ["session", "artifact", "b-bomb", "report", "external"];
     const source = await quickAddApi.suggester(sourceOptions, sourceOptions, "Source");
 
-    const folderPath = `AI-Suplex-777/Insights/Cycle ${cycle}`;
+    const folderPath = P.insightDir(cycle);
     await ensureFolder(folderPath);
-    const filePath = `${folderPath}/Week ${week}.md`;
+    const filePath = P.insightFile(cycle, week);
     let file = vault.getAbstractFileByPath(filePath);
     if (!file) {
         await vault.create(filePath, `# Insights – Cycle ${cycle}, Week ${week}\n\n`);
@@ -68,14 +76,4 @@ module.exports = async (quickAdd) => {
 
     await vault.append(file, insightBlock);
     new Notice(`Insight appended to Cycle ${cycle}, Week ${week}`, 3000);
-
-    // 3lm Quick Capture — extract lesson immediately
-    try {
-        new Notice("🧠 Extracting lesson...", 1500);
-        exec3lm("learn");
-        exec3lm("index");
-        new Notice("✅ Lesson captured", 1500);
-    } catch (e) {
-        console.error("3lm capture error: " + e.message);
-    }
 };

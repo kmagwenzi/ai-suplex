@@ -40,25 +40,28 @@ After generating the Session End Report, extract and report:
 - Any contradictions, reversals, or superseded assumptions that should be marked deprecated.
 - Any index updates required.
 
-▶️ 3LM CAPTURE — Run before ending session:
-   If you have terminal access (Claude Code, Cursor, Zed):
-   → Run silently: node Tools/3lm.js capture
-   → This scans all Artifacts, B-Bombs, and Insights for uncaptured lessons.
-   → Reports any lessons that weren't captured during the session.
-   
-   If you are web-based (ChatGPT, DeepSeek web) without terminal access:
-   → Print: "Run from terminal: node Tools/3lm.js capture"
+▶️ 3LM SURVEY — Run before ending session:
+   Run: node Tools/3lm.js survey
+   → Scans this session's Artifacts, B-Bombs, and Insights against lessons.md.
+   → Scoped to captures created at/after the Session Start time (keeps the list relevant).
+   → Presents a surveyed list, each flagged [NEW] or [~DUP → L{line}] (hint, not verdict).
+   → The LLM then judges: add missing lessons via `3lm add-lessons`, condense similar entries via direct edit.
 
 ▶️ 3LM COMMAND:
    If you have terminal access (Claude Code, Cursor, Zed):
    → Run silently: node Tools/3lm.js end && node Tools/3lm.js learn && node Tools/3lm.js index
+     - Run `node Tools/3lm.js status` — verify memory stack (optional)
+     - Run `node Tools/vault-index.js --current` — vault scan → `Memory/vault-context.md`
+     - Run `node Tools/knowledge-graph.js --build-current` — vault-context → `Memory/knowledge-graph.db` (entities + relationships)
+     - Verify `node Tools/knowledge-graph.js --status` — counts include the latest sessions artifacts
+   
    
    If you are web-based (ChatGPT, DeepSeek web) without terminal access:
    → Print: "Run from terminal: node Tools/3lm.js end && node Tools/3lm.js learn && node Tools/3lm.js index"
    
    If using Obsidian: just click 🏁 End — the macro runs this automatically.
 
-💾 SAVE CONTEXT — write the next-session brief (closes the loop for the next session):
+💾 SAVE CONTEXT — write the next-session brief (before SYNC, so it ships with the commit):
    The Session End Report closes THIS session; the Context Kickstart opens the NEXT one — the
    North Star is "each new session starts smarter than the last."
    1. Follow `Prompt Patterns/📄 Pattern - Save Context.md`.
@@ -67,6 +70,15 @@ After generating the Session End Report, extract and report:
       - Sections: 🎯 What Was Accomplished · 📊 Current State · 🧠 What the AI Needs to Know Next Session · 🔗 Quick Links · 🎯 Next Actions.
    3. Archive any existing file in `Context Kick-start/Active/` → `Archived/` FIRST (previous context becomes history).
    4. Include task IDs + blockers + key decisions for traceability — the brief is what the next session loads.
+
+▶️ SYNC & BACKUP — run AFTER the memory loop + SAVE CONTEXT (files must be final before committing):
+   Session End = end of day, so this closes the loop with a versioned snapshot:
+   1. Sync:   node Tools/3lm.js sync "Session End — <session_id> — <focus>"
+      → stages, commits, and pushes the current branch to ALL git remotes (GitHub + GitLab).
+   2. Backup: ~/scripts/ai-suplex-backup.sh
+      → encrypted (GPG) full-vault backup to Google Drive + Dropbox. End-of-day only;
+        requires AI_SUPLEX_BACKUP_PASS in env or ~/.config/ai-suplex/backup.env.
+      → (Optional: cron already runs this at 2 AM — skip if cron is active.)
 
 MEMORY RULES:
 - Promote only stable, repeated truths to semantic memory.
@@ -79,8 +91,9 @@ MEMORY RULES:
 - The markdown vault remains canonical.
 ADDITIONAL INSTRUCTIONS: NONE
   # Specify post-generation tasks: remove `#` for list item below add new instruction
-  # - "Save to AI-Suplex-777/Sessions/Active/End/ folder with YYYY-MM-DD-HHMM-focus-session-end.md filename"
-  # - "Update relevant MOC with new session highlights"
+  - Save to AI-Suplex-777/Sessions/Active/End/ folder with YYYY-MM-DD-HHMM-focus-session-end.md filename"
+  - Also save the context brief (Save Context pattern) to AI-Suplex Kick-start/Context Kick-start/Active/YYYY-MM-DD-cycle-X-week-Y-mission-title.md — archive the previous Active context first"
+ 
   # - "Run Sweeper script to refresh trackers and dashboards"
 
 CONTENT:
