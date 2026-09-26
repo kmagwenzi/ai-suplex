@@ -137,7 +137,7 @@ module.exports = async (quickAdd) => {
 
   new Notice(
     "🧠 Insight fed to 3lm Memory/lessons.md | Will be scored on next 3lm promote\n" +
-      "💡 Also logged to Insights/Cycle " +
+      "💡 Also logged to Insights/" + P.label + "/Cycle " +
       cycle +
       "/Week " +
       week +
