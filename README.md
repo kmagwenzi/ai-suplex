@@ -6,7 +6,8 @@ AI-Suplex is a file-first, markdown-first **self-improving execution framework**
 
 ## Resources
 
-- 📥 **Get the vault (free):** [selar.com/270lq55ke0](https://selar.com/270lq55ke0)
+- 📥 **Free:** the full framework source is [this repo](https://github.com/kmagwenzi/ai-suplex) — clone it and run the quick start below.
+- 📦 **Configured 7-7-7 vault** (paid): [selar.com/270lq55ke0](https://selar.com/270lq55ke0)
 - ▶️ **Deep Ultra persona — short:** [youtu.be/QLQVJ-5g8IU](https://youtu.be/QLQVJ-5g8IU)
 - ▶️ **Walkthrough:** [youtu.be/R0vLuNf9VUs](https://youtu.be/R0vLuNf9VUs)
 - 🦸 **Ultra Edition preview:** [ai-suplex-ultra-preview.netlify.app](https://ai-suplex-ultra-preview.netlify.app/)
@@ -47,12 +48,15 @@ The **knowledge graph** (SQLite, zero-dependency) indexes every file into entiti
 ```bash
 git clone https://github.com/kmagwenzi/ai-suplex.git
 cd ai-suplex/AI-Suplex-777
-node Tools/vault-index.js          # build the file index
-node Tools/knowledge-graph.js --build-current   # build the graph
-node Tools/3lm.js start            # load your memory + context
+node Tools/initialise-vault.js                  # create period.md + your vault skeleton
+node Tools/vault-index.js --current             # current-window index + session brief
+node Tools/knowledge-graph.js --build-current   # build the current graph
+node Tools/3lm.js start --context               # load your memory + context
 ```
 
-Requires **Node 22+** (`node:sqlite`).
+Requires **Node 22+** (`node:sqlite`). **Python 3** for `Tools/session_context.py` (generated session
+context) and `Tools/bbomb_hunter.py` (ranked B-Bomb candidates). **Obsidian is optional** — the
+`Scripts/` macros are Obsidian QuickAdd macros; everything under `Tools/` runs headless.
 
 ## Structure
 
@@ -61,9 +65,9 @@ AI-Suplex-777/
 ├── AGENTS.md              ← how any agent operates this vault
 ├── Skills/                ← 12 AI skills
 ├── Prompt Patterns/       ← copy-paste patterns
-├── Scripts/               ← 24 Sweeper macros
+├── Scripts/               ← 24 QuickAdd macros (Sweeper + core)
 ├── Templates/             ← session templates
-├── Tools/                 ← 3lm · vault-index · knowledge-graph
+├── Tools/                 ← 3lm · vault-index · knowledge-graph · session context · B-Bomb hunter
 ├── Memory/                ← episodic · semantic · procedural · lessons
 ├── Guides/                ← workflow guides
 └── AI-Suplex Kick-start/  ← methodology + the Deep Ultra persona
