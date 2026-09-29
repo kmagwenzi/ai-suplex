@@ -1,5 +1,8 @@
 # AI-Suplex 7-7-7
 
+[![CI](https://github.com/kmagwenzi/ai-suplex/actions/workflows/ci.yml/badge.svg)](https://github.com/kmagwenzi/ai-suplex/actions/workflows/ci.yml)
+
+
 **Bring your own agent. Keep your memory.**
 
 AI-Suplex is a file-first, markdown-first **self-improving execution framework** — a shared memory layer that any AI agent (Hermes, Claude Code, Zed, Codex, any agent with file + bash access) can read and write. Each session files what happened, extracts lessons, and promotes the durable ones, so **each new session starts smarter than the last.**
