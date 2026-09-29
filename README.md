@@ -4,6 +4,8 @@
 
 AI-Suplex is a file-first, markdown-first **self-improving execution framework** — a shared memory layer that any AI agent (Hermes, Claude Code, Zed, Codex, any agent with file + bash access) can read and write. Each session files what happened, extracts lessons, and promotes the durable ones, so **each new session starts smarter than the last.**
 
+▶️ **See it live:** [wqr.co.zw](https://wqr.co.zw) — a WhatsApp commerce agent running on this discipline · [Ultra preview](https://ai-suplex-ultra-preview.netlify.app)
+
 ## Resources
 
 - 📥 **Free:** the full framework source is [this repo](https://github.com/kmagwenzi/ai-suplex) — clone it and run the quick start below.
