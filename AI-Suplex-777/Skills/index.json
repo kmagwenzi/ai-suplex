@@ -1,0 +1,229 @@
+[
+  {
+    "id": "architect-session-end-prompt-generator",
+    "skill_name": "Architect – Session End Prompt Generator",
+    "role": "Architect",
+    "description": "Generate a blank Session End prompt (YAML plus questions) to close a session.",
+    "triggers": [
+      "session end",
+      "session close",
+      "end prompt",
+      "wrap up"
+    ],
+    "depends_on": [],
+    "uses_tools": [],
+    "quality": 0.7,
+    "status": "active",
+    "file": "Architect – Session End Prompt Generator.md"
+  },
+  {
+    "id": "architect-session-start-prompt-generator",
+    "skill_name": "Architect – Session Start Prompt Generator",
+    "role": "Architect",
+    "description": "Generate a complete Session Start prompt from a task ID or tasklist.",
+    "triggers": [
+      "session start",
+      "session prompt",
+      "kickoff",
+      "task id"
+    ],
+    "depends_on": [],
+    "uses_tools": [],
+    "quality": 0.7,
+    "status": "active",
+    "file": "Architect – Session Start Prompt Generator.md"
+  },
+  {
+    "id": "builder-artifact-capture",
+    "skill_name": "Builder – Artifact Capture",
+    "role": "Builder",
+    "description": "Capture a work-in-progress artifact into a structured markdown file and route lessons to 3lm.",
+    "triggers": [
+      "capture",
+      "artifact",
+      "raw work",
+      "note"
+    ],
+    "depends_on": [],
+    "uses_tools": [
+      "3lm",
+      "paths"
+    ],
+    "quality": 0.9,
+    "status": "active",
+    "file": "Builder – Artifact Capture.md"
+  },
+  {
+    "id": "builder-b-bomb-promotion",
+    "skill_name": "Builder – B‑Bomb Promotion",
+    "role": "Builder",
+    "description": "Promote a captured artifact to a polished, sellable B-Bomb with quality checks.",
+    "triggers": [
+      "b-bomb",
+      "promote",
+      "polish",
+      "reusable"
+    ],
+    "depends_on": [],
+    "uses_tools": [
+      "3lm"
+    ],
+    "quality": 0.8,
+    "status": "active",
+    "file": "Builder – B‑Bomb Promotion.md"
+  },
+  {
+    "id": "builder-multimodal-analysis",
+    "skill_name": "Builder – Multimodal Analysis",
+    "role": "Builder",
+    "description": "Analyze images, diagrams, or screenshots and extract structured insight.",
+    "triggers": [
+      "image",
+      "screenshot",
+      "multimodal",
+      "diagram"
+    ],
+    "depends_on": [],
+    "uses_tools": [],
+    "quality": 0.5,
+    "status": "active",
+    "file": "Builder – Multimodal Analysis.md"
+  },
+  {
+    "id": "builder-save-context",
+    "skill_name": "Builder – Save Context",
+    "role": "Builder",
+    "description": "Summarize session context, save to Context Kick-start, archive the predecessor, close the session.",
+    "triggers": [
+      "save context",
+      "context",
+      "switch",
+      "handoff"
+    ],
+    "depends_on": [],
+    "uses_tools": [
+      "3lm"
+    ],
+    "quality": 0.8,
+    "status": "active",
+    "file": "Builder – Save Context.md"
+  },
+  {
+    "id": "builder-session-end-report-generator",
+    "skill_name": "Builder – Session End Report Generator",
+    "role": "Builder",
+    "description": "Transform a filled Session End prompt into a formatted Session End Report.",
+    "triggers": [
+      "session end",
+      "report",
+      "session report"
+    ],
+    "depends_on": [],
+    "uses_tools": [
+      "3lm"
+    ],
+    "quality": 0.7,
+    "status": "active",
+    "file": "Builder – Session End Report Generator.md"
+  },
+  {
+    "id": "orchestrator-ai-suplex-tasklist-generator",
+    "skill_name": "Orchestrator – AI‑Suplex Tasklist Generator",
+    "role": "Orchestrator",
+    "description": "Convert a raw to-do list into a structured AI-Suplex tasklist with IDs, roles, durations, phases.",
+    "triggers": [
+      "tasklist",
+      "task",
+      "to-do",
+      "plan"
+    ],
+    "depends_on": [],
+    "uses_tools": [],
+    "quality": 0.9,
+    "status": "active",
+    "file": "Orchestrator – AI‑Suplex Tasklist Generator.md"
+  },
+  {
+    "id": "orchestrator-combined-tasklist-generator",
+    "skill_name": "Orchestrator – Combined Tasklist Generator",
+    "role": "Orchestrator",
+    "description": "Aggregate tasks from session ends, insights, and manual entries into a combined tasklist.",
+    "triggers": [
+      "combined",
+      "aggregate",
+      "tasklist",
+      "merge"
+    ],
+    "depends_on": [],
+    "uses_tools": [],
+    "quality": 0.6,
+    "status": "active",
+    "file": "Orchestrator – Combined Tasklist Generator.md"
+  },
+  {
+    "id": "orchestrator-cycle-plan-generator",
+    "skill_name": "Orchestrator – Cycle Plan Generator",
+    "role": "Orchestrator",
+    "description": "Generate a 7-week cycle plan from goals and focus areas.",
+    "triggers": [
+      "cycle plan",
+      "cycle",
+      "7-week"
+    ],
+    "depends_on": [],
+    "uses_tools": [],
+    "quality": 0.6,
+    "status": "active",
+    "file": "Orchestrator – Cycle Plan Generator.md"
+  },
+  {
+    "id": "orchestrator-cycle-review",
+    "skill_name": "Orchestrator – Cycle Review",
+    "role": "Orchestrator",
+    "description": "Analyze a 7-week cycle and produce a strategic review plus next-cycle planning.",
+    "triggers": [
+      "cycle review",
+      "cycle",
+      "retrospective"
+    ],
+    "depends_on": [],
+    "uses_tools": [],
+    "quality": 0.6,
+    "status": "active",
+    "file": "Orchestrator – Cycle Review.md"
+  },
+  {
+    "id": "orchestrator-weekly-plan-generator",
+    "skill_name": "Orchestrator – Weekly Plan Generator",
+    "role": "Orchestrator",
+    "description": "Generate a tactical weekly plan with mission, priority tasks, day breakdown, success metrics.",
+    "triggers": [
+      "weekly plan",
+      "week plan",
+      "weekly"
+    ],
+    "depends_on": [],
+    "uses_tools": [],
+    "quality": 0.7,
+    "status": "active",
+    "file": "Orchestrator – Weekly Plan Generator.md"
+  },
+  {
+    "id": "orchestrator-weekly-review",
+    "skill_name": "Orchestrator – Weekly Review",
+    "role": "Orchestrator",
+    "description": "Generate a strategic weekly review with recommendations from weekly session data.",
+    "triggers": [
+      "weekly review",
+      "review",
+      "weekly"
+    ],
+    "depends_on": [],
+    "uses_tools": [
+      "3lm"
+    ],
+    "quality": 0.8,
+    "status": "active",
+    "file": "Orchestrator – Weekly Review.md"
+  }
+]

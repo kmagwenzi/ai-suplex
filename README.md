@@ -67,13 +67,16 @@ flowchart TD
 
 The **knowledge graph** (SQLite, zero-dependency) indexes every file into entities + typed relationships (`relates_to`, `supersedes`, `references`, `implements`, `contains`), so you can query *what relates to X?* instead of grep keywords.
 
-## The three tools
+## The tools
 
 | Tool | What it does |
 |------|--------------|
 | `3lm` | Memory CLI: start, end, learn, add-lessons, promote, revise, index, status, sync |
 | `vault-index` | Scans the vault → builds the file index |
 | `knowledge-graph` | Builds + queries the SQLite graph from the index |
+| router | Recommends skills + tools for a task (recommend-only, never auto-runs) |
+| skill-generate | Drafts a new skill from a procedural workflow |
+| skill-install | Installs Community skills (gated: preview then confirm) |
 
 ## Quick start (60 seconds)
 
@@ -93,7 +96,7 @@ Requires **Node 22+** (`node:sqlite`). **Python 3** for `Tools/session_context.p
 ```
 AI-Suplex-777/
 ├── AGENTS.md              ← how any agent operates this vault
-├── Skills/                ← 12 AI skills
+├── Skills/                ← 13 AI skills
 ├── Prompt Patterns/       ← copy-paste patterns
 ├── Scripts/               ← QuickAdd macros
 ├── Templates/             ← session templates

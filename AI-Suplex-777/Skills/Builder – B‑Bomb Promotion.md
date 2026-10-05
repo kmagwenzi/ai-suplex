@@ -5,6 +5,12 @@ role: "Builder"
 version: "1.0"
 date: 2026-04-18
 tags: [skill, builder, b-bomb, promotion, macro, ai-suplex]
+description: "Promote a captured artifact to a polished, sellable B-Bomb with quality checks."
+triggers: [b-bomb, promote, polish, reusable]
+depends_on: []
+uses_tools: [3lm]
+quality: 0.8
+status: active
 ---
 
 # Builder Skill: B‑Bomb Promotion

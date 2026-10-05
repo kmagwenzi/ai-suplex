@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft/2020-12/schema",
+  "title": "AI-Suplex tool manifest",
+  "type": "object",
+  "required": ["updated", "tools"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "updated": { "type": "string", "format": "date" },
+    "tools": { "type": "array", "items": { "$ref": "#/$defs/tool" } }
+  },
+  "$defs": {
+    "tool": {
+      "type": "object",
+      "required": ["id", "purpose", "description", "invocation", "verbs", "writes"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "purpose": { "type": "string" },
+        "description": { "type": "string" },
+        "invocation": { "type": "string" },
+        "verbs": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "when_not": { "type": "string" },
+        "writes": { "type": "boolean" },
+        "related_skills": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

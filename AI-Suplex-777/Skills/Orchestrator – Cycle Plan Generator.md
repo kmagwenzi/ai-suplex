@@ -5,6 +5,12 @@ role: "Orchestrator"
 version: "1.0"
 date: 2026-05-13
 tags: [skill, orchestrator, cycle-plan, ai-suplex, 7-7-7]
+description: "Generate a 7-week cycle plan from goals and focus areas."
+triggers: [cycle plan, cycle, 7-week]
+depends_on: []
+uses_tools: []
+quality: 0.6
+status: active
 ---
 
 # Orchestrator Skill: Cycle Plan Generator

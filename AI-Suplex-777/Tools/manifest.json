@@ -1,0 +1,19 @@
+{
+  "$schema": "./manifest.schema.json",
+  "updated": "2026-10-04",
+  "tools": [
+    { "id": "3lm", "purpose": "3-layer memory operations", "description": "start, end, learn, add-lessons, promote, revise, index, sync, survey, status", "invocation": "node Tools/3lm.js <command> [--param value]", "verbs": ["promote", "learn", "index", "sync", "survey", "capture", "revise", "status", "start", "end"], "when_not": "never run 3lm end from the random-task thread", "writes": true, "related_skills": ["Builder – Save Context", "Builder – Session End Report Generator"] },
+    { "id": "paths", "purpose": "period-correct path resolution", "description": "resolve artifact, B-Bomb, insight and outreach paths from period.md", "invocation": "node Tools/paths.js [--self-test]", "verbs": ["path", "resolve", "period", "folder"], "writes": false },
+    { "id": "knowledge-graph", "purpose": "entity and relationship search", "description": "query entities, trace paths, hubs, export markdown", "invocation": "node Tools/knowledge-graph.js --query <term>", "verbs": ["search", "graph", "entity", "connect", "trace"], "writes": false },
+    { "id": "bbomb-hunter", "purpose": "rank B-Bomb candidates", "description": "Graph RAG candidate ranking for the Saturday hunt", "invocation": "python3 Tools/bbomb_hunter.py", "verbs": ["b-bomb", "promote", "candidate", "hunt"], "writes": false },
+    { "id": "gauntlet", "purpose": "ASCII boss battles", "description": "generate ASCII boss-battle gauntlets", "invocation": "node Tools/gauntlet.js", "verbs": ["gauntlet", "boss", "ascii", "battle"], "writes": false },
+    { "id": "generate-weekly-index", "purpose": "weekly rollup", "description": "build the frozen weekly MOC rollup", "invocation": "node Tools/generate-weekly-index.js", "verbs": ["weekly", "rollup", "index", "summary"], "writes": true },
+    { "id": "outreach-board", "purpose": "outreach board", "description": "generate the Outreach Board with overdue first; --gate-b for the lead section", "invocation": "node Tools/outreach-board.js [--gate-b]", "verbs": ["outreach", "board", "follow-up", "overdue"], "writes": true },
+    { "id": "session-context", "purpose": "session brief", "description": "Graph RAG session context (last sessions, blockers, insights)", "invocation": "python3 Tools/session_context.py", "verbs": ["context", "brief", "session", "graph-rag"], "writes": true },
+    { "id": "vault-index", "purpose": "vault awareness", "description": "generate vault-context and vault-index", "invocation": "node Tools/vault-index.js [--current|--quick]", "verbs": ["index", "vault", "awareness", "search"], "writes": true },
+    { "id": "convert", "purpose": "file modality bridge", "description": "convert files between modalities (pdf, docx, html, markdown)", "invocation": "node Tools/convert.js", "verbs": ["convert", "file", "modality", "pdf", "docx"], "writes": true },
+    { "id": "initialise-vault", "purpose": "vault scaffold", "description": "scaffold a minimal AI-Suplex vault", "invocation": "node Tools/initialise-vault.js", "verbs": ["init", "scaffold", "bootstrap", "vault"], "writes": true },
+    { "id": "rituals", "purpose": "weekly ritual script", "description": "run the weekly reset ritual steps", "invocation": "bash Tools/rituals.sh", "verbs": ["ritual", "reset", "weekly", "saturday"], "writes": true },
+    { "id": "wiki", "purpose": "wiki generation", "description": "generate the vault wiki", "invocation": "node Tools/wiki.js", "verbs": ["wiki", "search", "knowledge"], "writes": true }
+  ]
+}

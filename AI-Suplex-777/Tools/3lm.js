@@ -15,6 +15,7 @@
  *   survey             Scan session captures → surveyed insights for the LLM to judge
  *   sync [message]     Commit + push current branch to all git remotes
  *   promote --min N    Score lessons, promote above threshold
+ *   clean              Consolidate + dedup lessons.md; keep 50 recent, archive the rest (run promote first)
  *   revise             Check contradictions, deprecate old rules
  *   index              Refresh memory/index.md
  *   status             Show memory/ folder stats
@@ -281,6 +282,43 @@ function cmdStart() {
       }
     } else {
       console.log("ℹ️  --context requested but Tools/session_context.py not found (pending Oh-My-Pi build).\n");
+    }
+  }
+
+  // 0.5 — Skill & tool router (recommend-only, Phase 0). Injects a ranked hint; runs nothing.
+  const routerJs = path.join(__dirname, "router.js");
+  const skillIndex = path.join(__dirname, "..", "Skills", "index.json");
+  if (genContext && fs.existsSync(routerJs) && fs.existsSync(skillIndex)) {
+    try {
+      const vcPath = path.join(MEMORY_ROOT, "vault-context.md");
+      let task = "";
+      if (fs.existsSync(vcPath)) {
+        const lines = fs.readFileSync(vcPath, "utf8").split(String.fromCharCode(10));
+        let capturing = false;
+        const parts = [];
+        for (const line of lines) {
+          if (line.indexOf("## 🎯 Active Mission") === 0) { capturing = true; continue; }
+          if (capturing && line.indexOf("## ") === 0) break;
+          if (capturing && line.trim()) parts.push(line.trim());
+        }
+        task = parts.join(" ").slice(0, 300);
+      }
+      if (task) {
+        const out = spawnSync(process.execPath, [routerJs, "--task", task, "--json", "--dry"], {
+          cwd: path.join(__dirname, ".."), encoding: "utf8", timeout: 15000,
+        });
+        const rec = JSON.parse(out.stdout);
+        if ((rec.skills && rec.skills.length) || (rec.tools && rec.tools.length)) {
+          console.log("");
+          console.log("── 🧭 RECOMMENDED SKILLS & TOOLS ──");
+          (rec.skills || []).slice(0, 3).forEach((s, i) => console.log("  " + (i + 1) + ". " + s.name + " (" + Number(s.score).toFixed(2) + ")"));
+          (rec.tools || []).slice(0, 3).forEach((t) => console.log("  · " + t.id + " → " + t.invocation));
+          console.log("  (recommend-only — nothing loaded or run)");
+          console.log("");
+        }
+      }
+    } catch (e) {
+      // router is advisory; a failure must never break 3lm start
     }
   }
 
@@ -1723,6 +1761,9 @@ switch (command) {
     );
     console.log(
       "  promote --min N    Score lessons, promote above threshold (default: 70)",
+    );
+    console.log(
+      "  clean              Consolidate + dedup lessons.md; keep 50 recent, archive the rest (run promote first)",
     );
     console.log(
       "  revise             Check contradictions, deprecate old rules",

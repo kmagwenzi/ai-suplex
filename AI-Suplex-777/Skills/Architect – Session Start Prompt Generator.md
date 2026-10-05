@@ -5,6 +5,12 @@ role: "Architect"
 version: "1.0"
 date: 2026-04-10
 tags: [skill, architect, session-start, prompt-generator, ai-suplex]
+description: "Generate a complete Session Start prompt from a task ID or tasklist."
+triggers: [session start, session prompt, kickoff, task id]
+depends_on: []
+uses_tools: []
+quality: 0.7
+status: active
 ---
 
 # Architect Skill: Session Start Prompt Generator

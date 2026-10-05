@@ -1,0 +1,30 @@
+Its Sep 23
+Lets get to work
+---
+Updates:
+    - Saturday I was at awedding
+    - Sundays are tight
+    - Monday Family business
+    - Yesterday I was also working on the familiy business installing upgrades to the syste
+
+    - Today we finish and send meta verification
+---
+AI-Suplex: Tasklist - Prompt Patterns/📄 Pattern - Tasklist Generation.md
+CONTENT:
+  - Raw Content:
+    <daily-tasklist>
+        * Weekly Reset
+        * LinkedIn Post: Brain Storming ,Drafting and posting
+        * WQR:
+            - Web Console Build
+            - Meta Verification
+        * Mindrift: Complete exam
+        * Check on: One Forma, Micro-workers
+        * Africa Friendly Remote Platforms
+        * LinkedIn:
+            - 5 - 10 Applications
+            - Improve profile
+        * AI-Native: Week 1 deliverables
+        * Python:
+        * Bible School
+    </daily-tasklist>

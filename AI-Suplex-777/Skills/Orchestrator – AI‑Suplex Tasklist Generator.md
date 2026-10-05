@@ -5,6 +5,12 @@ role: "Orchestrator"
 version: "1.0"
 date: 2026-04-10
 tags: [skill, orchestrator, tasklist, ai-suplex]
+description: "Convert a raw to-do list into a structured AI-Suplex tasklist with IDs, roles, durations, phases."
+triggers: [tasklist, task, to-do, plan]
+depends_on: []
+uses_tools: []
+quality: 0.9
+status: active
 ---
 # Orchestrator Skill: AI‑Suplex Tasklist Generator
 ## 🎯 Purpose

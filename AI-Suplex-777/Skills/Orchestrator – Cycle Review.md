@@ -5,6 +5,12 @@ role: "Orchestrator"
 version: "1.0"
 date: 2026-04-21
 tags: [skill, orchestrator, cycle-review, ai-suplex, 7-7-7]
+description: "Analyze a 7-week cycle and produce a strategic review plus next-cycle planning."
+triggers: [cycle review, cycle, retrospective]
+depends_on: []
+uses_tools: []
+quality: 0.6
+status: active
 ---
 
 # Orchestrator Skill: Cycle Review

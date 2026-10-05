@@ -5,6 +5,12 @@ role: "Architect"
 version: "1.0"
 date: 2026-04-10
 tags: [skill, architect, session-end, prompt-generator, ai-suplex]
+description: "Generate a blank Session End prompt (YAML plus questions) to close a session."
+triggers: [session end, session close, end prompt, wrap up]
+depends_on: []
+uses_tools: []
+quality: 0.7
+status: active
 ---
 
 # Architect Skill: Session End Prompt Generator

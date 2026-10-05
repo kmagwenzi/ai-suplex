@@ -5,6 +5,12 @@ role: "Orchestrator"
 version: "1.0"
 date: 2026-04-10
 tags: [skill, orchestrator, weekly-review, ai-suplex]
+description: "Generate a strategic weekly review with recommendations from weekly session data."
+triggers: [weekly review, review, weekly]
+depends_on: []
+uses_tools: [3lm]
+quality: 0.8
+status: active
 ---
 
 # Orchestrator Skill: Weekly Review

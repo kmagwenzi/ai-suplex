@@ -5,6 +5,12 @@ role: "Orchestrator"
 version: "1.0"
 date: 2026-05-13
 tags: [skill, orchestrator, weekly-plan, planning, ai-suplex]
+description: "Generate a tactical weekly plan with mission, priority tasks, day breakdown, success metrics."
+triggers: [weekly plan, week plan, weekly]
+depends_on: []
+uses_tools: []
+quality: 0.7
+status: active
 ---
 
 # Orchestrator Skill: Weekly Plan Generator

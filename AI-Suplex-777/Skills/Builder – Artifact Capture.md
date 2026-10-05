@@ -5,6 +5,12 @@ role: "Builder"
 version: "1.0"
 date: 2026-04-10
 tags: [skill, builder, artifact, capture, macro, ai-suplex]
+description: "Capture a work-in-progress artifact into a structured markdown file and route lessons to 3lm."
+triggers: [capture, artifact, raw work, note]
+depends_on: []
+uses_tools: [3lm, paths]
+quality: 0.9
+status: active
 ---
 
 # Builder Skill: Artifact Capture

@@ -5,6 +5,12 @@ role: "Builder"
 version: "1.0"
 date: 2026-04-10
 tags: [skill, builder, session-end, report-generator, ai-suplex]
+description: "Transform a filled Session End prompt into a formatted Session End Report."
+triggers: [session end, report, session report]
+depends_on: []
+uses_tools: [3lm]
+quality: 0.7
+status: active
 ---
 
 # Builder Skill: Session End Report Generator

@@ -5,6 +5,12 @@ role: "Builder"
 version: "1.0"
 date: 2026-06-22
 tags: [skill, builder, save-context, memory, session-continuity]
+description: "Summarize session context, save to Context Kick-start, archive the predecessor, close the session."
+triggers: [save context, context, switch, handoff]
+depends_on: []
+uses_tools: [3lm]
+quality: 0.8
+status: active
 ---
 
 # Builder Skill: Save Context

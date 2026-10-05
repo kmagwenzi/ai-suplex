@@ -5,6 +5,12 @@ role: "Orchestrator"
 version: "1.0"
 date: 2026-04-10
 tags: [skill, orchestrator, combined-tasklist, ai-suplex]
+description: "Aggregate tasks from session ends, insights, and manual entries into a combined tasklist."
+triggers: [combined, aggregate, tasklist, merge]
+depends_on: []
+uses_tools: []
+quality: 0.6
+status: active
 ---
 # Orchestrator Skill: Combined Tasklist Generator
 
