@@ -20,6 +20,7 @@
  *   index              Refresh memory/index.md
  *   status             Show memory/ folder stats
  *   approvals          Aggregated "Hustler decides" inbox (FINAL BOSS gates · lessons · B-Bombs)
+ *   threads            List instances (--list | --open | --stale) — Context & Threads v2.0
  */
 
 const fs = require("fs");
@@ -181,7 +182,7 @@ const CONTEXT_KICKSTART_ACTIVE = path.join(
 // `contentDate` (when present) overrides file mtime — used for docs whose
 // freshness lives in a section, not the file's last edit.
 const STALENESS_WATCH = [
-  { label: "AGENTS.md (Active Mission Context)", file: "AGENTS.md", contentDate: agentsMissionDate, fix: "update Active Mission Context (rotate from Context Kick-start Active)" },
+  { label: "Active Mission Context (live state)", file: "AI-Suplex Kick-start/Context Kick-start/Active Mission Context.md", contentDate: agentsMissionDate, fix: "refresh Active Mission Context.md (daily-tasks thread is the sole writer)" },
   { label: "vault-context.md (vault awareness)", file: "Memory/vault-context.md", fix: "node Tools/vault-index.js --current" },
   { label: "Knowledge graph DB (full — knowledge-graph.db)", file: "Memory/knowledge-graph.db", fix: "node Tools/knowledge-graph.js --build" },
   { label: "Knowledge graph DB (current — knowledge-graph-current.db)", file: "Memory/knowledge-graph-current.db", fix: "node Tools/knowledge-graph.js --build-current" },
@@ -218,9 +219,71 @@ function humanAge(days) {
   return `${Math.round(days)}d`;
 }
 
-function latestContextKickstartFile() {
-  const files = listFiles(CONTEXT_KICKSTART_ACTIVE, /\.md$/);
-  return files.length ? path.join(CONTEXT_KICKSTART_ACTIVE, files[0]) : null;
+// Instance model — Context & Threads v2.0. An instance file is `{thread}-{ref}-{slug}.md`
+// (N lanes) or `{thread}.md` (daily-tasks / realist singletons). `_instances.md` is the
+// generated projection — never an instance, never a staleness target.
+const INSTANCE_RE = /^(daily-tasks|long-running-tasks|random-task|realist)-(\d+)-(.+)\.md$/;
+const SINGLETON_RE = /^(daily-tasks|realist)\.md$/;
+
+function collectInstances(dir) {
+  const instances = [];
+  const legacy = [];
+  if (!fs.existsSync(dir)) return { instances, legacy };
+  let names;
+  try {
+    names = fs.readdirSync(dir);
+  } catch {
+    return { instances, legacy };
+  }
+  for (const name of names) {
+    if (!name.endsWith(".md")) continue;
+    if (name === "_instances.md") continue; // projection — never an instance
+    let thread, ref, slug, singleton;
+    const im = name.match(INSTANCE_RE);
+    if (im) {
+      thread = im[1];
+      ref = im[2];
+      slug = im[3];
+      singleton = false;
+    } else {
+      const sm = name.match(SINGLETON_RE);
+      if (sm) {
+        thread = sm[1];
+        ref = null;
+        slug = null;
+        singleton = true;
+      } else {
+        legacy.push(name); // old-shape or unknown — not an instance
+        continue;
+      }
+    }
+    const fp = path.join(dir, name);
+    const content = readFile(fp) || "";
+    const { data } = parseFrontmatter(content);
+    let mtimeMs = 0;
+    try {
+      mtimeMs = fs.statSync(fp).mtimeMs;
+    } catch {}
+    instances.push({
+      thread,
+      ref,
+      slug,
+      singleton,
+      file: name,
+      status: data.status || "open",
+      opened: data.opened || null,
+      writer: data.writer || null,
+      agent: data.agent || null,
+      mission: data.mission || null,
+      mtimeMs,
+    });
+  }
+  return { instances, legacy };
+}
+
+function publicInstance(i) {
+  const { mtimeMs, ...rest } = i;
+  return rest;
 }
 
 function checkStaleness(defaultMaxDays) {
@@ -237,12 +300,68 @@ function checkStaleness(defaultMaxDays) {
       results.push({ label: item.label, file: fp, days, fix: item.fix || "" });
     }
   }
-  const kc = latestContextKickstartFile();
-  const kcDays = ageInDays(kc);
-  if (kcDays !== null && kcDays > defaultMaxDays) {
-    results.push({ label: "Context Kick-start Active (latest)", file: kc, days: kcDays, fix: "write a new Active context file (session end)" });
+  // Open instances + legacy context files: warn on the OLDEST, so a stalled
+  // instance is surfaced (the old guard checked only the newest file and masked it).
+  const { instances, legacy } = collectInstances(CONTEXT_KICKSTART_ACTIVE);
+  const candidates = [];
+  for (const i of instances) {
+    if (i.status !== "open") continue;
+    candidates.push({ label: `Instance ${i.file}`, file: path.join(CONTEXT_KICKSTART_ACTIVE, i.file), mtimeMs: i.mtimeMs });
+  }
+  for (const name of legacy) {
+    const fp = path.join(CONTEXT_KICKSTART_ACTIVE, name);
+    let mtimeMs = 0;
+    try { mtimeMs = fs.statSync(fp).mtimeMs; } catch {}
+    candidates.push({ label: `Context ${name}`, file: fp, mtimeMs });
+  }
+  if (candidates.length > 0) {
+    candidates.sort((a, b) => a.mtimeMs - b.mtimeMs);
+    const oldest = candidates[0];
+    const days = ageInDaysFrom(oldest.mtimeMs);
+    if (days !== null && days > defaultMaxDays) {
+      results.push({ label: oldest.label, file: oldest.file, days, fix: "close the stale instance (Save Context → close, archive dated)" });
+    }
   }
   return results;
+}
+
+function cmdThreads() {
+  const sub = process.argv[3] || "--list";
+  const dirIdx = process.argv.indexOf("--dir");
+  const dir = dirIdx > -1 ? process.argv[dirIdx + 1] : CONTEXT_KICKSTART_ACTIVE;
+  const json = process.argv.includes("--json");
+  const { instances, legacy } = collectInstances(dir);
+
+  if (sub === "--open") {
+    const open = instances.filter((i) => i.status === "open");
+    if (json) console.log(JSON.stringify(open.map(publicInstance)));
+    else {
+      console.log(`Open instances (${open.length}):`);
+      for (const i of open) console.log(`  ${i.file}`);
+    }
+    return;
+  }
+  if (sub === "--stale") {
+    const open = instances
+      .filter((i) => i.status === "open")
+      .sort((a, b) => a.mtimeMs - b.mtimeMs);
+    const oldest = open[0] || null;
+    if (json) console.log(JSON.stringify(oldest ? publicInstance(oldest) : null));
+    else console.log(oldest ? `${oldest.file}  (oldest open instance)` : "(no open instances)");
+    return;
+  }
+  // default: --list
+  if (json) {
+    console.log(JSON.stringify(instances.map(publicInstance)));
+  } else {
+    console.log(`Instances in ${dir} (${instances.length}):`);
+    if (instances.length === 0) console.log("  (none)");
+    for (const i of instances) console.log(`  [${i.status}] ${i.file}`);
+    if (legacy.length > 0) {
+      console.log(`Legacy (old-shape) files (${legacy.length}):`);
+      for (const name of legacy) console.log(`  ${name}`);
+    }
+  }
 }
 
 // ── START ──────────────────────────────────────────────
@@ -1744,6 +1863,9 @@ switch (command) {
   case "approvals":
     cmdApprovals();
     break;
+  case "threads":
+    cmdThreads();
+    break;
   default:
     console.log(KITTY);
     console.log("\nUsage: node 3lm <command> [--param value ...]\n");
@@ -1775,6 +1897,9 @@ switch (command) {
     console.log("  status             Show memory/ folder stats");
     console.log(
       "  approvals          Aggregated 'Hustler decides' inbox (FINAL BOSS gates · lessons · B-Bombs)",
+    );
+    console.log(
+      "  threads            List instances (--list | --open | --stale) [--json] [--dir PATH]",
     );
     console.log(
       "                     --json  machine-readable inbox (for the Phase C cockpit)\n",

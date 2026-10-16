@@ -46,6 +46,41 @@ AI‑Suplex 7‑7‑7 is a **complete AI‑assisted working framework** built on
 
 ---
 
+## 🧵 Execution Threads (4)
+
+AI-Suplex executes across **four parallel threads**. A **thread is a lane**; an **instance is a window**. `long-running-tasks` and `random-task` run **N concurrent instances** — each owning **one context file** and **one write-scope**. `daily-tasks` and `realist` are **singletons**.
+
+**Only the Daily-tasks thread runs a session.** A *session* = the end-to-end execution of a Daily tasklist (Session Start → execute → Session End report → memory loop). The other three run **alongside** it and manage their state through **artifacts + Save Context** — they do not open Sessions, do not produce Session End reports, and do not write the mission area.
+
+| Thread | Purpose | Context prefix | Instances | Runs a session? |
+| --- | --- | --- | --- | --- |
+| **Daily tasks** | the day's execution — the primary thread | `daily-tasks` | **1 (singleton)** | ✅ **yes — the only one** |
+| **Long-running tasks** | a multi-session build (company site, Web Console) | `long-running-tasks` | **N** | ❌ no — artifacts + Save Context |
+| **Random tasks** | one-off / misc jobs (config, tooling, PRDs) | `random-task` | **N** | ❌ no — artifacts + Save Context |
+| **Realist** | the execution audit — persona: **The Realist** | `realist` | **1 (singleton)** | ❌ no — 5-line log to `Reviews/Realist/` |
+
+**Filenames:**
+- Instances (N lanes): `Context Kick-start/Active/{thread}-{ref}-{slug}.md`
+- Singletons: `Context Kick-start/Active/{thread}.md`
+- Archive (on close): `Archived/{YYYY-MM-DD}-{thread}-{ref}-{slug}.md`
+
+**Rules:**
+- **One instance = one file — one writer per file.** An instance writes its own file and archives **only itself, on close**. A **new window is a new file**, never an append to another instance's file. **Never archive, overwrite, or edit another instance's context file** — not even another instance of the same thread.
+- **Only the daily-tasks thread runs a session.** The other three threads are **background lanes**: they prove their work with **artifacts** and persist their state with a **Save Context** brief. No Session Start, no Session End report.
+- **Append is instance-scoped.** A later save to the *same* instance appends in place; a **new workstream is a new instance**, never an append to an old one.
+- **`{ref}` allocation:** the **AS MC** allocates the per-thread ordinal, **reset per day**; the **Hustler** allocates in **777-Edition** without an AS MC.
+- **Writer class:** a **producer** (cloud agent · research window) writes only its own instance file + artifacts — never `Memory/`, `AGENTS.md`, `B-Bombs/`, or `3lm sync`. A **committer** (laptop · AS MC) lands the work and runs the sync.
+- **The Active Mission Context has a single writer: the daily-tasks thread** (it lives in `AI-Suplex Kick-start/Context Kick-start/Active Mission Context.md`). Other threads may update *other* sections — AI-Suplex Commands, Prompt Patterns, Skills, Tools, etc.
+- **Partition by write-scope, not by branching the vault's memory.** The vault stays on one tree/branch; only one thread runs `3lm sync` (a committer, serialized).
+- **A session is closed by the commit**, not by the file — `3lm sync` at session end.
+
+> **The Realist is a specialization of the Orchestrator** (strategy · planning · review), **not** a fifth role, **not an instance**. It **prescribes** what should change but does **not produce** tasklists or artifacts.
+> See `AI-Suplex Kick-start/The Realist Persona/The Realist Persona.md` · `Prompt Patterns/📄 Pattern - Realist Thread (Execution Audit).md` · `Prompt Patterns/📄 Pattern - Save Context.md` (v3, instance-aware).
+
+---
+
+---
+
 ## 🧠 The 3‑Layer Memory Stack
 
 **The defining feature of AI‑Suplex 7‑7‑7.** The vault has a **file-first, markdown-first memory stack** that compounds knowledge across sessions. See `🧠 AI-Suplex 3-Layer Memory System.md` in Kick-start for the full spec.
