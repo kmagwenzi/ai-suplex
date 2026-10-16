@@ -1,4 +1,5 @@
 ---
+type: documentation
 tags:
   - documentation
   - prompt-pattern
@@ -100,10 +101,10 @@ Source: Use one or more source properties that work together:
 
 ```yaml
 <prompt-pattern>
-CONTEXT: Capture the webhook configuration I just created for Webhook integration
+CONTEXT: Capture the webhook configuration I just created for Paynow integration
 - External Source 1: Builder – Artifact Capture skill
 - External Source 2: AI-Suplex Kick-start/Artifact examples
-- Inline Source: Context: Client Project payment webhook setup completed successfully
+- Inline Source: Context: WQR payment webhook setup completed successfully
 
 TEMPLATE: @/AI-Suplex-777/Templates/AI-Suplex - Artifact Template
 
@@ -117,11 +118,11 @@ CONTENT:
 Source:
 # Use one or more source properties that work together:
 - Raw Content: 
-1. Title: "Client Project Webhook Webhook Configuration"
-2. Overview: "n8n webhook setup for receiving Webhook payment confirmations"
+1. Title: "WQR Paynow Webhook Configuration"
+2. Overview: "n8n webhook setup for receiving Paynow payment confirmations"
 3. Content: 
 {
-  "webhook": "https://client-project.co.zw/paynow",
+  "webhook": "https://wqr.co.zw/paynow",
   "method": "POST",
   "headers": {"Content-Type": "application/json"}
 }
@@ -293,14 +294,14 @@ Connect pattern outputs to the broader AI-Suplex pipeline:
 | Template Type            | Pattern File                                   | Example Additional Instructions                                                  |
 | ------------------------ | ---------------------------------------------- | -------------------------------------------------------------------------------- |
 | **Tasklist Generation**  | `📄 Pattern - Tasklist Generation`             | `"Save as AI-Suplex-Tasklist-[project].md in Tasklists/"`                        |
-| **Artifact Generation**  | `📄 Pattern - Artifact Generation`             | `"Save in Artifacts/<Period>/Cycle [X]/Week [Y]/ with today's date"`                      |
-| **B-Bomb Promotion**     | `📄 Pattern - B-Bomb Promotion`                | `"Save in B-Bombs/<Period>/Cycle [X]/Week [Y]/ and update product potential"`             |
+| **Artifact Generation**  | `📄 Pattern - Artifact Generation`             | `"Save in Artifacts/<Period>/Cycle [X]/Week [Y]/ with today's date"`            |
+| **B-Bomb Promotion**     | `📄 Pattern - B-Bomb Promotion`                | `"Save in B-Bombs/<Period>/Cycle [X]/Week [Y]/ and update product potential"`   |
 | **Session Start Prompt** | `📄 Pattern - Session Start Prompt Generation` | `"Save in Sessions/Active/Start/ with session number"`                           |
 | **Session End Prompt**   | `📄 Pattern - Session End Prompt Generation`   | `"Open for editing, fill completion details, then save to Sessions/Active/End/"` |
 | **Session End Report**   | `📄 Pattern - Session End Report`              | `"Generate comprehensive report and save to Sessions/Active/End/"`               |
-| **Batch Insights**       | `📄 Pattern - Batch Insight Generation`        | `"Append to Insights/<Period>/Cycle [X]/Week [Y].md with timestamp"`                      |
+| **Batch Insights**       | `📄 Pattern - Batch Insight Generation`        | `"Append to Insights/<Period>/Cycle [X]/Week [Y].md with timestamp"`            |
 
-> [!tip] **Pattern Location:** All patterns are available in `AI-Suplex-777/Prompt Patterns/` and linked from the [[🦸AI-Suplex 7‑7‑7 – Command Center]] dashboard.
+> [!tip] **Pattern Location:** All patterns are available in `AI-Suplex-777/Prompt Patterns/` and linked from the [[AI-Suplex 7‑7‑7 – Command Center]] dashboard.
 
 ---
 

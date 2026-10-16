@@ -1,4 +1,5 @@
 ---
+type: documentation
 alias: ["Session Protocol", "Work Session Framework", "Twabam Session System"]
 tags: [session-management, protocol, twabam-machine]
 created: 2025-09-30
@@ -26,6 +27,30 @@ graph TD
     E --> F[Session Report Generation]
     F --> G[Feedback & Learning Integration]
 ```
+
+---
+
+## 🧵 **EXECUTION THREADS & SESSIONS (4‑Thread Model)**
+
+AI-Suplex runs **four parallel execution threads** — but they are **not** four sessions. This distinction is the load-bearing rule:
+
+| Thread | Prefix | Runs a session? | How it manages context |
+| --- | --- | --- | --- |
+| **Daily tasks** | `daily-tasks-` | ✅ **yes — the only one** | Session Start → execute → Session End report → memory loop; **sole writer of the Active Mission Context** (in `AI-Suplex Kick-start/Context Kick-start/Active Mission Context.md`) |
+| **Long-running tasks** | `long-running-tasks-` | ❌ no | **artifacts + Save Context** |
+| **Random tasks** | `random-task-` | ❌ no | **artifacts + Save Context** |
+| **Realist** | `realist-` | ❌ no | writes its 5-line log to `Reviews/Realist/` |
+
+**The rule:** *A session is the end-to-end execution of a Daily tasklist.* The three non-daily threads do **not** open sessions — they run alongside, and they manage their state through exactly two things:
+
+1. **Artifacts** — the work itself is captured as artifacts in `Artifacts/<Period>/Cycle X/Week Y/` (the durable evidence), and
+2. **Save Context** — a thread-scoped context brief in `Context Kick-start/Active/` (the handoff to the next time that thread runs).
+
+**Why it matters:** a session needs a Session Start prompt, a Session End report, and a memory loop — that is the discipline of the *primary* thread. Forcing four threads through that machinery would fragment the day's single session into four half-sessions. The other threads are **background lanes**: they prove their work with artifacts, persist their state with a context brief, then stop.
+
+**Consequence for the Active Mission Context:** it has **one writer — the daily-tasks thread**. Other threads may update *other* sections (AI-Suplex Commands, Prompt Patterns, Skills, Tools, etc), and they log their status through their own context file, never by writing the mission area.
+
+**Consequence for Save Context:** one context file **per thread per day**. The **first** save of the day archives that thread's previous brief; **later saves the same day append** to the current file.
 
 ---
 
@@ -97,12 +122,20 @@ Parameters_Optional:
   - Session_Narrative: [optional free-text summary]
 
 Response_Protocol:
+  # [patch update] THREAD CONTEXT — read every lane BEFORE writing
+  - Read ALL context files for the threads that ran today (`Context Kick-start/Active/*.md`) so the report
+    reflects each lane that moved, not only the primary session
   - Generate comprehensive session end report using v3.0 template
   - Include frontmatter with all session metrics
   - Capture insights, next actions, and blockers
   - Calculate innovation quotient and productivity score
+  # [maintain] REPORT + DERIVED INDEXES
+  - Rebuild the derived indexes (`3lm index` · `vault-index --current` · `knowledge-graph --build-current`)
   - Update trackers and MOCs via Sweeper scripts
   - Save to Sessions/Active/End/ with timestamp
+  # [patch update] MISSION AREA — daily-tasks sessions ONLY
+  - Update the Active Mission Context file (the daily-tasks thread is its sole writer; any other
+    thread states "AGENTS.md unchanged (not the daily-tasks thread)")
 ```
 
 **Template-Based Session End Format:**
@@ -149,6 +182,7 @@ tags:
 ### **When to Switch Context:**
 - Switching between chat windows
 - Ending a work block (not full session)
+- Befor compacting an AI agent chat thread 
 - Taking a break
 - Any time you want to ensure the next session remembers progress
 
@@ -383,7 +417,7 @@ tags:
 _Session Report Generated via AI-Suplex_
 ```
 
-## 🧩 **TEMPLATE PATTERNS – NEW USER INTERFACE**
+## 🧩 **PROMPT  PATTERNS –  AI USER INTERFACE**
 
 **TWABAM ⚡!** Prompt Patterns are the fastest way to use AI-Suplex without learning the full system. They provide copy-paste templates that generate perfect outputs in any AI chat.
 
@@ -394,15 +428,15 @@ _Session Report Generated via AI-Suplex_
 4. **Execute** – AI generates professional, formatted output
 
 ### **AVAILABLE PATTERNS:**
-| Pattern | Use When | Corresponding Skill |
-|---------|----------|-------------------|
-| **Tasklist Generation** | Converting raw to-do lists into structured plans | Orchestrator – AI‑Suplex Tasklist Generator |
-| **Session Start Prompt** | Beginning a focused work session | Architect – Session Start Prompt Generator |
-| **Session End Prompt** | Generating session completion prompts | Architect – Session End Prompt Generator |
-| **Session End Report** | Creating comprehensive session reports | Architect – Session End Report Generator |
-| **Artifact Generation** | Saving work-in-progress as structured artifacts | Builder – Artifact Capture |
-| **B-Bomb Promotion** | Polishing work for productization | Builder – B‑Bomb Promotion |
-| **Batch Insights** | Capturing multiple learnings | Builder – Batch Insight Generation |
+| Pattern                  | Use When                                         | Corresponding Skill                         |
+| ------------------------ | ------------------------------------------------ | ------------------------------------------- |
+| **Tasklist Generation**  | Converting raw to-do lists into structured plans | Orchestrator – AI‑Suplex Tasklist Generator |
+| **Session Start Prompt** | Beginning a focused work session                 | Architect – Session Start Prompt Generator  |
+| **Session End Prompt**   | Generating session completion prompts            | Architect – Session End Prompt Generator    |
+| **Session End Report**   | Creating comprehensive session reports           | Architect – Session End Report Generator    |
+| **Artifact Generation**  | Saving work-in-progress as structured artifacts  | Builder – Artifact Capture                  |
+| **B-Bomb Promotion**     | Polishing work for productization                | Builder – B‑Bomb Promotion                  |
+| **Batch Insights**       | Capturing multiple learnings                     | Builder – Batch Insight Generation          |
 
 ### **PATTERN STRUCTURE:**
 ```yaml
@@ -445,6 +479,7 @@ Tasklist → Session Start → Execute → Capture (Artifact/Insight/B-Bomb) →
 ## 🔧 **SESSION TYPE SPECIFICATIONS**
 
 ### **PLANNING SESSIONS**
+
 ```yaml
 Session_Type: "planning"
 Focus_Areas: [strategy, roadmapping, resource-allocation, task-breakdown]

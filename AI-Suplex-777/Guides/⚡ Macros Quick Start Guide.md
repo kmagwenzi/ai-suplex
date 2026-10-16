@@ -1,4 +1,5 @@
 ---
+type: document
 alias: [Macros Guide, QuickAdd Reference, Commander Buttons Guide]
 tags: [macros, quick-start, reference, 7-7-7]
 created: 2026-05-14
@@ -7,7 +8,7 @@ status: active
 
 # ⚡ AI-Suplex Macros – Quick Start Guide
 
- > **23 macros. 4 rhythms. One pipeline.**  
+> **22 macros. 4 rhythms. One pipeline.**  
 > This guide tells you what to click, when to click it, and why.
 
 ---
@@ -17,7 +18,7 @@ status: active
 | Rhythm            | Frequency                | Macros                                                            | Purpose                |
 | ----------------- | ------------------------ | ----------------------------------------------------------------- | ---------------------- |
 | **Setup**         | Once (per vault / cycle) | Focus Manager, Create MOC, Create Tracker, Ensure Structure       | Build your workspace   |
-| **Daily Session** | Every time you work      | Start, Artifact, Insight, B-Bomb, Feed 3LM, End, To Do List             | Execute and capture    |
+| **Daily Session** | Every time you work      | Start, Artifact, Insight, B-Bomb, Feed CortexMem, End             | Execute and capture    |
 | **Weekly**        | End of each week         | Enhance MOCs, Aggregate Weekly, Extract Next Steps, Weekly Review | Reflect and update     |
 | **End of Cycle**  | Every 7 weeks            | Generate Cycle Review, Start New Cycle                            | Strategize and inherit |
 
@@ -78,7 +79,7 @@ When: After creating MOCs, at the start of each cycle
 ## 🚀 DAILY SESSION LOOP
 
 ```
-🚀 Start  →  📄 Artifact  →  💡 Insight  →  🧠 Feed 3LM  →  💣 B-Bomb  →  🏁 End
+🚀 Start  →  📄 Artifact  →  💡 Insight  →  🧠 Feed CortexMem  →  💣 B-Bomb  →  🏁 End
 ```
 
 ### 7. 🚀 Session Start
@@ -105,14 +106,14 @@ Output: Appends a callout block to Insights/<Period>/Cycle X/Week Y.md
 When: You realize something worth remembering
 ```
 
-### 10. 🧠 Feed 3LM
+### 10. 🧠 Feed CortexMem
 ```
 What: Feed context directly into the AI's persistent memory
 Prompts: Focus, Insight text
 Output: Saved to .cortexmem/store.db as type "insight"
 When: You want the AI to remember something across future sessions
 Differs from Insight: Insight stays in your vault for dashboards;
-                     Feed 3LM goes to the AI's memory layer
+                     Feed CortexMem goes to the AI's memory layer
 ```
 
 ### 11. 💣 B-Bomb
@@ -238,7 +239,7 @@ When: After creating new B-Bombs, or if CortexMem falls out of sync
 
 ### Page Header Toolbar (top of editor)
 ```
-Row 1: 🚀 Start  🏁 End  📄 Artifact  💣 B-Bomb  💡 Insight  🧠 Feed 3LM  📝 To Do List
+Row 1: 🚀 Start  🏁 End  📄 Artifact  💣 B-Bomb  💡 Insight  🧠 Feed CortexMem
 Row 2: 🎯 Focus Manager  🗺️ Create MOC  📊 Create Tracker  📁 Ensure  📁(Cycle)  📁(Week)
 Row 3: 📦 Archive  📦 Archive All  📊 Enhance MOCs  📊 Aggregate  📊 Extract Next
 Row 4: 🔄 Generate Review  🔄 Start Cycle  🔄 Refresh B-Bombs  🔄 Weekly Review  🔄 Sync CortexMem
@@ -253,7 +254,7 @@ Row 4: 🔄 Generate Review  🔄 Start Cycle  🔄 Refresh B-Bombs  🔄 Weekly
 | Start working | 🚀 Start |
 | Save what I just made | 📄 Artifact |
 | Remember something I learned | 💡 Insight |
-| Teach the AI something for later | 🧠 Feed 3LM |
+| Teach the AI something for later | 🧠 Feed CortexMem |
 | Mark something as reusable/sellable | 💣 B-Bomb |
 | Finish my session | 🏁 End |
 | Define my work areas | 🎯 Focus Manager |

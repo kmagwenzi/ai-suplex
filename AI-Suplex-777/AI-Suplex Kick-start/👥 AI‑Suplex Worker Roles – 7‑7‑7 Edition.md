@@ -1,11 +1,11 @@
 ---
+type: documentation
 title: AI‑Suplex Worker Roles – 7‑7‑7 Edition
 version: 1.0
 date: 2026-04-10
 tags: [roles, full, ai-suplex]
 ---
-
-# 👥 AI‑Suplex Worker Roles – 7‑7‑7 Edition
+# AI‑Suplex Worker Roles – 7‑7‑7 Edition
 
 **TWABAM ⚡!** AI‑Suplex divides work into **roles** – not job titles, but **hats you wear** during different tasks. In the 7‑7‑7 Edition, we have five roles, each with clear responsibilities.
 
@@ -16,7 +16,7 @@ tags: [roles, full, ai-suplex]
 
 | Role             | Who               | Mission                                                                                                                                | Example Task                                                                      |
 | ---------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| **Hustler**      | Human             | Strategy, energy, offline work, cultural validation                                                                                    | “Build a landing page for Client Project”                                                    |
+| **Hustler**      | Human             | Strategy, energy, offline work, cultural validation                                                                                    | “Build a landing page for WQR”                                                    |
 | **Orchestrator** | AI                | Organizes the plan – turns messy input into structured tasklist or generates a  timed execution plan (1 week, 7 weeks, 3 months, etc ) | Converts “Build landing page” → Task ID `LP-01` with subtasks, roles, durations   |
 | **Architect**    | AI                | Generates or enhances prompts; quality‑checks Builder outputs                                                                          | “Write a session start prompt for Task LP-01” or “Review this B‑Bomb for quality” |
 | **Builder**      | AI                | Generates artifacts and B‑Bombs (code, prompts, docs, designs)                                                                         | Executes the prompt, produces the landing page code                               |
@@ -89,7 +89,7 @@ The **Orchestrator** is the strategic AI role. It helps you plan, break down tas
 - Converting raw to‑do lists into structured AI‑Suplex tasklists (with roles, durations, nature of work)
 - Aggregating tasks from multiple sources into a Combined Tasklist
 - Producing weekly reviews (analysing session data, recommending improvements)
-- High‑level resource allocation (e.g., “focus on Client Project this week”)
+- High‑level resource allocation (e.g., “focus on WQR this week”)
 
 ### How to Use the Orchestrator
 Open one of the Orchestrator skill files in `Skills/` (e.g., `Orchestrator – AI‑Suplex Tasklist Generator.md`), copy the content, paste into an AI chat (Claude, ChatGPT, DeepSeek), and say:
@@ -178,7 +178,7 @@ The **Sweeper** is a collection of JavaScript macros that automate file operatio
 
 ## 🔄 How Roles Work Together (Example)
 
-**Scenario:** You want to fix an Oracle cloud block for Client Project, then review your week.
+**Scenario:** You want to fix an Oracle cloud block for WQR, then review your week.
 
 1. **You (Hustler)** decide this is the priority.
 2. You ask **Orchestrator** (AI) to break down your to‑do list into a tasklist.

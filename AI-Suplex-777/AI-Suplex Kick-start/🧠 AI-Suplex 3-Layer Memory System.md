@@ -1,4 +1,5 @@
 ---
+type: documentation
 alias: ["3-Layer Memory", "AI-Suplex Memory Stack", "Self-Improving Memory"]
 tags: [memory, 3-layer, episodic, semantic, procedural, specification]
 created: 2026-06-06
@@ -17,11 +18,9 @@ status: active
 The memory stack preserves context across sessions, converts experience into durable knowledge, and keeps the vault organized around real execution. Four stores, one purpose: compounding usefulness over time.
 
 ```
-Session Start → 3lm start (load context) → 3lm learn (extract lessons) → 3lm index (refresh lookup)
-During Session → Capture Artifact/B-Bomb/Insight → 3lm learn (quick capture) → 3lm index
-Session End → 3lm capture (check for missed lessons) → 3lm end (write episode) → 3lm learn (extract lessons) → 3lm index
-Saturday B-Bomb Day → 3lm promote --min 70 (score + promote) → 3lm revise (check contradictions) → 3lm index
-→ Next session starts smarter
+Session → 3lm end (write episode) → 3lm learn (extract lessons)
+→ 3lm promote --min 70 (score + promote) → 3lm revise (check contradictions)
+→ 3lm index (refresh lookup) → Next session starts smarter
 ```
 
 ---
@@ -30,14 +29,14 @@ Saturday B-Bomb Day → 3lm promote --min 70 (score + promote) → 3lm revise (c
 
 | Store | Location | Type | What It Holds |
 |-------|----------|------|--------------|
-| **Episodic** | `memory/episodic/<Period>/Cycle-X/Week-Y/` | What happened | Compressed session records — actions, outcomes, scores, lessons |
-| **Semantic** | `memory/semantic/` | What is true | Stable facts, preferences, project rules, glossary, entities |
-| **Procedural** | `memory/procedural/` | How to do it | Reusable workflows, macros, prompt patterns, execution playbooks |
-| **Lessons** | `memory/lessons.md` | What might be useful | Candidate learnings — staging area before promotion or deprecation |
+| **Episodic** | `Memory/episodic/<Period>/Cycle-X/Week-Y/` | What happened | Compressed session records — actions, outcomes, scores, lessons |
+| **Semantic** | `Memory/semantic/` | What is true | Stable facts, preferences, project rules, glossary, entities |
+| **Procedural** | `Memory/procedural/` | How to do it | Reusable workflows, macros, prompt patterns, execution playbooks |
+| **Lessons** | `Memory/lessons.md` | What might be useful | Candidate learnings — staging area before promotion or deprecation |
 
 ### Episodic Memory
 
-**One file per session.** Stored by the 7-7-7 rhythm: `Cycle-X/Week-Y/`. Contains:
+**One file per session.** Stored by the 7-7-7 rhythm: `<Period>/Cycle-X/Week-Y/`. Contains:
 
 - Linked Tasklist ID and session metadata
 - What was executed and what was produced
@@ -52,7 +51,7 @@ Saturday B-Bomb Day → 3lm promote --min 70 (score + promote) → 3lm revise (c
 
 - `preferences.md` — How we prefer to work (file-first, vault canonical, local-first)
 - `project_rules.md` — What governs the system (architecture, operational, product rules)
-- `glossary.md` — What every term means (AI-Suplex, B-Bomb, CortexMem, etc.)
+- `glossary.md` — What every term means (AI-Suplex, B-Bomb, etc.)
 - `entities.md` — Who and what exists in the system (roles, tools, concepts)
 
 **Loaded at every session start** to provide consistent context. Rarely changes — facts graduate here only after proving stable across multiple episodes.
@@ -88,8 +87,6 @@ Saturday B-Bomb Day → 3lm promote --min 70 (score + promote) → 3lm revise (c
 
 ### Phase 2: Store (After Session)
 ```bash
-node Tools/3lm.js start    # Load all context
-node Tools/3lm.js capture  # Scan for uncaptured lessons
 node Tools/3lm.js end      # Write episodic file
 node Tools/3lm.js learn    # Extract lessons → lessons.md
 node Tools/3lm.js index    # Refresh lookup manifest
@@ -99,7 +96,6 @@ node Tools/3lm.js index    # Refresh lookup manifest
 ```bash
 node Tools/3lm.js promote --min 70   # Score + promote
 node Tools/3lm.js revise             # Check contradictions
-node Tools/3lm.js index              # Refresh lookup
 ```
 
 ### Phase 4: Compounding (Session Start)
@@ -122,22 +118,6 @@ node Tools/3lm.js start    # Load all context
 
 ---
 
-## ⚡ CORTEXMEM BRIDGE (Optional)
-
-CortexMem is an optional fast-capture bridge for selected high-value context. **Not required** — the markdown vault is the canonical memory store.
-
-| Use Case | When to Use |
-|----------|------------|
-| Major decisions | Quick capture during fast-moving work |
-| Explicit constraints | Hard rules that shouldn't be violated |
-| Explicit preferences | Style choices, naming conventions |
-| Compact session summaries | Bridge-state for tool portability |
-| Bridge-state continuity | Between sessions when vault isn't loaded |
-
-**Rule:** When CortexMem and the vault disagree, the **reviewed markdown vault wins**. CortexMem is a convenience layer, not a second source of truth.
-
----
-
 ## 🛠️ THE 3lm CLI TOOL
 
 Located at `Tools/3lm.js`. Run from inside `AI-Suplex-777/`.
@@ -145,11 +125,11 @@ Located at `Tools/3lm.js`. Run from inside `AI-Suplex-777/`.
 | Command | Action |
 |---------|--------|
 | `start` | Load semantic + lessons + recent episodic + procedural — generate mission brief |
-| `end` | Read Session End report → write episodic file to `memory/episodic/<Period>/Cycle-X/Week-Y/` |
-| `learn` | Extract lessons from latest episode → append to `memory/lessons.md` |
+| `end` | Read Session End report → write episodic file to `Memory/episodic/<Period>/Cycle-X/Week-Y/` |
+| `learn` | Extract lessons from latest episode → append to `Memory/lessons.md` |
 | `promote --min N` | Score lessons → promote ≥N to semantic/procedural (default: 70) |
 | `revise` | Check lessons against semantic truths for contradictions — surface deprecation watch |
-| `index` | Refresh `memory/index.md` with all active memory files |
+| `index` | Refresh `Memory/index.md` with all active memory files |
 | `status` | Show counts: governance, semantic, procedural, episodic |
 
 ---
@@ -178,8 +158,9 @@ memory/
 │   ├── promotion_rules.md       # Lessons → Memory
 │   └── lesson_to_procedure.md   # Learning → Automation
 └── episodic/
-    └── Cycle-1/
-        └── Week-1/              # Session episodes accumulate here
+    └── <Period>/                # Derived run label from period.md
+        └── Cycle-1/
+            └── Week-1/          # Session episodes accumulate here
 ```
 
 ---

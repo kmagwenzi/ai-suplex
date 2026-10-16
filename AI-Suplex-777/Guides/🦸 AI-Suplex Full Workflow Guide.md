@@ -1,4 +1,5 @@
 ---
+type: document
 alias: ["AI-Suplex Pipeline", "Assembly Line", "Full Cycle Walkthrough"]
 tags: [workflow-pipeline, guide, macros, prompt-patterns, full-cycle, 3-layer-memory, 3lm]
 created: 2026-04-16
@@ -266,7 +267,7 @@ At the end of each week, run these in order:
 Monday    — Closed
 Tuesday   — 📁 Ensure Structure + 🎯 Focus Manager check + generate weekly plan (Pattern) + tasklist (Pattern)
 Wed-Fri   — 🚀 Start → work → 📄 Artifact → 💡 Insight → 🏁 End → 3lm end → learn → index (daily loop)
-Saturday  — 💣 B-Bomb promotion + 3lm promote + 3lm revise + 📊 Enhance + 📊 Aggregate + 🔄 Weekly Review
+Saturday  — 💣 B-Bomb promotion + 3lm promote + 3lm revise + 3lm clean + 📊 Enhance + 📊 Aggregate + 🔄 Weekly Review
 Sunday    — Rest or light work
 ```
 

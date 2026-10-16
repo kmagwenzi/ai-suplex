@@ -63,7 +63,7 @@ During your session, capture everything:
 | 📄 **Artifact**       | Ribbon  | Work-in-progress with metadata                         |
 | 💡 **Insight**        | Ribbon  | Quick learnings (appends to weekly file)               |
 | 💣 **B-Bomb**         | Ribbon  | Polished, reusable assets                              |
-| 🧠 **Feed 3LM** | Toolbar | Insights into persistent memory - _see Insights after_ |
+| 🧠 **Feed CortexMem** | Toolbar | Insights into persistent memory - _see Insights after_ |
 
 Files are saved in `Artifacts/<Period>/Cycle X/Week Y/` and `B-Bombs/<Period>/Cycle X/Week Y/`.
 
@@ -94,7 +94,7 @@ Run `Enhance MOCs & Trackers` before your weekly review to inject fresh data.
 
 - **Weekly Review:** Run `Sweeper – Weekly Review` every Saturday
 - **Cycle Review:** Run `Sweeper – Generate Cycle Review` at the end of Week 7
-- **Deep Dive:** Read `The AI-Suplex Workflow Pipeline.md` for the full strategic pipeline and `AI-Suplex-777/Guides/🦸 AI-Suplex Full Workflow Guide` for full guide to the AI-Suplex worklflow
+- **Deep Dive:** Read `The AI-Suplex Workflow Pipeline.md` for the full strategic pipeline and `AI-Suplex-777/Guides/🦸 AI-Suplex Full Workflow Guide` for full workflow
 - _Try the Prompt Patterns approach, they are often quicker and easier in completing steps_
 
 ---

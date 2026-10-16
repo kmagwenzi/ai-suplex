@@ -1,8 +1,9 @@
 ---
+type: documentation
 alias: ["Deep Ultra OS Workflow Pipeline", "AI-Suplex Assembly Line", "7‑7‑7 Execution Engine"]
 tags: [workflow-pipeline, specification, deep-ultra-os, assembly-line]
 created: 2026-04-16
-version: 2.1
+version: 2.2
 status: active
 ---
 
@@ -21,7 +22,8 @@ graph LR
         B --> C[Weekly Plan]
         C --> D[Daily Tasklist]
     end
-    D --> E[Session Start Prompt]
+    D --> D0[⚡ Context Core: 3lm start --context]
+    D0 --> E[Session Start Prompt]
     E --> F[Session Execution]
     F --> G[Artifacts]
     F --> H[Insights]
@@ -66,17 +68,21 @@ AI-Suplex-777/
 │   │   ├── Start/          # Session start prompts
 │   │   └── End/            # Session end reports
 │   └── Archive/            # Archived sessions
+├── period.md               # ⏳ Period source of truth (derived run label)
 ├── Artifacts/
-│   └── Cycle X/Week Y/     # Work‑in‑progress assets
+│   └── <Period>/
+│       └── Cycle X/Week Y/ # Work‑in‑progress assets
 ├── B-Bombs/
-│   └── Cycle X/Week Y/     # Polished, reusable assets
+│   └── <Period>/
+│       └── Cycle X/Week Y/ # Polished, reusable assets
 ├── Projects/               # B‑Bomb collections by project
 ├── Insights/
-│   └── Cycle X/Week Y.md   # Weekly insight logs
+│   └── <Period>/
+│       └── Cycle X/Week Y.md # Weekly insight logs
 ├── MOCs/                   # Maps of Content (one per focus)
 ├── Trackers/               # Progress trackers (one per focus)
 ├── Tasklists/              # AI‑Suplex & Combined Tasklists
-├── Reviews/<Period>/Weekly/         # Weekly review files
+├── Reviews/<Period>/Weekly/ # Weekly review files
 ├── Skills/                 # AI agent blueprints (11 files)
 ├── Prompt Patterns/       # Copy‑paste patterns for AI chats
 └── AI-Suplex Kick-start/   # Methodology docs
@@ -92,7 +98,7 @@ AI-Suplex-777/
 - **Session End Report** → Identifies what worked/didn't work
 - **Next Actions** → Informs immediate follow‑up work
 - **Energy/Focus Tracking** → Optimizes session timing and duration
-- **3lm capture → end → learn → index** → Checks for uncaptured lessons, writes episodic record, extracts lessons, refreshes lookup
+- **3lm end → learn** → Writes episodic record, extracts lessons to Memory/lessons.md
 
 ### **Medium‑Cycle Feedback (Weekly)**
 - **Weekly Review** → Strategic assessment across focus areas
@@ -108,7 +114,7 @@ AI-Suplex-777/
 
 ---
 
-## 🔄 Save Context PROTOCOL
+## 🔄 SAVE CONTEXT PROTOCOL
 
 **Key Principle:** A Weekly Tasklist is a plan. A Daily Tasklist is a session.
 
@@ -117,14 +123,14 @@ AI-Suplex-777/
 | **Weekly Tasklist** | Strategic plan for the week (75+ tasks) | Too large for a single chat window |
 | **Daily Tasklist** | Execution unit for one day (15-20 tasks) | Fits within model context window |
 | **Session** | End-to-end execution of ONE daily tasklist | Enables proper session end + 3lm cycle |
-| **Quick Capture** | 3lm learn after each Artifact/B-Bomb/Insight | Real-time lesson extraction during session |
+| **Context Core** | Phase 0 of every daily tasklist: `node Tools/3lm.js start --context` | Staleness guard + generated session context prime the mission |
 | **Save Context** | Summarize → Save → Archive → Next session loads | Ensures no knowledge is lost |
 
 ### Save Context Steps:
 1. **Summarize** — Generate context summary with completed tasks, current state, next actions
 2. **Save** — Write to `Context Kick-start/Active/YYYY-MM-DD-cycle-x-week-y-mission-title.md`
 3. **Archive** — Move previous Active context to `Archived/`
-4. **Load** — Next session runs `3lm start → learn → index` to load context, extract pending lessons, and refresh lookup
+4. **Load** — Next session runs `3lm start --context` to load all accumulated memory + generate fresh session context
 
 > **North Star:** "Each new session starts smarter than the last."
 
@@ -167,4 +173,9 @@ AI-Suplex-777/
 
 **TWABAM ⚡!** This specification defines the complete Deep Ultra OS Workflow Pipeline – a structured yet flexible execution engine that transforms chaotic work into measurable progress. The system scales from simple task tracking to deep knowledge engineering while maintaining the core mission: **B‑Bomb production at velocity**.
 
-**Pipeline Status:** ACTIVE | **Version:** 2.1 | **Last Updated:** 2026-05-13
+**Pipeline Status:** ACTIVE | **Version:** 2.2 | **Last Updated:** 2026-08-13
+
+
+
+
+

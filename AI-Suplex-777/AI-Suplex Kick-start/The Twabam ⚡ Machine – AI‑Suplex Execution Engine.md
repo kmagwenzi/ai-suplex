@@ -1,4 +1,5 @@
 ---
+type: documentation
 title: The Twabam ⚡ Machine – AI‑Suplex Execution Engine
 version: 2.0 (7‑7‑7 Edition)
 date: 2026-04-16
@@ -193,6 +194,7 @@ graph LR
 |---------|------------|----------------|
 | **Weekly Tasklist** | Strategic plan for the week (75+ tasks) | Too large for a single chat window |
 | **Daily Tasklist** | Execution unit for one day (15-20 tasks) | Fits within model context window |
+| **Context Core** | Phase 0 of every daily tasklist: `node Tools/3lm.js start --context` | Staleness guard + generated session context prime the mission |
 | **Session** | End-to-end execution of ONE daily tasklist | Enables proper session end + 3lm cycle |
 | **Save Context** | Summarize → Save → Archive → Next session loads | Ensures no knowledge is lost |
 
@@ -200,7 +202,7 @@ graph LR
 1. **Summarize** — Generate context summary with completed tasks, current state, next actions
 2. **Save** — Write to `Context Kick-start/Active/YYYY-MM-DD-cycle-x-week-y-mission-title.md`
 3. **Archive** — Move previous Active context to `Archived/`
-4. **Load** — Next session runs `3lm start` to load all accumulated memory
+4. **Load** — Next session runs `3lm start --context` to load all accumulated memory + generate fresh session context
 
 > **North Star:** "Each new session starts smarter than the last." 
 

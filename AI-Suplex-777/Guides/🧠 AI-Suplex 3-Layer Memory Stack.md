@@ -10,18 +10,19 @@ The memory stack preserves context across sessions, converts experience into dur
 
 | Layer | Location | What It Stores |
 |-------|----------|---------------|
-| **Episodic** | `memory/episodic/<Period>/Cycle-X/Week-Y/` | What happened — session records, outcomes, scores |
-| **Semantic** | `memory/semantic/` | Stable truths — preferences, rules, glossary, entities |
-| **Procedural** | `memory/procedural/` | Reusable methods — workflows, macros, prompt patterns |
-| **Lessons** | `memory/lessons.md` | Candidate learnings — staging area before promotion |
+| **Episodic** | `Memory/episodic/<Period>/Cycle-X/Week-Y/` | What happened — session records, outcomes, scores |
+| **Semantic** | `Memory/semantic/` | Stable truths — preferences, rules, glossary, entities |
+| **Procedural** | `Memory/procedural/` | Reusable methods — workflows, macros, prompt patterns |
+| **Lessons** | `Memory/lessons.md` | Candidate learnings — staging area before promotion |
 
 ## 🔄 The Self-Improving Loop
 
 ```
-Session Start → 3lm start (load context) → 3lm learn → 3lm index
-During Session → Capture → 3lm learn (quick capture) → 3lm index
-Session End → 3lm capture (check missed) → 3lm end (write episode) → 3lm learn → 3lm index
-Saturday → 3lm promote --min 70 (score + promote) → 3lm revise (check contradictions) → 3lm index
+Session End Report → 3lm end (write episode)
+→ 3lm learn (extract lessons)
+→ 3lm promote --min 70 (score + promote)
+→ 3lm revise (check contradictions)
+→ 3lm index (refresh lookup)
 → Next session starts smarter ⚡
 ```
 
@@ -30,7 +31,7 @@ Saturday → 3lm promote --min 70 (score + promote) → 3lm revise (check contra
 The `3lm` tool manages vault operations. Run from inside `AI-Suplex-777/`:
 
 ```bash
-node Tools/3lm.js <command>
+node scripts/3lm/3lm.js <command>
 ```
 
 | Command | What It Does |
@@ -45,18 +46,15 @@ node Tools/3lm.js <command>
 
 **After every session:**
 ```bash
-node Tools/3lm.js start    # Load context (session start)
-node Tools/3lm.js capture  # Check for uncaptured lessons (session end)
-node Tools/3lm.js end      # Write the episode (session end)
-node Tools/3lm.js learn    # Extract lessons (session start + end)
-node Tools/3lm.js index    # Refresh index (after every learn)
+node scripts/3lm/3lm.js end      # Write the episode
+node scripts/3lm/3lm.js learn    # Extract lessons
+node scripts/3lm/3lm.js index    # Refresh index
 ```
 
 **Weekly review:**
 ```bash
-node Tools/3lm.js promote --min 70   # Promote stable lessons
-node Tools/3lm.js revise             # Check for contradictions
-node Tools/3lm.js index              # Refresh index
+node scripts/3lm/3lm.js promote --min 70   # Promote stable lessons
+node scripts/3lm/3lm.js revise             # Check for contradictions
 ```
 
 ---

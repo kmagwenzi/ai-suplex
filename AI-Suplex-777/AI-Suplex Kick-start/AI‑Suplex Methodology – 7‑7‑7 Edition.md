@@ -1,4 +1,5 @@
 ---
+type: documentation
 title: AI‑Suplex Methodology – 7‑7‑7 Edition
 version: 2.0
 date: 2026-04-16
@@ -241,7 +242,7 @@ An **AI-Suplex Session** is the end-to-end execution of a single Tasklist. Each 
 | Method | How to Use | Best For |
 |--------|------------|----------|
 | **Prompt Pattern** | Copy `📄 Pattern - Save Context.md` into AI chat | 7-7-7 Edition (customer-facing) |
-| **Direct Command** | Say "Switch context" or "Summarize session" | Personal vault (experienced users) |
+| **Direct Command** | Say "Save context" or "Summarize session" | Personal vault (experienced users) |
 | **Session End Protocol** | Part of the session end workflow | Both editions |
 
 > **North Star:** "Each new session starts smarter than the last."
@@ -313,6 +314,7 @@ AI-Suplex-777/
 ├── Sessions/Active/Start        # Session start files
 ├── Sessions/Active/End          # Session end reports
 ├── Sessions/Archive/            # Preserves cycle/week structure
+├── period.md                    # ⏳ Period source of truth (period_index/label/start/end)
 ├── Artifacts/<Period>/Cycle X/Week Y/    # Work‑in‑progress assets
 ├── B-Bombs/<Period>/Cycle X/Week Y/      # Polished assets (three‑key‑meanings)
 ├── Projects/                    # B‑Bomb collections by project
@@ -321,7 +323,7 @@ AI-Suplex-777/
 ├── Trackers/                    # Progress trackers (one per focus)
 ├── Tasklists/                   # AI‑Suplex and combined tasklists
 ├── Reviews/<Period>/Weekly/              # Weekly review files
-├── Plans/                       # Phase execution plans
+├── Plans/<Period>/              # Phase execution plans (Cycle <n>/ + Week <n> plans)
 ├── QualityNotes/                # Long Architect review notes
 ├── Skills/                      # 9 AI skills
 ├── Scripts/                     # 11 QuickAdd macros

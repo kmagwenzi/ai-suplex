@@ -4,15 +4,15 @@ title: "Spec — Context & Threads"
 version: 2.0
 date: 2026-10-16
 edition: 7-7-7
-status: ratified-implementation-pending
+status: active
 cycle: 2
 week: 7
 focus: ai-engineering
 tags: [spec, context, threads, instances, parallelism, write-scope, producer-committer, cloudroom, as-mc, save-context, architecture]
 supersedes: "v1.0 (2026-09-23) — preserved in git history and summarised in §1"
-authority_note: "RATIFIED 2026-10-16 by the Hustler. Until the sweep (§9) lands, AGENTS.md -> Execution Threads (4) remains canonical where the two disagree."
+authority_note: "RATIFIED + CANONICAL 2026-10-16. The sweep (§9) landed; AGENTS.md -> Execution Threads (4) mirrors this spec exactly."
 key_insights: "Threads are lanes; instances are windows. long-running-tasks and random-task run N concurrent instances, each owning ONE ephemeral, instance-scoped context file; daily-tasks and realist stay single. The context file stops being memory and becomes a session slot — durable state lives in Memory/, Projects/*Spec.md and the long-running tasklist. A writer class (producer vs committer) lets Cloudroom cloud agents run against the vault without forking the one memory."
-next_actions: "Execute the sweep (§9): AGENTS.md mirror, the Save Context pattern v3 + skill, the Kickstart pattern/command, the Guide, the AS MC spec §4/§8, and Tools/3lm.js (threads --list + open-instance staleness)."
+next_actions: "Landed 2026-10-16 — shipped to 777 as v2.7.0 (the threading release). Residual: archive the legacy multi-mission random-task brief on close."
 ---
 
 # 🧵 Spec — Context & Threads (v2.0)
@@ -22,9 +22,9 @@ next_actions: "Execute the sweep (§9): AGENTS.md mirror, the Save Context patte
 **Companion:** `Guides/Guide — Context & Threads.md` (the practical, step-ordered version for the Hustler).
 **Canonical:** `AGENTS.md` → *Execution Threads (4)*. This spec mirrors it and adds the rationale.
 
-> [!success] Ratified — 2026-10-16 (the Hustler) · Cycle 2, Week 7
-> ⬜ **Implementation pending.** The sweep (§9) has **not** landed.
-> ⚠️ **Authority:** until the sweep lands, `AGENTS.md` remains canonical where the two disagree. v1.0 (2026-09-23) is preserved in git history and summarised in §1.
+> [!success] ✅ **Canonical — 2026-10-16 · Cycle 2, Week 7**
+> The sweep (§9) **landed** 2026-10-16 — spec + patterns + skill + guide + `Tools/3lm.js threads` + `AGENTS.md` (Execution Threads 4) — and shipped to the 777 repo as **v2.7.0**.
+> This spec is **authoritative**; it mirrors `AGENTS.md` exactly. v1.0 (2026-09-23) is preserved in git history and summarised in §1.
 
 ---
 
@@ -287,13 +287,13 @@ parent: null                 # prior instance file when resumed
 
 ## 8 · Relationship to the AS MC
 
-`Spec — AI-Suplex Mission Control (AS MC)` **inherits** this spec (§4 and §8.2 currently say *"one thread = one context file"*). **Until §9 lands, the AS MC spec contradicts the vault.** The AS MC is also the R9 **allocator** and the R6 **sync serializer** — so this spec is a prerequisite for the AS MC briefs and crons being correct under parallelism.
+`Spec — AI-Suplex Mission Control (AS MC)` **inherits** this spec (§4 and §8.2 now delegate here). **§9 has landed** — the AS MC is the R9 **allocator** and the R6 **sync serializer**, so the AS MC briefs and crons run correct under parallelism.
 
 ---
 
 ## 9 · The sweep — implementation plan
 
-> **Status: ⬜ not started.** No code or pattern file changes until this plan is executed under /builder.
+> **Status: ✅ landed 2026-10-16.** Every item shipped, tested (11/11 + eval 34/34), and promoted to the 777 repo as **v2.7.0** (the threading release).
 
 | # | Artifact | Change | Owner |
 |---|----------|--------|-------|
@@ -313,11 +313,11 @@ parent: null                 # prior instance file when resumed
 ## 🔗 Related
 
 - `AGENTS.md` → *Execution Threads (4)* — the canonical rule set this spec mirrors
-- `Prompt Patterns/📄 Pattern - Save Context.md` (v3, pending) — the mechanism
+- `Prompt Patterns/📄 Pattern - Save Context.md` (v3) — the mechanism
 - `Prompt Patterns/📄 Pattern - Kickstart.md` — the loader
 - `Guides/Guide — Context & Threads.md` — the practical companion
 - `Projects/AI-Suplex Ultra Edition/Spec — AI-Suplex Mission Control (AS MC).md` — the operator that allocates refs and serializes sync
 - `Artifacts/2026-2027/Cycle 2/Week 7/2026-10-15-1503-cloudroom-as-mc-fit-and-saas-opportunity-ai-engineering.md` — the producer/committer constraint (R8)
 
 ---
-*Spec v2.0 ratified via AI-Suplex (Architect) on 2026-10-16 — Cycle 2, Week 7 · ai-engineering. v1.0 captured 2026-09-23. TWABAM ⚡*
+*Spec v2.0 ratified + canonical via AI-Suplex (Architect) on 2026-10-16 — Cycle 2, Week 7 · ai-engineering. Sweep landed; shipped as v2.7.0. v1.0 captured 2026-09-23. TWABAM ⚡*
