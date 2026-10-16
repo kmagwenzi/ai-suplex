@@ -78,10 +78,23 @@ The **knowledge graph** (SQLite, zero-dependency) indexes every file into entiti
 | skill-generate | Drafts a new skill from a procedural workflow |
 | skill-install | Installs Community skills (gated: preview then confirm) |
 
-## Quick start (60 seconds)
+## Quick start (< 10 minutes)
+
+**Linux · macOS · Windows (Git Bash or WSL).**
 
 ```bash
 git clone https://github.com/kmagwenzi/ai-suplex.git
+cd ai-suplex
+./install.sh                       # creates ./ai-suplex-vault — or: ./install.sh ~/my-vault
+cd ai-suplex-vault
+node Tools/3lm.js start --context  # the first brief
+```
+
+The installer checks Node 22+, copies the vault template, initialises the period structure, builds the file index + knowledge graph, and runs a smoke test. **Measured end-to-end: ~10 seconds.**
+
+**Prefer to run it in place?** Skip `install.sh` and run the tools directly:
+
+```bash
 cd ai-suplex/AI-Suplex-777
 node Tools/initialise-vault.js
 node Tools/vault-index.js --current
@@ -89,7 +102,9 @@ node Tools/knowledge-graph.js --build-current
 node Tools/3lm.js start --context
 ```
 
-Requires **Node 22+** (`node:sqlite`). **Python 3** for `Tools/session_context.py` and `Tools/bbomb_hunter.py`. **Obsidian is optional** — `Scripts/` macros are QuickAdd; everything under `Tools/` runs headless.
+**Requirements:** **Node 22+** (the graph uses `node:sqlite`). **Python 3 is optional** — it enables the richer `--context` brief (`Tools/session_context.py`) and `Tools/bbomb_hunter.py`; the installer warns and continues without it. **Obsidian is optional** — `Scripts/` macros are QuickAdd; everything under `Tools/` runs headless.
+
+> **Windows:** `install.sh` is a bash script — run it from **Git Bash** (ships with Git for Windows) or **WSL**. Every tool under `Tools/` is plain Node and runs natively; a native PowerShell installer is on the roadmap.
 
 ## Structure
 
