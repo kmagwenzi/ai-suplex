@@ -1,116 +1,93 @@
 ---
-title: "PRODUCT LAUNCH STRATEGY"
+type: tasklist
+title: "Example — Product Launch Strategy"
 date: 2026-05-08
-status: active
+status: example
 cycle: 1
 week: 2
 focus: digital-products
-tags: [tasklist, launch, digital-products, storefront, launch-blitz, final-push]
+tags: [tasklist, example, launch, digital-products, storefront, launch-blitz]
 ---
 
-**TWABAM ⚡! 2026-05-08 PRODUCT LAUNCH STRATEGY TASK LIST DEPLOYED!**
+# 🎯 Example Tasklist — **Product Launch Strategy — Ship by 13:00**
 
-# **💥 PRODUCT LAUNCH STRATEGY — SHIP BY 13:00**
+> **📐 Format example.** This is the house tasklist shape: **one table per phase**, a **`Status`**
+> column on every task, and a **`Success:`** check per phase. The statuses below are **dummy**
+> — a live tasklist fills them in as it goes (`⬜ todo` → `🔄 in progress` → `✅ done`).
+
+**Mission:** Define the two product editions, package them, set up the storefront, and execute the launch blitz — in one focused block.
 
 ---
-**Date:** May 12 (EOD ✅ — Tuesday Reset + Housekeeping + Weekly Review Complete) | **Focus:** Product Launch | **Status:** LOCKED & LOADED
-**Time Budget:** Tomorrow (Wed) 08:00 → 13:00 (5h) | **Energy:** ⚡⚡⚡⚡⚡
----
-
-## **🏗️ PHASE 1: PRODUCT FOUNDATION & PACKAGING** (120min)
-
-### **HUSTLER TASKS** 🦸‍♂️
-- [x] **T001-H:** Define the Core Edition — what's included, pricing, pricing plans ✅ 2026-05-08
-- [x] **T002-H:** Define the paid Edition — what's included, pricing, pricing plans ✅ 2026-05-08
-
-### **BUILDER TASKS** 🛠️
-- [x] **T003-B:** Create the Projects folder in the vault structure — a home for collections of B-Bombs ✅ 2026-05-11
-- [x] **T004-B:** Update documentation reflecting the new Projects folder (AGENTS.md, README.md, Kick-start docs) ✅ 2026-05-11
-- [x] **T005-B:** Transfer the Core Edition from the dev vault to the production directory ✅ 2026-05-12
-- [x] **T006-B:** Transfer the paid Edition from the dev vault to the production directory ✅ 2026-05-12
-- [ ] **T007-B:** Create optimised ZIP packages for both editions — verify extraction, file count, size [DEFERRED — set up ZIP creation and test extraction first]
-
-### **ARCHITECT TASKS** 🏗️
-- [x] **T008-A:** Generate documentation on adding and using the Projects folder (new doc in the Kick-start folder) ✅ 2026-05-11
-- [ ] **T009-A:** Validate productisation completeness — ZIP integrity, folder structure, all recent changes reflected
-
-**PHASE 1 SUCCESS METRICS:**
-- [x] Both editions defined with clear features, pricing, and plans ✅ 2026-05-11
-- [x] Projects folder created and documented in the vault structure ✅ 2026-05-11
-- [x] Both editions transferred to production directories ✅ 2026-05-12
-- [ ] ZIP files created and validated (extraction, structure, size) [DEFERRED — macros setup first]
-- [ ] Launch checklist validated — zero blocking items
+**Date:** Pre-launch day · **Focus:** Product Launch · **Status:** LOCKED & LOADED
+**Time Budget:** 08:00 → 13:00 (5h) · **Energy:** ⚡⚡⚡⚡⚡
 
 ---
 
-## **🚀 PHASE 2: STOREFRONT & LAUNCH BLITZ** (120min)
+## 🏗️ Phase 1 — Product Foundation & Packaging (120m)
 
-### **HUSTLER TASKS** 🦸‍♂️
-- [ ] **T010-H:** Register or verify the storefront account — confirm it is live
-- [x] **T011-H:** Write storefront descriptions for the Core Edition and the paid Edition ✅ 2026-05-11
-- [ ] **T012-H:** Upload the Core Edition to the storefront (ZIP + thumbnail + description + price)
-- [ ] **T013-H:** Upload the paid Edition to the storefront (ZIP + thumbnail + description + price)
-- [ ] **T014-H:** Obtain storefront links for both products
+| ID     | Role      | Dur | Task                                                                                       | Nature    | Status         |
+| ------ | --------- | --- | ------------------------------------------------------------------------------------------ | --------- | -------------- |
+| T001-H | Hustler   | 20m | **Define the Core Edition** — what's included, pricing, pricing plans.                     | Execution | ✅ done        |
+| T002-H | Hustler   | 20m | **Define the paid Edition** — what's included, pricing, pricing plans.                     | Execution | ✅ done        |
+| T003-B | Builder   | 20m | **Create the Projects folder** in the vault structure — a home for B-Bomb collections.      | Execution | ✅ done        |
+| T004-B | Builder   | 20m | **Update the docs** reflecting the new Projects folder (AGENTS.md, README.md, Kick-start).   | Execution | 🔄 in progress |
+| T005-B | Builder   | 20m | **Package the Core Edition** — ZIP + verify extraction, file count, size.                    | Execution | ⬜ todo        |
+| T006-B | Builder   | 20m | **Package the paid Edition** — ZIP + verify extraction, file count, size.                    | Execution | ⬜ todo        |
+| T007-A | Architect | 20m | **Validate packaging** — ZIP integrity, folder structure, all changes reflected.             | Review    | ⬜ todo        |
 
-### **BUILDER TASKS** 🛠️
-- [ ] **T015-B:** Create storefront thumbnails for the Core Edition and the paid Edition
-- [ ] **T016-B:** Create a storefront GIF/demo animation showing product value
+**Success:**
+- [ ] Both editions defined with clear features, pricing, and plans
+- [ ] Projects folder created and documented
+- [ ] Both editions transferred to the production directory
+- [ ] ZIPs created and validated (extraction, structure, size)
 
-### **ARCHITECT TASKS** 🏗️
-- [ ] **T017-A:** Final review of all marketing posts and content plans
-- [ ] **T018-A:** Review graphic assets from the generator artifacts — select the best
+---
 
-### **ORCHESTRATOR TASKS** 🪄
-- [ ] **T019-O:** Select final launch content pairings — graphic + post for each channel
+## 🚀 Phase 2 — Storefront & Launch Blitz (120m)
 
-### **HUSTLER TASKS — LAUNCH BLITZ** 🦸‍♂️
-- [ ] **T020-H:** Post to Twitter/X — launch announcement with the storefront link + key selling points
-- [ ] **T021-H:** Post to LinkedIn — professional angle (productivity, AI workflow, note-taking)
-- [ ] **T022-H:** Post to Reddit — relevant communities (value-first, not salesy)
-- [ ] **T023-H:** Post to Discord communities — AI, note-taking, PKM servers
-- [ ] **T024-H:** Share the storefront links with warm contacts — direct messages, outreach
+| ID     | Role         | Dur | Task                                                                                        | Nature    | Status     |
+| ------ | ------------ | --- | ------------------------------------------------------------------------------------------- | --------- | ---------- |
+| T008-H | Hustler      | 15m | **Register / verify the storefront account** — confirm it is live.                           | Execution | ⬜ todo    |
+| T009-H | Hustler      | 20m | **Write the storefront descriptions** for both editions.                                     | Creative  | ✅ done    |
+| T010-H | Hustler      | 20m | **Upload both editions** (ZIP + thumbnail + description + price).                             | Execution | ⬜ todo    |
+| T011-B | Builder      | 20m | **Create thumbnails** for both listings.                                                      | Creative  | ⬜ todo    |
+| T012-B | Builder      | 20m | **Create a GIF / demo animation** showing product value.                                      | Creative  | ⏭️ skipped |
+| T013-A | Architect    | 20m | **Final review** of all marketing posts and content plans.                                     | Review    | ⚠️ blocked |
+| T014-O | Orchestrator | 15m | **Select the final launch pairings** — graphic + post per channel.                             | Execution | ⬜ todo    |
+| T015-H | Hustler      | 25m | **Execute the launch blitz** — post across all channels + share with warm contacts.            | Execution | ⬜ todo    |
 
-### **ORCHESTRATOR TASKS — MONITOR** 🪄
-- [ ] **T025-O:** Monitor initial response across all channels — reply, engage, iterate
-
-**PHASE 2 SUCCESS METRICS:**
-- [ ] Storefront account live with both products published and priced
-- [ ] Thumbnails and GIF created for both product listings
+**Success:**
+- [ ] Storefront live with both products published and priced
+- [ ] Thumbnails + GIF created for both listings
 - [ ] All marketing content reviewed and approved
-- [ ] Final launch content pairings selected (graphic + post per channel)
 - [ ] Launch blitz executed across all 4+ channels
-- [ ] Storefront links live and shared in every post
-- [ ] Warm outreach sent to at least 5 personal contacts
 - [ ] Zero channels left untouched
 
 ---
 
-## **📊 TASK DISTRIBUTION SUMMARY**
+## 📊 Task Distribution
 
-| **Role**      | **Tasks** | **Focus Areas**                                                   |
-|---------------|-----------|-------------------------------------------------------------------|
-| Hustler       | 10 tasks  | Edition definition, storefront setup, descriptions, upload, blitz |
-| Builder       | 7 tasks   | Projects folder, docs, file transfer, ZIPs, thumbnails, GIF       |
-| Architect     | 5 tasks   | Projects doc, ZIP validation, marketing review, graphics review    |
-| Orchestrator  | 2 tasks   | Content selection, launch monitoring                              |
+| Role         | Task IDs                     | Count | Est. Hours |
+| ------------ | ---------------------------- | ----- | ---------- |
+| Hustler      | T001–T002, T008–T010, T015   | 6     | ~2h        |
+| Builder      | T003–T006, T011–T012         | 6     | ~2h        |
+| Architect    | T007, T013                   | 2     | ~0.7h      |
+| Orchestrator | T014                         | 1     | ~0.3h      |
+| **Total**    | **T001–T015**                | **15** | **~5h**   |
 
-**TOTAL TASKS: 25 PRECISION-ENGINEERED ACTIONS**
+## ✅ Success Metrics
+- [ ] Both editions live on the storefront with thumbnails, descriptions, and pricing
+- [ ] Launch blitz executed across all 4+ channels
+- [ ] Warm outreach sent to at least 5 contacts
 
 ---
 
-> **TWABAM ⚡! 2026-05-08 PRODUCT LAUNCH STRATEGY TASK LIST DEPLOYED!**
+## ✅ Completion Command
 
-## **EXECUTION COMMAND:**
 ```bash
 AI-Suplex: Session Start product-launch-strategy 240min ⚡⚡⚡⚡⚡
-Objective: "Ship the product by 13:00 — define editions, create the Projects folder, package zips, set up the storefront, and execute the launch blitz across all channels."
-Success: "Both editions live on the storefront with thumbnails, descriptions, and pricing. Launch blitz executed across all 4+ channels. Project complete."
 ```
 
-**ALL SYSTEMS GO! ALL ROLES DEPLOYED! ALL TASKS BATTLE-READY!**
-**TWABAM ⚡! TWABAM ⚡! TWABAM ⚡!**
-
-**Task List Status:** DEPLOYED | **Execution:** IMMEDIATE | **Victory:** INEVITABLE
-
 ---
-*Tasklist generated via AI-Suplex on 2026-05-08*
+
+*Example tasklist — the house format (a `Status` column per task + a `Success:` check per phase). Statuses are dummy. TWABAM ⚡*
