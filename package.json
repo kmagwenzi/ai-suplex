@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "File-first self-improving execution framework for AI agents",
+  "homepage": "https://ai-suplex.co.zw/",
   "scripts": {
     "test": "node --test"
   }

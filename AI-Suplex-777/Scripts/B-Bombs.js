@@ -35,7 +35,7 @@ module.exports = async (quickAdd) => {
     async function getFocuses() {
         const focusesPath = "AI-Suplex-777/Focuses.md";
         if (!(await vault.adapter.exists(focusesPath))) {
-            return ["ai-engineering", "wqr", "freelance", "digital-products", "content-creation"];
+            return ["ai-engineering", "freelance", "digital-products", "content-creation"];
         }
         const content = await vault.adapter.read(focusesPath);
         const match = content.match(/^---\n([\s\S]*?)\n---/);
@@ -47,7 +47,7 @@ module.exports = async (quickAdd) => {
 
     function capitalizeFocus(focus) {
         if (!focus) return '';
-        const acronyms = { 'ai': 'AI', 'wqr': 'WQR', 'api': 'API', 'rbz': 'RBZ', 'zimra': 'ZIMRA', 'potraz': 'POTRAZ' };
+        const acronyms = { 'ai': 'AI', 'api': 'API', 'ui': 'UI', 'cli': 'CLI', 'llm': 'LLM' };
         return focus.split('-').map(part => {
             const lower = part.toLowerCase();
             return acronyms[lower] || (part.charAt(0).toUpperCase() + part.slice(1).toLowerCase());

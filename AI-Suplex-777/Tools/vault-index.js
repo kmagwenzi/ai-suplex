@@ -183,10 +183,10 @@ function getEntityTags(fm, summary) {
   if (fm.focus) tags.push(fm.focus);
   // Key entities from summary
   const entities = [
-    "WQR", "AI-Suplex", "Agents Terminal", "POTRAZ", "compound loop",
-    "3lm", "Saturday Promote", "EcoCash", "Voice AI", "DeepSeek",
-    "Fireworks", "AMD", "n8n", "Redis", "PostgreSQL", "WhatsApp",
-    "B-Bomb", "artifact", "memory", "orchestrator", "sub-agent",
+    "AI-Suplex", "compound loop", "3lm", "memory", "artifact",
+    "orchestrator", "sub-agent", "B-Bomb", "knowledge graph", "embedding",
+    "vector search", "agent", "prompt", "pipeline", "automation",
+    "SQLite", "Redis", "PostgreSQL", "API", "CLI",
   ];
   for (const e of entities) {
     if (summary.toLowerCase().includes(e.toLowerCase())) {

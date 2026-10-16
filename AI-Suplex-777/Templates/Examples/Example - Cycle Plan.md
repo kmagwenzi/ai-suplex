@@ -1,16 +1,16 @@
-# 🎯 7-WEEK CYCLE 1 – AI-SUPLEX → INCOME → AUDIENCE → SYSTEM MATURITY
+# 🎯 7-WEEK CYCLE 1 – FOUNDATION → LAUNCH → REVENUE → SCALE
 
 **Cycle Dates:** Week 1 (Mar 23–29) → Week 7 (May 4–10)
 **Review Week:** Week 7 – Assess, Refine, Launch Cycle 2
 
-**Generated:** 2026-05-13 06:00 CAT
+**Generated:** 2026-05-13 06:00
 **Previous Cycle:** N/A (inaugural cycle)
 
 ---
 
 ## 🎯 Cycle Mission
 
-Build AI-Suplex into a revenue-generating product, establish WQR as a paid service, and grow audience through build-in-public content. Lay the foundation for a dual-income operating system — Freelance + Digital Products — by end of Cycle 1.
+Ship one sellable product, land the first paid client work, and grow an audience through build-in-public content. Lay the foundation for a dual-income operating system — Freelance + Digital Products — by the end of Cycle 1.
 
 ---
 
@@ -18,57 +18,57 @@ Build AI-Suplex into a revenue-generating product, establish WQR as a paid servi
 
 | Phase | Weeks | Focus | Primary Activities |
 |-------|-------|-------|--------------------|
-| **Foundation** | 1 | WQR + AI Engineering | Payment system MVP, Deep Ultra OS completion, AI-Suplex vault productization |
-| **Launch** | 2–3 | Web Dev + Blender | Profiles live, portfolio demos, first freelance applications, content engine starts |
-| **Acceleration** | 4–5 | Dual-income execution | WQR beta clients, freelance deliveries, digital product refinements, content engine running |
-| **Scale** | 6–7 | Revenue & audience | WQR paid launch, digital products live, inbound leads, Cycle 2 planning |
+| **Foundation** | 1 | Product + AI Engineering | Core build, the workspace locked and documented, product packaging |
+| **Launch** | 2–3 | Freelance + Content | Profiles live, portfolio demos, first applications, content engine starts |
+| **Acceleration** | 4–5 | Dual-income execution | Beta clients, client deliveries, product refinements, content engine running |
+| **Scale** | 6–7 | Revenue & audience | Product paid launch, first sales, inbound leads, Cycle 2 planning |
 
 ---
 
-## 🗓️ Week 1 (Mar 23–29): Foundation – WQR + AI Engineering
+## 🗓️ Week 1 (Mar 23–29): Foundation – Product + AI Engineering
 
 **Daily Split:**
-- Mon/Wed/Fri: WQR — Payment system, client onboarding, Deep Ultra OS finalization
-- Tue/Thu: AI Engineering — Vault structure, template finalization, digital product packaging
-- Sat: Content — Build-in-public thread, weekly reflection
+- Mon/Wed/Fri: Product — core build, onboarding flow, packaging
+- Tue/Thu: AI Engineering — workspace structure, template finalisation, packaging
+- Sat: Content — build-in-public thread, weekly reflection
 
 **Key Deliverables:**
-- [ ] Payment system MVP (Paynow webhook integrated + tested)
-- [ ] Deep Ultra OS vault structure locked and documented
-- [ ] AI-Suplex Core Edition product folder structure finalized
-- [ ] Templates: Session Start, Session End, Artifact, B-Bomb — all finalized
-- [ ] Skills: 9 skill files reviewed and locked
-- [ ] Prompt Patterns: 8 patterns reviewed and locked
+- [ ] Core product build complete (end-to-end flow tested)
+- [ ] Workspace structure locked and documented
+- [ ] Product folder structure finalised
+- [ ] Templates: Session Start, Session End, Artifact, B-Bomb — all finalised
+- [ ] Skills reviewed and locked
+- [ ] Prompt Patterns reviewed and locked
 - [ ] Command Center + MOCs + Trackers scaffolded
 
 **Success Metrics:**
-- Payment system: Paynow webhook returns 200 ✅
-- Vault: All 9 skills, 8 patterns, 4 templates finalized
+- Core build: the end-to-end flow returns clean ✅
+- Workspace: all skills, patterns, and templates finalised
 - Energy average: ⚡⚡⚡⚡⚡
 - Build-in-public: 3 posts published
 
 ---
 
-## 🗓️ Week 2–3 (Mar 30 – Apr 12): Launch – Web Dev + Blender
+## 🗓️ Week 2–3 (Mar 30 – Apr 12): Launch – Freelance + Content
 
 **Daily Split:**
-- Mon/Wed/Fri: Web Dev — Profile sites, portfolio pages, freelance applications
-- Tue/Thu: Blender — Product demos, portfolio renders
-- Sat: Content — Build-in-public, WQR feature announcements
+- Mon/Wed/Fri: Freelance — portfolio site, applications, first client work
+- Tue/Thu: Design — product demos, portfolio renders
+- Sat: Content — build-in-public, product feature announcements
 
 **Key Deliverables:**
 - [ ] Personal profile site live (portfolio + blog)
-- [ ] 3 freelance applications submitted (Upwork, LinkedIn, direct)
-- [ ] WQR beta landing page live
-- [ ] Blender portfolio: 3 product demo renders
+- [ ] 3 freelance applications submitted (marketplace, LinkedIn, direct)
+- [ ] Product landing page live
+- [ ] Portfolio: 3 product demo renders
 - [ ] Build-in-public thread: Week 1–2 retrospective posted
-- [ ] First AI-Suplex digital product preview posted
-- [ ] WQR onboarding flow tested with 1 beta user
+- [ ] First product preview posted
+- [ ] Onboarding flow tested with 1 beta user
 
 **Success Metrics:**
 - Portfolio site live with 3+ projects
 - 3 freelance applications sent
-- 1 WQR beta user onboarded
+- 1 beta user onboarded
 - Energy maintained: ⚡⚡⚡⚡ average
 
 ---
@@ -76,24 +76,24 @@ Build AI-Suplex into a revenue-generating product, establish WQR as a paid servi
 ## 🗓️ Week 4–5 (Apr 13–26): Acceleration – Dual-Income Execution
 
 **Daily Split:**
-- Mon/Wed: Freelance — Deliver client work, invoice management
-- Tue/Thu: WQR — Beta client delivery, feature refinements
-- Fri: Digital Products — Packaging, descriptions, Gumroad setup
-- Sat: Content — Case studies, build-in-public deep dives
+- Mon/Wed: Freelance — deliver client work, invoice management
+- Tue/Thu: Product — beta client delivery, feature refinements
+- Fri: Digital Products — packaging, descriptions, storefront setup
+- Sat: Content — case studies, build-in-public deep dives
 
 **Key Deliverables:**
 - [ ] First freelance delivery completed and invoiced
-- [ ] WQR beta: 2–3 active clients with recurring sessions
-- [ ] Digital products: Core Edition + 7-7-7 Edition packaged and listed on Gumroad
-- [ ] Content engine: 2 case studies published (WQR + Freelance)
-- [ ] INFILTRATION launch burst drafted (374-line template)
-- [ ] AI-Suplex Quick Start Guide published as lead magnet
+- [ ] Product beta: 2–3 active clients with recurring sessions
+- [ ] Digital products: Core Edition + paid Edition packaged and listed on the storefront
+- [ ] Content engine: 2 case studies published
+- [ ] Launch burst drafted
+- [ ] Quick Start Guide published as a lead magnet
 - [ ] MOCs updated with new insights from Weeks 1–3
 
 **Success Metrics:**
 - Freelance revenue: $300–$800 invoiced
-- WQR: 2–3 beta clients retained
-- Digital products: Listed + 1 pre-launch signal
+- Product: 2–3 beta clients retained
+- Digital products: listed + 1 pre-launch signal
 - Energy maintained: ⚡⚡⚡⚡ average
 
 ---
@@ -101,14 +101,14 @@ Build AI-Suplex into a revenue-generating product, establish WQR as a paid servi
 ## 🗓️ Week 6–7 (Apr 27 – May 10): Scale – Revenue & Audience
 
 **Daily Split:**
-- Mon/Wed: Revenue — WQR paid launch, freelance overflow, digital product fulfillment
-- Tue/Thu: Audience — Content blitz, outreach, inbound lead management
-- Fri: Systems — Vault optimization, Cycle 2 prep
-- Sat: Review — Cycle retrospective, financial analysis
+- Mon/Wed: Revenue — product paid launch, freelance overflow, digital product fulfilment
+- Tue/Thu: Audience — content blitz, outreach, inbound lead management
+- Fri: Systems — workspace optimisation, Cycle 2 prep
+- Sat: Review — cycle retrospective, financial analysis
 
 **Key Deliverables:**
-- [ ] WQR paid tier launched (3 pricing plans live)
-- [ ] Digital products: INFILTRATION launch burst executed (Twitter/X, LinkedIn, Reddit, Discord)
+- [ ] Product paid tier launched (3 pricing plans live)
+- [ ] Digital products: launch burst executed (Twitter/X, LinkedIn, Reddit, Discord)
 - [ ] Freelance: 2+ active clients with recurring work
 - [ ] Content: 5+ build-in-public posts across platforms
 - [ ] Audience: 50+ new followers/connections across platforms
@@ -116,8 +116,8 @@ Build AI-Suplex into a revenue-generating product, establish WQR as a paid servi
 - [ ] Final income analysis: actual vs. forecast
 
 **Success Metrics:**
-- Combined revenue: $1,200–$3,000 (Freelance + WQR + Products)
-- WQR: 5+ paid subscribers
+- Combined revenue: $1,200–$3,000 (Freelance + Product + Digital Products)
+- Product: 5+ paid subscribers
 - Digital products: 3+ sales (any edition)
 - Audience: 50+ new followers
 - Inbound leads: 3+ inquiries
@@ -126,8 +126,8 @@ Build AI-Suplex into a revenue-generating product, establish WQR as a paid servi
 
 ## 📈 Financial Forecast – Cycle 1
 
-| Week | Freelance | WQR (MRR) | Digital Products | Total |
-|------|-----------|-----------|------------------|-------|
+| Week | Freelance | Product (MRR) | Digital Products | Total |
+|------|-----------|---------------|------------------|-------|
 | 1–2  | $0        | $0        | $0               | $0    |
 | 3    | $0–$300   | $0        | $0               | $0–$300 |
 | 4    | $300–$500 | $0–$150   | $0               | $300–$650 |
@@ -137,31 +137,25 @@ Build AI-Suplex into a revenue-generating product, establish WQR as a paid servi
 
 **Cumulative Cycle 1 Income Target:** **$2,800–$5,300**
 
-> **Note:** Week 1–2 are investment weeks (zero revenue). Income ramps from Week 3. Digital products are back-loaded to Weeks 6–7 after launch burst.
+> **Note:** Weeks 1–2 are investment weeks (zero revenue). Income ramps from Week 3. Digital products are back-loaded to Weeks 6–7, after the launch burst.
 
 ---
 
 ## ⚡ Critical Success Factors
 
-1. **Daily discipline on focus allocation** — Stick to the daily splits. No context-hopping between focus areas mid-day. Each day has a primary focus; secondary only if energy permits.
-
-2. **Build in public consistently** — Content is the engine that drives audience, which drives product sales and freelance leads. Minimum 3 posts/week without exception.
-
-3. **Capture every session** — Every work block must have a session start and session end. No exceptions. This generates the data for weekly reviews and cycle retrospectives.
-
+1. **Daily discipline on focus allocation** — stick to the daily splits. No context-hopping between focus areas mid-day. Each day has a primary focus; secondary only if energy permits.
+2. **Build in public consistently** — content is the engine that drives audience, which drives product sales and freelance leads. Minimum 3 posts/week without exception.
+3. **Capture every session** — every work block gets a session start and a session end. No exceptions. This generates the data for weekly reviews and cycle retrospectives.
 4. **Energy management** — ⚡⚡⚡⚡ minimum target. If energy drops below 3, stop and recover. Burnout kills cycles faster than missed deadlines.
-
-5. **Invoice immediately** — When freelance work is delivered, invoice within 24 hours. Cash flow inertia is real; don't let invoices pile up.
-
-6. **Product quality over feature count** — For digital products, ship Core Edition with 35 polished items over 50 half-baked ones. Quality drives reviews and referrals.
-
-7. **Review rhythm** — Weekly reviews every Saturday without fail. Cycle review in Week 7. Don't skip the feedback loop.
+5. **Invoice immediately** — when freelance work is delivered, invoice within 24 hours. Cash-flow inertia is real.
+6. **Product quality over feature count** — ship the Core Edition with 35 polished items over 50 half-baked ones. Quality drives reviews and referrals.
+7. **Review rhythm** — weekly reviews every Saturday without fail. Cycle review in Week 7. Don't skip the feedback loop.
 
 ---
 
 ## 🔗 Quick Links
 
-- [[🦸AI-Suplex 7‑7‑7 – Command Center]]
+- [[Command Center]]
 - [[Focuses]]
 - [[Trackers]]
 - [[Cycle 1 Final Review]] *(to be created Week 7)*

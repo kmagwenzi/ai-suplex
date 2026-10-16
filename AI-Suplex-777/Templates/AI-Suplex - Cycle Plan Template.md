@@ -6,7 +6,7 @@ status: active
 tags:
   - cycle-plan
   - cycle-{{VALUE:Cycle Number (1, 2, 3, 4, 5, 6, 7)}}
-  - {{VALUE:Focus Tag (ai-engineering, wqr, freelance, digital-products, content-creation)}}
+  - {{VALUE:Focus Tag (ai-engineering, freelance, digital-products, content-creation)}}
 ---
 
 **TWABAM ⚡! HERE IS YOUR 7‑WEEK CYCLE {{VALUE:Cycle Number}} MASTER PLAN**

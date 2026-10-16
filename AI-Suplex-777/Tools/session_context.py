@@ -12,7 +12,7 @@ Usage:
   python3 Tools/session_context.py          # regenerate the brief, then print it
   python3 Tools/session_context.py --dry    # print vault-context.md without regenerating
   python3 Tools/session_context.py --save   # alias for the default (regenerate + print)
-  python3 Tools/session_context.py --focus wqr   # accepted for compatibility; ignored
+  python3 Tools/session_context.py --focus ai-engineering   # accepted for compatibility; ignored
 
 Spec: Artifacts/Cycle 2/Week 2/2026-09-05-vault-index-rescope-prd-spec-ai-engineering.md
 """

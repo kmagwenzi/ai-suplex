@@ -45,7 +45,6 @@ module.exports = async (quickAdd) => {
     if (!(await vault.adapter.exists(focusesPath))) {
       return [
         "ai-engineering",
-        "wqr",
         "freelance",
         "digital-products",
         "content-creation",

@@ -21,14 +21,14 @@ Response_Protocol:
 Example:
   Activation_Phrase: "AI-Suplex: Session Start"
   Session_Type: execution
-  Mission: "Restore WQR server by resolving Oracle cloud block"
+  Mission: "Wire the daily brief to the team chat gateway"
   Expected_Duration: "90 minutes"
   Energy_Level: ⚡⚡⚡⚡
   Tasks:
-    - "Log into Oracle Cloud Console"
-    - "Submit support ticket with explanation"
-    - "Document server config for rebuild"
+    - "Confirm the gateway credentials"
+    - "Send a test brief"
+    - "Schedule the cron"
   Success_Metrics:
-    - "Ticket submitted"
-    - "Config documented"
+    - "Test brief received"
+    - "Cron scheduled"
 ---

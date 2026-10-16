@@ -44,12 +44,6 @@ module.exports = async (quickAdd) => {
         "Learning and applying AI engineering skills, including prompt engineering, RAG, agents, fine‑tuning.",
     },
     {
-      name: "wqr",
-      display: "WQR",
-      description:
-        "WhatsApp Quick Responder SaaS – payment integration, bot workflows, client onboarding.",
-    },
-    {
       name: "freelance",
       display: "Freelance",
       description:

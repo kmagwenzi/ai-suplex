@@ -994,8 +994,8 @@ function showHelp() {
 \x1b[1;36mExamples:\x1b[0m
   node Tools/knowledge-graph.js --build
   node Tools/knowledge-graph.js --build-current
-  node Tools/knowledge-graph.js --query POTRAZ
-  node Tools/knowledge-graph.js --query POTRAZ --current
+  node Tools/knowledge-graph.js --query memory
+  node Tools/knowledge-graph.js --query memory --current
   node Tools/knowledge-graph.js --status
 `);
 }

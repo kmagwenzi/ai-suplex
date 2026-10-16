@@ -3,7 +3,7 @@
 
 Discovers hidden connections between vault items across focuses using the
 SQLite knowledge graph (Memory/knowledge-graph.db, read-only), then scores each pair
-with an LLM (reusing the wqr_agent.py LangChain bridge pattern) to produce
+with an LLM (via a provider-agnostic LangChain bridge) to produce
 ranked B-Bomb candidates for Saturday B-Bomb Day.
 
 Two candidate mechanisms:
@@ -159,7 +159,7 @@ def build_pairs(conn, cutoff, cap):
     return pairs[:cap]
 
 
-# ── LLM bridge (reuses wqr_agent.py pattern) ──
+# ── LLM bridge (provider-agnostic LangChain pattern) ──
 def pick_backend():
     backend = os.getenv("LLM_BACKEND", "").strip().lower()
     gemini_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")

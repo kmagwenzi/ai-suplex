@@ -18,13 +18,13 @@ tags:
 # Weekly Plan – Cycle 1, Week 3
 
 **Period:** Monday, May 13 → Sunday, May 19
-**Generated:** 2026-05-13 06:00 CAT
+**Generated:** 2026-05-13 06:00
 
 ---
 
 ## 🎯 Weekly Mission
 
-Ship AI-Suplex to Gumroad, execute INFILTRATION blitz across 4+ channels, and resume WQR containerisation work.
+Ship the product to the storefront, execute the launch blitz across 4+ channels, and resume client work.
 
 ---
 
@@ -32,9 +32,9 @@ Ship AI-Suplex to Gumroad, execute INFILTRATION blitz across 4+ channels, and re
 
 | Focus | Priority Tasks | Est. Hours |
 |-------|---------------|------------|
-| Digital Products | ZIP packages, Gumroad upload, thumbnails, INFILTRATION posts | 20h |
-| AI Engineering | Demo video scripting, Graph RAG patch plan, GIF creation | 5h |
-| WQR | Docker n8n container, ngrok tunnel, Paynow end-to-end test | 8h |
+| Digital Products | Package, storefront upload, thumbnails, launch posts | 20h |
+| AI Engineering | Demo video scripting, graph patch plan, GIF creation | 5h |
+| Freelance | Client deployment, end-to-end test, handover | 8h |
 | Content Creation | Launch announcement posts (Twitter, LinkedIn, Reddit, Discord) | 3h |
 | **Total** | | **36h** |
 
@@ -44,32 +44,32 @@ Ship AI-Suplex to Gumroad, execute INFILTRATION blitz across 4+ channels, and re
 
 ### Monday (May 13) — Launch Day 🚀
 
-- **AM:** Digital Products — Final checklist validation, ZIP Core & 7-7-7, upload to Gumroad with descriptions
-- **PM:** Digital Products — INFILTRATION Blitz: Twitter/X announcement, LinkedIn professional post, Reddit r/ObsidianMD, Discord communities
+- **AM:** Digital Products — final checklist validation, package both editions, upload to the storefront with descriptions
+- **PM:** Digital Products — launch blitz: Twitter/X announcement, LinkedIn post, Reddit, Discord communities
 
 ### Tuesday (May 14) — Post-Launch & Content
 
-- **AM:** AI Engineering — Monitor launch responses, engage comments, draft demo video script
-- **PM:** Digital Products — Create Gumroad thumbnails + GIF/demo animation, respond to inquiries
+- **AM:** AI Engineering — monitor launch responses, engage comments, draft the demo video script
+- **PM:** Digital Products — create thumbnails + GIF/demo animation, respond to inquiries
 
 ### Wednesday (May 15) — Content & AI
 
-- **AM:** AI Engineering — Record demo video, basic edit, upload to Gumroad/GitHub
-- **PM:** Digital Products — Warm outreach to 5+ contacts (WhatsApp, DMs), share Gumroad links
+- **AM:** AI Engineering — record the demo video, basic edit, upload
+- **PM:** Digital Products — warm outreach to 5+ contacts, share the storefront links
 
-### Thursday (May 16) — WQR Deep Work
+### Thursday (May 16) — Client Deep Work
 
-- **AM:** WQR — Docker n8n container setup, configure environment
-- **PM:** WQR — ngrok tunnel configuration, end-to-end Paynow webhook test
+- **AM:** Freelance — deploy the client build, configure the environment
+- **PM:** Freelance — configure the tunnel, run an end-to-end test
 
 ### Friday (May 17) — Buffer / Catch-Up
 
-- **AM:** Flex — Finish any incomplete tasks from Mon–Thu priorities
-- **PM:** AI Engineering — Graph RAG Intelligent B-Bomb Promotion patch planning, Graphify decision
+- **AM:** Flex — finish any incomplete tasks from Mon–Thu priorities
+- **PM:** AI Engineering — graph patch planning, the retired-tool decision
 
 ### Saturday (May 18) — B-Bomb Day
 
-- **AM:** Content Creation — Promote session artifacts to B-Bombs, run weekly review prep
+- **AM:** Content Creation — promote session artifacts to B-Bombs, run weekly review prep
 - **PM:** Rest
 
 ### Sunday (May 19) — Rest
@@ -85,33 +85,33 @@ Ship AI-Suplex to Gumroad, execute INFILTRATION blitz across 4+ channels, and re
 | High-energy | 06:00–10:00 | ⚡⚡⚡⚡⚡ | Deep work, launches, complex coding |
 | Moderate-energy | 10:00–13:00 | ⚡⚡⚡⚡ | Execution, deployment, integrations |
 | Low-energy | 14:00–16:00 | ⚡⚡ | Admin, emails, planning, light review |
-| Recovery | 16:00–18:00 | ⚡ | WQR switch, breaks, wind-down |
+| Recovery | 16:00–18:00 | ⚡ | Context switch, breaks, wind-down |
 
 **Hard Stops:**
-- Mon–Wed: Hard stop 13:00 for WQR context switch or rest
-- Saturday: Stop all work by 14:00 latest
-- Sunday: Zero work — full recovery
+- Mon–Wed: hard stop 13:00 for the context switch or rest
+- Saturday: stop all work by 14:00 latest
+- Sunday: zero work — full recovery
 
 ---
 
 ## 📊 Success Metrics
 
-- [x] Core Edition + 7-7-7 Edition live on Gumroad with thumbnails and descriptions
-- [ ] INFILTRATION executed across 4+ channels (Twitter, LinkedIn, Reddit, Discord)
+- [x] Core Edition + paid Edition live on the storefront with thumbnails and descriptions
+- [ ] Launch blitz executed across 4+ channels (Twitter, LinkedIn, Reddit, Discord)
 - [ ] Demo video script drafted and recording scheduled/complete
-- [ ] WQR Docker n8n container operational with ngrok tunnel
-- [ ] Graph RAG patch plan scoped — Graphify decision made (keep or obliterate)
+- [ ] Client build operational with the tunnel configured
+- [ ] Graph patch plan scoped — retired-tool decision made (keep or remove)
 
 ---
 
 ## 🔗 Quick Links
 
-- [[🦸AI-Suplex 7‑7‑7 – Command Center]]
-- [[AI-Suplex-777/Tasklists/2026-05-08-ai-suplex-bombshell-launch-strategy-tasklist.md|Bombshell Launch Tasklist]]
-- [[AI-Suplex-777/Focuses.md|Focus Areas]]
-- [[AI-Suplex-777/MOCs/Digital Products MOC.md|Digital Products MOC]]
-- [[AI-Suplex-777/Trackers/Digital Products Tracker.md|Digital Products Tracker]]
-- [[AI-Suplex-777/Plans/Cycle 1 Plan.md|Cycle 1 Plan]]
+- [[Command Center]]
+- [[product-launch-strategy-tasklist|Product Launch Tasklist]]
+- [[Focuses|Focus Areas]]
+- [[Digital Products MOC]]
+- [[Digital Products Tracker]]
+- [[Cycle 1 Plan]]
 
 ---
 

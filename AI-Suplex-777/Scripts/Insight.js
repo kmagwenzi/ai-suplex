@@ -32,7 +32,7 @@ module.exports = async (quickAdd) => {
     async function getFocuses() {
         const focusesPath = "AI-Suplex-777/Focuses.md";
         if (!(await vault.adapter.exists(focusesPath))) {
-            return ["ai-engineering", "wqr", "freelance", "digital-products", "content-creation"];
+            return ["ai-engineering", "freelance", "digital-products", "content-creation"];
         }
         const content = await vault.adapter.read(focusesPath);
         const match = content.match(/^---\n([\s\S]*?)\n---/);

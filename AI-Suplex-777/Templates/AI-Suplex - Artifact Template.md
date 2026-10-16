@@ -2,7 +2,7 @@
 tags:
   - artifact
   - work-in-progress
-  - {{VALUE:Focus (ai-engineering, wqr, freelance, digital-products, content-creation)}}
+  - {{VALUE:Focus (ai-engineering, freelance, digital-products, content-creation)}}
   - 7/{{VALUE:Cycle (1, 2, 3, 4, 5, 6, 7)}}/{{VALUE:Week (1, 2, 3, 4, 5, 6, 7)}}
 date: {{DATE:YYYY-MM-DD}}
 time: {{DATE:YYYY-MM-DD}}T{{TIME:HH:mm}}:00

@@ -2,7 +2,7 @@
 ---
 tags:
   - b-bomb
-  - {{VALUE:focus (ai-engineering, wqr, freelance, digital-products, content-creation, etc.)}}
+  - {{VALUE:focus (ai-engineering, freelance, digital-products, content-creation, etc.)}}
   - 7/{{VALUE:Cycle (1, 2, 3, 4, 5, 6, 7)}}/{{VALUE:week (1, 2, 3, 4, 5, 6, 7)}}
 date: {{DATE:YYYY-MM-DD}}
 time: {{TIME:HH:mm}}
