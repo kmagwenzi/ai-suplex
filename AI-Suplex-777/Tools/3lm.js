@@ -20,7 +20,7 @@
  *   index              Refresh memory/index.md
  *   status             Show memory/ folder stats
  *   approvals          Aggregated "Hustler decides" inbox (FINAL BOSS gates · lessons · B-Bombs)
- *   threads            List instances (--list | --open | --stale) — Context & Threads v2.0
+ *   threads            List instances (--list | --open | --stale) [--json] [--dir PATH] [--write] — Context & Threads v2.0
  */
 
 const fs = require("fs");
@@ -286,6 +286,39 @@ function publicInstance(i) {
   return rest;
 }
 
+function renderProjection(dir, instances, legacy) {
+  const now = getNow();
+  const open = instances.filter((i) => i.status === "open").length;
+  const lines = [
+    "# 🧵 Active Instances — generated projection",
+    "",
+    `> **Generated:** ${now.timestamp} by \`node Tools/3lm.js threads --list\` · **never hand-edited** (Spec §5).`,
+    `> Ownership is the **filename**; this table is only a view. Open instances: **${open}**.`,
+    "",
+    "| ref | thread | slug | opened | writer | agent | status |",
+    "|-----|--------|------|--------|--------|-------|--------|",
+  ];
+  // Deterministic order: thread asc, singletons before numbered refs.
+  const sorted = instances.slice().sort((a, b) => {
+    if (a.thread !== b.thread) return a.thread < b.thread ? -1 : 1;
+    const ar = a.singleton ? -1 : Number(a.ref);
+    const br = b.singleton ? -1 : Number(b.ref);
+    return ar - br;
+  });
+  for (const i of sorted) {
+    const ref = i.singleton ? "— *(singleton)*" : i.ref;
+    const slug = i.singleton ? "—" : i.slug;
+    lines.push(
+      `| ${ref} | ${i.thread} | ${slug} | ${i.opened || "—"} | ${i.writer || "—"} | ${i.agent || "—"} | ${i.status || "open"} |`,
+    );
+  }
+  if (legacy.length > 0) {
+    lines.push("", `> ⚠️ **Legacy (old-shape) files** — archive on close: ${legacy.join(", ")}`);
+  }
+  lines.push("", "---", "", "*Regenerated at every instance open/close. See `Spec — Context & Threads.md` v2.0 §5.*");
+  return lines.join("\n") + "\n";
+}
+
 function checkStaleness(defaultMaxDays) {
   const results = [];
   for (const item of STALENESS_WATCH) {
@@ -360,6 +393,14 @@ function cmdThreads() {
     if (legacy.length > 0) {
       console.log(`Legacy (old-shape) files (${legacy.length}):`);
       for (const name of legacy) console.log(`  ${name}`);
+    }
+    // Spec §5: `--list` GENERATES the projection (this write closes the sweep's last gap).
+    // Write only on the real Active dir (no `--dir`) or when `--write` is explicit.
+    const write = process.argv.includes("--write") || dirIdx === -1;
+    if (write) {
+      const target = path.join(dir, "_instances.md");
+      fs.writeFileSync(target, renderProjection(dir, instances, legacy));
+      console.log(`\n  ↳ wrote ${target}`);
     }
   }
 }
@@ -1899,7 +1940,7 @@ switch (command) {
       "  approvals          Aggregated 'Hustler decides' inbox (FINAL BOSS gates · lessons · B-Bombs)",
     );
     console.log(
-      "  threads            List instances (--list | --open | --stale) [--json] [--dir PATH]",
+      "  threads            List instances (--list | --open | --stale) [--json] [--dir PATH] [--write]",
     );
     console.log(
       "                     --json  machine-readable inbox (for the Phase C cockpit)\n",

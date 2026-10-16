@@ -64,6 +64,15 @@ r = run(["threads", "--stale", "--json", "--dir", TMP]);
 json = parseJSON(r.stdout);
 check(json !== null && json !== null && json.file === "random-task-1-vault-migration.md", "--stale returns the OLDEST open instance (not the newest)");
 
+// ── (e) --list --write REGENERATES _instances.md (Spec §5 — the write) ──
+r = run(["threads", "--list", "--dir", TMP, "--write"]);
+check(r.status === 0, "--list --write exits 0");
+const projPath = path.join(TMP, "_instances.md");
+const projTxt = fs.existsSync(projPath) ? fs.readFileSync(projPath, "utf8") : "";
+check(/generated projection/.test(projTxt), "--write regenerates _instances.md with the generated header");
+check(/vault-migration/.test(projTxt) && /random-task/.test(projTxt), "the projection lists the instances");
+check(!/^# projection$/m.test(projTxt), "the fixture placeholder was overwritten");
+
 fs.rmSync(TMP, { recursive: true, force: true });
 console.log(failures === 0 ? "\nPASS — threads projection + open-instance staleness." : "\nFAIL — " + failures + " assertion(s) failed.");
 process.exit(failures === 0 ? 0 : 1);
