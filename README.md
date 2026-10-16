@@ -80,7 +80,7 @@ The **knowledge graph** (SQLite, zero-dependency) indexes every file into entiti
 
 ## Quick start (< 10 minutes)
 
-**Linux · macOS · Windows (Git Bash or WSL).**
+**Linux · macOS · Windows.**
 
 ```bash
 git clone https://github.com/kmagwenzi/ai-suplex.git
@@ -104,7 +104,7 @@ node Tools/3lm.js start --context
 
 **Requirements:** **Node 22+** (the graph uses `node:sqlite`). **Python 3 is optional** — it enables the richer `--context` brief (`Tools/session_context.py`) and `Tools/bbomb_hunter.py`; the installer warns and continues without it. **Obsidian is optional** — `Scripts/` macros are QuickAdd; everything under `Tools/` runs headless.
 
-> **Windows:** `install.sh` is a bash script — run it from **Git Bash** (ships with Git for Windows) or **WSL**. Every tool under `Tools/` is plain Node and runs natively; a native PowerShell installer is on the roadmap.
+> **Windows:** run **`.\install.ps1`** in **PowerShell** (native) — or **`./install.sh`** from **Git Bash** / **WSL**. Every tool under `Tools/` is plain Node and runs natively.
 
 ## Structure
 

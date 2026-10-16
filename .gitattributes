@@ -1,0 +1,22 @@
+# Normalize line endings so a Windows clone behaves like a Linux/macOS one.
+* text=auto
+
+# Shell scripts MUST stay LF — a CRLF shebang fails with "bad interpreter".
+*.sh text eol=lf
+*.bash text eol=lf
+
+# PowerShell accepts LF on 5.1 and 7, and LF keeps Git Bash / WSL happy.
+*.ps1 text eol=lf
+
+# Binary assets — never normalise.
+*.db binary
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.zst binary
