@@ -60,7 +60,7 @@ The `AGENTS.md` file teaches the AI your project structure, roles, rules, skills
 4. Replace the `[Source]` section with your content
 5. Execute — the AI returns structured output
 
-> 💡 **Pro tip:** If CortexMem is installed, run `node cm get_context` before chatting — the AI recalls past decisions, B-Bombs, and focus context.
+> 💡 **Pro tip:** Run `node Tools/3lm.js start --context` before chatting — the agent loads your memory (decisions, lessons, recent episodes) first.
 
 ---
 
@@ -95,7 +95,7 @@ Both point to the same files — just from different angles.
 - 📄 Capture an **Artifact** mid-work — save anything worth keeping
 - 💣 Promote a polished artifact to a **B‑Bomb** — your reusable, sellable asset
 - 📊 Open the **Command Center** — watch your dashboard come alive
-- 🧠 Run `node cm get_context` — see what CortexMem remembers
+- 🧠 Run `node Tools/3lm.js start` — see what the memory stack remembers
 
 > 💡 **Full macro reference:** See [[⚡ Macros Quick Start Guide]]
 
@@ -111,7 +111,7 @@ Both point to the same files — just from different angles.
 | AI Skills | — | 12 |
 | Focus areas & MOCs | — | ✅ |
 | Cycle / Week tracking | — | ✅ |
-| CortexMem memory layer | — | ✅ |
+| 3lm memory loop (self-improving) | — | ✅ |
 | Nested folder structure | — | ✅ |
 | Weekly & Cycle reviews | — | ✅ |
 | Commander buttons pre-configured | Manual setup | ✅ 27 buttons |
@@ -126,7 +126,7 @@ Both point to the same files — just from different angles.
 | Commander buttons not showing | Enable Commander plugin in Settings → Community Plugins, then run the setup guide |
 | Macros error about paths | Don't rename the vault folder after extracting. Keep `AI-Suplex-Core/` or `AI-Suplex-777/`. |
 | Dataview queries show nothing | You need to complete at least one session. Click 🚀 Start → work → 🏁 End. |
-| CortexMem not responding | Run `node cm get_status` from inside the inner folder. Requires Node.js + cortexmem installed. |
+| 3lm not running | Run `node Tools/3lm.js status` from the vault root. Requires **Node 22+**. |
 | AI skill not working | Skills are markdown files — copy the content into an AI chat. They don't run inside Obsidian. |
 
 ---

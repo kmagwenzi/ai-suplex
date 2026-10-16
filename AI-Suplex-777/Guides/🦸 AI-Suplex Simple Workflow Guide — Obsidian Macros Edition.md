@@ -63,7 +63,7 @@ During your session, capture everything:
 | 📄 **Artifact**       | Ribbon  | Work-in-progress with metadata                         |
 | 💡 **Insight**        | Ribbon  | Quick learnings (appends to weekly file)               |
 | 💣 **B-Bomb**         | Ribbon  | Polished, reusable assets                              |
-| 🧠 **Feed CortexMem** | Toolbar | Insights into persistent memory - _see Insights after_ |
+| 🧠 **Feed 3LM** | Toolbar | Insights into persistent memory - _see Insights after_ |
 
 Files are saved in `Artifacts/<Period>/Cycle X/Week Y/` and `B-Bombs/<Period>/Cycle X/Week Y/`.
 

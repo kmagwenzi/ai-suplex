@@ -332,7 +332,7 @@ AI-Suplex-777/
 ├── Reviews/<Period>/Weekly/            ← 🔄 Weekly Review output
 ├── Skills/                    ← AI agent blueprints
 ├── Prompt Patterns/           ← Copy-paste templates for AI chat
-├── scripts/3lm/               ← 3lm CLI — memory loop tool
+├── Tools/              ← 3lm CLI · vault-index · knowledge-graph · session context
 └── Guides/                    ← You are here
 ```
 

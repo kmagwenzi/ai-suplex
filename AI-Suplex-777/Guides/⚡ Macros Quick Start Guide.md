@@ -18,7 +18,7 @@ status: active
 | Rhythm            | Frequency                | Macros                                                            | Purpose                |
 | ----------------- | ------------------------ | ----------------------------------------------------------------- | ---------------------- |
 | **Setup**         | Once (per vault / cycle) | Focus Manager, Create MOC, Create Tracker, Ensure Structure       | Build your workspace   |
-| **Daily Session** | Every time you work      | Start, Artifact, Insight, B-Bomb, Feed CortexMem, End             | Execute and capture    |
+| **Daily Session** | Every time you work      | Start, Artifact, Insight, B-Bomb, Feed 3LM, End             | Execute and capture    |
 | **Weekly**        | End of each week         | Enhance MOCs, Aggregate Weekly, Extract Next Steps, Weekly Review | Reflect and update     |
 | **End of Cycle**  | Every 7 weeks            | Generate Cycle Review, Start New Cycle                            | Strategize and inherit |
 
@@ -79,7 +79,7 @@ When: After creating MOCs, at the start of each cycle
 ## 🚀 DAILY SESSION LOOP
 
 ```
-🚀 Start  →  📄 Artifact  →  💡 Insight  →  🧠 Feed CortexMem  →  💣 B-Bomb  →  🏁 End
+🚀 Start  →  📄 Artifact  →  💡 Insight  →  🧠 Feed 3LM  →  💣 B-Bomb  →  🏁 End
 ```
 
 ### 7. 🚀 Session Start
@@ -106,14 +106,14 @@ Output: Appends a callout block to Insights/<Period>/Cycle X/Week Y.md
 When: You realize something worth remembering
 ```
 
-### 10. 🧠 Feed CortexMem
+### 10. 🧠 Feed 3LM
 ```
-What: Feed context directly into the AI's persistent memory
+What: Feed a lesson directly into the persistent memory stack
 Prompts: Focus, Insight text
-Output: Saved to .cortexmem/store.db as type "insight"
-When: You want the AI to remember something across future sessions
+Output: Appends to Memory/lessons.md (scored by `3lm promote`) + Insights/<Period>/Cycle X/Week Y.md
+When: You want the agent to remember something across future sessions
 Differs from Insight: Insight stays in your vault for dashboards;
-                     Feed CortexMem goes to the AI's memory layer
+                     Feed 3LM feeds the 3-layer memory loop
 ```
 
 ### 11. 💣 B-Bomb
@@ -174,7 +174,7 @@ When: Every weekend
 
 ### 17. 🔄 Sweeper – Generate Cycle Review
 ```
-What: Aggregates all CortexMem decisions and B-Bombs for a cycle into a review file
+What: Aggregates all cycle decisions and B-Bombs into a review file
 Prompts: Cycle number
 Output: Reviews/Cycle-X-review-<date>.md
 When: End of week 7 of any cycle
@@ -182,9 +182,9 @@ When: End of week 7 of any cycle
 
 ### 18. 🔄 Sweeper – Start New Cycle
 ```
-What: Inherits key decisions from the previous cycle's CortexMem into the new cycle
+What: Inherits key decisions from the previous cycle into the new one
 Prompts: Previous cycle, New cycle
-Output: Up to 20 inherited decisions seeded into new cycle's CortexMem
+Output: Up to 20 inherited decisions seeded into the new cycle
 When: Start of a new 7-week cycle
 ```
 
@@ -210,22 +210,22 @@ When: End of cycle cleanup, or major declutter
 
 ---
 
-## 🧠 CORTEXMEM SYNC (As Needed)
+## 🧠 3LM SYNC (As Needed)
 
-### 21. 🔄 Sweeper – Sync Focuses to CortexMem
+### 21. 🔄 Sweeper – Sync Focuses to 3lm
 ```
-What: Pushes each focus area's MOC summary into CortexMem as "state" context
+What: Pushes each focus area's MOC summary into the 3LM stack as "state" context
 Prompts: None
-Output: Each focus gets a cortexmem entry: state: "MOC: <focus> — <summary>"
+Output: Each focus gets a 3lm entry: state: "MOC: <focus> — <summary>"
 When: After editing focus definitions or MOC descriptions
 ```
 
 ### 22. 🔄 Sweeper – Refresh B-Bomb Index
 ```
-What: Scans all B-Bombs and indexes them in CortexMem (title, focus, tags, summary, link)
+What: Scans all B-Bombs and indexes them in the vault index + knowledge graph (title, focus, tags, summary, link)
 Prompts: None
-Output: Each B-Bomb gets a cortexmem entry: b-bomb: "TITLE: ... FOCUS: ... SUMMARY: ..."
-When: After creating new B-Bombs, or if CortexMem falls out of sync
+Output: Each B-Bomb gets an index entry: b-bomb: "TITLE: ... FOCUS: ... SUMMARY: ..."
+When: After creating new B-Bombs, or if the index falls out of sync
 ```
 
 ---
@@ -239,10 +239,10 @@ When: After creating new B-Bombs, or if CortexMem falls out of sync
 
 ### Page Header Toolbar (top of editor)
 ```
-Row 1: 🚀 Start  🏁 End  📄 Artifact  💣 B-Bomb  💡 Insight  🧠 Feed CortexMem
+Row 1: 🚀 Start  🏁 End  📄 Artifact  💣 B-Bomb  💡 Insight  🧠 Feed 3LM
 Row 2: 🎯 Focus Manager  🗺️ Create MOC  📊 Create Tracker  📁 Ensure  📁(Cycle)  📁(Week)
 Row 3: 📦 Archive  📦 Archive All  📊 Enhance MOCs  📊 Aggregate  📊 Extract Next
-Row 4: 🔄 Generate Review  🔄 Start Cycle  🔄 Refresh B-Bombs  🔄 Weekly Review  🔄 Sync CortexMem
+Row 4: 🔄 Generate Review  🔄 Start Cycle  🔄 Refresh B-Bombs  🔄 Weekly Review  🔄 Sync 3lm
 ```
 
 ---
@@ -254,7 +254,7 @@ Row 4: 🔄 Generate Review  🔄 Start Cycle  🔄 Refresh B-Bombs  🔄 Weekly
 | Start working | 🚀 Start |
 | Save what I just made | 📄 Artifact |
 | Remember something I learned | 💡 Insight |
-| Teach the AI something for later | 🧠 Feed CortexMem |
+| Teach the AI something for later | 🧠 Feed 3LM |
 | Mark something as reusable/sellable | 💣 B-Bomb |
 | Finish my session | 🏁 End |
 | Define my work areas | 🎯 Focus Manager |
@@ -268,7 +268,7 @@ Row 4: 🔄 Generate Review  🔄 Start Cycle  🔄 Refresh B-Bombs  🔄 Weekly
 | Close out a 7-week cycle | 🔄 Generate Review |
 | Begin a new 7-week cycle | 🔄 Start New Cycle |
 | Clean up old sessions | 📦 Archive |
-| Make AI aware of my focus areas | 🔄 Sync to CortexMem |
+| Make AI aware of my focus areas | 🔄 Sync to 3lm |
 | Make AI aware of my B-Bombs | 🔄 Refresh B-Bomb Index |
 
 ---
