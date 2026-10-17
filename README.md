@@ -85,12 +85,14 @@ The **knowledge graph** (SQLite, zero-dependency) indexes every file into entiti
 ```bash
 git clone https://github.com/kmagwenzi/ai-suplex.git
 cd ai-suplex
-./install.sh                       # creates ./ai-suplex-vault — or: ./install.sh ~/my-vault
+bash install.sh                    # creates ./ai-suplex-vault — or: bash install.sh ~/my-vault
 cd ai-suplex-vault
 node Tools/3lm.js start --context  # the first brief
 ```
 
 The installer checks Node 22+, copies the vault template, initialises the period structure, builds the file index + knowledge graph, and runs a smoke test. **Measured end-to-end: ~10 seconds.**
+
+**Run it with `bash install.sh`** — that works from a clone *or* a ZIP download (`./install.sh` also works when the executable bit survives).
 
 **Prefer to run it in place?** Skip `install.sh` and run the tools directly:
 
