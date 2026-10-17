@@ -58,7 +58,7 @@ The `AGENTS.md` file teaches the AI your project structure, roles, rules, skills
 4. Replace the `[Source]` section with your content
 5. Execute — the AI returns structured output
 
-> 💡 **Pro tip:** Run `node Tools/3lm.js start --context` before chatting — the agent loads your memory (decisions, lessons, recent episodes) first.
+> 💡 **Pro tip:** Run `node Tools/3lm.js start --context` before chatting — the agent loads your memory (decisions, lessons, recent episodes) first. `node Tools/3lm.js threads --list` shows any open context instances.
 
 ---
 
@@ -74,6 +74,25 @@ The `AGENTS.md` file teaches the AI your project structure, roles, rules, skills
 - **Coding agents** need direct access to `AGENTS.md`, `Skills/`, `Prompt Patterns/` as the project root
 
 Both point to the same files — just from different angles.
+
+---
+
+## 🧵 More Than One Window (Threads)
+
+A **thread is a lane; an instance is a window.** Four lanes keep parallel agent work from colliding:
+
+| Thread | Use it for | Instances | Context file |
+|---|---|---|---|
+| **Daily tasks** | the day's execution — the main one | 1 | `daily-tasks.md` |
+| **Long-running tasks** | a build that spans sessions | N | `long-running-tasks-{ref}-{slug}.md` |
+| **Random tasks** | one-off jobs — config, docs, PRDs | N | `random-task-{ref}-{slug}.md` |
+| **Realist** | the twice-weekly execution audit | 1 | *(5-line log — no context file)* |
+
+- **One instance = one context file = one writer.** A new window is a new file, never an append to another window's file.
+- **Save Context** writes to `AI-Suplex Kick-start/Context Kick-start/Active/`; the **daily-tasks** thread is the only writer of the Active Mission Context.
+- **A session is closed by the commit**, not by the file — a committer runs `node Tools/3lm.js sync`.
+
+> 📖 The practical walkthrough: [[Guide — Context & Threads]] · the rules: `AI-Suplex Kick-start/Spec — Context & Threads.md` (v2.0).
 
 ---
 
@@ -101,7 +120,9 @@ Both point to the same files — just from different angles.
 
 ## 🆙 Editions
 
-> **Core Edition has been retired.** The **7-7-7 Edition** is the only edition — 12 Prompt Patterns, 12 AI Skills, focus areas & MOCs, cycle/week tracking, the 3lm memory loop, and Commander buttons pre-configured.
+> **Core Edition has been retired.** The **7-7-7 Edition** is the only edition — 20 Prompt Patterns, 14 AI Skills, focus areas & MOCs, cycle/week tracking, the 3lm memory loop, and Commander buttons pre-configured.
+>
+> **Ladder:** the open-source repo is **free**. The packaged 7-7-7 Edition is **$29** on Selar (`selar.com/270lq55ke0`); **Ultra (~$149)** is the paid harness upgrade. Selar is the only storefront.
 
 ---
 

@@ -10,10 +10,12 @@ status: active
 
 > **27 macros. 5 rhythms. One pipeline.**  
 > This guide tells you what to click, when to click it, and why.
+>
+> **Running agents in parallel?** Macros are vault-side; threads and instance-scoped context are covered in `Guides/Guide — Context & Threads.md`.
 
 ---
 
-## 🗺️ THE FOUR RHYTHMS
+## 🗺️ THE FIVE RHYTHMS
 
 | Rhythm            | Frequency                | Macros                                                                                    | Purpose                |
 | ----------------- | ------------------------ | ----------------------------------------------------------------------------------------- | ---------------------- |
@@ -165,7 +167,7 @@ When: Weekly, to collect all outstanding actions in one place
 ```
 What: Generates a structured weekly review from all session data
 Prompts: Cycle, Week
-Output: Reviews/<Period>/Weekly/Week X Review.md — executive summary, achievements, lessons, blockers, focus progress table, recommendations
+Output: Reviews/<Period>/Weekly/Cycle X/Week Y/Week Y Review.md — executive summary, achievements, lessons, blockers, focus progress table, recommendations
 When: Every weekend
 ```
 
@@ -177,7 +179,7 @@ When: Every weekend
 ```
 What: Aggregates all cycle decisions and B-Bombs into a review file
 Prompts: Cycle number
-Output: Reviews/Cycle-X-review-<date>.md
+Output: Reviews/<Period>/Weekly/Cycle X/Cycle-X-review-<date>.md
 When: End of week 7 of any cycle
 ```
 

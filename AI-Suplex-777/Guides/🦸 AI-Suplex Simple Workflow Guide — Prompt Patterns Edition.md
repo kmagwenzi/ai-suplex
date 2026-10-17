@@ -6,7 +6,7 @@
 > ```bash
 > cd "7-7-7 Edition/AI-Suplex-777"
 > ```
-> The agent reads `AGENTS.md` and accesses `Skills/`, `Prompt Patterns/`, and `cm` from here.
+> The agent reads `AGENTS.md` and accesses `Skills/`, `Prompt Patterns/`, `Tools/`, and `Guides/` from here.
 >
 > **For cloud AI chats (ChatGPT, DeepSeek):** Just copy the pattern blocks below — no folder setup needed.
 
@@ -84,26 +84,40 @@ During your session, capture everything using patterns:
 
 ## Step 8: Switch Context (When Changing Chat Windows)
 
-When switching between chat windows or sessions, use the Save Context pattern to ensure no knowledge is lost:
+A **thread is a lane; an instance is a window.** When you switch chat windows or end a work block, use **Save Context v3** so the next window loads the right context — and never overwrites another window's.
 
 1. Open `Prompt Patterns/📄 Pattern - Save Context.md`
 2. Copy the `<prompt-pattern>` block → paste into AI chat
-3. Fill in the Source section with your current session context
-4. Execute — the AI generates a context summary and saves it
+3. Supply the instance coordinates:
+   ```
+   Thread: daily-tasks | long-running-tasks | random-task | realist
+   Instance: <ref or slug>     ← N lanes only; omit for singletons
+   Writer: committer | producer
+   ```
+4. Execute — the AI writes the summary and reports what it wrote (and whether `AGENTS.md` changed)
 
 **What happens:**
-- Context summary saved to `AI-Suplex Kick-start/Context Kick-start/Active/YYYY-MM-DD-cycle-x-week-y-mission-title.md`
-- Previous context archived to `Archived/`
-- Next session picks up seamlessly via `3lm start`
 
-> 💡 **When to use:** Switching chat windows, ending a work block, taking a break, or any time you want to ensure the next session remembers what you did.
+| Step | Result |
+|---|---|
+| Write | `Context Kick-start/Active/{thread}-{ref}-{slug}.md` (or `{thread}.md` for singletons) |
+| Append | A later save to the **same instance** updates in place — no second file |
+| Archive | **On close** — only this instance's file → `Archived/{YYYY-MM-DD}-{thread}-{ref}-{slug}.md` |
+| `AGENTS.md` | **Only** the `daily-tasks` thread refreshes the Active Mission Context |
+
+- **One instance = one file = one writer.** A new window is a new file; never edit another instance's context file.
+- **A session is closed by the commit**, not the file — a committer runs `node Tools/3lm.js sync`.
+- **Producers never sync.** A cloud agent writes only its own instance file + artifacts.
+- See the open set: `node Tools/3lm.js threads --list`.
+
+> 💡 **When to use:** Switching chat windows, ending a work block, taking a break, or any time you want the next session to remember exactly what this one did.
 
 ---
 
 ## Full Pattern Chain
 
 ```
-Tasklist → Session Start → Artifact/B-Bomb/Insight → Session End → Save Context → Weekly Plan → Weekly Review
+Kickstart → Tasklist → Session Start → Artifact/B-Bomb/Insight → Session End → Save Context → Weekly Plan → Weekly Review
 ```
 
 Every step is a copy-paste pattern. No Obsidian required. No macros. Just AI chat.
@@ -114,7 +128,7 @@ Every step is a copy-paste pattern. No Obsidian required. No macros. Just AI cha
 
 - **Cycle Plan:** `📄 Pattern - Cycle Plan Generation.md` — 7-week strategic roadmap
 - **Cycle Review:** `📄 Pattern - Cycle Review Generation.md` — end-of-cycle analysis
-- **Full Guides:** See `The AI-Suplex Workflow Pipeline.md` and `Simple Workflow Guide.md` for the macro-powered version
+- **Full Guides:** See `AI-Suplex Kick-start/The AI-Suplex Workflow Pipeline.md` and `Guides/🦸 AI-Suplex Full Workflow Guide.md` for the full pipeline and the macro-powered version
 
 ---
 

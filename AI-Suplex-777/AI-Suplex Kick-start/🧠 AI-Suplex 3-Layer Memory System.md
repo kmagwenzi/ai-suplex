@@ -3,7 +3,8 @@ type: documentation
 alias: ["3-Layer Memory", "AI-Suplex Memory Stack", "Self-Improving Memory"]
 tags: [memory, 3-layer, episodic, semantic, procedural, specification]
 created: 2026-06-06
-version: 1.0
+version: 1.1
+updated: 2026-10-17
 status: active
 ---
 
@@ -127,9 +128,14 @@ Located at `Tools/3lm.js`. Run from inside `AI-Suplex-777/`.
 | `start` | Load semantic + lessons + recent episodic + procedural — generate mission brief |
 | `end` | Read Session End report → write episodic file to `Memory/episodic/<Period>/Cycle-X/Week-Y/` |
 | `learn` | Extract lessons from latest episode → append to `Memory/lessons.md` |
+| `add-lessons` | Quick-capture up to 3 lessons from an artifact / B-Bomb / insight |
 | `promote --min N` | Score lessons → promote ≥N to semantic/procedural (default: 70) |
+| `clean` | Consolidate + dedup `lessons.md` (run `promote` first) |
 | `revise` | Check lessons against semantic truths for contradictions — surface deprecation watch |
 | `index` | Refresh `Memory/index.md` with all active memory files |
+| `survey` | Scan captures since a timestamp → surveyed insights for the LLM to judge |
+| `threads --list --write` | List open context instances → `_instances.md` projection |
+| `sync [message]` | Commit + push the vault to all remotes (session close) |
 | `status` | Show counts: governance, semantic, procedural, episodic |
 
 ---
@@ -186,4 +192,4 @@ Every Tasklist execution should leave the system better than it found it. The me
 
 **TWABAM ⚡!** This specification defines the complete 3-Layer Memory System — the self-improving architecture that separates AI-Suplex from every other productivity tool. The memory stack is live. Every session feeds the engine.
 
-**Memory Status:** ACTIVE | **Version:** 1.0 | **Last Updated:** 2026-06-06
+**Memory Status:** ACTIVE | **Version:** 1.1 | **Last Updated:** 2026-10-17

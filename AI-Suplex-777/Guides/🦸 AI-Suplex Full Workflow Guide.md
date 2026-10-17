@@ -3,8 +3,8 @@ type: document
 alias: ["AI-Suplex Pipeline", "Assembly Line", "Full Cycle Walkthrough"]
 tags: [workflow-pipeline, guide, macros, prompt-patterns, full-cycle, 3-layer-memory, 3lm]
 created: 2026-04-16
-updated: 2026-06-08
-version: 4.0
+updated: 2026-10-17
+version: 4.1
 status: active
 ---
 
@@ -26,6 +26,17 @@ status: active
 | **Example**      | 🚀 Start, 📄 Artifact, 🏁 End                         | `📄 Pattern - Tasklist Generation`                    | `3lm end`, `3lm learn`, `3lm promote`      |
 
 > **Rule of thumb:** Macros handle the *container* (files, folders, metadata). Prompt Patterns handle the *content* (plans, tasks, reviews). 3lm handles the *memory* — learning from every session so the next one starts smarter.
+
+### Two runtimes, one loop
+
+The same pipeline runs in two places — pick the one that matches how you work:
+
+| Runtime | What runs the loop | Best for |
+|---|---|---|
+| **Vault-native** | Commander macros + Prompt Patterns + `node Tools/3lm.js` | Obsidian users; the shipped 7-7-7 Edition |
+| **dsh plugin** | `dsh-ai-suplex` — nine `ai_suplex_*` tools on the dsh agent harness | Agent-first users; the same vault driven headlessly |
+
+The dsh plugin exposes `ai_suplex_init` · `context` · `tasklist` · `capture` · `session_end` · `learn` · `promote` · `approvals` · `status`. It reads the **same** markdown vault and writes the **same** paths — the memory is shared, not forked. `ai_suplex_promote` is approval-gated (`approved: true`), so the Hustler gate holds in both runtimes. Package: `dsh-ai-suplex` on npm (`0.4.0`).
 
 ---
 
@@ -53,7 +64,7 @@ CYCLE PLAN  →  WEEKLY PLAN  →  TASKLIST  →  START  →  EXECUTE  →  CAPT
 2. Copy `Prompt Patterns/📄 Pattern - Cycle Plan Generation.md`
 3. Paste into AI chat with your cycle goals and context
 4. The AI returns a 7-week breakdown with milestones per week, focus area allocation, and success metrics
-5. Save to `Plans/<Period>/Cycle 1/Cycle 1 Plan.md`
+5. Save to `Plans/<Period>/Cycle X/Cycle X Plan.md`
 
 > 💡 Run this once per cycle (every 7 weeks). The cycle plan is your strategic compass — all weekly plans flow from it.
 
@@ -68,7 +79,7 @@ CYCLE PLAN  →  WEEKLY PLAN  →  TASKLIST  →  START  →  EXECUTE  →  CAPT
 1. Copy `Prompt Patterns/📄 Pattern - Weekly Plan Generation.md`
 2. Paste into AI chat with context from your cycle plan + last week's review
 3. The AI returns a scoped weekly plan with task IDs, daily targets, and success metrics
-4. Save to `Plans/<Period>/Cycle 1/Week 3/`
+4. Save to `Plans/<Period>/Cycle X/Week Y/`
 
 > 💡 The weekly plan bridges your cycle strategy and daily execution. Run it every Tuesday.
 
@@ -157,7 +168,7 @@ Not every artifact becomes a B-Bomb. Promote when something is **reusable, refer
 
 **AI-assisted promotion:**
 1. Copy `📄 Pattern - B-Bomb Promotion` into AI chat
-2. Point it at your artifact: *"Scan Artifacts/<Period>/Cycle 1/Week 2/ for B-Bomb candidates"*
+2. Point it at your artifact: *"Scan Artifacts/<Period>/Cycle X/Week Y/ for B-Bomb candidates"*
 3. The AI identifies candidates, ranks by innovation quotient, and drafts promotion content
 
 **After promoting:** Run 🔄 **Refresh B-Bomb Index** to re-index.
@@ -241,6 +252,35 @@ Session End Report
 
 ---
 
+### STEP 7b — CONTEXT & THREADS: Keep Parallel Work Honest
+
+**Tool:** Prompt Pattern (`AI-Suplex: Save Context`, v3) + 3lm CLI
+
+A **thread is a lane; an instance is a window.** When more than one chat window is open — or a cloud agent is working alongside you — each window owns its **own** context file.
+
+| Thread | Use it for | Instances | Context file |
+|---|---|---|---|
+| **Daily tasks** | the day's execution — the main one | 1 | `daily-tasks.md` |
+| **Long-running tasks** | a build that spans sessions | N | `long-running-tasks-{ref}-{slug}.md` |
+| **Random tasks** | one-off jobs — config, docs, PRDs | N | `random-task-{ref}-{slug}.md` |
+| **Realist** | the twice-weekly execution audit | 1 | *(5-line log to `Reviews/Realist/`)* |
+
+**The rules that matter:**
+
+1. **One instance = one file = one writer.** A new window is a new file — never append to another instance's file.
+2. **Save Context is instance-scoped.** Write to `Context Kick-start/Active/{thread}-{ref}-{slug}.md`; append only to the **same** instance on a later save; archive **only your own** file on close (`Archived/{YYYY-MM-DD}-…`).
+3. **Only `daily-tasks` writes the Active Mission Context** (`AGENTS.md`). Every other thread reports *"AGENTS.md unchanged (not the daily-tasks thread)."*
+4. **A session is closed by the commit, not the file.** A committer runs `3lm sync`; a producer (cloud agent) never writes `Memory/` or syncs.
+5. **The Realist prescribes, it does not produce.** It audits execution twice a week and writes a 5-line log — it does not generate tasklists.
+
+```bash
+node Tools/3lm.js threads --list --write   # open instances → _instances.md (generated projection)
+```
+
+> 📖 Practical walkthrough: `Guides/Guide — Context & Threads.md` · Rules: `AI-Suplex Kick-start/Spec — Context & Threads.md` (v2.0) · Pattern: `Prompt Patterns/📄 Pattern - Save Context.md` (v3).
+
+---
+
 ### STEP 8 — REVIEW: Close the Week
 
 At the end of each week, run these in order:
@@ -279,7 +319,7 @@ Sunday    — Rest or light work
 - 🔄 **Generate Cycle Review** — aggregates all cycle data
 - `📄 Pattern - Cycle Review Generation` — AI-powered analysis of the full cycle
 - Run `3lm promote --min 70` — promote all remaining high-scoring lessons
-- `3lm index` — final memory refresh before Cycle 2
+- `3lm index` — final memory refresh before the next cycle
 
 ---
 
@@ -301,6 +341,8 @@ Sunday    — Rest or light work
 | Check for memory contradictions | `3lm revise` (CLI) |
 | Refresh the memory lookup manifest | `3lm index` (CLI) |
 | See memory stack health | `3lm status` (CLI) |
+| List open context instances | `3lm threads --list` (CLI) |
+| Save context / switch windows | `AI-Suplex: Save Context` (pattern v3) |
 | Update dashboards | 📊 **Enhance MOCs/Trackers** (macro) |
 | Prepare data for AI review | 📊 **Aggregate Weekly Data** (macro) |
 | Generate a weekly report | 🔄 **Weekly Review** (macro) + `Orchestrator – Weekly Review` (skill) |
@@ -316,6 +358,7 @@ AI-Suplex-777/
 ├── Sessions/Active/Start/     ← 🚀 Start creates these
 ├── Sessions/Active/End/       ← 🏁 End creates these
 ├── Sessions/Archive/          ← 🧹 Sweeper archives here
+├── Context Kick-start/        ← 🧵 instance-scoped context (Active/ · Archived/)
 ├── Artifacts/<Period>/Cycle X/Week Y/  ← 📄 Artifact saves here
 ├── B-Bombs/<Period>/Cycle X/Week Y/    ← 💣 B-Bomb saves here
 ├── Insights/<Period>/Cycle X/Week Y.md ← 💡 Insight appends here
@@ -352,4 +395,4 @@ AI-Suplex-777/
 
 **TWABAM ⚡!** You now know every step of the pipeline — from raw thought to self-improving system. Start with a tasklist pattern, click 🚀, run the memory loop, and let the system compound.
 
-*The AI-Suplex Workflow Pipeline — v4.0*
+*The AI-Suplex Workflow Pipeline — v4.1*

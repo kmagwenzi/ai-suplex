@@ -39,9 +39,14 @@ node Tools/3lm.js <command>
 | `start` | Load all memory context — semantic, lessons, episodes, procedures |
 | `end` | Write episodic file from your session report |
 | `learn` | Extract lessons from latest episode |
+| `add-lessons` | Quick-capture up to 3 lessons from an artifact / B-Bomb / insight |
 | `promote --min 70` | Score lessons, promote high-scoring ones to semantic/procedural |
+| `clean` | Consolidate + dedup `lessons.md` (run `promote` first) |
 | `revise` | Check for contradictions, surface deprecation watch |
 | `index` | Refresh the memory lookup manifest |
+| `survey` | Scan captures since a timestamp → surveyed insights to judge |
+| `threads --list --write` | List open context instances → `_instances.md` projection |
+| `sync [message]` | Commit + push the vault to all remotes (session close) |
 | `status` | Show counts across all memory stores |
 
 **After every session:**
@@ -56,6 +61,16 @@ node Tools/3lm.js index    # Refresh index
 node Tools/3lm.js promote --min 70   # Promote stable lessons
 node Tools/3lm.js revise             # Check for contradictions
 ```
+
+### Memory is shared; context is per instance
+
+The memory stack is **one shared brain** — every instance reads and writes the same `Memory/`. Context files are different: they are **instance-scoped**, live outside `Memory/`, and are never shared between windows.
+
+- `Context Kick-start/Active/{thread}-{ref}-{slug}.md` — one per open window (or `{thread}.md` for singletons)
+- **One instance = one file = one writer.** A new window is a new file.
+- A context file is a **draft**, not memory. It closes with a commit (`3lm sync`); what survives is the episode + lessons in `Memory/`.
+
+> 📖 Threads: `Guides/Guide — Context & Threads.md` · rules: `AI-Suplex Kick-start/Spec — Context & Threads.md` (v2.0).
 
 ---
 
@@ -99,6 +114,8 @@ Memory/
 │   └── lesson_to_procedure.md   # Learning → Automation
 └── episodic/
     └── <Period>/Cycle-N/Week-N/ # Your session episodes go here
+
+Context Kick-start/            # NOT memory — ephemeral, instance-scoped (Active/ · Archived/)
 ```
 
 ---

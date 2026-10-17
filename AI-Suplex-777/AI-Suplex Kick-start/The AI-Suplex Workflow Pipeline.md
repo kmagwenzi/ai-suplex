@@ -3,7 +3,8 @@ type: documentation
 alias: ["Deep Ultra OS Workflow Pipeline", "AI-Suplex Assembly Line", "7‑7‑7 Execution Engine"]
 tags: [workflow-pipeline, specification, deep-ultra-os, assembly-line]
 created: 2026-04-16
-version: 2.2
+updated: 2026-10-17
+version: 3.0
 status: active
 ---
 
@@ -56,6 +57,19 @@ graph LR
 | **Macros**           | Rapid workflow execution         | Session Start, Artifact, B‑Bomb, Insight                                | During active work sessions          |
 | **Prompt Patterns**  | User‑friendly AI interaction     | All pattern files in `Prompt Patterns/`                                 | Copy‑paste into AI chats             |
 | **Dataview Queries** | Live data aggregation            | Command Center dashboards, MOCs                                         | Automatic via frontmatter tags       |
+| **3lm CLI**          | Self-improving memory loop       | `start` · `end` · `learn` · `promote` · `threads` · `sync`              | Terminal — inside the vault          |
+| **dsh plugin (optional)** | Headless harness runtimes   | `ai_suplex_init` · `context` · `tasklist` · `capture` · `session_end` · `learn` · `promote` · `approvals` · `status` | Agent harness (`dsh-ai-suplex`) |
+
+### Two runtimes, one loop
+
+The same pipeline runs in two places — pick the one that matches how you work:
+
+| Runtime | What runs the loop | Best for |
+|---|---|---|
+| **Vault-native** | Commander macros + Prompt Patterns + `node Tools/3lm.js` | Obsidian users; the shipped 7-7-7 Edition |
+| **dsh plugin** | `dsh-ai-suplex` — nine `ai_suplex_*` tools on the dsh agent harness | Agent-first users; the same vault driven headlessly |
+
+The dsh plugin reads the **same** markdown vault and writes the **same** paths — the memory is shared, not forked. `ai_suplex_promote` is approval-gated (`approved: true`), so the Hustler gate holds in both runtimes. Package: `dsh-ai-suplex` on npm (`0.4.0`).
 
 ---
 
@@ -69,6 +83,7 @@ AI-Suplex-777/
 │   │   └── End/            # Session end reports
 │   └── Archive/            # Archived sessions
 ├── period.md               # ⏳ Period source of truth (derived run label)
+├── Context Kick-start/      # 🧵 instance-scoped context (Active/ · Archived/)
 ├── Artifacts/
 │   └── <Period>/
 │       └── Cycle X/Week Y/ # Work‑in‑progress assets
@@ -83,7 +98,7 @@ AI-Suplex-777/
 ├── Trackers/               # Progress trackers (one per focus)
 ├── Tasklists/              # AI‑Suplex & Combined Tasklists
 ├── Reviews/<Period>/Weekly/ # Weekly review files
-├── Skills/                 # AI agent blueprints (11 files)
+├── Skills/                 # AI agent blueprints (14 files)
 ├── Prompt Patterns/       # Copy‑paste patterns for AI chats
 └── AI-Suplex Kick-start/   # Methodology docs
 ```
@@ -114,24 +129,38 @@ AI-Suplex-777/
 
 ---
 
-## 🔄 SAVE CONTEXT PROTOCOL
+## 🔄 SAVE CONTEXT PROTOCOL (v3 · instance-scoped)
 
-**Key Principle:** A Weekly Tasklist is a plan. A Daily Tasklist is a session.
+**Key Principle:** A Weekly Tasklist is a plan. A Daily Tasklist is a session. A **thread is a lane; an instance is a window.**
 
 | Concept | Definition | Why It Matters |
 |---------|------------|----------------|
 | **Weekly Tasklist** | Strategic plan for the week (75+ tasks) | Too large for a single chat window |
 | **Daily Tasklist** | Execution unit for one day (15-20 tasks) | Fits within model context window |
 | **Session** | End-to-end execution of ONE daily tasklist | Enables proper session end + 3lm cycle |
-| **Context Core** | Phase 0 of every daily tasklist: `node Tools/3lm.js start --context` | Staleness guard + generated session context prime the mission |
-| **Save Context** | Summarize → Save → Archive → Next session loads | Ensures no knowledge is lost |
+| **Context Core** | Phase 0 of every tasklist: `node Tools/3lm.js start --context` | Staleness guard + generated session context prime the mission |
+| **Instance** | One context file per open window | Prevents N windows from overwriting one brief |
+| **Save Context** | Write → append (same instance) → archive (on close) | Ensures no knowledge is lost, no file is clobbered |
 
-### Save Context Steps:
-1. **Summarize** — Generate context summary with completed tasks, current state, next actions
-2. **Save** — Write to `Context Kick-start/Active/YYYY-MM-DD-cycle-x-week-y-mission-title.md`
-3. **Archive** — Move previous Active context to `Archived/`
-4. **Load** — Next session runs `3lm start --context` to load all accumulated memory + generate fresh session context
+### The four threads
 
+| Thread | Instances | Context file |
+|---|---|---|
+| **Daily tasks** | 1 (singleton) | `daily-tasks.md` |
+| **Long-running tasks** | N | `long-running-tasks-{ref}-{slug}.md` |
+| **Random tasks** | N | `random-task-{ref}-{slug}.md` |
+| **Realist** | 1 (singleton) | *(5-line log to `Reviews/Realist/` — no context file)* |
+
+### Save Context steps
+
+1. **Resolve the instance** — supply `Thread` + `Instance` (+ `Writer`) to `AI-Suplex: Save Context`.
+2. **Write** — `Context Kick-start/Active/{thread}-{ref}-{slug}.md` (or `{thread}.md` for singletons).
+3. **Append** — a later save to the **same instance** updates in place; a new window is a new file.
+4. **Archive on close** — only this instance's file → `Archived/{YYYY-MM-DD}-{thread}-{ref}-{slug}.md`.
+5. **Close with the commit** — `node Tools/3lm.js sync` (a committer, serialized). A producer never writes `Memory/` or syncs.
+
+> **`AGENTS.md` (Active Mission Context) has one writer — the daily-tasks thread.** Every other thread states *"AGENTS.md unchanged."*
+>
 > **North Star:** "Each new session starts smarter than the last."
 
 ---
@@ -167,13 +196,13 @@ AI-Suplex-777/
 5. **Template‑Driven Consistency** – Repeatable patterns ensure quality outputs
 6. **Self‑Improving Memory** – The 3‑Layer Memory stack compounds knowledge across sessions. Episodic → Semantic → Procedural. Every session starts smarter than the last.
 
-> **Memory Reference:** See `🧠 AI-Suplex 3-Layer Memory System.md` for the complete memory architecture, CLI commands, and promotion rules.
+> **Memory Reference:** See `AI-Suplex Kick-start/🧠 AI-Suplex 3-Layer Memory System.md` for the complete memory architecture, CLI commands, and promotion rules.
 
 ---
 
 **TWABAM ⚡!** This specification defines the complete Deep Ultra OS Workflow Pipeline – a structured yet flexible execution engine that transforms chaotic work into measurable progress. The system scales from simple task tracking to deep knowledge engineering while maintaining the core mission: **B‑Bomb production at velocity**.
 
-**Pipeline Status:** ACTIVE | **Version:** 2.2 | **Last Updated:** 2026-08-13
+**Pipeline Status:** ACTIVE | **Version:** 3.0 | **Last Updated:** 2026-10-17
 
 
 

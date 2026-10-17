@@ -13,7 +13,7 @@ Unzip the file. You'll see:
 └── AI-Suplex-777/     ← Your product vault
 ```
 
-**Open the outer folder** (`7-7-7 Edition/`) in Obsidian. Trust the 7 plugins when prompted.
+**Open the outer folder** (`7-7-7 Edition/`) in Obsidian. Trust the plugins (Commander + Dataview + the vault's macros) when prompted.
 
 ---
 
@@ -90,14 +90,26 @@ Run `Enhance MOCs & Trackers` before your weekly review to inject fresh data.
 
 ---
 
+## Working in More Than One Window
+
+Macros are vault-side, so they stay thread-agnostic. **When you add an AI agent or a second chat window**, follow the threads model:
+
+- **One instance = one context file.** Pick a thread (`daily-tasks` · `long-running-tasks` · `random-task` · `realist`) and keep its context separate.
+- **Save Context** with `AI-Suplex: Save Context`; the file lands in `Context Kick-start/Active/{thread}-{ref}-{slug}.md`.
+- **Only the daily-tasks thread** refreshes the Active Mission Context (`AGENTS.md`).
+- **Close with a commit** (`node Tools/3lm.js sync`), not with the file alone.
+
+> 📖 Read `Guides/Guide — Context & Threads.md` before running parallel windows.
+
+---
+
 ## What's Next?
 
 - **Weekly Review:** Run `Sweeper – Weekly Review` every Saturday
 - **Cycle Review:** Run `Sweeper – Generate Cycle Review` at the end of Week 7
-- **Deep Dive:** Read `The AI-Suplex Workflow Pipeline.md` for the full strategic pipeline and `AI-Suplex-777/Guides/🦸 AI-Suplex Full Workflow Guide` for full workflow
-- _Try the Prompt Patterns approach, they are often quicker and easier in completing steps_
+- **Deep Dive:** Read `AI-Suplex Kick-start/The AI-Suplex Workflow Pipeline.md` for the full strategic pipeline and `Guides/🦸 AI-Suplex Full Workflow Guide.md` for the full workflow
+- _Try the Prompt Patterns approach — it is often quicker and easier for completing steps_
 
 ---
 
 **You're now running the 7-7-7 rhythm.** Go capture your first session. 🦸⚡
-__
