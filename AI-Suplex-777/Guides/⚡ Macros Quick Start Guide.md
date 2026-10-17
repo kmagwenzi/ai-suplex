@@ -1,6 +1,6 @@
 ---
 type: document
-alias: [Macros Guide, QuickAdd Reference, Commander Buttons Guide]
+alias: [Macros Guide, Commander Buttons Guide]
 tags: [macros, quick-start, reference, 7-7-7]
 created: 2026-05-14
 status: active
@@ -8,19 +8,20 @@ status: active
 
 # ⚡ AI-Suplex Macros – Quick Start Guide
 
-> **22 macros. 4 rhythms. One pipeline.**  
+> **27 macros. 5 rhythms. One pipeline.**  
 > This guide tells you what to click, when to click it, and why.
 
 ---
 
 ## 🗺️ THE FOUR RHYTHMS
 
-| Rhythm            | Frequency                | Macros                                                            | Purpose                |
-| ----------------- | ------------------------ | ----------------------------------------------------------------- | ---------------------- |
-| **Setup**         | Once (per vault / cycle) | Focus Manager, Create MOC, Create Tracker, Ensure Structure       | Build your workspace   |
-| **Daily Session** | Every time you work      | Start, Artifact, Insight, B-Bomb, Feed 3LM, End             | Execute and capture    |
-| **Weekly**        | End of each week         | Enhance MOCs, Aggregate Weekly, Extract Next Steps, Weekly Review | Reflect and update     |
-| **End of Cycle**  | Every 7 weeks            | Generate Cycle Review, Start New Cycle                            | Strategize and inherit |
+| Rhythm            | Frequency                | Macros                                                                                    | Purpose                |
+| ----------------- | ------------------------ | ----------------------------------------------------------------------------------------- | ---------------------- |
+| **Setup**         | Once (per vault / cycle) | Focus Manager, Create MOC, Create Tracker, Ensure Structure                               | Build your workspace   |
+| **Daily Session** | Every time you work      | To Do List, Start, Artifact, Insight, B-Bomb, Feed 3LM, End                               | Execute and capture    |
+| **Weekly**        | End of each week         | Enhance MOCs, Aggregate Weekly, Extract Next Steps, Weekly Review, Refresh B-Bomb Index, Refresh Outreach Board | Reflect and update |
+| **End of Cycle**  | Every 7 weeks            | Generate Cycle Review, Start New Cycle                                                    | Strategize and inherit |
+| **As needed**     | Anytime                  | Outreach, Multimodal Analysis, Cloud Sync, Archive                                        | Capture + sync         |
 
 ---
 
@@ -230,6 +231,52 @@ When: After creating new B-Bombs, or if the index falls out of sync
 
 ---
 
+## 🧰 CAPTURE, OUTREACH & SYNC
+
+### 23. 📝 To Do List
+```
+What: Creates a raw to-do list with checkboxes and opens it in a new tab
+Prompts: Your raw to-dos
+Output: Tasklists/RawTasks/YYYY-MM-DD-HHMM To Do List.md
+When: Before planning — the raw input for the Tasklist Generation pattern
+```
+
+### 24. 📣 Outreach
+```
+What: Captures one outreach record (the Outreach entity)
+Prompts: Status, channel, focus, counterparty, the exchange, next action, due date
+Output: Outreach/<Period>/YYYY-MM-DD-HHMM-<counterparty>-<focus>.md (default status: drafted)
+When: Every touch — a sent message, a reply, or a call
+Note: the board is a projection — never hand-edit MOCs/Outreach Board.md
+```
+
+### 25. 📊 Sweeper – Refresh Outreach Board
+```
+What: Generates the Outreach board from the Outreach records
+Prompts: None
+Output: MOCs/Outreach Board.md — overdue → sent → replied → dormant → closed, + the Movement block
+When: After any outreach capture, or before the weekly review
+```
+
+### 26. 🎞️ Multimodal Analysis
+```
+What: Analyses a video, audio, or image file and returns a text analysis
+Prompts: Pick a file, choose the modality, enter a prompt
+Output: Analysis in-chat (capture it as an Artifact if worth keeping)
+When: A recording, a screenshot, or a voice note needs to become text
+Requires: ffmpeg (video/audio), curl, base64, + an API key for api.xiaomimimo.com
+```
+
+### 27. ☁️ Cloud Sync
+```
+What: Commits and pushes the vault to the cloud
+Prompts: Commit message (optional)
+Output: git add + commit + push to origin/main
+When: End of day, or after a batch of work (the manual twin of `3lm sync`)
+```
+
+---
+
 ## 🎯 COMMANDER BUTTON LAYOUT
 
 ### Left Ribbon (always visible)
@@ -243,6 +290,7 @@ Row 1: 🚀 Start  🏁 End  📄 Artifact  💣 B-Bomb  💡 Insight  🧠 Feed
 Row 2: 🎯 Focus Manager  🗺️ Create MOC  📊 Create Tracker  📁 Ensure  📁(Cycle)  📁(Week)
 Row 3: 📦 Archive  📦 Archive All  📊 Enhance MOCs  📊 Aggregate  📊 Extract Next
 Row 4: 🔄 Generate Review  🔄 Start Cycle  🔄 Refresh B-Bombs  🔄 Weekly Review  🔄 Sync 3lm
+Row 5: 📝 To Do List  📣 Outreach  📊 Refresh Outreach  🎞️ Multimodal  ☁️ Cloud Sync
 ```
 
 ---
@@ -270,6 +318,11 @@ Row 4: 🔄 Generate Review  🔄 Start Cycle  🔄 Refresh B-Bombs  🔄 Weekly
 | Clean up old sessions | 📦 Archive |
 | Make AI aware of my focus areas | 🔄 Sync to 3lm |
 | Make AI aware of my B-Bombs | 🔄 Refresh B-Bomb Index |
+| Plan my day from raw to-dos | 📝 To Do List |
+| Log an outreach touch | 📣 Outreach |
+| See the outreach pipeline | 📊 Refresh Outreach Board |
+| Turn a video/image into text | 🎞️ Multimodal Analysis |
+| Sync the vault to the cloud | ☁️ Cloud Sync |
 
 ---
 

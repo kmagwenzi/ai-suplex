@@ -11,9 +11,9 @@
 You'll get a folder that looks like this:
 
 ```
-Core Edition/          (or 7-7-7 Edition/)
+7-7-7 Edition/
 ├── .obsidian/         ← Plugin configs & macros (may be hidden)
-└── AI-Suplex-Core/    ← Product content (or AI-Suplex-777/)
+└── AI-Suplex-777/     ← Product content
 ```
 
 ---
@@ -22,16 +22,14 @@ Core Edition/          (or 7-7-7 Edition/)
 
 ### 1. Open the outer folder in Obsidian
 ```
-File → Open Vault → Select: "Core Edition/"  (or "7-7-7 Edition/")
+File → Open Vault → Select: "7-7-7 Edition/"
 ```
 
 ### 2. Trust plugins
 Obsidian prompts: *"Trust author and enable plugins?"* → Click **Trust**.
 
-### 3. Set up Commander buttons (Core Edition only)
-- Open `Commander Buttons Setup – Core Edition.md`
-- Follow the 2-minute setup to add 🚀 Start, 🏁 End, and capture buttons to your interface
-- *7-7-7 Edition: buttons are pre-configured.*
+### 3. You're ready
+Commander buttons are **pre-configured** — 🚀 Start, 🏁 End, and the capture buttons are already on the ribbon and toolbar.
 
 ### 4. You're ready
 - 🚀 Click the **Start** button in the left ribbon
@@ -39,7 +37,7 @@ Obsidian prompts: *"Trust author and enable plugins?"* → Click **Trust**.
 - 🏁 Click **End** when done
 - 📊 Open the **Command Center** — your session is live on the dashboard
 
-> ⚠️ **Common mistake:** Don't open the inner `AI-Suplex-Core/` folder in Obsidian — macros won't work. Open the folder that contains `.obsidian/`.
+> ⚠️ **Common mistake:** Don't open the inner `AI-Suplex-777/` folder in Obsidian — macros won't work. Open the folder that contains `.obsidian/`.
 
 ---
 
@@ -47,7 +45,7 @@ Obsidian prompts: *"Trust author and enable plugins?"* → Click **Trust**.
 
 ### 1. Open the inner folder in your terminal
 ```
-cd Core Edition/AI-Suplex-Core/   (or 7-7-7 Edition/AI-Suplex-777/)
+cd 7-7-7 Edition/AI-Suplex-777/
 ```
 
 ### 2. The agent reads AGENTS.md automatically
@@ -69,7 +67,7 @@ The `AGENTS.md` file teaches the AI your project structure, roles, rules, skills
 | Software                    | Open this folder                        |
 | --------------------------- | --------------------------------------- |
 | **Obsidian**                | `7-7-7 Edition/` (outer)                |
-| **Claude Code / Open Code** | `7-7-7 Edition/AI-Suplex-Core/` (inner) |
+| **Claude Code / Open Code** | `7-7-7 Edition/AI-Suplex-777/` (inner) |
 
 ### Why two roots?
 - **Obsidian** needs `.obsidian/` at the vault root for macros to work
@@ -101,20 +99,9 @@ Both point to the same files — just from different angles.
 
 ---
 
-## 🆙 Upgrading from Core to 7-7-7
+## 🆙 Editions
 
-| Feature | Core (Free) | 7-7-7 (Paid) |
-|---|---|---|
-| Session Start / End | ✅ | ✅ |
-| Artifact & B‑Bomb capture | ✅ | ✅ |
-| Prompt Patterns | 2 | 12 |
-| AI Skills | — | 12 |
-| Focus areas & MOCs | — | ✅ |
-| Cycle / Week tracking | — | ✅ |
-| 3lm memory loop (self-improving) | — | ✅ |
-| Nested folder structure | — | ✅ |
-| Weekly & Cycle reviews | — | ✅ |
-| Commander buttons pre-configured | Manual setup | ✅ 27 buttons |
+> **Core Edition has been retired.** The **7-7-7 Edition** is the only edition — 12 Prompt Patterns, 12 AI Skills, focus areas & MOCs, cycle/week tracking, the 3lm memory loop, and Commander buttons pre-configured.
 
 ---
 
@@ -124,7 +111,7 @@ Both point to the same files — just from different angles.
 |---------|----------|
 | "No macros in Command Palette" | You opened the inner folder. Open the outer folder (the one with `.obsidian/`). |
 | Commander buttons not showing | Enable Commander plugin in Settings → Community Plugins, then run the setup guide |
-| Macros error about paths | Don't rename the vault folder after extracting. Keep `AI-Suplex-Core/` or `AI-Suplex-777/`. |
+| Macros error about paths | Don't rename the vault folder after extracting. Keep `AI-Suplex-777/`. |
 | Dataview queries show nothing | You need to complete at least one session. Click 🚀 Start → work → 🏁 End. |
 | 3lm not running | Run `node Tools/3lm.js status` from the vault root. Requires **Node 22+**. |
 | AI skill not working | Skills are markdown files — copy the content into an AI chat. They don't run inside Obsidian. |
@@ -133,4 +120,4 @@ Both point to the same files — just from different angles.
 
 **TWABAM ⚡! You're locked and loaded.** Go capture your first session.
 
-*AI-Suplex Quick Start Guide — Core & 7-7-7 Edition*
+*AI-Suplex Quick Start Guide — 7-7-7 Edition*
