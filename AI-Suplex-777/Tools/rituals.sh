@@ -8,7 +8,7 @@
 #
 # Usage:
 #   bash Tools/rituals.sh daily     # light daily maintenance (memory index + quick scan)
-#   bash Tools/rituals.sh saturday  # Saturday pre-hunt (brief → graph → B-Bomb hunter)
+#   bash Tools/rituals.sh saturday  # Saturday pre-hunt (full scan → graph rebuild)
 #   bash Tools/rituals.sh tuesday   # Tuesday reset (brief → graph rebuild)
 #   bash Tools/rituals.sh           # print the schedule + usage
 #
@@ -34,7 +34,7 @@ saturday() {
   header "SATURDAY PRE-HUNT"
   log saturday "full vault scan (fresh artifacts for the hunt)" && node Tools/vault-index.js
   log saturday "full knowledge graph build" && node Tools/knowledge-graph.js --build
-  log saturday "rank B-Bomb candidates (LLM)" && python3 Tools/bbomb_hunter.py
+  # B-Bomb ranking (bbomb_hunter.py) is an LLM step — it lives in hermes cron (D5: one job, one owner).
 }
 
 tuesday() {
@@ -53,7 +53,7 @@ AI-Suplex ritual executor — hands-free maintenance (T008)
 Usage: bash Tools/rituals.sh <daily|saturday|tuesday>
 
   daily     node Tools/3lm.js index  +  node Tools/vault-index.js --quick
-  saturday  vault-index (full) → knowledge-graph --build (full) → bbomb_hunter.py
+  saturday  vault-index (full) → knowledge-graph --build (full)  (B-Bomb ranking = hermes cron)
   tuesday   vault-index (full) → knowledge-graph --build (full)
              (current-week graph = opt-in: knowledge-graph --build-current)
 

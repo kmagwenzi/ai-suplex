@@ -1,0 +1,19 @@
+# AI-Suplex rituals — crontab example (T008)
+#
+# Copy the relevant lines into `crontab -e`.
+#
+# The vault path contains spaces + an emoji, so the script's absolute path MUST
+# stay inside double quotes in the cron command line. `rituals.sh` resolves the
+# vault from its own location, so only the script path needs quoting here.
+#
+# If cron chokes on the emoji/spaces path, prefer n8n (Tools/n8n/README.md) or a
+# systemd timer — both handle arbitrary paths more cleanly.
+
+# Daily maintenance — 21:30 (after the evening session end)
+30 21 * * * "/home/kmagwenzi/Projects/AI-Suplex-OS/Deep-Ultra-OS/AI-Suplex-777/Tools/rituals.sh" daily >> "/home/kmagwenzi/Projects/AI-Suplex-OS/Deep-Ultra-OS/AI-Suplex-777/Memory/ritual-log.md" 2>&1
+
+# Saturday pre-hunt — 06:00 (before B-Bomb Day)
+0 6 * * 6 "/home/kmagwenzi/Projects/AI-Suplex-OS/Deep-Ultra-OS/AI-Suplex-777/Tools/rituals.sh" saturday >> "/home/kmagwenzi/Projects/AI-Suplex-OS/Deep-Ultra-OS/AI-Suplex-777/Memory/ritual-log.md" 2>&1
+
+# Tuesday reset — 06:00
+0 6 * * 2 "/home/kmagwenzi/Projects/AI-Suplex-OS/Deep-Ultra-OS/AI-Suplex-777/Tools/rituals.sh" tuesday >> "/home/kmagwenzi/Projects/AI-Suplex-OS/Deep-Ultra-OS/AI-Suplex-777/Memory/ritual-log.md" 2>&1
