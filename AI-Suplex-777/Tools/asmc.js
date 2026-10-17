@@ -8,7 +8,7 @@
  * executor. This tool is the loop, minus the chat window — it runs the rhythm
  * (open -> execute -> close) against the v2.0 instance model with no LLM in the path.
  *
- *   open    the loop's left half  — the chief-of-staff brief: the four threads AS
+ *   open    the loop's left half  — the operator brief: the four threads AS
  *           INSTANCES, the open tasklists (+ the next unchecked task), the staleness
  *           guard. Deterministic: no LLM, no session, no writes.
  *   close   the loop's right half — 3lm learn -> index (and 3lm end ONLY when a
