@@ -17,7 +17,12 @@ function Die  { param([string]$m) Write-Host "[install] ERROR: $m" -ForegroundCo
 Say "AI-Suplex 777 - Core installer (Windows)"
 
 $ScriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
-$Template  = Join-Path $ScriptDir "AI-Suplex-777"
+# Flat layout: the repo root IS the vault. Copy an explicit allowlist.
+$VaultItems = @(
+  "AGENTS.md", "Focuses.md", "WELCOME.md", "LICENSE", "package.json",
+  "AI-Suplex Kick-start", "Guides", "Memory", "Prompt Patterns",
+  "Scripts", "Skills", "Templates", "Tests", "Tools"
+)
 
 # 1. Node 22+ (the knowledge graph uses node:sqlite)
 if (-not (Get-Command node -ErrorAction SilentlyContinue)) {
@@ -29,11 +34,16 @@ if ($major -lt 22) {
 }
 Say ("Node " + (& node --version) + " OK")
 
-# 2. Template present
-if (-not (Test-Path $Template)) {
-  Die ("Template not found at " + $Template + ". Run this from the repo root.")
+# 2. Template present (the repo root IS the vault after the flat layout)
+if (-not (Test-Path (Join-Path $ScriptDir "Tools/3lm.js"))) {
+  Die "Tools/3lm.js not found. Run this from the repo root."
 }
-Say ("Template: " + $Template)
+foreach ($item in $VaultItems) {
+  if (-not (Test-Path (Join-Path $ScriptDir $item))) {
+    Die ("Missing vault item: " + $item + " (run this from the repo root)")
+  }
+}
+Say ("Template: " + $ScriptDir + " (vault items copied explicitly)")
 
 # 3. Target guard (never overwrite a non-empty directory)
 if ((Test-Path $Target) -and (Get-ChildItem -Force $Target | Select-Object -First 1)) {
@@ -41,9 +51,11 @@ if ((Test-Path $Target) -and (Get-ChildItem -Force $Target | Select-Object -Firs
 }
 Say ("Target:   " + $Target)
 
-# 4. Copy the sanitised template (including dotfiles)
+# 4. Copy the vault items (explicit allowlist)
 New-Item -ItemType Directory -Force -Path $Target | Out-Null
-Get-ChildItem -Force -Path $Template | Copy-Item -Destination $Target -Recurse -Force
+foreach ($item in $VaultItems) {
+  Copy-Item -Path (Join-Path $ScriptDir $item) -Destination $Target -Recurse -Force
+}
 Say "Copied the vault template."
 
 # 5. Initialise (period + structure), then the index + graph

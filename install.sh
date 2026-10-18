@@ -5,7 +5,13 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TEMPLATE="$SCRIPT_DIR/AI-Suplex-777"
+# Flat layout: the repo root IS the vault. Copy an explicit allowlist — never
+# .git / install scripts / README — and never recurse into the default target.
+VAULT_ITEMS=(
+  "AGENTS.md" "Focuses.md" "WELCOME.md" "LICENSE" "package.json"
+  "AI-Suplex Kick-start" "Guides" "Memory" "Prompt Patterns"
+  "Scripts" "Skills" "Templates" "Tests" "Tools"
+)
 TARGET="${1:-$PWD/ai-suplex-vault}"
 
 say()  { echo "[install] $1"; }
@@ -21,9 +27,12 @@ if ! node -e "process.exit(Number(process.versions.node.split(String.fromCharCod
 fi
 say "Node $(node --version) OK"
 
-# 2. Template present
-[ -d "$TEMPLATE" ] || die "Template not found at $TEMPLATE. Run this from the repo root."
-say "Template: $TEMPLATE"
+# 2. Template present (the repo root IS the vault after the flat layout)
+[ -f "$SCRIPT_DIR/Tools/3lm.js" ] || die "Tools/3lm.js not found. Run this from the repo root."
+for item in "${VAULT_ITEMS[@]}"; do
+  [ -e "$SCRIPT_DIR/$item" ] || die "Missing vault item: $item (run this from the repo root)"
+done
+say "Template: $SCRIPT_DIR (vault items copied explicitly)"
 
 # 3. Target guard (never overwrite a non-empty directory)
 if [ -e "$TARGET" ] && [ -n "$(ls -A "$TARGET" 2>/dev/null || true)" ]; then
@@ -31,9 +40,11 @@ if [ -e "$TARGET" ] && [ -n "$(ls -A "$TARGET" 2>/dev/null || true)" ]; then
 fi
 say "Target:   $TARGET"
 
-# 4. Copy the sanitised template
+# 4. Copy the vault items (explicit allowlist)
 mkdir -p "$TARGET"
-cp -R "$TEMPLATE/." "$TARGET/"
+for item in "${VAULT_ITEMS[@]}"; do
+  cp -R "$SCRIPT_DIR/$item" "$TARGET/"
+done
 say "Copied the vault template."
 
 # 5. Initialise (period + structure), then build the index + graph

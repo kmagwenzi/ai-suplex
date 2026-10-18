@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo.svg" width="112" alt="AI-Suplex Labs" />
+  <img src="Assets/logo.svg" width="112" alt="AI-Suplex Labs" />
 </p>
 
 <h1 align="center">AI-Suplex 7-7-7</h1>
@@ -22,12 +22,12 @@
 
 This is the discipline behind live, production systems:
 
-| Proof | What it is |
-|---|---|
-| 🛒 **[wqr.co.zw](https://wqr.co.zw)** | A WhatsApp commerce agent serving Zimbabwean SMEs — real orders, real Paynow/EcoCash payments |
-| 🦸 **[Ultra preview](https://ai-suplex-ultra-preview.netlify.app/)** | The gated, self-driving layer (code name: Deep Ultra) |
-| 📦 **[dsh-ai-suplex](https://www.npmjs.com/package/dsh-ai-suplex)** | This same loop, shipped as an open-source DeepSeek Harness plugin |
-| 🧠 **[The framework](AI-Suplex-777)** | Skills · Prompt Patterns · Tools · 3-layer memory — MIT, open source |
+| Proof                                                                | What it is                                                                                    |
+| -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| 🛒 **[wqr.co.zw](https://wqr.co.zw)**                                | A WhatsApp commerce agent serving Zimbabwean SMEs — real orders, real Paynow/EcoCash payments |
+| 🦸 **[Ultra preview](https://ai-suplex-ultra-preview.netlify.app/)** | The gated, self-driving layer (code name: Deep Ultra)                                         |
+| 📦 **[dsh-ai-suplex](https://www.npmjs.com/package/dsh-ai-suplex)**  | This same loop, shipped as an open-source DeepSeek Harness plugin                             |
+| 🧠 **[The framework](#structure)**                                | Skills · Prompt Patterns · Tools · 3-layer memory — MIT, open source                          |
 
 ## 🎥 Watch (90 seconds)
 
@@ -58,10 +58,10 @@ $ node Tools/3lm.js start
 
 <sub>**Example output** — a demo vault a few sessions in (trimmed). Every lesson listed was learned in an earlier session. **That is the whole product.**</sub>
 
-<!-- 📸 SCREENSHOT SLOT · graph — save the PNG as assets/graph.png, then uncomment:
+<!-- 📸 SCREENSHOT SLOT · graph — save the PNG as Assets/graph.png, then uncomment:
 
 <p align="center">
-  <img src="assets/graph.png" width="820" alt="The knowledge graph as a node-link view — artifacts, insights and lessons as nodes, relationships typed as supports, contradicts, supersedes, produced." />
+  <img src="Assets/graph.png" width="820" alt="The knowledge graph as a node-link view — artifacts, insights and lessons as nodes, relationships typed as supports, contradicts, supersedes, produced." />
   <br/>
   <sub><b>It connects.</b> Every artifact, insight and lesson becomes a node; every relationship carries a type — <code>supports</code> · <code>contradicts</code> · <code>supersedes</code> · <code>produced</code>.</sub>
 </p>
@@ -95,25 +95,25 @@ flowchart TD
 
 ## The data model
 
-| Memory type | Question it answers | Formed by |
-|-------------|--------------------|-----------|
-| **Episodic** | What happened? | `3lm end` |
-| **Lessons** | What did I learn? | `3lm learn` |
-| **Semantic** | What's true / preferred? | `3lm promote` |
-| **Procedural** | How do I do X? | `3lm promote` |
+| Memory type    | Question it answers      | Formed by     |
+| -------------- | ------------------------ | ------------- |
+| **Episodic**   | What happened?           | `3lm end`     |
+| **Lessons**    | What did I learn?        | `3lm learn`   |
+| **Semantic**   | What's true / preferred? | `3lm promote` |
+| **Procedural** | How do I do X?           | `3lm promote` |
 
 The **knowledge graph** (SQLite, zero-dependency) indexes every file into entities + typed relationships (`relates_to`, `supersedes`, `references`, `implements`, `contains`), so you can query *what relates to X?* instead of grep keywords.
 
 ## The tools
 
-| Tool | What it does |
-|------|--------------|
-| `3lm` | Memory CLI: start, end, learn, add-lessons, promote, revise, index, status, sync |
-| `vault-index` | Scans the vault → builds the file index |
-| `knowledge-graph` | Builds + queries the SQLite graph from the index |
-| router | Recommends skills + tools for a task (recommend-only, never auto-runs) |
-| skill-generate | Drafts a new skill from a procedural workflow |
-| skill-install | Installs Community skills (gated: preview then confirm) |
+| Tool              | What it does                                                                     |
+| ----------------- | -------------------------------------------------------------------------------- |
+| `3lm`             | Memory CLI: start, end, learn, add-lessons, promote, revise, index, status, sync |
+| `vault-index`     | Scans the vault → builds the file index                                          |
+| `knowledge-graph` | Builds + queries the SQLite graph from the index                                 |
+| router            | Recommends skills + tools for a task (recommend-only, never auto-runs)           |
+| skill-generate    | Drafts a new skill from a procedural workflow                                    |
+| skill-install     | Installs Community skills (gated: preview then confirm)                          |
 
 ## Quick start (< 10 minutes)
 
@@ -147,36 +147,39 @@ The installer checks Node 22+, copies the vault template, initialises the period
 **Prefer to run it in place?** Skip `install.sh` and run the tools directly:
 
 ```bash
-cd ai-suplex/AI-Suplex-777
+cd ai-suplex
 node Tools/initialise-vault.js
 node Tools/vault-index.js --current
 node Tools/knowledge-graph.js --build-current
 node Tools/3lm.js start --context
 ```
 
-**Requirements:** **Node 22+** (the graph uses `node:sqlite`). **Python 3 is optional** — it enables the richer `--context` brief (`Tools/session_context.py`) and `Tools/bbomb_hunter.py`; the installer warns and continues without it. **Obsidian is optional** — `Scripts/` macros are QuickAdd; everything under `Tools/` runs headless.
+**Requirements:** **Node 22+** (the graph uses `node:sqlite`). **Python 3 is optional** — it enables the richer `--context` brief (`Tools/session_context.py`) and `Tools/bbomb_hunter.py`; the installer warns and continues without it. **Obsidian is optional** — `Scripts/` macros run through **Commander**; everything under `Tools/` runs headless.
 
 > **Windows:** run **`.\install.ps1`** in **PowerShell** (native) — or **`./install.sh`** from **Git Bash** / **WSL**. Every tool under `Tools/` is plain Node and runs natively.
 
 ## Structure
 
 ```
-AI-Suplex-777/
+ai-suplex/
 ├── AGENTS.md              ← how any agent operates this vault
 ├── Skills/                ← 13 AI skills
 ├── Prompt Patterns/       ← copy-paste patterns
-├── Scripts/               ← QuickAdd macros
+├── Scripts/               ← Commander macros
 ├── Templates/             ← session templates
 ├── Tools/                 ← 3lm · vault-index · knowledge-graph
 ├── Memory/                ← episodic · semantic · procedural · lessons
 ├── Guides/                ← workflow guides
-└── AI-Suplex Kick-start/  ← methodology + the Deep Ultra persona
+├── AI-Suplex Kick-start/  ← methodology + the Deep Ultra persona
+├── Assets/                ← logo + screenshots
+├── Tests/                 ← smoke test
+└── install.sh · install.ps1 · package.json
 ```
 
-<!-- 📸 SCREENSHOT SLOT · vault — save the PNG as assets/vault.png, then uncomment:
+<!-- 📸 SCREENSHOT SLOT · vault — save the PNG as Assets/vault.png, then uncomment:
 
 <p align="center">
-  <img src="assets/vault.png" width="820" alt="The vault open in Obsidian — the artifacts tree, a focus MOC, and the tracker side by side." />
+  <img src="Assets/vault.png" width="820" alt="The vault open in Obsidian — the artifacts tree, a focus MOC, and the tracker side by side." />
   <br/>
   <sub><b>File-first.</b> Not a database you query — folders and markdown you can open, read and diff. The vault <i>is</i> the memory.</sub>
 </p>
