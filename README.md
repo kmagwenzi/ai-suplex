@@ -73,7 +73,7 @@ $ node Tools/3lm.js start
 **I'm a business owner.** I build production AI systems for African businesses — WhatsApp commerce, payment integrations, RAG, agent orchestration. [wqr.co.zw](https://wqr.co.zw) is the reference build.
 → **Work with me:** [kuda@ai-suplex.co.zw](mailto:kuda@ai-suplex.co.zw) · [LinkedIn](https://linkedin.com/in/kudakwashe-magwenzi)
 
-**I'm a recruiter or engineer.** This repo is the proof of depth — a memory layer with a human approval gate, a zero-dependency SQLite knowledge graph, and a CLI that runs the whole loop.
+**I'm a recruiter or engineer.** This repo is the proof of depth — a deterministic memory layer with a human approval gate, and a CLI that runs the whole loop.
 → **The résumé behind it:** [github.com/kmagwenzi](https://github.com/kmagwenzi) · [LinkedIn](https://linkedin.com/in/kudakwashe-magwenzi)
 
 **I'm an AI agent.** This vault is **agent-agnostic** — point any agent with file access at `AGENTS.md` and it can operate the whole loop: memory, tasklists, reviews, the gate.
@@ -89,7 +89,7 @@ flowchart TD
     B --> C[Session End<br/>3lm end → Episode]
     C --> D[Learn<br/>3lm learn → lessons]
     D --> E[Promote<br/>3lm promote --min 70]
-    E --> F[Revise + Index + Wiki + Graph]
+    E --> F[Revise + Index]
     F --> A
 ```
 
@@ -102,16 +102,14 @@ flowchart TD
 | **Semantic**   | What's true / preferred? | `3lm promote` |
 | **Procedural** | How do I do X?           | `3lm promote` |
 
-The **knowledge graph** (SQLite, zero-dependency) indexes every file into entities + typed relationships (`relates_to`, `supersedes`, `references`, `implements`, `contains`), so you can query *what relates to X?* instead of grep keywords.
+**Search is grep, not a graph.** 777 is file-first and markdown-first: `vault-index.js` builds a plain file index (no SQLite), and you find things with grep/ripgrep over the markdown. *Search ≠ connect* — discovering that two unrelated artifacts share a mechanism is the paid **Ultra** layer, which reads the vault back through the knowledge graph.
 
 ## The tools
 
 | Tool              | What it does                                                                     |
 | ----------------- | -------------------------------------------------------------------------------- |
 | `3lm`             | Memory CLI: start, end, learn, add-lessons, promote, revise, index, status, sync |
-| `vault-index`     | Scans the vault → builds the file index                                          |
-| `knowledge-graph` | Builds + queries the SQLite graph from the index                                 |
-| router            | Recommends skills + tools for a task (recommend-only, never auto-runs)           |
+| `vault-index`     | Scans the vault → builds the file index (markdown, no SQLite)                    |
 | skill-generate    | Drafts a new skill from a procedural workflow                                    |
 | skill-install     | Installs Community skills (gated: preview then confirm)                          |
 
@@ -131,16 +129,15 @@ node Tools/3lm.js start --context  # the first brief
 $ bash install.sh
 
 [install] AI-Suplex 777 - Core installer
-[install] Node v22.22.2 OK
+[install] Node v20.19.0 OK
 [install] Copied the vault template.
 [install] Initialising the vault (period + cycle structure)...
 [install] Building the file index...
-[install] Building the knowledge graph...
 [install] Smoke test...
 [install] Install complete.            ← 11 seconds, end to end
 ```
 
-The installer checks Node 22+, copies the vault template, initialises the period structure, builds the file index + knowledge graph, and runs a smoke test. **Measured end-to-end: ~10 seconds.**
+The installer checks Node 20+, copies the vault template, initialises the period structure, builds the file index, and runs a smoke test. **Measured end-to-end: ~10 seconds.**
 
 **Run it with `bash install.sh`** — that works from a clone *or* a ZIP download (`./install.sh` also works when the executable bit survives).
 
@@ -150,11 +147,10 @@ The installer checks Node 22+, copies the vault template, initialises the period
 cd ai-suplex
 node Tools/initialise-vault.js
 node Tools/vault-index.js --current
-node Tools/knowledge-graph.js --build-current
 node Tools/3lm.js start --context
 ```
 
-**Requirements:** **Node 22+** (the graph uses `node:sqlite`). **Python 3 is optional** — it enables the richer `--context` brief (`Tools/session_context.py`) and `Tools/bbomb_hunter.py`; the installer warns and continues without it. **Obsidian is optional** — `Scripts/` macros run through **Commander**; everything under `Tools/` runs headless.
+**Requirements:** **Node 20+ LTS**. **Python 3 is optional** — it enables the richer `--context` brief (`Tools/session_context.py`); the installer warns and continues without it. **Obsidian is optional** — `Scripts/` macros run through **Commander**; everything under `Tools/` runs headless.
 
 > **Windows:** run **`.\install.ps1`** in **PowerShell** (native) — or **`./install.sh`** from **Git Bash** / **WSL**. Every tool under `Tools/` is plain Node and runs natively.
 
@@ -167,7 +163,7 @@ ai-suplex/
 ├── Prompt Patterns/       ← copy-paste patterns
 ├── Scripts/               ← Commander macros
 ├── Templates/             ← session templates
-├── Tools/                 ← 3lm · vault-index · knowledge-graph
+├── Tools/                 ← 3lm · asmc · vault-index · approvals · rituals
 ├── Memory/                ← episodic · semantic · procedural · lessons
 ├── Guides/                ← workflow guides
 ├── AI-Suplex Kick-start/  ← methodology + the Deep Ultra persona

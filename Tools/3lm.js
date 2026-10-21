@@ -19,7 +19,7 @@
  *   revise             Check contradictions, deprecate old rules
  *   index              Refresh memory/index.md
  *   status             Show memory/ folder stats
- *   threads            List instances (--list | --open | --stale) [--json] [--dir PATH] [--write] — Context & Threads v2.0
+ *   threads            List instances (--list | --open | --stale) [--json] [--dir PATH] [--write] — Context & Threads v2.1
  */
 
 const fs = require("fs");
@@ -183,8 +183,6 @@ const CONTEXT_KICKSTART_ACTIVE = path.join(
 const STALENESS_WATCH = [
   { label: "Active Mission Context (live state)", file: "AI-Suplex Kick-start/Context Kick-start/Active Mission Context.md", contentDate: agentsMissionDate, fix: "refresh Active Mission Context.md (daily-tasks thread is the sole writer)" },
   { label: "vault-context.md (vault awareness)", file: "Memory/vault-context.md", fix: "node Tools/vault-index.js --current" },
-  { label: "Knowledge graph DB (full — knowledge-graph.db)", file: "Memory/knowledge-graph.db", fix: "node Tools/knowledge-graph.js --build" },
-  { label: "Knowledge graph DB (current — knowledge-graph-current.db)", file: "Memory/knowledge-graph-current.db", fix: "node Tools/knowledge-graph.js --build-current" },
   { label: "Memory index (index.md)", file: "Memory/index.md", fix: "node Tools/3lm.js index" },
   { label: "Lessons (lessons.md)", file: "Memory/lessons.md", maxDays: 14, fix: "node Tools/3lm.js promote --min 70" },
 ];
@@ -218,10 +216,10 @@ function humanAge(days) {
   return `${Math.round(days)}d`;
 }
 
-// Instance model — Context & Threads v2.0. An instance file is `{thread}-{ref}-{slug}.md`
+// Instance model — Context & Threads v2.1. An instance file is `{thread}-{ref}-{slug}.md`
 // (N lanes) or `{thread}.md` (daily-tasks / realist singletons). `_instances.md` is the
 // generated projection — never an instance, never a staleness target.
-const INSTANCE_RE = /^(daily-tasks|long-running-tasks|random-task|realist)-(\d+)-(.+)\.md$/;
+const INSTANCE_RE = /^(daily-tasks|project-tasks|long-running-tasks|random-tasks|random-task|realist)-(\d+)-(.+)\.md$/;
 const SINGLETON_RE = /^(daily-tasks|realist)\.md$/;
 
 function collectInstances(dir) {

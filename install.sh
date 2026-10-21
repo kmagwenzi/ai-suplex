@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # AI-Suplex 777 - Core installer
 # Bootstraps a working AI-Suplex vault from this repo in under 10 minutes.
-# Requires Node 22+ (node:sqlite). Python 3 is optional (richer --context).
+# Requires Node 20+ LTS. Python 3 is optional (richer --context).
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -20,10 +20,10 @@ die()  { echo "[install] ERROR: $1" >&2; exit 1; }
 
 say "AI-Suplex 777 - Core installer"
 
-# 1. Node 22+ (the knowledge graph uses node:sqlite)
-command -v node >/dev/null 2>&1 || die "Node is required. Install Node 22+ from https://nodejs.org"
-if ! node -e "process.exit(Number(process.versions.node.split(String.fromCharCode(46))[0]) >= 22 ? 0 : 1)"; then
-  die "Node 22+ required (found $(node --version)); the knowledge graph needs node:sqlite."
+# 1. Node 20+ LTS (777 is graph-free — the knowledge graph is an Ultra faculty)
+command -v node >/dev/null 2>&1 || die "Node is required. Install Node 20+ LTS from https://nodejs.org"
+if ! node -e "process.exit(Number(process.versions.node.split(String.fromCharCode(46))[0]) >= 20 ? 0 : 1)"; then
+  die "Node 20+ LTS required (found $(node --version))."
 fi
 say "Node $(node --version) OK"
 
@@ -47,14 +47,12 @@ for item in "${VAULT_ITEMS[@]}"; do
 done
 say "Copied the vault template."
 
-# 5. Initialise (period + structure), then build the index + graph
+# 5. Initialise (period + structure), then build the file index
 cd "$TARGET"
 say "Initialising the vault (period + cycle structure)..."
 node Tools/initialise-vault.js >/dev/null
 say "Building the file index..."
 node Tools/vault-index.js --current >/dev/null
-say "Building the knowledge graph..."
-node Tools/knowledge-graph.js --build-current >/dev/null
 
 # 6. Python is optional - --context degrades gracefully without it
 if command -v python3 >/dev/null 2>&1; then

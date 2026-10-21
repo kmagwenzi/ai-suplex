@@ -1,6 +1,6 @@
 # AI-Suplex 777 - Core installer (Windows / PowerShell)
 # Bootstraps a working AI-Suplex vault from this repo.
-# Requires Node 22+. Python 3 is optional (richer --context).
+# Requires Node 20+ LTS. Python 3 is optional (richer --context).
 #Requires -Version 5.1
 [CmdletBinding()]
 param(
@@ -24,13 +24,13 @@ $VaultItems = @(
   "Scripts", "Skills", "Templates", "Tests", "Tools"
 )
 
-# 1. Node 22+ (the knowledge graph uses node:sqlite)
+# 1. Node 20+ LTS (777 is graph-free — the knowledge graph is an Ultra faculty)
 if (-not (Get-Command node -ErrorAction SilentlyContinue)) {
-  Die "Node is required. Install Node 22+ from https://nodejs.org"
+  Die "Node is required. Install Node 20+ LTS from https://nodejs.org"
 }
 $major = [int](& node -p "process.versions.node.split(String.fromCharCode(46))[0]")
-if ($major -lt 22) {
-  Die ("Node 22+ required (found " + (& node --version) + "); the knowledge graph needs node:sqlite.")
+if ($major -lt 20) {
+  Die ("Node 20+ LTS required (found " + (& node --version) + ").")
 }
 Say ("Node " + (& node --version) + " OK")
 
@@ -58,15 +58,13 @@ foreach ($item in $VaultItems) {
 }
 Say "Copied the vault template."
 
-# 5. Initialise (period + structure), then the index + graph
+# 5. Initialise (period + structure), then build the file index
 Push-Location $Target
 try {
   Say "Initialising the vault (period + cycle structure)..."
   & node Tools/initialise-vault.js | Out-Null
   Say "Building the file index..."
   & node Tools/vault-index.js --current | Out-Null
-  Say "Building the knowledge graph..."
-  & node Tools/knowledge-graph.js --build-current | Out-Null
 } finally {
   Pop-Location
 }

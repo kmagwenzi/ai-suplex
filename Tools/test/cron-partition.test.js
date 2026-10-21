@@ -51,7 +51,8 @@ for (const tok of RITUAL_FORBIDDEN) {
 }
 check(!/\bpython3\b/.test(EXEC), "rituals.sh executes no python3 (the LLM step is gone)");
 check(/3lm\.js index/.test(EXEC), "rituals.sh owns the deterministic 3lm index");
-check(/vault-index/.test(EXEC) && /knowledge-graph/.test(EXEC), "rituals.sh owns the index + graph rebuild math");
+check(/vault-index/.test(EXEC), "rituals.sh owns the deterministic index rebuild");
+check(!/knowledge-graph/.test(EXEC), "rituals.sh no longer rebuilds the graph (graph = Ultra)");
 
 // ── 2 · crontab schedules ONLY rituals.sh ──
 const cronSchedule = CRONTAB.split("\n").filter((l) => l.trim() && !l.trim().startsWith("#"));

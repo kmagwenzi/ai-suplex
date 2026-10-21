@@ -8,14 +8,12 @@
 #
 # Usage:
 #   bash Tools/rituals.sh daily     # light daily maintenance (memory index + quick scan)
-#   bash Tools/rituals.sh saturday  # Saturday pre-hunt (full scan → graph rebuild)
-#   bash Tools/rituals.sh tuesday   # Tuesday reset (brief → graph rebuild)
+#   bash Tools/rituals.sh saturday  # Saturday pre-hunt (full scan)
+#   bash Tools/rituals.sh tuesday   # Tuesday reset (full scan)
 #   bash Tools/rituals.sh           # print the schedule + usage
 #
-# Order matters: knowledge-graph --build (full) reads vault-index.md, which the
-# full vault-index scan produces — so the full scan always runs BEFORE the graph
-# rebuild. The current-week graph (--build-current) is a separate opt-in, not
-# part of the weekly ritual.
+# 777 is graph-free: the knowledge graph is an Ultra faculty and lives in the
+# harness, not the free lane. This script builds the file index only.
 set -euo pipefail
 
 VAULT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -33,14 +31,12 @@ daily() {
 saturday() {
   header "SATURDAY PRE-HUNT"
   log saturday "full vault scan (fresh artifacts for the hunt)" && node Tools/vault-index.js
-  log saturday "full knowledge graph build" && node Tools/knowledge-graph.js --build
   # B-Bomb ranking (bbomb_hunter.py) is an LLM step — it lives in hermes cron (D5: one job, one owner).
 }
 
 tuesday() {
   header "TUESDAY RESET — FULL REBUILD"
   log tuesday "full vault scan (all artifacts, all tiers)" && node Tools/vault-index.js
-  log tuesday "full knowledge graph build" && node Tools/knowledge-graph.js --build
 }
 
 case "${1:-}" in
@@ -53,9 +49,8 @@ AI-Suplex ritual executor — hands-free maintenance (T008)
 Usage: bash Tools/rituals.sh <daily|saturday|tuesday>
 
   daily     node Tools/3lm.js index  +  node Tools/vault-index.js --quick
-  saturday  vault-index (full) → knowledge-graph --build (full)  (B-Bomb ranking = hermes cron)
-  tuesday   vault-index (full) → knowledge-graph --build (full)
-             (current-week graph = opt-in: knowledge-graph --build-current)
+  saturday  vault-index (full)  (B-Bomb ranking = hermes cron)
+  tuesday   vault-index (full)
 
 Schedule it:
   cron → see Tools/cron/crontab.example

@@ -29,10 +29,3 @@ test('vault-index builds the file index', () => {
   run('vault-index.js');
   assert.ok(fs.existsSync(path.join(VAULT, 'Memory', 'vault-index.md')), 'vault-index.md should exist');
 });
-
-test('knowledge-graph builds and queries the graph', () => {
-  run('knowledge-graph.js', ['--build']);
-  assert.ok(fs.existsSync(path.join(VAULT, 'Memory', 'knowledge-graph.db')), 'knowledge-graph.db should exist');
-  const status = run('knowledge-graph.js', ['--status']);
-  assert.match(status, /entit|relationship|hub|node/i);
-});
