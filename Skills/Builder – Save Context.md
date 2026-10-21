@@ -55,7 +55,7 @@ Create a markdown file with the following structure:
 
 ```markdown
 ---
-thread: random-task          # daily-tasks | long-running-tasks | random-task | realist
+thread: random-tasks          # daily-tasks | project-tasks | random-tasks | realist
 instance: 1                  # the ref (omit for singletons)
 mission: "Vault migration"   # the CURRENT mission; may change
 slug: vault-migration        # matches the filename; never changes
@@ -130,14 +130,14 @@ AI-Suplex Kick-start/Context Kick-start/Active/{thread}.md               (single
 ```
 
 **Filename rules:**
-- **Thread prefix + instance ref** — `daily-tasks` · `long-running-tasks` · `random-task` · `realist`
+- **Thread prefix + instance ref** — `daily-tasks` · `project-tasks` · `random-tasks` · `realist`
 - `{ref}` — per-thread ordinal, **reset per day**, allocated by the **AS MC** (Hustler fallback)
 - `{slug}` — stable kebab mission slug, **all lowercase**, hyphens; never renamed mid-life
 - Singletons omit `ref` and `slug`
 
 **Examples:**
-- `random-task-1-vault-migration.md`
-- `long-running-tasks-1-777-production-push.md`
+- `random-tasks-1-vault-migration.md`
+- `project-tasks-1-777-production-push.md`
 - `daily-tasks.md`
 
 ### Step 3: Append vs Archive — INSTANCE-SCOPED
@@ -151,8 +151,8 @@ AI-Suplex Kick-start/Context Kick-start/Active/{thread}.md               (single
 
 ```bash
 # Close: archive this instance only, dated
-mv "AI-Suplex Kick-start/Context Kick-start/Active/random-task-1-vault-migration.md" \
-   "AI-Suplex Kick-start/Context Kick-start/Archived/2026-10-16-random-task-1-vault-migration.md"
+mv "AI-Suplex Kick-start/Context Kick-start/Active/random-tasks-1-vault-migration.md" \
+   "AI-Suplex Kick-start/Context Kick-start/Archived/2026-10-16-random-tasks-1-vault-migration.md"
 ```
 
 ### Step 4: Writer class — obey it

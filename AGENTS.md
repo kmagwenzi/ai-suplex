@@ -48,15 +48,15 @@ AI‑Suplex 7‑7‑7 is a **complete AI‑assisted working framework** built on
 
 ## 🧵 Execution Threads (4)
 
-AI-Suplex executes across **four parallel threads**. A **thread is a lane**; an **instance is a window**. `long-running-tasks` and `random-task` run **N concurrent instances** — each owning **one context file** and **one write-scope**. `daily-tasks` and `realist` are **singletons**.
+AI-Suplex executes across **four parallel threads**. A **thread is a lane**; an **instance is a window**. `project-tasks` and `random-tasks` run **N concurrent instances** — each owning **one context file** and **one write-scope**. `daily-tasks` and `realist` are **singletons**.
 
 **Only the Daily-tasks thread runs a session.** A *session* = the end-to-end execution of a Daily tasklist (Session Start → execute → Session End report → memory loop). The other three run **alongside** it and manage their state through **artifacts + Save Context** — they do not open Sessions, do not produce Session End reports, and do not write the mission area.
 
 | Thread | Purpose | Context prefix | Instances | Runs a session? |
 | --- | --- | --- | --- | --- |
 | **Daily tasks** | the day's execution — the primary thread | `daily-tasks` | **1 (singleton)** | ✅ **yes — the only one** |
-| **Long-running tasks** | a multi-session build (company site, Web Console) | `long-running-tasks` | **N** | ❌ no — artifacts + Save Context |
-| **Random tasks** | one-off / misc jobs (config, tooling, PRDs) | `random-task` | **N** | ❌ no — artifacts + Save Context |
+| **Project tasks** | a multi-session build (company site, Web Console) | `project-tasks` | **N** | ❌ no — artifacts + Save Context |
+| **Random tasks** | one-off / misc jobs (config, tooling, PRDs) | `random-tasks` | **N** | ❌ no — artifacts + Save Context |
 | **Realist** | the execution audit — persona: **The Realist** | `realist` | **1 (singleton)** | ❌ no — 5-line log to `Reviews/Realist/` |
 
 **Filenames:**

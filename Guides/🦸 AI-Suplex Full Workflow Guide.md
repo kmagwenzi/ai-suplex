@@ -261,8 +261,8 @@ A **thread is a lane; an instance is a window.** When more than one chat window 
 | Thread | Use it for | Instances | Context file |
 |---|---|---|---|
 | **Daily tasks** | the day's execution — the main one | 1 | `daily-tasks.md` |
-| **Long-running tasks** | a build that spans sessions | N | `long-running-tasks-{ref}-{slug}.md` |
-| **Random tasks** | one-off jobs — config, docs, PRDs | N | `random-task-{ref}-{slug}.md` |
+| **Project tasks** | a build that spans sessions | N | `project-tasks-{ref}-{slug}.md` |
+| **Random tasks** | one-off jobs — config, docs, PRDs | N | `random-tasks-{ref}-{slug}.md` |
 | **Realist** | the twice-weekly execution audit | 1 | *(5-line log to `Reviews/Realist/`)* |
 
 **The rules that matter:**
@@ -375,7 +375,7 @@ AI-Suplex-777/
 ├── Reviews/<Period>/Weekly/            ← 🔄 Weekly Review output
 ├── Skills/                    ← AI agent blueprints
 ├── Prompt Patterns/           ← Copy-paste templates for AI chat
-├── Tools/              ← 3lm CLI · vault-index · knowledge-graph · session context
+├── Tools/              ← 3lm CLI · vault-index · session context
 └── Guides/                    ← You are here
 ```
 

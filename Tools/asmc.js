@@ -15,7 +15,7 @@
  *           Session End report from today exists; only daily-tasks runs a session).
  *   status  the same state as JSON (--json) for a cron / delivery surface.
  *
- * Invariants (Spec — AS MC · Spec — Context & Threads v2.0):
+ * Invariants (Spec — AS MC · Spec — Context & Threads v2.1):
  *   · One instance = one file. This tool READS instances; it never opens or archives one.
  *   · It never writes the Active Mission Context (daily-tasks is its sole writer).
  *   · It never runs 3lm sync — the commit is the closure, and one committer owns it.
@@ -52,10 +52,11 @@ const THREE_LM = path.join(VAULT, "Tools", "3lm.js");
 const MAX_DAYS = Number(opt("max", 7)) || 7;
 const STRICT = flag("strict");
 
-// Instance model — Context & Threads v2.0. Mirrors Tools/3lm.js: an instance is
+// Instance model — Context & Threads v2.1. Mirrors Tools/3lm.js: an instance is
 // {thread}-{ref}-{slug}.md (N lanes) or {thread}.md (daily-tasks / realist singletons).
 // _instances.md is the generated projection — never an instance.
-const INSTANCE_RE = /^(daily-tasks|long-running-tasks|random-task|realist)-(\d+)-(.+)\.md$/;
+// The legacy tokens (long-running-tasks · random-task) stay in the alternation forever — spec R10.
+const INSTANCE_RE = /^(daily-tasks|project-tasks|long-running-tasks|random-tasks|random-task|realist)-(\d+)-(.+)\.md$/;
 const SINGLETON_RE = /^(daily-tasks|realist)\.md$/;
 const DAY = 86400000;
 

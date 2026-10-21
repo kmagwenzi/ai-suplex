@@ -60,7 +60,7 @@ Open your Artifacts folder. Scan for anything that meets these criteria:
 
 **Graph RAG Candidate Scan (Impl 1 — hidden connections):**
 
-- [ ] Refresh knowledge graph — `node Tools/vault-index.js --current` → `node Tools/knowledge-graph.js --build-current` (so the hunt sees this week's newest artifacts)
+- [ ] Refresh the file index — `node Tools/vault-index.js --current` *(the graph + B-Bomb hunt are Ultra — skip in 777)*
 - [ ] Run `python3 Tools/bbomb_hunter.py` — ranked B-Bomb candidates from hidden cross-focus connections (shared tags + graph traversal)
 - [ ] Pick 2–3 candidates (IQ ≥ 7, verdict YES/MAYBE) → run the **💣 B-Bomb** macro on each
 
@@ -114,8 +114,7 @@ Open your Artifacts folder. Scan for anything that meets these criteria:
 - [ ] Run `node Tools/vault-index.js --current` — vault scan → `Memory/vault-context.md` (auto-detects latest cycle/week)
 - [ ] Run `node Tools/vault-index.js --quick --days 14` — bounded every-session index → `Memory/vault-index.md` (last 14 days; stable memory files always kept)
 - [ ] If last week's rollup wasn't generated Saturday: run `node Tools/generate-weekly-index.js` → `MOCs/<Period>/Weekly/`
-- [ ] Run `node Tools/knowledge-graph.js --build-current` — vault-context → `Memory/knowledge-graph.db` (entities + relationships)
-- [ ] Verify `node Tools/knowledge-graph.js --status` — counts include the latest week's artifacts
+- [ ] *(skip in 777 — the knowledge graph is Ultra; the markdown index is the free-lane source)*
 
 ### Step 5: Quick Dashboard Check
 
@@ -156,7 +155,7 @@ Sunday    — Rest or light work
 | 🔄 Refresh B-Bombs         | Sweeper – Refresh B-Bomb Index                                             | Saturday (after promoting)                     |
 | 📁 Ensure Structure        | Sweeper – Ensure Folder Structure                                          | Tuesday                                        |
 | 🧠 Sync Memory             | `node Tools/3lm.js index`                                                  | Tuesday                                        |
-| 🔗 Refresh Graph           | `node Tools/vault-index.js --current` → `node Tools/knowledge-graph.js --build-current` | Tuesday (Step 4) + Saturday before B-Bomb hunt |
+| 🔗 Refresh Graph (Ultra)   | `node Tools/ultra/knowledge-graph.js --build-current` — Ultra harness only        | Ultra harness · skip in 777                     |
 | 📅 Weekly Index (14d)      | `node Tools/vault-index.js --quick --days 14`                                 | Tuesday (Step 4) + anytime                     |
 | 📅 Weekly Rollup           | `node Tools/generate-weekly-index.js`                                      | Saturday (Step 4) + Tuesday if missed          |
 | 📊 Aggregate Weekly        | Sweeper – Aggregate Weekly Data                                            | Saturday (before AI review)                    |

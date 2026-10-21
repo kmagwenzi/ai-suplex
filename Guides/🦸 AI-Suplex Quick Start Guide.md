@@ -84,8 +84,8 @@ A **thread is a lane; an instance is a window.** Four lanes keep parallel agent 
 | Thread | Use it for | Instances | Context file |
 |---|---|---|---|
 | **Daily tasks** | the day's execution — the main one | 1 | `daily-tasks.md` |
-| **Long-running tasks** | a build that spans sessions | N | `long-running-tasks-{ref}-{slug}.md` |
-| **Random tasks** | one-off jobs — config, docs, PRDs | N | `random-task-{ref}-{slug}.md` |
+| **Project tasks** | a build that spans sessions | N | `project-tasks-{ref}-{slug}.md` |
+| **Random tasks** | one-off jobs — config, docs, PRDs | N | `random-tasks-{ref}-{slug}.md` |
 | **Realist** | the twice-weekly execution audit | 1 | *(5-line log — no context file)* |
 
 - **One instance = one context file = one writer.** A new window is a new file, never an append to another window's file.

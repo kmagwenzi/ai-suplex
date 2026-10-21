@@ -30,8 +30,8 @@ next_actions: "Use during the Weekly Reset and at every instance close; pair wit
 | Thread | Use it for | Instances | Your context file |
 |---|---|---|---|
 | **Daily tasks** | the day's execution — the main one | 1 | `daily-tasks.md` |
-| **Long-running tasks** | a build that spans sessions (site, AS MC) | **N** | `long-running-tasks-{ref}-{slug}.md` |
-| **Random tasks** | one-off jobs — config, tooling, docs, PRDs | **N** | `random-task-{ref}-{slug}.md` |
+| **Project tasks** | a build that spans sessions (site, AS MC) | **N** | `project-tasks-{ref}-{slug}.md` |
+| **Random tasks** | one-off jobs — config, tooling, docs, PRDs | **N** | `random-tasks-{ref}-{slug}.md` |
 | **Realist** | the twice-weekly execution audit | 1 | *(5-line log to `Reviews/Realist/` — no context file)* |
 
 ---
@@ -80,7 +80,7 @@ When you switch windows, change instance, or hit a natural break:
 ```
 AI-Suplex: Save Context
 CONTENT
-  - Thread: daily-tasks | long-running-tasks | random-task | realist
+  - Thread: daily-tasks | project-tasks | random-tasks | realist
   - Instance: <ref or slug>     ← N lanes only
   - Writer: committer | producer
 ADDITIONAL: <optional>
@@ -129,14 +129,14 @@ node Tools/3lm.js sync "Session End — <thread>/<instance> — <focus>"   ← C
 - `Save Context` → `daily-tasks.md`
 - `Session End` → `3lm end` → `learn` → `index` → **`3lm sync`**
 
-**Window B — `long-running-tasks` #1** *(the site build)*
+**Window B — `project-tasks` #1** *(the site build)*
 - Loads context, works Build 3 → Build 4
-- `Save Context` → `long-running-tasks-1-site-build.md`
+- `Save Context` → `project-tasks-1-site-build.md`
 - Archives **only its own** predecessor — Window A's file is untouched
 - Reports: **"AGENTS.md unchanged (not the daily-tasks thread)."**
 
-**Window C — `long-running-tasks` #2** *(the Web Console)*
-- A **separate instance** → its own file `long-running-tasks-2-web-console.md`
+**Window C — `project-tasks` #2** *(the Web Console)*
+- A **separate instance** → its own file `project-tasks-2-web-console.md`
 - Window B and Window C never write each other's file — even though they share the thread
 
 **What did not happen:**

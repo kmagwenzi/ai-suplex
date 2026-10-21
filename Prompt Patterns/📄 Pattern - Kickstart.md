@@ -17,11 +17,11 @@ Kickstart is **instance-aware**. The THREAD selects the lane; the INSTANCE selec
 | THREAD | Instances | Context file | Runs a session? |
 |---|---|---|---|
 | **daily-tasks** | 1 (singleton) | `Context Kick-start/Active/daily-tasks.md` | ✅ yes — the only one |
-| **long-running-tasks** | N | `Context Kick-start/Active/long-running-tasks-{ref}-{slug}.md` | ❌ no — artifacts + Save Context |
-| **random-task** | N | `Context Kick-start/Active/random-task-{ref}-{slug}.md` | ❌ no — artifacts + Save Context |
+| **project-tasks** | N | `Context Kick-start/Active/project-tasks-{ref}-{slug}.md` | ❌ no — artifacts + Save Context |
+| **random-tasks** | N | `Context Kick-start/Active/random-tasks-{ref}-{slug}.md` | ❌ no — artifacts + Save Context |
 | **realist** | 1 (singleton) | *(5-line log to `Reviews/Realist/` — not a context file)* | ❌ no |
 
-**Default:** bare `AI-Suplex: Kickstart` ≡ `Kickstart(Random Tasks)` — random-task is the catch-all / misc lane. `Kickstart(Realist)` loads the Realist persona + the latest `Reviews/Realist/` log (no context file, no session).
+**Default:** bare `AI-Suplex: Kickstart` ≡ `Kickstart(Random Tasks)` — random-tasks is the catch-all / misc lane. `Kickstart(Realist)` loads the Realist persona + the latest `Reviews/Realist/` log (no context file, no session).
 
 **Instance resolution (N lanes):** list open instances · **one** → load it · **many** → ask. Select by slug (`Kickstart(Random Tasks: vault-migration)`) or by ref (`Kickstart(Random Tasks: 2)`).
 
@@ -31,7 +31,7 @@ Kickstart is **instance-aware**. The THREAD selects the lane; the INSTANCE selec
 2. **Instance brief** — read the selected instance file `Context Kick-start/Active/{THREAD}-{ref}-{slug}.md` (or `{THREAD}.md` for a singleton). N lanes: list first, then load the chosen instance.
 3. **Vault Awareness** — `Memory/vault-context.md` (current cycle/week) + `Memory/vault-index.md` (last 14 days).
 4. **Run `node Tools/3lm.js start --context`** — three things at once:
-   - **Staleness guard** — verifies the Active Mission Context `**Date:**`, vault-context, knowledge-graph.db, index, lessons are fresh — and the **oldest `status: open` instance**.
+   - **Staleness guard** — verifies the Active Mission Context `**Date:**`, vault-context, index, lessons are fresh — and the **oldest `status: open` instance**.
    - **Memory load** — semantic, lessons, recent episodes, procedural, active tasklists.
    - **Generated session context** — `session_context.py` (Graph RAG Impl 2): last 3 sessions · blockers · pending B-Bombs · insights · cross-focus connections.
 
@@ -47,7 +47,7 @@ Kickstart is **instance-aware**. The THREAD selects the lane; the INSTANCE selec
 8. **Project Index** — `Context Kick-start/Project Index.md`.
 9. **Tasklists/Active/** — the referenced tasklist.
 10. **Sessions/Active/Start/** — the active mission.
-11. **Vault Awareness** — vault-context + vault-index + the weekly rollup + `knowledge-graph.js --query`.
+11. **Vault Awareness** — vault-context + vault-index + the weekly rollup.
 12. **OKF Compatibility** — root `index.md` declares `okf_version`.
 
 ## 🧘 The Ritual — Human + AI

@@ -18,7 +18,9 @@ tags: [pattern, save-context, builder, memory, multi-thread, instances, writer-c
 > Now **append is scoped to the instance** — a new window is a new file. Adds a **writer class**
 > (producer/committer) so cloud agents (Cloudroom) never fork the one memory.
 >
-> **Canonical:** `AI-Suplex Kick-start/Spec — Context & Threads.md` (v2.0).
+> **Canonical:** `AI-Suplex Kick-start/Spec — Context & Threads.md` (v2.1).
+>
+> **v2.1 — plural lanes:** `project-tasks` (was `long-running-tasks`) · `random-tasks` (was `random-task`). **Legacy prefixes parse forever** — never write one, never rename an archived file (spec R10).
 
 ---
 
@@ -27,8 +29,8 @@ tags: [pattern, save-context, builder, memory, multi-thread, instances, writer-c
 | Thread | Prefix | Instances | Writes AGENTS.md? |
 |---|---|---|---|
 | **Daily tasks** | `daily-tasks` | **1 (singleton)** | ✅ **yes — sole writer** |
-| **Long-running tasks** | `long-running-tasks` | **N** | ❌ no |
-| **Random tasks** | `random-task` | **N** | ❌ no |
+| **Project tasks** | `project-tasks` | **N** | ❌ no |
+| **Random tasks** | `random-tasks` | **N** | ❌ no |
 | **Realist** | `realist` | **1 (singleton)** | ❌ no |
 
 **A thread is a lane; an instance is a window.** Each instance owns **exactly one** context file.
@@ -54,10 +56,10 @@ Context Kick-start/Archived/{YYYY-MM-DD}-{thread}-{ref}-{slug}.md
 Context Kick-start/Active/
 ├── daily-tasks.md                              ← singleton: no ref, no slug
 ├── realist.md
-├── random-task-1-vault-migration.md
-├── random-task-2-cloudroom-spike.md
-├── long-running-tasks-1-777-production-push.md
-└── long-running-tasks-2-ultra-mvp.md
+├── random-tasks-1-vault-migration.md
+├── random-tasks-2-cloudroom-spike.md
+├── project-tasks-1-777-production-push.md
+└── project-tasks-2-ultra-mvp.md
 ```
 
 - `{ref}` — short ordinal, **per thread, reset per day** (first instance of the day = `1`).
@@ -74,7 +76,7 @@ Context Kick-start/Active/
 ```
 AI-Suplex: Save Context
 CONTENT
-  - Thread: daily-tasks | long-running-tasks | random-task | realist
+  - Thread: daily-tasks | project-tasks | random-tasks | realist
   - Instance: <ref or slug>     ← required for N lanes; omit for singletons
   - Writer: committer | producer
   - File Reference: [[current tasklist or instance]]
@@ -106,7 +108,7 @@ ADDITIONAL: <optional>
     Generate an instance-scoped Context Summary following the AI-Suplex Save Context protocol.
 
     0. RESOLVE THE INSTANCE. Use THREAD + INSTANCE supplied. If missing, ask ONE question and stop.
-       Threads: daily-tasks | long-running-tasks | random-task | realist
+       Threads: daily-tasks | project-tasks | random-tasks | realist
        Instances: ref (ordinal) or slug — N lanes only; singletons omit.
     1. WRITE the summary to:
        - N lanes:  `Context Kick-start/Active/{thread}-{ref}-{slug}.md`
@@ -127,7 +129,7 @@ ADDITIONAL: <optional>
 
     ```markdown
     ---
-    thread: random-task          # the lane
+    thread: random-tasks          # the lane
     instance: 1                  # the ref (omit for singletons)
     mission: "Vault migration"   # the CURRENT mission; may change
     slug: vault-migration        # matches the filename; never changes
@@ -212,7 +214,7 @@ ADDITIONAL: <optional>
 
 **Input:**
 ```
-Thread: long-running-tasks · Instance: 777-production-push · Writer: committer
+Thread: project-tasks · Instance: 777-production-push · Writer: committer
 Cycle: 2 · Week: 7
 Mission: 777 production-grade + AS MC
 Done: CI badge ✅ · homepage set ✅ · README discipline rebuild ✅
@@ -221,7 +223,7 @@ Next: create the ai-suplex Hermes profile
 ```
 
 **Output:**
-- Written → `Active/long-running-tasks-1-777-production-push.md`
+- Written → `Active/project-tasks-1-777-production-push.md`
 - Archived → **this instance’s** previous file only (on close, dated)
 - `AGENTS.md unchanged (not the daily-tasks thread).`
 
@@ -231,7 +233,7 @@ Next: create the ai-suplex Hermes profile
 
 With one shared file, **N writers overwrite each other** — and the collision is invisible until
 someone reads stale context and acts on it. (Happened 2026-09-23: a brief written for the Sep 18
-session was still surfacing after the week moved on. Happened again 2026-10-14: one `random-task`
+session was still surfacing after the week moved on. Happened again 2026-10-14: one `random-tasks`
 brief carried four missions because day-scope did workstream-scope’s job.)
 
 **Instance files make ownership exact: whoever owns the instance owns the file — and a cloud agent
@@ -241,7 +243,7 @@ owns only its own file, never the memory.**
 
 ## 🔗 Related
 
-- `AI-Suplex Kick-start/Spec — Context & Threads.md` (v2.0) — the canonical rules
+- `AI-Suplex Kick-start/Spec — Context & Threads.md` (v2.1) — the canonical rules
 - `Prompt Patterns/📄 Pattern - Kickstart.md` — the loader (instance resolution)
 - `Prompt Patterns/📄 Pattern - Session End Report.md` — run `3lm sync` after
 - `Prompt Patterns/📄 Pattern - Realist Thread (Execution Audit).md` — the `realist` thread

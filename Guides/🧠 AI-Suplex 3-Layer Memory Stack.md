@@ -98,7 +98,7 @@ Memory/
 ├── lessons.md                   # Staging area (candidate lessons)
 ├── archived-lessons.md          # Lessons retired by `3lm clean`
 ├── vault-context.md             # Always-read session brief (generated)
-├── knowledge-graph.db           # SQLite graph (generated)
+├── (knowledge-graph.db)         # SQLite graph (Ultra only — not in 777)
 ├── semantic/
 │   ├── preferences.md           # How we work
 │   ├── project_rules.md         # What governs the system

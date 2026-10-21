@@ -52,8 +52,7 @@ After generating the Session End Report, extract and report:
    → Run silently: node Tools/3lm.js end && node Tools/3lm.js learn && node Tools/3lm.js index
      - Run `node Tools/3lm.js status` — verify memory stack (optional)
      - Run `node Tools/vault-index.js --current` — vault scan → `Memory/vault-context.md`
-     - Run `node Tools/knowledge-graph.js --build-current` — vault-context → `Memory/knowledge-graph.db` (entities + relationships)
-     - Verify `node Tools/knowledge-graph.js --status` — counts include the latest sessions artifacts
+     - *(skip in 777 — the knowledge graph is Ultra; the markdown index is the free-lane source)*
    
    
    If you are web-based (ChatGPT, DeepSeek web) without terminal access:

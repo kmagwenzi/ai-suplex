@@ -73,6 +73,25 @@ check(/generated projection/.test(projTxt), "--write regenerates _instances.md w
 check(/vault-migration/.test(projTxt) && /random-task/.test(projTxt), "the projection lists the instances");
 check(!/^# projection$/m.test(projTxt), "the fixture placeholder was overwritten");
 
+// ── (f) v2.1 — plural lanes parse, AND the legacy prefixes still parse ──
+const TMP3 = fs.mkdtempSync(path.join(os.tmpdir(), "threads-prefix-"));
+const mkv = (name) => fs.writeFileSync(path.join(TMP3, name), "---\nstatus: open\n---\n");
+mkv("project-tasks-1-on-ramp.md");
+mkv("random-tasks-2-cockpit.md");
+mkv("long-running-tasks-7-legacy.md");
+mkv("random-task-9-legacy.md");
+r = run(["threads", "--list", "--json", "--dir", TMP3]);
+json = parseJSON(r.stdout);
+check(json !== null && json.length === 4, "v2.1 — all four prefixes parse as instances");
+const threads = (json || []).map((x) => x.thread).sort();
+check(
+  JSON.stringify(threads) === JSON.stringify(["long-running-tasks", "project-tasks", "random-task", "random-tasks"]),
+  "v2.1 — new AND legacy tokens each resolve to their own label",
+);
+const pt = (json || []).find((x) => x.thread === "project-tasks");
+check(!!pt && pt.ref === "1" && typeof pt.ref === "string" && pt.slug === "on-ramp", "v2.1 — project-tasks parses ref + slug as strings");
+fs.rmSync(TMP3, { recursive: true, force: true });
+
 fs.rmSync(TMP, { recursive: true, force: true });
 console.log(failures === 0 ? "\nPASS — threads projection + open-instance staleness." : "\nFAIL — " + failures + " assertion(s) failed.");
 process.exit(failures === 0 ? 0 : 1);

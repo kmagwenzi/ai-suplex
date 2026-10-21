@@ -8,8 +8,8 @@
  *
  *   vault-context.md       — agent-facing session brief (READ ALWAYS). Never parsed by the graph.
  *   vault-full.md          — full search index (SEARCH ON DEMAND). All tiers, deduplicated.
- *   vault-index.md         — MACHINE graph node/edge source (read by knowledge-graph.js --build).
- *   vault-index-current.md — current-window graph source (read by knowledge-graph.js --build-current).
+ *   vault-index.md         — MACHINE file index (markdown; the Ultra graph reads it).
+ *   vault-index-current.md — current-window file index (markdown).
  *   vault-log.md           — append-only audit log.
  *
  * Usage:
@@ -629,7 +629,7 @@ function generateVaultContext({ cycle, week, entries, days }) {
   L.push("## 🔗 Cross-Focus Connections", "");
   const hubs = getTopHubs();
   if (hubs.length) for (const h of hubs) L.push(`- ${h}`);
-  else L.push(`- ${none} *(build the graph: \`node Tools/knowledge-graph.js --build\`)*`);
+  else L.push(`- ${none} *(Ultra — cross-focus connections)*`);
   L.push("");
 
   L.push("## 📚 Memory Map", "");
@@ -830,7 +830,7 @@ function main() {
     log("retain", `--days ${days} → ${before} scanned → ${tier1IndexData.length} in index (last ${days} days)`);
   }
 
-  const idx1 = generateVaultIndex(tier1IndexData, "Graph node/edge source — read by knowledge-graph.js --build");
+  const idx1 = generateVaultIndex(tier1IndexData, "File index — markdown (read by the Ultra graph via --build)");
   const idx1Path = path.join(VAULT_DIR, "vault-index.md");
   fs.writeFileSync(idx1Path, idx1);
   log("write", `vault-index.md → ${tier1IndexData.length} entries (Tier 1 only)`);

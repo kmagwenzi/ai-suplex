@@ -37,8 +37,8 @@ AI-Suplex runs **four parallel execution threads** — but they are **not** four
 | Thread | Prefix | Runs a session? | How it manages context |
 | --- | --- | --- | --- |
 | **Daily tasks** | `daily-tasks-` | ✅ **yes — the only one** | Session Start → execute → Session End report → memory loop; **sole writer of the Active Mission Context** (in `AI-Suplex Kick-start/Context Kick-start/Active Mission Context.md`) |
-| **Long-running tasks** | `long-running-tasks-` | ❌ no | **artifacts + Save Context** |
-| **Random tasks** | `random-task-` | ❌ no | **artifacts + Save Context** |
+| **Project tasks** | `project-tasks-` | ❌ no | **artifacts + Save Context** |
+| **Random tasks** | `random-tasks-` | ❌ no | **artifacts + Save Context** |
 | **Realist** | `realist-` | ❌ no | writes its 5-line log to `Reviews/Realist/` |
 
 **The rule:** *A session is the end-to-end execution of a Daily tasklist.* The three non-daily threads do **not** open sessions — they run alongside, and they manage their state through exactly two things:
@@ -130,7 +130,7 @@ Response_Protocol:
   - Capture insights, next actions, and blockers
   - Calculate innovation quotient and productivity score
   # [maintain] REPORT + DERIVED INDEXES
-  - Rebuild the derived indexes (`3lm index` · `vault-index --current` · `knowledge-graph --build-current`)
+  - Rebuild the derived indexes (`3lm index` · `vault-index --current`)
   - Update trackers and MOCs via Sweeper scripts
   - Save to Sessions/Active/End/ with timestamp
   # [patch update] MISSION AREA — daily-tasks sessions ONLY

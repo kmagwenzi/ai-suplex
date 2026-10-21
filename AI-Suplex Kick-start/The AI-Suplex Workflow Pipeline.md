@@ -147,8 +147,8 @@ AI-Suplex-777/
 | Thread | Instances | Context file |
 |---|---|---|
 | **Daily tasks** | 1 (singleton) | `daily-tasks.md` |
-| **Long-running tasks** | N | `long-running-tasks-{ref}-{slug}.md` |
-| **Random tasks** | N | `random-task-{ref}-{slug}.md` |
+| **Project tasks** | N | `project-tasks-{ref}-{slug}.md` |
+| **Random tasks** | N | `random-tasks-{ref}-{slug}.md` |
 | **Realist** | 1 (singleton) | *(5-line log to `Reviews/Realist/` — no context file)* |
 
 ### Save Context steps

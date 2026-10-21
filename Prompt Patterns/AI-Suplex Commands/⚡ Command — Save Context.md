@@ -15,7 +15,7 @@ Summarize the **current thread's** session and persist it as a thread-owned cont
 ```
 AI-Suplex: Save Context
 CONTENT
-  - Thread: <daily-tasks | long-running-tasks | random-task | realist>
+  - Thread: <daily-tasks | project-tasks | random-tasks | realist>
 
 ADDITIONAL: <instructions>
 ```
@@ -23,14 +23,14 @@ ADDITIONAL: <instructions>
 > **The thread is load-bearing** (`Spec — Context & Threads`, R3). It sets the filename **prefix** and the file's **ownership**. Never guess it — if the thread is unstated, ask before writing.
 
 ## ⚡ Shorthand
-`AI-Suplex: Save Context(long-running-tasks)` = the same command with `Thread` set — the one-liner form for the frequent case.
+`AI-Suplex: Save Context(project-tasks)` = the same command with `Thread` set — the one-liner form for the frequent case.
 
 ## 📋 Usage
 
 ```
 AI-Suplex: Save Context
 CONTENT
-  - Thread: long-running-tasks
+  - Thread: project-tasks
 
 ADDITIONAL: Save before switching to the deploy build
 ```
@@ -44,7 +44,7 @@ ADDITIONAL: Refresh the AGENTS.md Active Mission Context too (daily-tasks is the
 ## 🤖 What the AI Does
 
 1. **Reads** the Pattern: [[📄 Pattern - Save Context]] (v2, thread-aware) + the Spec (`R1–R7`).
-2. **Confirms the thread** — `daily-tasks` · `long-running-tasks` · `random-task` · `realist`.
+2. **Confirms the thread** — `daily-tasks` · `project-tasks` · `random-tasks` · `realist`.
 3. **Writes** `Context Kick-start/Active/{prefix}cycle-{X}-week-{Y}-{mission-slug}.md` with the contract frontmatter:
    ```yaml
    title: "Context — Cycle {X} Week {Y} · {THREAD}"

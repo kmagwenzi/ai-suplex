@@ -1,8 +1,9 @@
 ---
 type: spec
 title: "Spec — Context & Threads"
-version: 2.0
-date: 2026-10-16
+version: 2.1
+date: 2026-10-18
+revised: 2026-10-18
 edition: 7-7-7
 status: active
 cycle: 2
@@ -11,8 +12,8 @@ focus: ai-engineering
 tags: [spec, context, threads, instances, parallelism, write-scope, producer-committer, cloudroom, as-mc, save-context, architecture]
 supersedes: "v1.0 (2026-09-23) — preserved in git history and summarised in §1"
 authority_note: "RATIFIED + CANONICAL 2026-10-16. The sweep (§9) landed; AGENTS.md -> Execution Threads (4) mirrors this spec exactly."
-key_insights: "Threads are lanes; instances are windows. long-running-tasks and random-task run N concurrent instances, each owning ONE ephemeral, instance-scoped context file; daily-tasks and realist stay single. The context file stops being memory and becomes a session slot — durable state lives in Memory/, Projects/*Spec.md and the long-running tasklist. A writer class (producer vs committer) lets Cloudroom cloud agents run against the vault without forking the one memory."
-next_actions: "Landed 2026-10-16 — shipped to 777 as v2.7.0 (the threading release). Residual: archive the legacy multi-mission random-task brief on close."
+key_insights: "Threads are lanes; instances are windows. project-tasks and random-tasks run N concurrent instances, each owning ONE ephemeral, instance-scoped context file; daily-tasks and realist stay single. The context file stops being memory and becomes a session slot — durable state lives in Memory/, Projects/*Spec.md and the project tasklist. A writer class (producer vs committer) lets Cloudroom cloud agents run against the vault without forking the one memory."
+next_actions: "v2.1 (2026-10-18): plural lane names (project-tasks · random-tasks) with legacy prefixes parsed forever. v2.0 landed 2026-10-16 and shipped to 777 as v2.7.0."
 ---
 
 # 🧵 Spec — Context & Threads (v2.0)
@@ -25,15 +26,19 @@ next_actions: "Landed 2026-10-16 — shipped to 777 as v2.7.0 (the threading rel
 > [!success] ✅ **Canonical — 2026-10-16 · Cycle 2, Week 7**
 > The sweep (§9) **landed** 2026-10-16 — spec + patterns + skill + guide + `Tools/3lm.js threads` + `AGENTS.md` (Execution Threads 4) — and shipped to the 777 repo as **v2.7.0**.
 > This spec is **authoritative**; it mirrors `AGENTS.md` exactly. v1.0 (2026-09-23) is preserved in git history and summarised in §1.
+>
+> **v2.1 — 2026-10-18 (the pluralisation delta):** lanes are **plural nouns** — `project-tasks` (was `long-running-tasks`) and `random-tasks` (was `random-task`). **Both legacy prefixes parse forever** (R10); only new files take the new prefix. No structural change to the thread model.
 
 ---
 
 ## 0 · The one-line change
 
 **v1.0:** four threads, each exactly **one** context file.
-**v2.0:** **threads are lanes; instances are windows.** `long-running-tasks` and `random-task` run **N concurrent instances** — each owning **one ephemeral, instance-scoped context file**. `daily-tasks` and `realist` stay single.
+**v2.0:** **threads are lanes; instances are windows.** `project-tasks` and `random-tasks` run **N concurrent instances** — each owning **one ephemeral, instance-scoped context file**. `daily-tasks` and `realist` stay single.
 
-And the deeper shift: **the context file stops being memory.** It becomes a **session slot** — cheap, regenerable, archived on close. Durable state lives in `Memory/`, `Projects/*Spec.md`, and the long-running tasklist.
+**v2.1:** **lanes are plural nouns.** `long-running-tasks` → **`project-tasks`**; `random-task` → **`random-tasks`**. Legacy prefixes are parsed forever, written never (R10).
+
+And the deeper shift: **the context file stops being memory.** It becomes a **session slot** — cheap, regenerable, archived on close. Durable state lives in `Memory/`, `Projects/*Spec.md`, and the project tasklist.
 
 ---
 
@@ -72,13 +77,15 @@ AI-Suplex runs more than one body of work at the same time. A day's execution, a
 | Thread | Purpose | Context prefix | Instances | Writes `AGENTS.md`? |
 |--------|---------|----------------|-----------|---------------------|
 | **Daily tasks** | the day's execution — **the primary thread** | `daily-tasks-` | **1 (singleton)** | ✅ **yes — sole writer** |
-| **Long-running tasks** | a multi-session build (company site, AS MC) | `long-running-tasks-` | **N** | ❌ no |
-| **Random tasks** | one-off / misc jobs (config, tooling, PRDs) | `random-task-` | **N** | ❌ no |
+| **Project tasks** | a multi-session build (company site, AS MC) — *was "long-running tasks"* | `project-tasks-` | **N** | ❌ no |
+| **Random tasks** | one-off / misc jobs (config, tooling, PRDs) | `random-tasks-` | **N** | ❌ no |
 | **Realist** | the execution audit — persona: The Realist | `realist-` | **1 (singleton)** | ❌ no |
 
 **Each instance owns exactly one context file and one write-scope.**
 
-> The prefix stays **singular** (`random-task-`, not `random-tasks-`). The prefix is the ownership **glob** — forking the token breaks selection.
+> **Lanes are plural nouns** — `daily-tasks` · `project-tasks` · `random-tasks`. The prefix is the ownership **glob** (`{thread}-*`), so the morphology costs nothing: one token, parsed everywhere. `realist` is the singleton exception — a *persona*, not a lane.
+>
+> **v2.1 correction (2026-10-18).** `random-task` was singular in v1.0–v2.0 for no reason beyond inheritance: a filename token coined before the thread model existed, then frozen by a circular note that read *"the prefix stays singular — forking the token breaks selection."* That sentence forbids **forking**, not singularity; the glob argument works identically for either spelling. Meanwhile the command surface already said ***Random Tasks*** (plural) while the disk said `random-task-*`. The token is now plural.
 
 ---
 
@@ -109,7 +116,7 @@ Context Kick-start/Archived/{YYYY-MM-DD}-{thread}-{ref}-{slug}.md
 
 | Part | Rule |
 |------|------|
-| `{thread}` | the exact prefix: `daily-tasks` · `long-running-tasks` · `random-task` · `realist` |
+| `{thread}` | the exact prefix: `daily-tasks` · `project-tasks` · `random-tasks` · `realist` — **plus the parse-only legacy tokens** `long-running-tasks` · `random-task` (R10) |
 | `{ref}` | short ordinal, **per thread, reset per day** (R9). Singletons omit it. |
 | `{slug}` | kebab-case, **stable for the instance's life**. The *current* mission lives in frontmatter — **never rename the file to follow the mission.** |
 
@@ -117,13 +124,13 @@ Context Kick-start/Archived/{YYYY-MM-DD}-{thread}-{ref}-{slug}.md
 Context Kick-start/Active/
 ├── daily-tasks.md                              ← singleton: no ref, no slug
 ├── realist.md
-├── random-task-1-vault-migration.md
-├── random-task-2-cloudroom-spike.md
-├── long-running-tasks-1-777-production-push.md
-└── long-running-tasks-2-ultra-mvp.md
+├── random-tasks-1-vault-migration.md
+├── random-tasks-2-cloudroom-spike.md
+├── project-tasks-1-on-ramp.md
+└── project-tasks-2-cockpit.md
 ```
 
-**Parse:** `^({thread})-(\d+)-(.+)\.md$` — anchor-safe and human-typable.
+**Parse:** `^(daily-tasks|project-tasks|long-running-tasks|random-tasks|random-task|realist)-(\d+)-(.+)\.md$` — anchor-safe and human-typable. **The alternation is the contract:** new tokens first, legacy tokens after, one pattern in `Tools/3lm.js` **and** `Tools/asmc.js`.
 **Singletons** keep v1.0 names (`daily-tasks.md`, `realist.md`).
 
 ### R4 — Ownership + archive rule (instance-scoped)
@@ -198,6 +205,21 @@ Every instance declares its class in frontmatter. **This is the Cloudroom firewa
 
 **Why an allocator:** a bare counter as *identity* is weak — two windows can both believe they are `1`. As a **session slot** with a single allocator, it is exactly right. Identity lives in `Memory/`, the specs, and the tasklist; the ref is a handle.
 
+### R10 — Legacy prefixes are read-only *(new in v2.1)*
+
+A prefix rename is **additive**. The tooling accepts both tokens; only **new** files are written with the new one.
+
+| Token | Status | Written? | Parsed? |
+|---|---|---|---|
+| `project-tasks` | current | ✅ | ✅ |
+| `long-running-tasks` | **legacy** | ❌ never | ✅ **forever** |
+| `random-tasks` | current | ✅ | ✅ |
+| `random-task` | **legacy** | ❌ never | ✅ **forever** |
+
+**Why:** 29 historical files depend on the old tokens — archived briefs, episodes, artifacts, session reports. If `INSTANCE_RE` drops a legacy alternative, `threads --list` returns a **shorter list**, nothing throws, and the loss is invisible. That is the same silent-parse failure class already fixed in `parseFrontmatter` (block lists dropped, lessons silently zeroed).
+
+**Test the legacy path, not just the new one.** A migration that only asserts the new prefix proves nothing about the files it may have orphaned.
+
 ---
 
 ## 4 · The context file contract
@@ -208,7 +230,7 @@ Produced by `Prompt Patterns/📄 Pattern - Save Context.md` (v3, instance-aware
 
 ```yaml
 ---
-thread: random-task          # the lane
+thread: project-tasks        # the lane
 instance: 1                  # the ref (R9) — omit for singletons
 mission: "Vault migration"   # the CURRENT mission; may change
 slug: vault-migration        # matches the filename; never changes
@@ -249,7 +271,8 @@ parent: null                 # prior instance file when resumed
 | Form | Behaviour |
 |------|-----------|
 | `Kickstart(Daily Tasks)` | singleton — unchanged |
-| `Kickstart(Long Running Tasks)` | list open instances · **one** → load it · **many** → ask |
+| `Kickstart(Project Tasks)` | list open instances · **one** → load it · **many** → ask |
+| `Kickstart(Long Running Tasks)` | **legacy alias** — accepted, routed to `project-tasks` |
 | `Kickstart(Random Tasks: vault-migration)` | select by **slug** |
 | `Kickstart(Random Tasks: 2)` | select by **ref** |
 
@@ -265,6 +288,7 @@ parent: null                 # prior instance file when resumed
 | A thread deleting another's live context | Archive by recency instead of ownership | R4 |
 | Multi-mission files ("four missions, one filename") | Day-scope doing workstream-scope's job | R4 |
 | Memory diverging into N partial truths | Branching/sandboxing the memory | R5, R8 |
+| A legacy prefix silently stops parsing | `INSTANCE_RE` rewritten as a replacement instead of an alternation | R10 |
 | A cloud agent forking the vault | Producer committing to `Memory/` | R8 |
 | Two windows both claiming `ref 1` | No allocator | R9 |
 | "Done" that was never committed | Treating the file as closure | R6 |
@@ -320,4 +344,5 @@ parent: null                 # prior instance file when resumed
 - `Artifacts/2026-2027/Cycle 2/Week 7/2026-10-15-1503-cloudroom-as-mc-fit-and-saas-opportunity-ai-engineering.md` — the producer/committer constraint (R8)
 
 ---
-*Spec v2.0 ratified + canonical via AI-Suplex (Architect) on 2026-10-16 — Cycle 2, Week 7 · ai-engineering. Sweep landed; shipped as v2.7.0. v1.0 captured 2026-09-23. TWABAM ⚡*
+*Spec v2.1 (pluralisation delta) via AI-Suplex on 2026-10-18 — Cycle 2, Week 7 · ai-engineering: `project-tasks` · `random-tasks`, legacy prefixes parse forever.*
+*Spec v2.0 ratified + canonical 2026-10-16. Sweep landed; shipped as v2.7.0. v1.0 captured 2026-09-23. TWABAM ⚡*

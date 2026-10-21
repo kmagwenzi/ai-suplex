@@ -90,7 +90,7 @@ A **thread is a lane; an instance is a window.** When you switch chat windows or
 2. Copy the `<prompt-pattern>` block → paste into AI chat
 3. Supply the instance coordinates:
    ```
-   Thread: daily-tasks | long-running-tasks | random-task | realist
+   Thread: daily-tasks | project-tasks | random-tasks | realist
    Instance: <ref or slug>     ← N lanes only; omit for singletons
    Writer: committer | producer
    ```

@@ -442,7 +442,8 @@ function cmdStart() {
     }
   }
 
-  // 0.5 — Skill & tool router (recommend-only, Phase 0). Injects a ranked hint; runs nothing.
+  // 0.5 — Skill & tool router (Ultra hook, recommend-only). router.js is a shim in the
+  // dev vault and absent in 777 — the existsSync guard below skips this cleanly.
   const routerJs = path.join(__dirname, "router.js");
   const skillIndex = path.join(__dirname, "..", "Skills", "index.json");
   if (genContext && fs.existsSync(routerJs) && fs.existsSync(skillIndex)) {

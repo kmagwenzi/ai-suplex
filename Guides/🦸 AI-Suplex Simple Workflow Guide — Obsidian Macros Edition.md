@@ -94,7 +94,7 @@ Run `Enhance MOCs & Trackers` before your weekly review to inject fresh data.
 
 Macros are vault-side, so they stay thread-agnostic. **When you add an AI agent or a second chat window**, follow the threads model:
 
-- **One instance = one context file.** Pick a thread (`daily-tasks` · `long-running-tasks` · `random-task` · `realist`) and keep its context separate.
+- **One instance = one context file.** Pick a thread (`daily-tasks` · `project-tasks` · `random-tasks` · `realist`) and keep its context separate.
 - **Save Context** with `AI-Suplex: Save Context`; the file lands in `Context Kick-start/Active/{thread}-{ref}-{slug}.md`.
 - **Only the daily-tasks thread** refreshes the Active Mission Context (`AGENTS.md`).
 - **Close with a commit** (`node Tools/3lm.js sync`), not with the file alone.
