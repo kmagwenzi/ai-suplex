@@ -13,9 +13,25 @@ version: 1.0
 
 # 🧩 Prompt Pattern Usage Specification – AI-Suplex Agentic AI Workflow
 
+## ⚡ The fast path — AI-Suplex Commands
+
+Don't copy a pattern. Type a command:
+
+```
+AI-Suplex: Tasklist Generation
+CONTENT
+  - Raw Content: fix Oracle block, test Paynow webhook, update Freelance MOC
+
+ADDITIONAL: Save to Tasklists/Active/
+```
+
+The command loads the pattern for you and runs it. **Commands are the CLI; the pattern format below is the library.** Full inventory: `Prompt Patterns/AI-Suplex Commands/📄 AI-Suplex Commands — README.md`.
+
+---
+
 ## 📋 Overview
 
-The **Prompt Pattern System** is a structured framework that optimizes collaboration between you (the Hustler) and Agentic AI (Claude, ChatGPT, DeepSeek) to execute the complete AI-Suplex pipeline. Instead of guessing how to use templates, this pattern provides **exact instructions** for AI agents to generate consistent, high-quality outputs.
+The **Prompt Pattern System** is a structured framework that optimizes collaboration between you (the Hustler) and Agentic AI (Claude, ChatGPT, DeepSeek) to execute the complete AI-Suplex pipeline. The patterns below are the **underlying format** that every `AI-Suplex: <Command>` wraps — you only reach for them when you want the exact `<prompt-pattern>` block.
 
 **Why this matters:**  
 - **Reduces cognitive load** – You don't need to remember template formats  
@@ -51,9 +67,9 @@ graph LR
 
 ---
 
-## 🎯 Prompt Pattern Format
+## 🎯 Prompt Pattern Format (the underlying layer)
 
-Use this **exact structure** when instructing AI agents:
+Use this **exact structure** when you want the raw pattern block — `AI-Suplex: <Command>` does this for you:
 
 ```yaml
 <prompt-pattern>

@@ -51,12 +51,14 @@ cd 7-7-7 Edition/AI-Suplex-777/
 ### 2. The agent reads AGENTS.md automatically
 The `AGENTS.md` file teaches the AI your project structure, roles, rules, skills, and memory system — no configuration needed.
 
-### 3. Use Prompt Patterns (copy → paste → execute)
-1. Open `Prompt Patterns/`
-2. Copy any pattern file (start with `📄 Pattern - Tasklist Generation.md`)
+### 3. Use AI-Suplex Commands (type → execute)
+1. Type `AI-Suplex: <Command>` + your content
+2. Start with `AI-Suplex: Tasklist Generation`
 3. Paste into Claude / ChatGPT / DeepSeek / Copilot
-4. Replace the `[Source]` section with your content
-5. Execute — the AI returns structured output
+4. Replace the CONTENT source with your material
+5. Execute — the AI loads the pattern and returns structured output
+
+> 💡 Prefer the raw block? Open `Prompt Patterns/`, copy the `<prompt-pattern>`, paste, replace `Source`. Same result, one extra step.
 
 > 💡 **Pro tip:** Run `node Tools/3lm.js start --context` before chatting — the agent loads your memory (decisions, lessons, recent episodes) first. `node Tools/3lm.js threads --list` shows any open context instances.
 

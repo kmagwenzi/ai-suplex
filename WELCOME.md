@@ -21,14 +21,15 @@ When you unzip the package, you'll see:
 ---
 
 
-## 🟢 Pattern-Only
-*No Obsidian. No software. Just copy-paste into AI chat.*
+## 🟢 Commands-First (AI Chat)
+*No Obsidian. No software. Type one line, get the full output.*
 
-• Copy any file from `Prompt Patterns/` → paste into Claude, ChatGPT, or DeepSeek
-• Replace the `Source` section with your content → execute
-• AI generates structured tasklists, session prompts, artifacts, and reports
+• Type `AI-Suplex: <Command>` + your content into Claude, ChatGPT, or DeepSeek
+• e.g. `AI-Suplex: Tasklist Generation` · `AI-Suplex: Artifact Capture` · `AI-Suplex: Session End Report`
+• The AI loads the pattern and runs it — structured tasklists, session prompts, artifacts, reports
+• Prefer the raw block? `Prompt Patterns/` holds every pattern the command wraps
 
-→ See: `🦸 AI-Suplex Simple Workflow Guide – Pattern Edition.pdf`
+→ See: `Prompt Patterns/AI-Suplex Commands/📄 AI-Suplex Commands — README.md`
 
 ---
 

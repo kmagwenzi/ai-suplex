@@ -55,7 +55,7 @@ graph LR
 | **AI Skills**        | Content generation & structuring | Orchestrator, Architect, Builder                                        | Prompt patterns, manual invocation   |
 | **Sweeper Scripts**  | File operations & organization   | Create MOC, Create Tracker, Archive Session, Enhance, **Weekly Review** | Post‑session cleanup, weekly reviews |
 | **Macros**           | Rapid workflow execution         | Session Start, Artifact, B‑Bomb, Insight                                | During active work sessions          |
-| **Prompt Patterns**  | User‑friendly AI interaction     | All pattern files in `Prompt Patterns/`                                 | Copy‑paste into AI chats             |
+| **AI-Suplex Commands**  | User‑friendly AI interaction     | One-line triggers (`AI-Suplex: <Command>`) wrapping `Prompt Patterns/`                                 | Type into AI chats             |
 | **Dataview Queries** | Live data aggregation            | Command Center dashboards, MOCs                                         | Automatic via frontmatter tags       |
 | **3lm CLI**          | Self-improving memory loop       | `start` · `end` · `learn` · `promote` · `threads` · `sync`              | Terminal — inside the vault          |
 | **dsh plugin (optional)** | Headless harness runtimes   | `ai_suplex_init` · `context` · `tasklist` · `capture` · `session_end` · `learn` · `promote` · `approvals` · `status` | Agent harness (`dsh-ai-suplex`) |
@@ -66,7 +66,7 @@ The same pipeline runs in two places — pick the one that matches how you work:
 
 | Runtime | What runs the loop | Best for |
 |---|---|---|
-| **Vault-native** | Commander macros + Prompt Patterns + `node Tools/3lm.js` | Obsidian users; the shipped 7-7-7 Edition |
+| **Vault-native** | Commander macros + AI-Suplex Commands + `node Tools/3lm.js` | Obsidian users; the shipped 7-7-7 Edition |
 | **dsh plugin** | `dsh-ai-suplex` — nine `ai_suplex_*` tools on the dsh agent harness | Agent-first users; the same vault driven headlessly |
 
 The dsh plugin reads the **same** markdown vault and writes the **same** paths — the memory is shared, not forked. `ai_suplex_promote` is approval-gated (`approved: true`), so the Hustler gate holds in both runtimes. Package: `dsh-ai-suplex` on npm (`0.4.0`).
@@ -168,7 +168,7 @@ AI-Suplex-777/
 ## 🚀 IMPLEMENTATION GUIDELINES
 
 ### **For New Users**
-1. Start with **Prompt Patterns** – copy, paste, execute
+1. Start with **AI-Suplex Commands** – type, execute
 2. Use **Additional Instructions** for clear next steps
 3. Follow **Linear Execution** path initially
 4. Review **Command Center** regularly for progress tracking
@@ -176,7 +176,7 @@ AI-Suplex-777/
 ### **For Power Users**
 1. Leverage **Non‑Linear Entry** points for efficiency
 2. Customize **Additional Instructions** for personal workflows
-3. Develop **Custom Prompt Patterns** for recurring tasks
+3. Develop **Custom Commands** for recurring tasks
 4. Utilize **Ultra Edition Wiki** for deep knowledge organization
 
 ### **For Teams**

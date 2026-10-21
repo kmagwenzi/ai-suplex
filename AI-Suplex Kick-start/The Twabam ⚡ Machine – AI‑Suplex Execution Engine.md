@@ -8,7 +8,7 @@ tags: [twabam-machine, architecture, roles, ai-suplex, prompt-patterns, deep-ult
 
 # ⚡ The Twabam Machine – AI‑Suplex Execution Engine v2.0
 
-**TWABAM ⚡!** This document describes the **Twabam Machine** – the layered architecture of AI roles that powers AI‑Suplex. Now enhanced with **Prompt Patterns** as the primary user interface and integrated with the **Deep Ultra OS Pipeline**.
+**TWABAM ⚡!** This document describes the **Twabam Machine** – the layered architecture of AI roles that powers AI‑Suplex. Now enhanced with **AI-Suplex Commands** as the primary user interface (Prompt Patterns underneath) and integrated with the **Deep Ultra OS Pipeline**.
 
 ---
 
@@ -36,9 +36,9 @@ flowchart TD
 
 ---
 
-## 🧩 Prompt Patterns: The Revolutionary User Interface
+## 🧩 AI-Suplex Commands: The User Interface
 
-**Prompt Patterns** are the primary interface for interacting with the Twabam Machine. They enable **pattern‑first onboarding** – getting immediate value without learning the full system.
+**AI-Suplex Commands** are the primary interface for interacting with the Twabam Machine — type `AI-Suplex: <Command>` and the AI loads the pattern. They enable **command-first onboarding** – immediate value without learning the full system. The patterns underneath live in `Prompt Patterns/`.
 
 ### What Are Prompt Patterns?
 - **Pre‑formatted instructions** wrapped in `<prompt-pattern>` tags

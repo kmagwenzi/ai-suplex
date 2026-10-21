@@ -1,6 +1,6 @@
-			# AI-Suplex Simple Workflow — Pattern Edition
+			# AI-Suplex Simple Workflow — Commands Edition
 
-**TWABAM ⚡!** This is the **AI Chat / AI Agent Assisted workflow** — follow using only Prompt Patterns. Copy-paste into any AI chat. No Obsidian macros needed.
+**TWABAM ⚡!** This is the **AI Chat / AI Agent Assisted workflow** — type `AI-Suplex: <Command>` into any AI chat. The command loads the pattern and runs it. No Obsidian macros needed.
 
 > **For local coding agents (Claude Code, Open Code):** Make sure to `cd` into the inner folder first:
 > ```bash
@@ -8,7 +8,21 @@
 > ```
 > The agent reads `AGENTS.md` and accesses `Skills/`, `Prompt Patterns/`, `Tools/`, and `Guides/` from here.
 >
-> **For cloud AI chats (ChatGPT, DeepSeek):** Just copy the pattern blocks below — no folder setup needed.
+> **For cloud AI chats (ChatGPT, DeepSeek):** Type the command — no folder setup needed.
+
+## ⚡ Command shortcuts (the fast path)
+
+| Step | Command |
+|---|---|
+| Tasklist | `AI-Suplex: Tasklist Generation` |
+| Session Start | `AI-Suplex: Session Start` |
+| Artifact / Insight / B-Bomb | `AI-Suplex: Artifact Capture` · `Batch Insight` · `B-Bomb Promotion` |
+| Session End | `AI-Suplex: Session End Report` |
+| Weekly Plan | `AI-Suplex: Weekly Plan` |
+| Weekly Review | `AI-Suplex: Weekly Review` |
+| Save Context | `AI-Suplex: Save Context` |
+
+Each command wraps the pattern shown in the step below. Prefer the raw block? The step lists the pattern file.
 
 ---
 
@@ -27,6 +41,8 @@ focuses:
 
 ## Step 2: Generate a Tasklist
 
+**Command:** `AI-Suplex: Tasklist Generation`
+
 1. Open `Prompt Patterns/📄 Pattern - Tasklist Generation.md`
 2. Copy the entire `<prompt-pattern>` block
 3. Paste into Claude, ChatGPT, or DeepSeek
@@ -36,6 +52,8 @@ focuses:
 ---
 
 ## Step 3: Start a Session
+
+**Command:** `AI-Suplex: Session Start`
 
 1. Open `Prompt Patterns/📄 Pattern - Session Start Prompt Generation.md`
 2. Copy the `<prompt-pattern>` block → paste into AI chat
@@ -58,6 +76,8 @@ During your session, capture everything using patterns:
 
 ## Step 5: End the Session
 
+**Command:** `AI-Suplex: Session End Report`
+
 1. Open `Prompt Patterns/📄 Pattern - Session End Prompt Generation.md` and paste into AI chat and execute  - _You get a blank Session Start Prompt_
 2. Fill in Session End Prompt data and paste into: `AI-Suplex-777/prompt.md` 
 3. Open `Prompt Patterns/📄 Pattern - Session End Report` paste into AI chat
@@ -68,6 +88,8 @@ During your session, capture everything using patterns:
 
 ## Step 6: Plan Your Week
 
+**Command:** `AI-Suplex: Weekly Plan`
+
 1. Open `Prompt Patterns/📄 Pattern - Weekly Plan Generation.md`
 2. Copy → paste → replace Source with pending tasks and priorities
 3. Execute — get a daily breakdown with focus allocation and energy management
@@ -76,6 +98,8 @@ During your session, capture everything using patterns:
 
 ## Step 7: Review Your Week
 
+**Command:** `AI-Suplex: Weekly Review`
+
 1. Open `Prompt Patterns/📄 Pattern - Weekly Review Generation.md`
 2. Copy → paste → replace Source with your week's data
 3. Execute — the AI analyses your week and suggests improvements
@@ -83,6 +107,8 @@ During your session, capture everything using patterns:
 ---
 
 ## Step 8: Switch Context (When Changing Chat Windows)
+
+**Command:** `AI-Suplex: Save Context`
 
 A **thread is a lane; an instance is a window.** When you switch chat windows or end a work block, use **Save Context v3** so the next window loads the right context — and never overwrites another window's.
 
@@ -114,13 +140,13 @@ A **thread is a lane; an instance is a window.** When you switch chat windows or
 
 ---
 
-## Full Pattern Chain
+## Full Command Chain
 
 ```
-Kickstart → Tasklist → Session Start → Artifact/B-Bomb/Insight → Session End → Save Context → Weekly Plan → Weekly Review
+AI-Suplex: Kickstart → Tasklist Generation → Session Start → Artifact Capture / B-Bomb Promotion / Batch Insight → Session End Report → Save Context → Weekly Plan → Weekly Review
 ```
 
-Every step is a copy-paste pattern. No Obsidian required. No macros. Just AI chat.
+Every step is a one-line command. No Obsidian required. No macros. Just AI chat. The patterns underneath are in `Prompt Patterns/`.
 
 ---
 
@@ -132,4 +158,4 @@ Every step is a copy-paste pattern. No Obsidian required. No macros. Just AI cha
 
 ---
 
-**You're now running AI-Suplex with nothing but prompt patterns.** 🦸⚡
+**You're now running AI-Suplex on commands — with the patterns one folder underneath.** 🦸⚡

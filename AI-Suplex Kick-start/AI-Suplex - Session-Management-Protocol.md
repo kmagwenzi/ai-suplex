@@ -419,7 +419,7 @@ _Session Report Generated via AI-Suplex_
 
 ## 🧩 **PROMPT  PATTERNS –  AI USER INTERFACE**
 
-**TWABAM ⚡!** Prompt Patterns are the fastest way to use AI-Suplex without learning the full system. They provide copy-paste templates that generate perfect outputs in any AI chat.
+**TWABAM ⚡!** AI-Suplex Commands are the fastest way to use AI-Suplex without learning the full system. They provide copy-paste templates that generate perfect outputs in any AI chat.
 
 ### **HOW PATTERNS WORK:**
 1. **Copy** a pattern file from `AI-Suplex-777/Prompt Patterns/`
@@ -551,10 +551,10 @@ Session_Characteristics: [exploratory, innovative, divergent-thinking, inspirati
 ```bash
 # Session System Activation (7‑7‑7 Edition)
 echo "AI-SUPLEX SESSION MANAGEMENT: ACTIVE"
-echo "Protocol: Session Start/End markers with Prompt Patterns"
+echo "Protocol: Session Start/End markers with AI-Suplex Commands"
 echo "Reporting: v3.0 session reports with performance metrics"
 echo "Learning: Continuous improvement with innovation quotient tracking"
-echo "Access: Full system OR Prompt Patterns for quick start"
+echo "Access: Full system OR AI-Suplex Commands for quick start"
 ```
 
 ### **WORKFLOW INTEGRATION (Two Paths):**
@@ -566,7 +566,7 @@ echo "Access: Full system OR Prompt Patterns for quick start"
 4. **Session End** → Architect generates comprehensive report
 5. **System Update** → Sweeper scripts update MOCs & trackers
 
-**Path B: Prompt Patterns (Quick Start)**
+**Path B: AI-Suplex Commands (Quick Start)**
 1. **Copy Pattern** → From `AI-Suplex-777/Prompt Patterns/`
 2. **Paste & Replace** → In any AI chat with your content
 3. **Execute** → AI generates professional output

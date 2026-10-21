@@ -108,7 +108,7 @@ Macros are vault-side, so they stay thread-agnostic. **When you add an AI agent 
 - **Weekly Review:** Run `Sweeper – Weekly Review` every Saturday
 - **Cycle Review:** Run `Sweeper – Generate Cycle Review` at the end of Week 7
 - **Deep Dive:** Read `AI-Suplex Kick-start/The AI-Suplex Workflow Pipeline.md` for the full strategic pipeline and `Guides/🦸 AI-Suplex Full Workflow Guide.md` for the full workflow
-- _Try the Prompt Patterns approach — it is often quicker and easier for completing steps_
+- _Try the AI-Suplex Commands approach — it is often quicker and easier for completing steps_
 
 ---
 

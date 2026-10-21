@@ -53,8 +53,8 @@ Open your Artifacts folder. Scan for anything that meets these criteria:
 > **Pro tip:** If nothing stands out immediately, you had a slow week. That's fine. Don't force it. A genuine B-Bomb is better than 5 forced ones.
 
 **Alternative — AI-Assisted Promotion (for big artifact weeks):**
-1. Copy the **📄 Pattern - B-Bomb Promotion** from `Prompt Patterns/`
-2. Paste into Claude/ChatGPT/DeepSeek
+1. Run **`AI-Suplex: B-Bomb Promotion`** (or copy `📄 Pattern - B-Bomb Promotion` from `Prompt Patterns/`)
+2. Supply the week's artifacts as CONTENT
 3. Replace source with: "Scan Artifacts/<Period>/Cycle [X]/Week [Y]/ for B-Bomb candidates. Rank by innovation quotient."
 4. Execute — AI identifies candidates and drafts promotion content
 
@@ -102,8 +102,8 @@ Open your Artifacts folder. Scan for anything that meets these criteria:
 
 ### Step 3: Generate New Tasklist
 
-- [ ] Copy **📄 Pattern - Tasklist Generation** from `Prompt Patterns/`
-- [ ] Paste into AI chat with this week's raw to-do list
+- [ ] Run **`AI-Suplex: Tasklist Generation`** (or copy `📄 Pattern - Tasklist Generation`)
+- [ ] Supply this week's raw to-do list as CONTENT
 - [ ] Execute — get structured tasklist with roles + durations
 - [ ] Save in `Tasklists/`
 

@@ -272,7 +272,7 @@ If the user says *"Act as Orchestrator and generate a tasklist from this to‑do
 
 ## 🧩 Prompt Patterns (User Interface for Skills)
 
-**Prompt Patterns** are pre-formatted instructions that users copy-paste into AI chats to generate perfect AI-Suplex outputs. They're the **primary user interface** for AI-Suplex, especially for new users.
+**Prompt Patterns** are pre-formatted instructions that users copy-paste into AI chats to generate perfect AI-Suplex outputs. They're the **library** behind the primary user interface — the **AI-Suplex Commands** below, which wrap each pattern in a one-line trigger.
 
 ### What are Prompt Patterns?
 - **Location:** `AI-Suplex-777/Prompt Patterns/` folder
@@ -308,7 +308,7 @@ When a user sends a `<prompt-pattern>` block:
 - **Patterns** are user-facing templates that invoke those skills
 - **Your job:** When users use patterns, act as if they invoked the corresponding skill directly
 
-> [!note] **Pattern-first onboarding:** New users often start with patterns before learning the full system. When you see patterns, help users successfully execute them to build confidence.
+> [!note] **Command-first onboarding:** New users start with a one-line `AI-Suplex: <Command>`, then graduate to the raw pattern when they want the exact block. When you see either, help users execute it to build confidence.
 
 ---
 

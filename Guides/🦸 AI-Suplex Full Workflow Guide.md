@@ -10,22 +10,22 @@ status: active
 
 # 🔁 AI-Suplex Full Workflow Guide
 
-> *From raw thought to self-improving system. Every step has a macro, a prompt pattern, or a 3lm CLI command.*
+> *From raw thought to self-improving system. Every step has a macro, an AI-Suplex Command, or a 3lm CLI command.*
 
-**TWABAM ⚡!** This guide walks you through the complete AI-Suplex pipeline — using **Commander button macros** (inside Obsidian), **Prompt Patterns** (copy-paste into AI chat), and the **3lm CLI** (terminal) for the self-improving memory loop. By the end, you'll know which tool to reach for at every stage.
+**TWABAM ⚡!** This guide walks you through the complete AI-Suplex pipeline — using **Commander button macros** (inside Obsidian), **AI-Suplex Commands** (one-line triggers in AI chat — they wrap the Prompt Patterns), and the **3lm CLI** (terminal) for the self-improving memory loop. By the end, you'll know which tool to reach for at every stage.
 
 ---
 
 ## 🎯 The Three Tools
 
-|                  | Macros (Commander Buttons)                            | Prompt Patterns                                       | 3lm CLI                                    |
+|                  | Macros (Commander Buttons)                            | AI-Suplex Commands                                    | 3lm CLI                                    |
 | ---------------- | ----------------------------------------------------- | ----------------------------------------------------- | ------------------------------------------ |
-| **Where**        | Obsidian — click a button                             | Any AI chat — copy and paste                          | Terminal — inside the vault                |
+| **Where**        | Obsidian — click a button                             | Any AI chat — type a command                          | Terminal — inside the vault                |
 | **What they do** | Create files, capture data, organize vault            | Generate content, structure tasks, produce reports    | Manage the self-improving memory loop      |
 | **Best for**     | Session tracking, artifact capture, folder management | Tasklist generation, session planning, weekly reviews | Memory: end sessions, learn, promote rules |
-| **Example**      | 🚀 Start, 📄 Artifact, 🏁 End                         | `📄 Pattern - Tasklist Generation`                    | `3lm end`, `3lm learn`, `3lm promote`      |
+| **Example**      | 🚀 Start, 📄 Artifact, 🏁 End                         | `AI-Suplex: Tasklist Generation`                      | `3lm end`, `3lm learn`, `3lm promote`      |
 
-> **Rule of thumb:** Macros handle the *container* (files, folders, metadata). Prompt Patterns handle the *content* (plans, tasks, reviews). 3lm handles the *memory* — learning from every session so the next one starts smarter.
+> **Rule of thumb:** Macros handle the *container* (files, folders, metadata). Commands handle the *content* (plans, tasks, reviews) — they wrap the patterns. 3lm handles the *memory* — learning from every session so the next one starts smarter.
 
 ### Two runtimes, one loop
 
@@ -33,7 +33,7 @@ The same pipeline runs in two places — pick the one that matches how you work:
 
 | Runtime | What runs the loop | Best for |
 |---|---|---|
-| **Vault-native** | Commander macros + Prompt Patterns + `node Tools/3lm.js` | Obsidian users; the shipped 7-7-7 Edition |
+| **Vault-native** | Commander macros + AI-Suplex Commands + `node Tools/3lm.js` | Obsidian users; the shipped 7-7-7 Edition |
 | **dsh plugin** | `dsh-ai-suplex` — nine `ai_suplex_*` tools on the dsh agent harness | Agent-first users; the same vault driven headlessly |
 
 The dsh plugin exposes `ai_suplex_init` · `context` · `tasklist` · `capture` · `session_end` · `learn` · `promote` · `approvals` · `status`. It reads the **same** markdown vault and writes the **same** paths — the memory is shared, not forked. `ai_suplex_promote` is approval-gated (`approved: true`), so the Hustler gate holds in both runtimes. Package: `dsh-ai-suplex` on npm (`0.4.0`).

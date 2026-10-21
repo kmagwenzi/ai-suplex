@@ -182,7 +182,7 @@ node Tools/3lm.js sync "Session End — <thread>/<instance>"   # close
 
 - `AI-Suplex Kick-start/Spec — Context & Threads.md` (v2.0) — the rules
 - `AGENTS.md` → *Execution Threads (4)* — canonical
-- `Prompt Patterns/📄 Pattern - Save Context.md` (v3) — the mechanism
+- `AI-Suplex: Save Context` (the command) · `Prompt Patterns/📄 Pattern - Save Context.md` (v3) — the mechanism it wraps
 - `AI-Suplex Kick-start/The Realist Persona/The Realist Persona.md`
 - `Guides/🦸 AI-Suplex Full Workflow Guide.md` — the broader workflow
 

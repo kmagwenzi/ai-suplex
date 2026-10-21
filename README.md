@@ -27,7 +27,7 @@ This is the discipline behind live, production systems:
 | 🛒 **[wqr.co.zw](https://wqr.co.zw)**                                | A WhatsApp commerce agent serving Zimbabwean SMEs — real orders, real Paynow/EcoCash payments |
 | 🦸 **[Ultra preview](https://ai-suplex-ultra-preview.netlify.app/)** | The gated, self-driving layer (code name: Deep Ultra)                                         |
 | 📦 **[dsh-ai-suplex](https://www.npmjs.com/package/dsh-ai-suplex)**  | This same loop, shipped as an open-source DeepSeek Harness plugin                             |
-| 🧠 **[The framework](#structure)**                                | Skills · Prompt Patterns · Tools · 3-layer memory — MIT, open source                          |
+| 🧠 **[The framework](#structure)**                                | Skills · Commands · Prompt Patterns · Tools · 3-layer memory — MIT, open source                          |
 
 ## 🎥 Watch (90 seconds)
 
@@ -160,7 +160,7 @@ node Tools/3lm.js start --context
 ai-suplex/
 ├── AGENTS.md              ← how any agent operates this vault
 ├── Skills/                ← 13 AI skills
-├── Prompt Patterns/       ← copy-paste patterns
+├── Prompt Patterns/       ← patterns + AI-Suplex Commands/ (one-line triggers)
 ├── Scripts/               ← Commander macros
 ├── Templates/             ← session templates
 ├── Tools/                 ← 3lm · asmc · vault-index · approvals · rituals
