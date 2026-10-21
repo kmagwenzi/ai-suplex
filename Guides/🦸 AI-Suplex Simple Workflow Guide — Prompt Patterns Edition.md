@@ -12,17 +12,17 @@
 
 ## ⚡ Command shortcuts (the fast path)
 
-| Step | Command |
-|---|---|
-| Tasklist | `AI-Suplex: Tasklist Generation` |
-| Session Start | `AI-Suplex: Session Start` |
+| Step                        | Command                                                              |
+| --------------------------- | -------------------------------------------------------------------- |
+| Tasklist                    | `AI-Suplex: Tasklist Generation`                                     |
+| Session Start               | `AI-Suplex: Session Start`                                           |
 | Artifact / Insight / B-Bomb | `AI-Suplex: Artifact Capture` · `Batch Insight` · `B-Bomb Promotion` |
-| Session End | `AI-Suplex: Session End Report` |
-| Weekly Plan | `AI-Suplex: Weekly Plan` |
-| Weekly Review | `AI-Suplex: Weekly Review` |
-| Save Context | `AI-Suplex: Save Context` |
+| Session End                 | `AI-Suplex: Session End Report`                                      |
+| Weekly Plan                 | `AI-Suplex: Weekly Plan`                                             |
+| Weekly Review               | `AI-Suplex: Weekly Review`                                           |
+| Save Context                | `AI-Suplex: Save Context`                                            |
 
-Each command wraps the pattern shown in the step below. Prefer the raw block? The step lists the pattern file.
+Each command wraps a pattern — the pattern is the library underneath, one folder down in `Prompt Patterns/`.
 
 ---
 
@@ -43,11 +43,9 @@ focuses:
 
 **Command:** `AI-Suplex: Tasklist Generation`
 
-1. Open `Prompt Patterns/📄 Pattern - Tasklist Generation.md`
-2. Copy the entire `<prompt-pattern>` block
-3. Paste into Claude, ChatGPT, or DeepSeek
-4. Replace the Source section with your to-do list
-5. Execute — the AI generates a structured tasklist with task IDs
+1. Type `AI-Suplex: Tasklist Generation`
+2. Paste your to-do list under CONTENT
+3. Execute — the AI generates a structured tasklist with task IDs
 
 ---
 
@@ -55,22 +53,21 @@ focuses:
 
 **Command:** `AI-Suplex: Session Start`
 
-1. Open `Prompt Patterns/📄 Pattern - Session Start Prompt Generation.md`
-2. Copy the `<prompt-pattern>` block → paste into AI chat
-3. Complete Source /- Raw Source: with the Execution Command (Bottom of AI-Suplex Tasklist) and Source/ - File Reference: with the file path to AI-Suplex Tasklist
-4. Execute — get a ready-to-use session start prompt with mission, tasks, and metrics
+1. Type `AI-Suplex: Session Start`
+2. Supply the Execution Command (bottom of your tasklist) + the tasklist file path as CONTENT
+3. Execute — get a ready-to-use session start prompt with mission, tasks, and metrics
 
 ---
 
 ## Step 4: Work & Capture
 
-During your session, capture everything using patterns:
+During your session, capture everything with commands:
 
-| What            | Pattern                                    | When                    |
-| --------------- | ------------------------------------------ | ----------------------- |
-| 📄 **Artifact** | `📄 Pattern - Artifact Capture.md`         | Saving work-in-progress |
-| 💡 **Insights** | `📄 Pattern - Batch Insight Generation.md` | Logging learnings       |
-| 💣 **B-Bomb**   | `📄 Pattern - B-Bomb Promotion.md`         | Promoting polished work |
+| What            | Command                       | When                    |
+| --------------- | ----------------------------- | ----------------------- |
+| 📄 **Artifact** | `AI-Suplex: Artifact Capture` | Saving work-in-progress |
+| 💡 **Insights** | `AI-Suplex: Batch Insight`    | Logging learnings       |
+| 💣 **B-Bomb**   | `AI-Suplex: B-Bomb Promotion` | Promoting polished work |
 
 ---
 
@@ -78,11 +75,9 @@ During your session, capture everything using patterns:
 
 **Command:** `AI-Suplex: Session End Report`
 
-1. Open `Prompt Patterns/📄 Pattern - Session End Prompt Generation.md` and paste into AI chat and execute  - _You get a blank Session Start Prompt_
-2. Fill in Session End Prompt data and paste into: `AI-Suplex-777/prompt.md` 
-3. Open `Prompt Patterns/📄 Pattern - Session End Report` paste into AI chat
-4. In `CONTENT` section make Source/- File Reference  refer to: `AI-Suplex-777/prompt.md` 
-5. Execute and get full session report
+1. Type `AI-Suplex: Session End Report`
+2. In CONTENT, make File Reference point to `AI-Suplex-777/prompt.md`
+3. Execute — get the full session report
 
 ---
 
@@ -90,8 +85,8 @@ During your session, capture everything using patterns:
 
 **Command:** `AI-Suplex: Weekly Plan`
 
-1. Open `Prompt Patterns/📄 Pattern - Weekly Plan Generation.md`
-2. Copy → paste → replace Source with pending tasks and priorities
+1. Type `AI-Suplex: Weekly Plan`
+2. Supply pending tasks and priorities as CONTENT
 3. Execute — get a daily breakdown with focus allocation and energy management
 
 ---
@@ -100,8 +95,8 @@ During your session, capture everything using patterns:
 
 **Command:** `AI-Suplex: Weekly Review`
 
-1. Open `Prompt Patterns/📄 Pattern - Weekly Review Generation.md`
-2. Copy → paste → replace Source with your week's data
+1. Type `AI-Suplex: Weekly Review`
+2. Supply your week's data as CONTENT
 3. Execute — the AI analyses your week and suggests improvements
 
 ---
@@ -112,9 +107,8 @@ During your session, capture everything using patterns:
 
 A **thread is a lane; an instance is a window.** When you switch chat windows or end a work block, use **Save Context v3** so the next window loads the right context — and never overwrites another window's.
 
-1. Open `Prompt Patterns/📄 Pattern - Save Context.md`
-2. Copy the `<prompt-pattern>` block → paste into AI chat
-3. Supply the instance coordinates:
+1. Type `AI-Suplex: Save Context`
+2. Supply the instance coordinates as CONTENT:
    ```
    Thread: daily-tasks | project-tasks | random-tasks | realist
    Instance: <ref or slug>     ← N lanes only; omit for singletons
@@ -152,8 +146,8 @@ Every step is a one-line command. No Obsidian required. No macros. Just AI chat.
 
 ## What's Next?
 
-- **Cycle Plan:** `📄 Pattern - Cycle Plan Generation.md` — 7-week strategic roadmap
-- **Cycle Review:** `📄 Pattern - Cycle Review Generation.md` — end-of-cycle analysis
+- **Cycle Plan:** 7-week strategic roadmap *(pattern-only — command pending)*
+- **Cycle Review:** end-of-cycle analysis *(pattern-only — command pending)*
 - **Full Guides:** See `AI-Suplex Kick-start/The AI-Suplex Workflow Pipeline.md` and `Guides/🦸 AI-Suplex Full Workflow Guide.md` for the full pipeline and the macro-powered version
 
 ---

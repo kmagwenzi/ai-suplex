@@ -57,11 +57,11 @@ CYCLE PLAN  →  WEEKLY PLAN  →  TASKLIST  →  START  →  EXECUTE  →  CAPT
 ### STEP 0a — CYCLE PLAN: Map the 7 Weeks (Every Cycle)
 
 **Tool:** Prompt Pattern  
-**Pattern:** `📄 Pattern - Cycle Plan Generation`  
+**Pattern:** `📄 Pattern - Cycle Plan Generation` *(pattern-only)*  
 **Saves to:** `Plans/<Period>/Cycle X/Cycle X Plan.md`
 
 1. Run 📁 **Ensure (Cycle)** to create `Plans/<Period>/Cycle X/` and all 7 weekly plan folders
-2. Copy `Prompt Patterns/📄 Pattern - Cycle Plan Generation.md`
+2. Use `📄 Pattern - Cycle Plan Generation` *(pattern-only — no command yet)*
 3. Paste into AI chat with your cycle goals and context
 4. The AI returns a 7-week breakdown with milestones per week, focus area allocation, and success metrics
 5. Save to `Plans/<Period>/Cycle X/Cycle X Plan.md`
@@ -72,12 +72,12 @@ CYCLE PLAN  →  WEEKLY PLAN  →  TASKLIST  →  START  →  EXECUTE  →  CAPT
 
 ### STEP 0b — WEEKLY PLAN: Scope the Week (Every Tuesday)
 
-**Tool:** Prompt Pattern  
-**Pattern:** `📄 Pattern - Weekly Plan Generation`  
+**Tool:** AI-Suplex Command  
+**Command:** `AI-Suplex: Weekly Plan`  
 **Saves to:** `Plans/<Period>/Cycle X/Week Y/`
 
-1. Copy `Prompt Patterns/📄 Pattern - Weekly Plan Generation.md`
-2. Paste into AI chat with context from your cycle plan + last week's review
+1. Type `AI-Suplex: Weekly Plan`
+2. Supply context from your cycle plan + last week's review as CONTENT
 3. The AI returns a scoped weekly plan with task IDs, daily targets, and success metrics
 4. Save to `Plans/<Period>/Cycle X/Week Y/`
 
@@ -87,13 +87,11 @@ CYCLE PLAN  →  WEEKLY PLAN  →  TASKLIST  →  START  →  EXECUTE  →  CAPT
 
 ### STEP 1 — TASKLIST: Generate a Session Tasklist
 
-**Tool:** Prompt Pattern  
-**Pattern:** `📄 Pattern - Tasklist Generation`
+**Tool:** AI-Suplex Command  
+**Command:** `AI-Suplex: Tasklist Generation`
 
-1. Open `Prompt Patterns/📄 Pattern - Tasklist Generation.md`
-2. Copy the entire file
-3. Paste into Claude / ChatGPT / DeepSeek
-4. Replace the `[Source]` section with tasks pulled from your weekly plan
+1. Type `AI-Suplex: Tasklist Generation`
+2. Supply tasks pulled from your weekly plan as CONTENT
 5. Execute — the AI returns a structured tasklist with:
    - Task IDs (T001-H, T002-B, etc.)
    - Role assignments (Hustler, Architect, Builder)
@@ -122,7 +120,7 @@ CYCLE PLAN  →  WEEKLY PLAN  →  TASKLIST  →  START  →  EXECUTE  →  CAPT
 
 3. A session start file is created in `Sessions/Active/Start/`
 
-> **AI-assisted:** Use `📄 Pattern - Session Start Prompt Generation` to have the AI generate a complete start prompt from a Task ID.
+> **AI-assisted:** Type `AI-Suplex: Session Start` to have the AI generate a complete start prompt from a Task ID.
 
 ---
 
@@ -135,7 +133,7 @@ Work happens here. Code, write, design, research — whatever the mission demand
 | Produce something worth saving | 📄 **Artifact** | Saves work-in-progress to `Artifacts/<Period>/Cycle X/Week Y/` |
 | Learn something important | 💡 **Insight** | Appends a callout to `Insights/<Period>/Cycle X/Week Y.md` |
 
-> **AI-assisted capture:** Use `📄 Pattern - Artifact Capture` to have the AI structure your raw work into a properly formatted artifact.
+> **AI-assisted capture:** Type `AI-Suplex: Artifact Capture` to have the AI structure your raw work into a properly formatted artifact.
 
 ---
 
@@ -157,7 +155,7 @@ Work happens here. Code, write, design, research — whatever the mission demand
 
 ### STEP 5 — PROMOTE: Create a B-Bomb
 
-**Tool:** Macro (or Prompt Pattern for AI-assisted promotion)  
+**Tool:** Macro (or `AI-Suplex: B-Bomb Promotion` for AI-assisted promotion)  
 **Button:** 💣 B-Bomb
 
 Not every artifact becomes a B-Bomb. Promote when something is **reusable, reference-worthy, or sellable**.
@@ -167,7 +165,7 @@ Not every artifact becomes a B-Bomb. Promote when something is **reusable, refer
 2. Fill the prompts: title, description, content, product potential rating (1-10)
 
 **AI-assisted promotion:**
-1. Copy `📄 Pattern - B-Bomb Promotion` into AI chat
+1. Type `AI-Suplex: B-Bomb Promotion`
 2. Point it at your artifact: *"Scan Artifacts/<Period>/Cycle X/Week Y/ for B-Bomb candidates"*
 3. The AI identifies candidates, ranks by innovation quotient, and drafts promotion content
 
@@ -191,7 +189,7 @@ Not every artifact becomes a B-Bomb. Promote when something is **reusable, refer
 
 3. A session end report is created in `Sessions/Active/End/`
 
-> **AI-assisted:** Use `📄 Pattern - Session End Report` to generate a comprehensive report from your session notes.
+> **AI-assisted:** Type `AI-Suplex: Session End Report` to generate a comprehensive report from your session notes.
 
 ---
 
@@ -254,7 +252,7 @@ Session End Report
 
 ### STEP 7b — CONTEXT & THREADS: Keep Parallel Work Honest
 
-**Tool:** Prompt Pattern (`AI-Suplex: Save Context`, v3) + 3lm CLI
+**Tool:** `AI-Suplex: Save Context` + 3lm CLI
 
 A **thread is a lane; an instance is a window.** When more than one chat window is open — or a cloud agent is working alongside you — each window owns its **own** context file.
 
@@ -277,7 +275,7 @@ A **thread is a lane; an instance is a window.** When more than one chat window 
 node Tools/3lm.js threads --list --write   # open instances → _instances.md (generated projection)
 ```
 
-> 📖 Practical walkthrough: `Guides/Guide — Context & Threads.md` · Rules: `AI-Suplex Kick-start/Spec — Context & Threads.md` (v2.0) · Pattern: `Prompt Patterns/📄 Pattern - Save Context.md` (v3).
+> 📖 Practical walkthrough: `Guides/Guide — Context & Threads.md` · Rules: `AI-Suplex Kick-start/Spec — Context & Threads.md` (v2.0) · Command: `AI-Suplex: Save Context`.
 
 ---
 
@@ -305,7 +303,7 @@ At the end of each week, run these in order:
 
 ```
 Monday    — Closed
-Tuesday   — 📁 Ensure Structure + 🎯 Focus Manager check + generate weekly plan (Pattern) + tasklist (Pattern)
+Tuesday   — 📁 Ensure Structure + 🎯 Focus Manager check + generate weekly plan (command) + tasklist (command)
 Wed-Fri   — 🚀 Start → work → 📄 Artifact → 💡 Insight → 🏁 End → 3lm end → learn → index (daily loop)
 Saturday  — 💣 B-Bomb promotion + 3lm promote + 3lm revise + 3lm clean + 📊 Enhance + 📊 Aggregate + 🔄 Weekly Review
 Sunday    — Rest or light work
@@ -313,11 +311,11 @@ Sunday    — Rest or light work
 
 **Start of Cycle (every 7 weeks):**
 - 📁 **Ensure (Cycle)** — creates all cycle + weekly plan folders
-- `📄 Pattern - Cycle Plan Generation` — map the 7 weeks ahead → `Plans/<Period>/Cycle X/Cycle X Plan.md`
+- `📄 Pattern - Cycle Plan Generation` *(pattern-only)* — map the 7 weeks ahead → `Plans/<Period>/Cycle X/Cycle X Plan.md`
 
 **End of Cycle (every 7 weeks):**
 - 🔄 **Generate Cycle Review** — aggregates all cycle data
-- `📄 Pattern - Cycle Review Generation` — AI-powered analysis of the full cycle
+- `📄 Pattern - Cycle Review Generation` *(pattern-only)* — AI-powered analysis of the full cycle
 - Run `3lm promote --min 70` — promote all remaining high-scoring lessons
 - `3lm index` — final memory refresh before the next cycle
 
@@ -327,14 +325,14 @@ Sunday    — Rest or light work
 
 | I want to... | Use this |
 |---|---|
-| Map a 7-week cycle | `📄 Pattern - Cycle Plan Generation` → `Plans/<Period>/Cycle X/Cycle X Plan.md` |
-| Plan this week's work | `📄 Pattern - Weekly Plan Generation` → `Plans/<Period>/Cycle X/Week Y/` |
-| Generate a session tasklist | `📄 Pattern - Tasklist Generation` → `Tasklists/` |
-| Start a focused session | 🚀 **Start** (macro) or `📄 Pattern - Session Start Prompt Generation` |
-| Save work-in-progress | 📄 **Artifact** (macro) or `📄 Pattern - Artifact Capture` |
+| Map a 7-week cycle | `📄 Pattern - Cycle Plan Generation` *(pattern-only)* → `Plans/<Period>/Cycle X/Cycle X Plan.md` |
+| Plan this week's work | `AI-Suplex: Weekly Plan` → `Plans/<Period>/Cycle X/Week Y/` |
+| Generate a session tasklist | `AI-Suplex: Tasklist Generation` → `Tasklists/` |
+| Start a focused session | 🚀 **Start** (macro) or `AI-Suplex: Session Start` |
+| Save work-in-progress | 📄 **Artifact** (macro) or `AI-Suplex: Artifact Capture` |
 | Log a quick learning | 💡 **Insight** (macro) |
-| Mark work as reusable/sellable | 💣 **B-Bomb** (macro) or `📄 Pattern - B-Bomb Promotion` |
-| End a session | 🏁 **End** (macro) or `📄 Pattern - Session End Report` |
+| Mark work as reusable/sellable | 💣 **B-Bomb** (macro) or `AI-Suplex: B-Bomb Promotion` |
+| End a session | 🏁 **End** (macro) or `AI-Suplex: Session End Report` |
 | Write session to episodic memory | `3lm end` (CLI) |
 | Extract lessons from a session | `3lm learn` (CLI) |
 | Promote winning patterns (score 70+) | `3lm promote --min 70` (CLI) |
@@ -342,12 +340,12 @@ Sunday    — Rest or light work
 | Refresh the memory lookup manifest | `3lm index` (CLI) |
 | See memory stack health | `3lm status` (CLI) |
 | List open context instances | `3lm threads --list` (CLI) |
-| Save context / switch windows | `AI-Suplex: Save Context` (pattern v3) |
+| Save context / switch windows | `AI-Suplex: Save Context` |
 | Update dashboards | 📊 **Enhance MOCs/Trackers** (macro) |
 | Prepare data for AI review | 📊 **Aggregate Weekly Data** (macro) |
 | Generate a weekly report | 🔄 **Weekly Review** (macro) + `Orchestrator – Weekly Review` (skill) |
 | Set up folders for a new cycle | 📁 **Ensure (Cycle)** (macro) |
-| Review a completed cycle | 🔄 **Generate Review** (macro) + `📄 Pattern - Cycle Review Generation` |
+| Review a completed cycle | 🔄 **Generate Review** (macro) + `📄 Pattern - Cycle Review Generation` *(pattern-only)* |
 
 ---
 
@@ -374,7 +372,7 @@ AI-Suplex-777/
 ├── Tasklists/                 ← AI-generated tasklists from patterns
 ├── Reviews/<Period>/Weekly/            ← 🔄 Weekly Review output
 ├── Skills/                    ← AI agent blueprints
-├── Prompt Patterns/           ← Copy-paste templates for AI chat
+├── Prompt Patterns/           ← patterns + AI-Suplex Commands/ (one-line triggers)
 ├── Tools/              ← 3lm CLI · vault-index · session context
 └── Guides/                    ← You are here
 ```
@@ -383,7 +381,7 @@ AI-Suplex-777/
 
 ## 💡 Key Principles
 
-1. **Macros for containers, Patterns for content, 3lm for memory.** Don't mix them up — macros handle files and folders; patterns handle thinking and structuring; 3lm handles learning from every session.
+1. **Macros for containers, Commands for content, 3lm for memory.** Don't mix them up — macros handle files and folders; commands (wrapping the patterns) handle thinking and structuring; 3lm handles learning from every session.
 2. **Every session produces at least one artifact.** If you worked for 90 minutes and have nothing to show, you weren't working on the right thing.
 3. **B-Bombs are the goal.** The pipeline exists to turn raw work into reusable, sellable assets. Everything feeds the B-Bomb machine.
 4. **The memory loop is non-negotiable.** 3lm end → learn → index after every session. 3lm promote → revise every Saturday. Without it, the system never gets smarter.

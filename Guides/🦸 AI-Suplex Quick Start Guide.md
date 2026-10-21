@@ -58,8 +58,6 @@ The `AGENTS.md` file teaches the AI your project structure, roles, rules, skills
 4. Replace the CONTENT source with your material
 5. Execute — the AI loads the pattern and returns structured output
 
-> 💡 Prefer the raw block? Open `Prompt Patterns/`, copy the `<prompt-pattern>`, paste, replace `Source`. Same result, one extra step.
-
 > 💡 **Pro tip:** Run `node Tools/3lm.js start --context` before chatting — the agent loads your memory (decisions, lessons, recent episodes) first. `node Tools/3lm.js threads --list` shows any open context instances.
 
 ---
@@ -100,13 +98,13 @@ A **thread is a lane; an instance is a window.** Four lanes keep parallel agent 
 
 ## 🚀 Your First 5 Minutes
 
-| Step |         Obsidian User         |                    Pattern-Only User                     |
-| ---- | :---------------------------: | :------------------------------------------------------: |
-| 1    | Open outer folder in Obsidian |                 Open `Prompt Patterns/`                  |
-| 2    |         Trust plugins         |        Copy `📄 Pattern - Tasklist Generation.md`        |
-| 3    |        Click 🚀 Start         |                    Paste into AI chat                    |
-| 4    |     Fill mission + tasks      |                Paste your raw to-do list                 |
-| 5    |      Work. Click 🏁 End.      | Execute — get structured tasklist with roles + durations |
+| Step |         Obsidian User         |                       Command User                       |
+| ---- | :---------------------------: | :-----------------------------------------------------: |
+| 1    | Open outer folder in Obsidian |        Type `AI-Suplex: Tasklist Generation`            |
+| 2    |         Trust plugins         |              Paste your raw to-do list                  |
+| 3    |        Click 🚀 Start         |                  Execute the command                    |
+| 4    |     Fill mission + tasks      |    Get structured tasklist (roles + durations)          |
+| 5    |      Work. Click 🏁 End.      |    Follow the next commands (Session Start → …)         |
 
 **You just completed the AI-Suplex pipeline.** From raw input to structured output in one cycle.
 
