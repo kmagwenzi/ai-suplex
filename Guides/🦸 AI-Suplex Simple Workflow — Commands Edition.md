@@ -1,4 +1,4 @@
-			# AI-Suplex Simple Workflow — Commands Edition
+# AI-Suplex Simple Workflow — Commands Edition
 
 **TWABAM ⚡!** This is the **AI Chat / AI Agent Assisted workflow** — type `AI-Suplex: <Command>` into any AI chat. The command loads the pattern and runs it. No Obsidian macros needed.
 
