@@ -12,15 +12,15 @@
 
 ## ⚡ Command shortcuts (the fast path)
 
-| Step                        | Command                                                              |
-| --------------------------- | -------------------------------------------------------------------- |
-| Tasklist                    | `AI-Suplex: Tasklist Generation`                                     |
-| Session Start               | `AI-Suplex: Session Start`                                           |
+| Step | Command |
+|---|---|
+| Tasklist | `AI-Suplex: Tasklist Generation` |
+| Session Start | `AI-Suplex: Session Start` |
 | Artifact / Insight / B-Bomb | `AI-Suplex: Artifact Capture` · `Batch Insight` · `B-Bomb Promotion` |
-| Session End                 | `AI-Suplex: Session End Report`                                      |
-| Weekly Plan                 | `AI-Suplex: Weekly Plan`                                             |
-| Weekly Review               | `AI-Suplex: Weekly Review`                                           |
-| Save Context                | `AI-Suplex: Save Context`                                            |
+| Session End | `AI-Suplex: Session End Report` |
+| Weekly Plan | `AI-Suplex: Weekly Plan` |
+| Weekly Review | `AI-Suplex: Weekly Review` |
+| Save Context | `AI-Suplex: Save Context` |
 
 Each command wraps a pattern — the pattern is the library underneath, one folder down in `Prompt Patterns/`.
 
