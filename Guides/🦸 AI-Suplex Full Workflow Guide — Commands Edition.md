@@ -49,12 +49,14 @@ AI-Suplex: Kickstart
 
 ### STEP 0a — CYCLE PLAN: Map the 7 Weeks *(once per cycle)*
 
-**Command:** *pending — cycle planning is pattern-only for now.*
+**Command:** `AI-Suplex: Cycle Plan`
 
 ```
-📄 Pattern - Cycle Plan Generation   ← until a command ships, use the pattern
+AI-Suplex: Cycle Plan
 CONTENT
   - Raw Content: <your 7-week goals and focus areas>
+
+ADDITIONAL: Save to Plans/<Period>/Cycle X/Cycle X Plan.md
 ```
 
 **Output:** a 7-week roadmap — milestones per week, focus allocation, success metrics → save to `Plans/<Period>/Cycle X/Cycle X Plan.md`.
@@ -230,7 +232,7 @@ CONTENT
 | I want to... | Command |
 |---|---|
 | Load my context before working | `AI-Suplex: Kickstart` |
-| Map a 7-week cycle | *pattern-only — command pending* |
+| Map a 7-week cycle | `AI-Suplex: Cycle Plan` |
 | Plan this week's work | `AI-Suplex: Weekly Plan` |
 | Generate a session tasklist | `AI-Suplex: Tasklist Generation` |
 | Start a focused session | `AI-Suplex: Session Start` |

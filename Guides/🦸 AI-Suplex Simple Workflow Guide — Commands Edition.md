@@ -146,8 +146,8 @@ Every step is a one-line command. No Obsidian required. No macros. Just AI chat.
 
 ## What's Next?
 
-- **Cycle Plan:** 7-week strategic roadmap *(pattern-only — command pending)*
-- **Cycle Review:** end-of-cycle analysis *(pattern-only — command pending)*
+- **Cycle Plan:** `AI-Suplex: Cycle Plan` — 7-week strategic roadmap
+- **Cycle Review:** `AI-Suplex: Cycle Review` — end-of-cycle analysis
 - **Full Guides:** See `AI-Suplex Kick-start/The AI-Suplex Workflow Pipeline.md` and `Guides/🦸 AI-Suplex Full Workflow Guide.md` for the full pipeline and the macro-powered version
 
 ---

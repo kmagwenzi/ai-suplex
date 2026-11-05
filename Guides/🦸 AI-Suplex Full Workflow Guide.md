@@ -56,12 +56,12 @@ CYCLE PLAN  →  WEEKLY PLAN  →  TASKLIST  →  START  →  EXECUTE  →  CAPT
 
 ### STEP 0a — CYCLE PLAN: Map the 7 Weeks (Every Cycle)
 
-**Tool:** Prompt Pattern  
-**Pattern:** `📄 Pattern - Cycle Plan Generation` *(pattern-only)*  
+**Tool:** AI-Suplex Command  
+**Command:** `AI-Suplex: Cycle Plan`  
 **Saves to:** `Plans/<Period>/Cycle X/Cycle X Plan.md`
 
 1. Run 📁 **Ensure (Cycle)** to create `Plans/<Period>/Cycle X/` and all 7 weekly plan folders
-2. Use `📄 Pattern - Cycle Plan Generation` *(pattern-only — no command yet)*
+2. Type `AI-Suplex: Cycle Plan`
 3. Paste into AI chat with your cycle goals and context
 4. The AI returns a 7-week breakdown with milestones per week, focus area allocation, and success metrics
 5. Save to `Plans/<Period>/Cycle X/Cycle X Plan.md`
@@ -311,11 +311,11 @@ Sunday    — Rest or light work
 
 **Start of Cycle (every 7 weeks):**
 - 📁 **Ensure (Cycle)** — creates all cycle + weekly plan folders
-- `📄 Pattern - Cycle Plan Generation` *(pattern-only)* — map the 7 weeks ahead → `Plans/<Period>/Cycle X/Cycle X Plan.md`
+- `AI-Suplex: Cycle Plan` — map the 7 weeks ahead → `Plans/<Period>/Cycle X/Cycle X Plan.md`
 
 **End of Cycle (every 7 weeks):**
 - 🔄 **Generate Cycle Review** — aggregates all cycle data
-- `📄 Pattern - Cycle Review Generation` *(pattern-only)* — AI-powered analysis of the full cycle
+- `AI-Suplex: Cycle Review` — AI-powered analysis of the full cycle
 - Run `3lm promote --min 70` — promote all remaining high-scoring lessons
 - `3lm index` — final memory refresh before the next cycle
 
@@ -325,7 +325,7 @@ Sunday    — Rest or light work
 
 | I want to... | Use this |
 |---|---|
-| Map a 7-week cycle | `📄 Pattern - Cycle Plan Generation` *(pattern-only)* → `Plans/<Period>/Cycle X/Cycle X Plan.md` |
+| Map a 7-week cycle | `AI-Suplex: Cycle Plan` → `Plans/<Period>/Cycle X/Cycle X Plan.md` |
 | Plan this week's work | `AI-Suplex: Weekly Plan` → `Plans/<Period>/Cycle X/Week Y/` |
 | Generate a session tasklist | `AI-Suplex: Tasklist Generation` → `Tasklists/` |
 | Start a focused session | 🚀 **Start** (macro) or `AI-Suplex: Session Start` |
@@ -345,7 +345,7 @@ Sunday    — Rest or light work
 | Prepare data for AI review | 📊 **Aggregate Weekly Data** (macro) |
 | Generate a weekly report | 🔄 **Weekly Review** (macro) + `Orchestrator – Weekly Review` (skill) |
 | Set up folders for a new cycle | 📁 **Ensure (Cycle)** (macro) |
-| Review a completed cycle | 🔄 **Generate Review** (macro) + `📄 Pattern - Cycle Review Generation` *(pattern-only)* |
+| Review a completed cycle | 🔄 **Generate Review** (macro) + `AI-Suplex: Cycle Review` |
 
 ---
 

@@ -310,6 +310,114 @@ When a user sends a `<prompt-pattern>` block:
 
 > [!note] **Command-first onboarding:** New users start with a one-line `AI-Suplex: <Command>`, then graduate to the raw pattern when they want the exact block. When you see either, help users execute it to build confidence.
 
+## ⚡ AI-Suplex Commands (One-Line Pattern Triggers)
+
+**AI-Suplex Commands** are pre-parameterized invocations of Prompt Patterns. They work like function calls — pass CONTENT and ADDITIONAL instructions, and the AI executes the corresponding pattern immediately.
+
+### Syntax
+
+```
+AI-Suplex: <Command Name>
+CONTENT
+  - <Source type>: <value>
+
+ADDITIONAL: <instructions>
+```
+
+### How to Handle Commands
+
+When you see `AI-Suplex: <command>` followed by `CONTENT` and/or `ADDITIONAL`:
+
+1. **Load the Pattern** — Read `Prompt Patterns/📄 Pattern - <Name>.md` or `Prompt Patterns/AI-Suplex Commands/⚡ Command — <Name>.md`
+2. **Extract CONTENT** — Find the source material (Chat Reference, File Reference, Raw Content)
+3. **Extract ADDITIONAL** — Parse any post-generation instructions (save path, skip memory loop, etc.)
+4. **Execute the TASK** — Follow the pattern's TASK instructions exactly
+5. **Run MEMORY LOOP** — Unless ADDITIONAL says otherwise, run `3lm add-lessons --source <type> --ref <id> --list "..." && 3lm index`
+6. **Report** — Confirm output path and lessons extracted
+
+### Available Commands
+
+| Command                                    | Pattern                                                            | Role         |
+| ------------------------------------------ | ------------------------------------------------------------------ | ------------ |
+| `AI-Suplex: Artifact Capture`              | `AI-Suplex Commands/⚡ Command — Artifact Capture.md`               | Builder      |
+| `AI-Suplex: Artifact Capture(Scratch Pad)` | `AI-Suplex Commands/⚡ Command — Artifact Capture(Scratch Pad).md`  | Builder      |
+| `AI-Suplex: Artifact Capture(Markdown)`    | `AI-Suplex Commands/⚡ Command — Artifact Capture(Markdown).md`     | Builder      |
+| `AI-Suplex: Artifact Capture(file)`        | `AI-Suplex Commands/⚡ Command — Artifact Capture(Non Markdown).md` | Builder      |
+| `AI-Suplex: Artifact Capture(youtube)`     | `AI-Suplex Commands/⚡ Command — Artifact Capture (YouTube).md`     | Builder      |
+| `AI-Suplex: Kickstart`                 | `AI-Suplex Commands/⚡ Command — Kickstart.md`               | Builder      |
+| `AI-Suplex: Session End Report`            | `AI-Suplex Commands/⚡ Command — Session End Report.md`             | Architect    |
+| `AI-Suplex: Session Start`                 | `📄 Pattern - Session Start Prompt Generation.md`                  | Architect    |
+| `AI-Suplex: Save Context`                  | `AI-Suplex Commands/⚡ Command — Save Context.md`                   | Builder      |
+| `AI-Suplex: Tasklist Generation`           | `📄 Pattern - Tasklist Generation.md`                              | Orchestrator |
+| `AI-Suplex: Weekly Plan`                 | `AI-Suplex Commands/⚡ Command — Weekly Plan.md`                   | Orchestrator |
+| `AI-Suplex: Weekly Review`               | `AI-Suplex Commands/⚡ Command — Weekly Review.md`                 | Orchestrator |
+| `AI-Suplex: Cycle Plan`                  | `AI-Suplex Commands/⚡ Command — Cycle Plan.md`                    | Orchestrator |
+| `AI-Suplex: Cycle Review`                | `AI-Suplex Commands/⚡ Command — Cycle Review.md`                  | Orchestrator |
+| `AI-Suplex: B-Bomb Promotion`              | `📄 Pattern - B-Bomb Promotion.md`                                 | Builder      |
+| `AI-Suplex: Batch Insight`                 | `📄 Pattern - Batch Insight Generation.md`                         | Builder      |
+| `AI-Suplex: Note Capture`                 | `AI-Suplex Commands/⚡ Command — Note Capture.md`                 | Builder      |
+| `AI-Suplex: Outreach Capture`              | `AI-Suplex Commands/⚡ Command — Outreach Capture.md`              | Builder      |
+| `AI-Suplex: Deep Ultra Mode (Arcade)`      | `AI-Suplex Commands/⚡ Command — Deep Ultra Mode (Arcade).md`       | Builder      |
+| `AI-Suplex: Deep Ultra Mode (Operative)`   | `AI-Suplex Commands/⚡ Command — Deep Ultra Mode (Operative).md`    | Builder      |
+| `AI-Suplex: Deep Ultra Mode (Pro)`         | `AI-Suplex Commands/⚡ Command — Deep Ultra Mode (Pro).md`          | Builder      |
+
+> **Deep Ultra 🦸 Mode** — one mechanic, three voices (arcade 🎮 · operative 🕶️ default · pro 📋).
+> The **FINAL BOSS is the constant** across all three. Ultra-only — it never ships in the 777 production repo.
+> Deterministic runtime: `node Tools/deep-ultra.js latest --dry`. Guide: `Guides/Guide — Run Deep Ultra Mode.md`.
+
+### Source Types (CONTENT)
+
+- `Chat Reference: <description>` — Reference earlier conversation output
+- `File Reference: [[path/to/file]]` — Read a vault file
+- `Raw Content: <text>` — Inline content paste
+
+### Additional Instructions (ADDITIONAL)
+
+- `Save to <path>` — Custom save location
+- `Open in new tab` — Open result in editor
+- `Skip memory loop` — Don't run 3lm add-lessons/index
+- `Run <script>` — Execute a specific script after completion
+
+### ADDITIONAL with Script Execution
+
+If ADDITIONAL includes `Run <script>` or `run Tools/<script>`:
+- Execute the script after generating the output
+- Report script output alongside command result
+
+### Examples
+
+```
+AI-Suplex: Artifact Capture
+CONTENT
+  - Chat Reference: Previous conversation about Paynow integration
+
+ADDITIONAL: Save to Artifacts/<Period>/Cycle 1/Week 5/
+```
+
+```
+AI-Suplex: Session End Report
+CONTENT
+  - Raw Content: Session completed. Rating 5/5. 8 artifacts.
+
+ADDITIONAL: Run 3lm end → learn → index
+```
+
+```
+AI-Suplex: Artifact Capture(Scratch Pad)
+
+ADDITIONAL: Save to Artifacts/<Period>/Cycle 1/Week 5/
+```
+
+### Design Rules
+
+1. Commands are **call sites** — they reference but don't duplicate pattern definitions
+2. CONTENT is required (at least one source)
+3. ADDITIONAL is optional
+4. The AI loads the referenced Pattern file to execute correctly
+5. Memory loop runs by default unless explicitly skipped
+
+---
+
 ---
 
 ## 📝 Examples of AI Assistance

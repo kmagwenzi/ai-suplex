@@ -46,10 +46,12 @@ ADDITIONAL: <instructions>
 | `AI-Suplex: Session Start` | `📄 Pattern - Session Start Prompt Generation.md` | Architect | Session start prompt from tasklist |
 | `AI-Suplex: Save Context` | `⚡ Command — Save Context.md` | Builder | Thread-owned context file (`{prefix}cycle-X-week-Y-…`); archives only its own predecessor; AGENTS.md untouched unless the daily-tasks thread |
 | `AI-Suplex: Tasklist Generation` | `📄 Pattern - Tasklist Generation.md` | Orchestrator | Structured tasklist from to-dos |
-| `AI-Suplex: Weekly Review` | `📄 Pattern - Weekly Review Generation.md` | Orchestrator | Weekly review with metrics |
+| `AI-Suplex: Weekly Review` | `⚡ Command — Weekly Review.md` | Orchestrator | Weekly review with metrics |
 | `AI-Suplex: B-Bomb Promotion` | `📄 Pattern - B-Bomb Promotion.md` | Builder | B-Bomb from polished artifact |
 | `AI-Suplex: Batch Insight` | `📄 Pattern - Batch Insight Generation.md` | Builder | Batch insights from session data |
-| `AI-Suplex: Weekly Plan` | `📄 Pattern - Weekly Plan Generation.md` | Orchestrator | Weekly plan from cycle strategy |
+| `AI-Suplex: Weekly Plan` | `⚡ Command — Weekly Plan.md` | Orchestrator | Weekly plan from cycle strategy |
+| `AI-Suplex: Cycle Plan` | `⚡ Command — Cycle Plan.md` | Orchestrator | 7-week cycle plan (4 phases, financial forecast) |
+| `AI-Suplex: Cycle Review` | `⚡ Command — Cycle Review.md` | Orchestrator | End-of-cycle analysis feeding the next cycle |
 
 ## 🔧 Source Types (CONTENT)
 
