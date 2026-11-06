@@ -1,8 +1,8 @@
 ---
 type: guide
 title: "Guide — Context & Threads"
-version: 2.0
-date: 2026-10-16
+version: 3.0
+date: 2026-11-06
 edition: 7-7-7
 status: active
 cycle: 2
@@ -10,14 +10,14 @@ week: 7
 focus: ai-engineering
 tags: [guide, context, threads, instances, how-to, workflow, save-context, hustler, memory-loop, producer-committer]
 key_insights: "Pick a thread and an instance. Do the work. Save the instance context. Close it with a commit. The filename is the ownership. The commit is the closure. A cloud agent is a producer, never a committer."
-next_actions: "Use during the Weekly Reset and at every instance close; pair with Spec — Context & Threads.md for the rules."
+next_actions: "Use during the Weekly Reset and at every instance close; pair with Spec — Context & Threads.md (v2.3, R12) for the rules. Cheap close = leave a packet in Inbox/."
 ---
 
 # 🧵 Guide — Context & Threads
 
 **Practical level.** Follow it top to bottom; you do not need the theory.
 
-**Rules:** `AI-Suplex Kick-start/Spec — Context & Threads.md` (v2.0)
+**Rules:** `AI-Suplex Kick-start/Spec — Context & Threads.md` (v2.3, R12)
 **Canonical:** `AGENTS.md` → *Execution Threads (4)*
 
 ---
@@ -94,16 +94,27 @@ ADDITIONAL: <optional>
 | Append | **same instance** later save → append in place — no new file |
 | Archive | **on close** — only this instance's file → `Archived/{YYYY-MM-DD}-…` |
 | `AGENTS.md` | **only if `Thread: daily-tasks`** — otherwise unchanged |
+| Packet | **cheap close** — leave `Inbox/{YYYY-MM-DD}-{thread}-{ref}-{slug}.md`; the daily thread reconciles → `Consumed/` |
 
 **Bare invocation** → the assistant asks one question — *"Which instance is this context for?"* — and waits. Answer it; do not let it guess.
 
 > ⚠️ **`AGENTS.md` is refreshed by the daily-tasks thread alone.** If you are in any other thread, expect the line *"AGENTS.md unchanged (not the daily-tasks thread)."* That is correct behaviour, not a failure.
+
+**Cheap close — the close packet (Spec R12).** A lane that closed with terminal states and no open questions can leave a twelve-line **packet** instead of a full context file:
+
+1. **Leave** `Context Kick-start/Inbox/{YYYY-MM-DD}-{thread}-{ref}-{slug}.md` — fixed fields `TERMINAL` · `ARTIFACTS` · `AMC DELTA` · `OPEN`, no prose.
+2. The **daily thread reconciles** it at its next session start — applies the AMC delta *only after checking cross-lane truth* — and **consumes** it by moving it to `Consumed/`.
+3. The **Saturday review prunes** `Consumed/` packets older than the cycle.
+
+**Consume by move, never delete-on-read.** Two windows can read the same packet; only a move records that it was taken. A packet **proposes** the AMC delta — it never writes the AMC itself (R2).
 
 ---
 
 ## 4️⃣ Closing an instance
 
 **Writing the context file does not close the session. The commit does.**
+
+A lane that left a **close packet** (cheap close) has nothing more to do here — the daily thread files it. A lane that wrote a full context file still closes with the commit.
 
 ```
 AI-Suplex: Session End          ← writes the report (daily-tasks only)
@@ -161,6 +172,8 @@ node Tools/3lm.js sync "Session End — <thread>/<instance> — <focus>"   ← C
 | **Letting the Realist produce a tasklist** | It becomes a fourth content factory, not an audit | It **prescribes**; the Orchestrator produces |
 | **Branching the vault per instance** | Forks memory, the graph and the index into N partial truths | Partition **write-scope**, not the memory |
 | **Skipping the memory loop after a capture** | The learning never reaches memory — it stays in one file | Run `add-lessons` + `index` every time |
+| **Deleting a packet after reading it** | No trace of consumption; a later start re-applies it | Consume by **move** to `Consumed/`; prune only Saturday |
+| **A non-daily lane writing the AMC** | Two writers, one mission — the average is not a mission | A packet **proposes**; the daily thread reconciles |
 
 ---
 
@@ -172,6 +185,7 @@ node Tools/3lm.js threads --list                     # list open instances
 node Tools/3lm.js add-lessons --source artifact ...  # capture + memory loop
 node Tools/3lm.js index
 # AI-Suplex: Save Context  → Thread + Instance       # switch windows
+# …or cheap close → leave a packet in Inbox/           # R12 — the daily thread reconciles
 node Tools/3lm.js end && node Tools/3lm.js learn && node Tools/3lm.js index
 node Tools/3lm.js sync "Session End — <thread>/<instance>"   # close
 ```
@@ -180,7 +194,7 @@ node Tools/3lm.js sync "Session End — <thread>/<instance>"   # close
 
 ## 🔗 Related
 
-- `AI-Suplex Kick-start/Spec — Context & Threads.md` (v2.0) — the rules
+- `AI-Suplex Kick-start/Spec — Context & Threads.md` (v2.3) — the rules (R12 = the close packet)
 - `AGENTS.md` → *Execution Threads (4)* — canonical
 - `AI-Suplex: Save Context` (the command)
 - `AI-Suplex Kick-start/The Realist Persona/The Realist Persona.md`
@@ -188,3 +202,4 @@ node Tools/3lm.js sync "Session End — <thread>/<instance>"   # close
 
 ---
 *Guide v2.0 captured via AI-Suplex on 2026-10-16 (Cycle 2, Week 7). TWABAM ⚡*
+*Guide v3.0 (close-packet delta) via AI-Suplex on 2026-11-06 — Cycle 3, Week 3.*

@@ -19,7 +19,7 @@
  *   revise             Check contradictions, deprecate old rules
  *   index              Refresh memory/index.md
  *   status             Show memory/ folder stats
- *   threads            List instances (--list | --open | --stale) [--json] [--dir PATH] [--write] — Context & Threads v2.1
+ *   threads            List instances (--list | --open | --stale) [--json] [--dir PATH] [--write] — Context & Threads v2.3 (Inbox/Consumed are never instances)
  */
 
 const fs = require("fs");
@@ -60,16 +60,9 @@ function writeFile(filePath, content) {
   fs.writeFileSync(filePath, content);
 }
 
-function parseFrontmatter(content) {
-  const match = content.match(/^---\n([\s\S]*?)\n---/);
-  if (!match) return { data: {}, body: content };
-  const data = {};
-  match[1].split("\n").forEach((line) => {
-    const kv = line.match(/^(\w+):\s*(.+)/);
-    if (kv) data[kv[1]] = kv[2].trim();
-  });
-  return { data, body: content.slice(match[0].length).trim() };
-}
+// Frontmatter reader — extracted to lib/ so it is testable, and fixed to read
+// block lists (a report's key_insights used to be silently dropped).
+const { parseFrontmatter } = require("./lib/frontmatter");
 
 function getNow() {
   const d = new Date();
@@ -177,12 +170,25 @@ const CONTEXT_KICKSTART_ACTIVE = path.join(
   "Active",
 );
 
+// Close packets (Spec R12) live OUTSIDE the thread model. `Inbox/` and `Consumed/` are
+// siblings of `Active/` and hold no open instance, so they are never scanned. Keep them
+// out of the guard and the projection even if a future change widens a scan to the
+// parent `Context Kick-start/` directory.
+const NON_INSTANCE_DIRS = new Set(["Inbox", "Consumed"]);
+
 // Files that must stay fresh. maxDays defaults to the --stale-days flag (or 7).
 // `contentDate` (when present) overrides file mtime — used for docs whose
 // freshness lives in a section, not the file's last edit.
+// The graph DBs are Ultra — 777 must never warn about a file it will never own.
+// Watch them only when the Ultra graph tool is actually installed.
+const ULTRA_GRAPH = fs.existsSync(path.join(__dirname, "ultra", "knowledge-graph.js"));
 const STALENESS_WATCH = [
   { label: "Active Mission Context (live state)", file: "AI-Suplex Kick-start/Context Kick-start/Active Mission Context.md", contentDate: agentsMissionDate, fix: "refresh Active Mission Context.md (daily-tasks thread is the sole writer)" },
   { label: "vault-context.md (vault awareness)", file: "Memory/vault-context.md", fix: "node Tools/vault-index.js --current" },
+  ...(ULTRA_GRAPH ? [
+    { label: "Knowledge graph DB (full — knowledge-graph.db)", file: "Memory/knowledge-graph.db", fix: "node Tools/ultra/knowledge-graph.js --build" },
+    { label: "Knowledge graph DB (current — knowledge-graph-current.db)", file: "Memory/knowledge-graph-current.db", fix: "node Tools/ultra/knowledge-graph.js --build-current" },
+  ] : []),
   { label: "Memory index (index.md)", file: "Memory/index.md", fix: "node Tools/3lm.js index" },
   { label: "Lessons (lessons.md)", file: "Memory/lessons.md", maxDays: 14, fix: "node Tools/3lm.js promote --min 70" },
 ];
@@ -216,9 +222,12 @@ function humanAge(days) {
   return `${Math.round(days)}d`;
 }
 
-// Instance model — Context & Threads v2.1. An instance file is `{thread}-{ref}-{slug}.md`
+// Instance model — Context & Threads v2.3. An instance file is `{thread}-{ref}-{slug}.md`
 // (N lanes) or `{thread}.md` (daily-tasks / realist singletons). `_instances.md` is the
-// generated projection — never an instance, never a staleness target.
+// generated projection — never an instance, never a staleness target. Close packets live
+// in `Inbox/`/`Consumed/` (siblings of `Active/`, R12) and are never scanned here.
+// v2.1: lanes are plural (project-tasks · random-tasks). The legacy tokens stay in the
+// alternation FOREVER (spec R10) — dropping one shortens `threads --list` silently.
 const INSTANCE_RE = /^(daily-tasks|project-tasks|long-running-tasks|random-tasks|random-task|realist)-(\d+)-(.+)\.md$/;
 const SINGLETON_RE = /^(daily-tasks|realist)\.md$/;
 
@@ -226,6 +235,7 @@ function collectInstances(dir) {
   const instances = [];
   const legacy = [];
   if (!fs.existsSync(dir)) return { instances, legacy };
+  if (NON_INSTANCE_DIRS.has(path.basename(dir))) return { instances, legacy }; // R12 — close packets are never instances
   let names;
   try {
     names = fs.readdirSync(dir);
@@ -312,7 +322,7 @@ function renderProjection(dir, instances, legacy) {
   if (legacy.length > 0) {
     lines.push("", `> ⚠️ **Legacy (old-shape) files** — archive on close: ${legacy.join(", ")}`);
   }
-  lines.push("", "---", "", "*Regenerated at every instance open/close. See `Spec — Context & Threads.md` v2.0 §5.*");
+  lines.push("", "---", "", "*Regenerated at every instance open/close. See `Spec — Context & Threads.md` v2.3 §5.*");
   return lines.join("\n") + "\n";
 }
 
@@ -442,9 +452,8 @@ function cmdStart() {
     }
   }
 
-  // 0.5 — Skill & tool router (Ultra hook, recommend-only). router.js is a shim in the
-  // dev vault and absent in 777 — the existsSync guard below skips this cleanly.
-  const routerJs = path.join(__dirname, "router.js");
+  // 0.5 — Skill & tool router (recommend-only, Phase 0). Injects a ranked hint; runs nothing.
+  const routerJs = path.join(__dirname, "ultra", "router.js");
   const skillIndex = path.join(__dirname, "..", "Skills", "index.json");
   if (genContext && fs.existsSync(routerJs) && fs.existsSync(skillIndex)) {
     try {

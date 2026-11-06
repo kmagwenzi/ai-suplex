@@ -1,12 +1,12 @@
 ---
 title: "Pattern - Save Context"
 date: 2026-06-22
-revised: 2026-10-16
-version: 3.0
+revised: 2026-11-06
+version: 4.0
 tags: [pattern, save-context, builder, memory, multi-thread, instances, writer-class, producer-committer, context]
 ---
 
-# AI-Suplex Prompt Pattern — Save Context (v3 · instance-scoped)
+# AI-Suplex Prompt Pattern — Save Context (v4 · instance-scoped · close-packet)
 
 > **v2 (2026-09-23):** context files became **per-thread** — four threads, four prefixed files.
 >
@@ -18,11 +18,11 @@ tags: [pattern, save-context, builder, memory, multi-thread, instances, writer-c
 > Now **append is scoped to the instance** — a new window is a new file. Adds a **writer class**
 > (producer/committer) so cloud agents (Cloudroom) never fork the one memory.
 >
-> **Canonical:** `AI-Suplex Kick-start/Spec — Context & Threads.md` (v2.1).
+> **Canonical:** `AI-Suplex Kick-start/Spec — Context & Threads.md` (v2.3).
 >
 > **v2.1 — plural lanes:** `project-tasks` (was `long-running-tasks`) · `random-tasks` (was `random-task`). **Legacy prefixes parse forever** — never write one, never rename an archived file (spec R10).
-
----
+>
+> **v4 (2026-11-06):** a closing lane may leave a **close packet** in `Context Kick-start/Inbox/` instead of a full context file. The daily-tasks thread **reconciles** the packet into the Active Mission Context and **consumes** it (move to `Consumed/`). The packet **proposes** — the AMC keeps one writer. See Spec R12.
 
 ## 🧵 Threads and instances
 
@@ -43,6 +43,7 @@ tags: [pattern, save-context, builder, memory, multi-thread, instances, writer-c
    instance of the same thread.
 2. **The Active Mission Context has one writer — the daily-tasks thread** (`AI-Suplex Kick-start/Context Kick-start/Active Mission Context.md`). Every other thread states *"AGENTS.md unchanged."*
 3. **A session is closed by the commit, not the file.** Only **committers** run `3lm sync` (one at a time).
+4. **A lane may close with a packet instead of a file.** Leave a close packet in `Inbox/`; the daily thread reconciles it into the AMC and files the instance (Spec R12). The packet **proposes**; it never writes the AMC.
 
 ### Filenames
 
@@ -93,15 +94,16 @@ ADDITIONAL: <optional>
 <prompt-pattern>
   <meta>
     <name>Save Context</name>
-    <version>3.0</version>
+    <version>4.0</version>
     <author>AI-Suplex</author>
     <role>Builder</role>
     <skill>Builder – Save Context</skill>
   </meta>
 
   <description>
-    Summarize THIS instance’s context, write it to an instance-scoped file, and archive only this
-    instance’s file on close. Prevents collisions when N windows run in parallel across threads.
+    Summarize THIS instance’s context and persist it either as an instance-scoped file (archive on
+    close) or as a close packet in Inbox/ for the daily thread to reconcile (Spec R12). Prevents
+    collisions when N windows run in parallel across threads.
   </description>
 
   <task>
@@ -113,17 +115,20 @@ ADDITIONAL: <optional>
     1. WRITE the summary to:
        - N lanes:  `Context Kick-start/Active/{thread}-{ref}-{slug}.md`
        - singleton: `Context Kick-start/Active/{thread}.md`
-    2. APPEND vs ARCHIVE — instance-scoped:
+    2. APPEND vs ARCHIVE vs PACKET — instance-scoped:
        - OPEN window → create the file (allocating {ref} per the day) with status: open.
        - SAME instance, later save → APPEND/UPDATE in place. Do NOT create a second file.
-       - CLOSE window → set status: closed, move to `Archived/{YYYY-MM-DD}-{thread}-{ref}-{slug}.md`.
+       - CLOSE window → two legal closes:
+           · full close → set status: closed, move to `Archived/{YYYY-MM-DD}-{thread}-{ref}-{slug}.md`.
+           · cheap close → leave a CLOSE PACKET at `Context Kick-start/Inbox/{YYYY-MM-DD}-{thread}-{ref}-{slug}.md`
+             (packet template below); the daily thread reconciles and files the instance (Spec R12).
        ⚠️ NEVER touch another instance’s file — even within the same thread.
     3. WRITER CLASS — record it, and obey it:
        - producer: writes only this instance file + artifacts; NEVER Memory/, AGENTS.md, B-Bombs/, sync.
        - committer: may write Memory/ and run `3lm sync` — serialized, one at a time.
     4. AGENTS.md — ONLY if thread = daily-tasks: refresh the Active Mission Context.
        For any other thread: state "AGENTS.md unchanged (not the daily-tasks thread)."
-    5. CONFIRM: the file written · the file archived (if close) · whether AGENTS.md changed.
+    5. CONFIRM: the file written (or packet left) · the file archived (if full close) · whether AGENTS.md changed.
 
     Use this template:
 
@@ -187,6 +192,32 @@ ADDITIONAL: <optional>
 
     *Context generated via AI-Suplex on YYYY-MM-DD — instance: {thread}-{ref}-{slug}*
     ```
+
+    CLOSE PACKET (cheap close — the twelve-line alternative to the full file above):
+
+    ```markdown
+    ---
+    lane: random-tasks/1
+    slug: quick-wins
+    writer: committer
+    closed: 2026-11-05T20:40
+    tasklist: Tasklists/Active/2026-10-21-random-tasks-quick-wins-....md → completed
+    ---
+
+    TERMINAL: SUBMITTED — Google for Startups Cloud Program (decision 10–12 Nov)
+    TERMINAL: CLEARED — mail-host blocker (MX on Zoho, verified)
+    ARTIFACTS: 2026-11-05-2022-linkedin-post-cover-... · 2026-11-04-1135-linkedin-post-...
+
+    AMC DELTA (proposal — the daily thread reconciles, it does not paste)
+    - Blockers: remove "Google credits not captured"; add "credits decision due 10–12 Nov"
+    - Threads open: 5 → 4
+    - Next actions: add "post LinkedIn + reply 2h" before "credits decision"
+    - Counter: unchanged (25)
+
+    OPEN: DKIM absent · Interledger closes 11 Nov · accelerator answer unrecorded
+    ```
+
+    A packet is consumed by a MOVE to `Context Kick-start/Consumed/`, never by deletion; prune only at the Saturday review (Spec R12).
   </task>
 
   <memory-loop>
@@ -199,6 +230,8 @@ ADDITIONAL: <optional>
     - The filename MUST carry the thread prefix + instance — that is what prevents collisions
     - Archive ONLY your own instance’s file, on close
     - A producer never writes Memory/, AGENTS.md, or B-Bombs/ — a committer lands it
+    - A close packet PROPOSES the AMC delta; only daily-tasks writes the AMC (R2, R12)
+    - Consume packets by MOVE, never by delete-on-read; prune only at the Saturday review (R12)
     - Only daily-tasks touches AGENTS.md
     - Always include task IDs for traceability
     - Name terminal states explicitly — "ready" is not a state
@@ -227,6 +260,11 @@ Next: create the ai-suplex Hermes profile
 - Archived → **this instance’s** previous file only (on close, dated)
 - `AGENTS.md unchanged (not the daily-tasks thread).`
 
+**Cheap close (packet):**
+- Left → `Inbox/2026-11-05-project-tasks-1-777-production-push.md` (twelve lines, AMC DELTA)
+- The daily thread reconciles it into the AMC and moves it to `Consumed/`
+- `AGENTS.md unchanged (not the daily-tasks thread).`
+
 ---
 
 ## 🌍 Why this is better than one shared brief
@@ -243,11 +281,12 @@ owns only its own file, never the memory.**
 
 ## 🔗 Related
 
-- `AI-Suplex Kick-start/Spec — Context & Threads.md` (v2.1) — the canonical rules
+- `AI-Suplex Kick-start/Spec — Context & Threads.md` (v2.3) — the canonical rules (R12 = the close packet)
 - `Prompt Patterns/📄 Pattern - Kickstart.md` — the loader (instance resolution)
 - `Prompt Patterns/📄 Pattern - Session End Report.md` — run `3lm sync` after
 - `Prompt Patterns/📄 Pattern - Realist Thread (Execution Audit).md` — the `realist` thread
-- `AI-Suplex Kick-start/Context Kick-start/` — the Active / Archived folders
+- `AI-Suplex Kick-start/Context Kick-start/` — the Active / Archived / Inbox / Consumed folders
 
 ---
 *Pattern v3 captured via AI-Suplex on 2026-10-16 (Cycle 2, Week 7) — instance-scoped Save Context.*
+*Pattern v4 (close-packet delta) via AI-Suplex on 2026-11-06 — Cycle 3, Week 3.*

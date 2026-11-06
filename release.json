@@ -1,5 +1,5 @@
 {
-  "version": "2.8.0",
+  "version": "2.9.0",
   "edition": "777",
   "note": "release.json — the build manifest for AI-Suplex 777 (the free framework). Truth flows one way: dev vault → this repo → editions. Spec: AI-Suplex Kick-start/Spec — Production & Editions.md §5.",
   "include": [

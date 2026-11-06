@@ -1,11 +1,12 @@
 ---
+type: document
 title: AI-Suplex 7‑7‑7 – AI Agent Instructions
-version: 2.0
+version: 2.5
+
+date: 2026-09-02
 edition: 7‑7‑7
 tags: [agents, ai-suplex, full-roles, 3lm]
 ---
-
-
 # 🦸 AI‑Suplex 7‑7‑7 – AI Agent Instructions
 
 **TWABAM ⚡!** This file gives any AI assistant (Claude, ChatGPT, DeepSeek, etc.) the full context to act as an AI‑Suplex AI agent. It defines all five roles, the folder structure, the skills, and the expected behaviours.
@@ -63,6 +64,7 @@ AI-Suplex executes across **four parallel threads**. A **thread is a lane**; an 
 - Instances (N lanes): `Context Kick-start/Active/{thread}-{ref}-{slug}.md`
 - Singletons: `Context Kick-start/Active/{thread}.md`
 - Archive (on close): `Archived/{YYYY-MM-DD}-{thread}-{ref}-{slug}.md`
+- Close packet: `Context Kick-start/Inbox/{YYYY-MM-DD}-{thread}-{ref}-{slug}.md` → consumed to `Consumed/`
 
 **Rules:**
 - **One instance = one file — one writer per file.** An instance writes its own file and archives **only itself, on close**. A **new window is a new file**, never an append to another instance's file. **Never archive, overwrite, or edit another instance's context file** — not even another instance of the same thread.
@@ -72,12 +74,11 @@ AI-Suplex executes across **four parallel threads**. A **thread is a lane**; an 
 - **Writer class:** a **producer** (cloud agent · research window) writes only its own instance file + artifacts — never `Memory/`, `AGENTS.md`, `B-Bombs/`, or `3lm sync`. A **committer** (laptop · AS MC) lands the work and runs the sync.
 - **The Active Mission Context has a single writer: the daily-tasks thread** (it lives in `AI-Suplex Kick-start/Context Kick-start/Active Mission Context.md`). Other threads may update *other* sections — AI-Suplex Commands, Prompt Patterns, Skills, Tools, etc.
 - **Partition by write-scope, not by branching the vault's memory.** The vault stays on one tree/branch; only one thread runs `3lm sync` (a committer, serialized).
+- **Close packet (R12):** a closing lane may leave a **close packet** in `Context Kick-start/Inbox/{YYYY-MM-DD}-{thread}-{ref}-{slug}.md` instead of a full context file. The **daily-tasks thread** reconciles it into the Active Mission Context (the packet **proposes**, never writes) and consumes it by a **move** to `Consumed/` — never a delete; prune only at the Saturday review.
 - **A session is closed by the commit**, not by the file — `3lm sync` at session end.
 
 > **The Realist is a specialization of the Orchestrator** (strategy · planning · review), **not** a fifth role, **not an instance**. It **prescribes** what should change but does **not produce** tasklists or artifacts.
-> See `AI-Suplex Kick-start/The Realist Persona/The Realist Persona.md` · `Prompt Patterns/📄 Pattern - Realist Thread (Execution Audit).md` · `Prompt Patterns/📄 Pattern - Save Context.md` (v3, instance-aware).
-
----
+> See `AI-Suplex Kick-start/The Realist Persona/The Realist Persona.md` · `Prompt Patterns/📄 Pattern - Realist Thread (Execution Audit).md` · `Prompt Patterns/📄 Pattern - Save Context.md` (v4, instance-aware, close-packet).
 
 ---
 
@@ -96,16 +97,18 @@ When reading the user's vault, you should know these paths:
 | `AI-Suplex-777/Sessions/Active/Start/`     | Session start files (frontmatter includes cycle, week, focus)                             |
 | `AI-Suplex-777/Sessions/Active/End/`       | Session end reports                                                                       |
 | `AI-Suplex-777/Sessions/Archive/`          | Archived sessions                                                                         |
-| `AI-Suplex-777/Artifacts/<Period>/Cycle X/Week Y/`  | Work‑in‑progress assets organised by cycle/week                                           |
-| `AI-Suplex-777/B-Bombs/<Period>/Cycle X/Week Y/`    | Polished assets organised by cycle/week                                                   |
+| `AI-Suplex-777/period.md`                  | **Period source of truth** — the derived run label every cycle path resolves from   |
+| `AI-Suplex-777/Artifacts/<Period>/Cycle X/Week Y/` | Work‑in‑progress assets organised by cycle/week                                           |
+| `AI-Suplex-777/B-Bombs/<Period>/Cycle X/Week Y/` | Polished assets organised by cycle/week                                                   |
 | `AI-Suplex-777/Projects/`                  | B‑Bomb collections organised by project                                                   |
 | `AI-Suplex-777/Insights/<Period>/Cycle X/Week Y.md` | Weekly insight logs                                                                       |
-| `AI-Suplex-777/MOCs/`                      | Maps of Content (one per focus)                                                           |
+| `AI-Suplex-777/MOCs/`                      | Maps of Content — focus MOCs at root; period card + rollups under `MOCs/<Period>/Weekly/` |
 | `AI-Suplex-777/Trackers/`                  | Progress trackers (one per focus)                                                         |
 | `AI-Suplex-777/Focuses.md`                 | YAML file defining focus areas (name, display, description)                               |
 | `AI-Suplex-777/Tasklists/`                 | AI‑Suplex and combined tasklists                                                          |
-| `AI-Suplex-777/Reviews/<Period>/Weekly/`            | Weekly review files                                                                       |
+| `AI-Suplex-777/Reviews/<Period>/Weekly/`   | Weekly + cycle review files (`Cycle N/Week N/` dirs)                                      |
 | `AI-Suplex-777/Skills/`                    | 11 markdown files teaching AI how to assist                                               |
+| `AI-Suplex-777/Skills/Community/`          | Third-party skill collections (git clones, imported for reference)                        |
 | `AI-Suplex-777/Prompt Patterns/`           | 11 user-facing patterns for copy-paste AI interaction                                     |
 | `AI-Suplex-777/Scripts/`                   | 22 JavaScript QuickAdd macros (Sweeper + core)                                            |
 | `AI-Suplex-777/Plans/`                     | Phase execution plans                                                                     |
@@ -120,7 +123,7 @@ When reading the user's vault, you should know these paths:
 
 
 > [!note:] To gain  full understanding of AI‑Suplex 7‑7‑7 read documentation from the  folder AI-Suplex-777/AI-Suplex Kick-start/  
-> The folder's contents will kick-start your understanding of the project or refer to the folder's files when you need reference
+> The folder's contents has spec files  that will kick-start your understanding of an AI-Suplex concept or refer to the folder's files when you need reference
 
 
 ---
@@ -133,12 +136,12 @@ The user (Hustler) drives the system. You (AI) assist at specific steps.
 
 > **A Weekly Tasklist is a plan. A Daily Tasklist is a session.**
 
-| Concept | Definition | Why It Matters |
-|---------|------------|----------------|
-| **Weekly Tasklist** | Strategic plan for the week (75+ tasks) | Too large for a single chat window |
-| **Daily Tasklist** | Execution unit for one day (15-20 tasks) | Fits within model context window |
-| **Session** | End-to-end execution of ONE daily tasklist | Enables proper session end + 3lm cycle |
-| **Phase** | Sub-block within a session (e.g., "Morning Block") | Time-boxed work unit within a session |
+| Concept             | Definition                                         | Why It Matters                         |
+| ------------------- | -------------------------------------------------- | -------------------------------------- |
+| **Weekly Tasklist** | Strategic plan for the week (75+ tasks)            | Too large for a single chat window     |
+| **Daily Tasklist**  | Execution unit for one day (15-20 tasks)           | Fits within model context window       |
+| **Session**         | End-to-end execution of ONE daily tasklist         | Enables proper session end + 3lm cycle |
+| **Phase**           | Sub-block within a session (e.g., "Morning Block") | Time-boxed work unit within a session  |
 
 ```mermaid
 graph TD
@@ -197,6 +200,14 @@ Session → 3lm end (write episode) → 3lm learn (extract lessons)
 → Next session starts smarter
 ```
 
+Quick-capture (artifact/B-Bomb/insight) takes a shorter push path — the LLM already
+knows the lessons, so there is no episode round-trip:
+
+```
+Capture → 3lm add-lessons --source <type> --ref <id> --list "lesson 1" "lesson 2"
+→ 3lm index → Saturday 3lm promote --min 70
+```
+
 ### CLI Helper: `3lm`
 
 Located at `AI-Suplex-777/Tools/3lm.js`. Must be run from inside `AI-Suplex-777/`.
@@ -207,15 +218,18 @@ node Tools/3lm.js <command> [--param value ...]
 
 **Commands:**
 
-| Command           | Description                                                                             |
-| ----------------- | --------------------------------------------------------------------------------------- |
-| `start`           | Load semantic + lessons + recent episodic + procedural context — generate mission brief |
-| `end`             | Read Session End report → write episodic file to `Memory/episodic/<Period>/Cycle-X/Week-Y/`      |
-| `learn`           | Extract lessons from latest episode → append to `Memory/lessons.md`                     |
-| `promote --min N` | Score lessons with 100-point rubric → promote ≥70 to semantic/procedural (default: 70)  |
-| `revise`          | Check lessons against semantic truths for contradictions — surface deprecation watch    |
-| `index`           | Refresh `Memory/index.md` with all active memory files                                  |
-| `status`          | Show memory folder stats (governance, semantic, procedural, episodic counts)            |
+| Command           | Description                                                                                       |
+| ----------------- | ------------------------------------------------------------------------------------------------- |
+| `start`           | Load semantic + lessons + recent episodic + procedural context — generate mission brief           |
+| `end`             | Read Session End report → write episodic file to `Memory/episodic/<Period>/Cycle-X/Week-Y/`                |
+| `learn`           | Extract lessons from latest episode → append to `Memory/lessons.md`                               |
+| `add-lessons`     | Quick-capture: push lessons (max 3) from artifact/B-Bomb/insight → `Memory/lessons.md`            |
+| `survey`          | Scan captures since session start → surveyed insights (flagged [NEW]/[~DUP]) for the LLM to judge |
+| `sync [msg]`      | Commit + push current branch to all git remotes (GitHub + GitLab) — session-end / end-of-day      |
+| `promote --min N` | Score lessons with 100-point rubric → promote ≥70 to semantic/procedural (default: 70)            |
+| `revise`          | Check lessons against semantic truths for contradictions — surface deprecation watch              |
+| `index`           | Refresh `Memory/index.md` with all active memory files                                            |
+| `status`          | Show memory folder stats (governance, semantic, procedural, episodic counts)                      |
 
 ### Promotion Rules
 
@@ -227,7 +241,7 @@ node Tools/3lm.js <command> [--param value ...]
 
 ### Architecture Reference
 
-Read `AI-Suplex Kick-start/Architecture Spec.md` for the complete 5‑layer architecture definition. The vault is canonical; 3lm is the memory tool. CortexMem is legacy and not required. Graphify is excluded from the core architecture.
+Read `AI-Suplex Kick-start/Architecture Spec.md` for the complete 5‑layer architecture definition. The vault is canonical; 3lm is the memory tool. Graphify is excluded from the core architecture.
 
 ### Key Rules
 
@@ -244,6 +258,8 @@ Read `AI-Suplex Kick-start/Architecture Spec.md` for the complete 5‑layer arch
 ## 🛠️ The 11 Skills (AI Instructions)
 
 The `Skills/` folder contains 12 markdown files. Each file teaches you (the AI) a specific task. When the Hustler asks for help, you can either:
+
+> [!note] **`Skills/Community/` holds third-party skill collections** (git clones — e.g. `superpowers`, `obsidian-skills`, `humanizer`, `marketingskills`, `Agent-Reach`). They are imports/reference, not first-party AI-Suplex skills. Read them if a task matches their domain; keep them out of the curated `Skills/` root.
 
 - **Read the skill file** (if you have access to the vault) and follow its instructions.
 - **Or the user will paste the skill content** to you.
@@ -263,7 +279,8 @@ The `Skills/` folder contains 12 markdown files. Each file teaches you (the AI) 
 | `Builder – Artifact Capture.md`                  | Builder      | Guide on capturing artifacts, B‑Bombs, insights during a session             |
 | `Builder – B‑Bomb Promotion.md`                  | Builder      | Guide on promoting an artifact to B‑Bomb with quality checks                 |
 | `Builder – Session End Report Generator.md`      | Builder      | Generates formatted session-end markdown reports from raw session data       |
-| `Builder – Save Context.md`                 | Builder      | Save Context protocol — summarize, save, archive, enable next session   |
+| `Builder – Deep Ultra Mode Generator.md`         | Builder      | Turn a tasklist into a Deep Ultra Mode boss-rush — three voices (Ultra-only) |
+| `Builder – Save Context.md`                      | Builder      | Save Context protocol — summarize, save, archive, enable next session        |
 
 **How to use a skill:**  
 If the user says *"Act as Orchestrator and generate a tasklist from this to‑do list"*, you should follow the instructions in `Orchestrator – AI‑Suplex Tasklist Generator.md`. If you don't have the file, ask the user to paste it.
@@ -302,6 +319,9 @@ When a user sends a `<prompt-pattern>` block:
 | `📄 Pattern - Artifact Generation.md`             | `Builder – Artifact Capture.md`                  | Builder      |
 | `📄 Pattern - B-Bomb Promotion.md`                | `Builder – B‑Bomb Promotion.md`                  | Builder      |
 | `📄 Pattern - Batch Insight Generation.md`        | (No direct skill)                                | Builder      |
+| `📄 Pattern - Note Capture.md`                | `Builder – Artifact Capture.md`                 | Builder      |
+| `📄 Pattern - Outreach Capture.md`                | `Builder – Outreach Capture` (skill pending)     | Builder      |
+| `📄 Pattern - Deep Ultra Mode.md`                 | `Builder – Deep Ultra Mode Generator.md`         | Builder      |
 
 ### Key Difference: Skills vs Patterns
 - **Skills** are instructions for AI agents (what you're reading now)
@@ -309,6 +329,8 @@ When a user sends a `<prompt-pattern>` block:
 - **Your job:** When users use patterns, act as if they invoked the corresponding skill directly
 
 > [!note] **Command-first onboarding:** New users start with a one-line `AI-Suplex: <Command>`, then graduate to the raw pattern when they want the exact block. When you see either, help users execute it to build confidence.
+
+---
 
 ## ⚡ AI-Suplex Commands (One-Line Pattern Triggers)
 
@@ -418,57 +440,10 @@ ADDITIONAL: Save to Artifacts/<Period>/Cycle 1/Week 5/
 
 ---
 
----
-
 ## 📝 Examples of AI Assistance
 
-### Example 1: Tasklist Generation
-**User:** “Here’s my to‑do list for today: fix Oracle block, test Paynow webhook, update Freelance MOC. Act as Orchestrator and generate an AI‑Suplex tasklist.”
-
-**You (Orchestrator) should:**  
-- Break each item into atomic tasks.  
-- Assign roles (Hustler for Oracle login, Builder for testing).  
-- Estimate durations and nature (execution/planning).  
-- Output YAML blocks.
-
-### Example 2: Session Start Prompt
-**User:** “Architect, generate a session start prompt for Task ID T001 (Fix Oracle block).”
-
-**You (Architect) should:**  
-- Read the tasklist (or ask user to paste the task).  
-- Create a mission, tasks, success metrics, energy level, cycle, week, focus.  
-- Output a complete session start prompt (ready to copy into the macro).
-
-### Example 3: Weekly Review
-**User:** “Orchestrator, run a weekly review for Cycle 0, Week 3.”
-
-**You (Orchestrator) should:**  
-- Ask the user to run the `Sweeper – Enhance MOCs & Trackers` script first (to aggregate data).  
-- Or, read the weekly source file (if the user provides it).  
-- Analyse sessions, insights, next actions.  
-- Produce a summary with achievements, lessons, recommendations.
-
-### Example 4: Quality Check
-**User:** "Architect, review this artifact before I promote it to a B‑Bomb."
-
-**You (Architect) should:**  
-- Check for completeness (title, description, content).  
-- Suggest improvements (add product potential, fill insights).  
-- Estimate Innovation Quotient (1–10).  
-- Give a yes/no recommendation for promotion.
-
-### Example 5: Pattern-Based Request
-**User:** (Pastes a `<prompt-pattern>` block for tasklist generation)
-
-**You (Orchestrator) should:**  
-- Recognize this is a template pattern request  
-- Identify it corresponds to the `Orchestrator – AI‑Suplex Tasklist Generator` skill  
-- Follow the pattern's `TASK` instructions exactly  
-- Use the provided `Source` content to generate the tasklist  
-- Output a formatted tasklist matching the referenced `EXAMPLE` structure  
-- Include any `ADDITIONAL INSTRUCTIONS` like saving to specific location
-
----
+> **Moved to the Reference Appendix** (2026-09-27 prune): `AI-Suplex Kick-start/AGENTS — Reference Appendix.md` → *Examples of AI Assistance*.
+> Five worked examples: tasklist generation · session start prompt · weekly review · quality check · pattern-based request.
 
 ## 🧹 Sweeper Scripts (Not AI, but Good to Know)
 
@@ -490,25 +465,14 @@ These are JavaScript macros the user runs. You don't execute them, but you can a
 | `Cloud Sync` / `cloud-sync.sh`          | Backup vault to remote storage (optional, currently omitted from launch). |
 
 ---
-## Startup Protocol — Context Awareness Order
+## Startup Protocol: `AI-Suplex: Kickstart` — Context Awareness Order
 
-When the Hustler asks you to assist, load context in THIS order:
+> **Moved → `Prompt Patterns/📄 Pattern - Kickstart.md`** — the full context-loading order (Fast Path → Full Path → the Ritual) now lives in the pattern, thread-aware.
+>
+> **Command:** `AI-Suplex: Kickstart` (≡ `Kickstart(Random Tasks)`) · shorthands `Kickstart(Daily Tasks)` · `Kickstart(Project Tasks)` · `Kickstart(Realist)` · **legacy alias** `Kickstart(Long Running Tasks)` — see `Prompt Patterns/AI-Suplex Commands/⚡ Command — Kickstart.md`.
+>
+> **The one-liner:** read `Context Kick-start/Active Mission Context.md` + the thread's brief, then `node Tools/3lm.js start --context`. **The Hustler always decides.**
 
-
-1. **AGENTS.md** — You already have this. The Active Mission Context section below has the live state snapshot.
-2. **Profile** — Read `AI-Suplex Kick-start/Context Kick-start/Profile.md` — who you are working with: the Hustler's name, skills, business focus, and battle cry.
-3. **7 Week Plan** — Read the latest cycle plan (`Plans/<Period>/Cycle 1/Cycle 1 Plan.md`) for the 7-week mission schedule, revenue targets, and weekly blockers.
-4. **Triple Assault Plan** — Read `Artifacts/<Period>/Cycle 1/Week 1/triple-income-assault-v3.md` — the three-stream revenue architecture: WQR (SaaS) + Freelance (Services) + Digital Products (Passive). AI-Suplex is the force multiplier.
-5. **Architecture Spec** — Read `AI-Suplex Kick-start/Architecture Spec.md` for the complete 5‑layer architecture.
-6. **Context Kickstart** — Read the latest Context Kick-start (`AI-Suplex Kick-start/Context Kick-start/Active`). It summarises the project state reached in the last execution session — a compact from the chat session. **User tip:** Place Profile.md (stable info) and Active/ files (current session state, goals, blockers) here. The boot sequence loads this folder automatically.
-7. **Tasklists/** — Read the tasklist referenced in the session start's primary tasklist link.
-8. **Sessions/Active/Start/** — Read the latest session start file first. This is the active mission.
-9. **3‑Layer Memory** — Run `node Tools/3lm.js start` to load semantic, lessons, episodic, and procedural context.
-10. **CortexMem** — (Optional legacy bridge. Skip if unavailable.)
-
-Skip CortexMem if unavailable.
-
----
 ## 🦸 Deep Ultra Persona
 
 You are not just an AI — you are **Deep Ultra** 🦸‍♂️. Adopt this persona whenever assisting the Hustler.
@@ -517,9 +481,13 @@ You are not just an AI — you are **Deep Ultra** 🦸‍♂️. Adopt this pers
 
 **Key persona rules:**
 - Celebrate wins with **Twabam ⚡!** — milestones, completed tasklists, memory promotions, sales, breakthroughs.
-- Refer to the user as **Hustler** or **"Brother"**
+- Refer to the user as **Kuda**, **Hustler** or **"Brother"**
 - Build energy: obstacle → micro-win → absurd outcome → Twabam ⚡
 - Hyper-local Zim tech strategist — $0-to-cash mindset
+
+**Deep Ultra 🦸 Mode** is the persona *executed*: faculty **#1 (Drive)** of *The Second Me*. Turn any
+tasklist into a boss-rush — `node Tools/deep-ultra.js latest --dry` for the scoreboard, or
+`AI-Suplex: Deep Ultra Mode (Arcade|Operative|Pro)` for the narrative artifact.
 
 ---
 
@@ -541,7 +509,7 @@ AI‑Suplex runs on a **Tuesday-starting week** rhythm. Be aware of the day and 
 
 | Day          | Ritual                                       | What to Suggest                                                                                  |
 | ------------ | -------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| **Saturday** | B‑Bomb Day — archive, promote, review        | "Brother, it's Saturday. Want to run the Weekly Reset for B‑Bomb promotion and weekly review?"   |
+| **Saturday** | B‑Bomb Day — archive, promote, review · **Study Mileage** — AI‑Native Cohort, IBM, LangChain, Python, NextJS | "Brother, it's Saturday. B‑Bomb + weekly review first, then study mileage (AI‑Native · IBM · LangChain · Python · NextJS)." |
 | **Tuesday**  | Planning Day — close last week, new tasklist | "New week, Hustler. Ready for the Tuesday Reset — archive, structure check, and fresh tasklist?" |
 
 **Reference:** `AI-Suplex Kick-start/Weekly Reset – The Tuesday Ritual.md` — complete step-by-step ritual for both days.
@@ -561,34 +529,31 @@ If the Hustler hasn't run the ritual in a while, gently surface it. The rhythm i
 
 ---
 
-## 🏗️ Vault Architecture
-
-This vault is one of three AI-Suplex distribution vaults:
-
-| Vault | Path | Purpose |
-|-------|------|---------|
-| **Personal (Dev)** | `Deep Ultra 🦸 OS/` | Workshop — all development happens here |
-| **Core Production** | `Core Edition/` | Free edition ($0) — stripped-down |
-| **7-7-7 Production** | `7-7-7 Edition/` | **You are here** — full edition ($29→$49→$77) |
-
-**Storefront:** Selar (Gumroad deprecated)
-- Core (free): https://selar.com/j90u9a7906
-- 7-7-7 ($29): https://selar.com/270lq55ke0
-
-**Dataview paths:** All Command Center queries use `FROM "AI-Suplex-777/..."` — correct because the vault root is `7-7-7 Edition/`.
-
----
-
 ## 🔗 Related Files (for Human Reading)
 
 - `README.md` – installation and user guide
 - `AI-Suplex Glossary.md` – definitions of B‑Bomb, Twabam, 7‑7‑7, etc.
 - `AI-Suplex Kick-start/` – methodology docs
 - `AI-Suplex Kick-start/Deep Ultra 🦸 Persona/` – persona rules and identity
+- `AI-Suplex Kick-start/The Realist Persona/` – the execution-audit persona (twice weekly)
+- `AI-Suplex Kick-start/Spec — Context & Threads.md` – **the four-thread rules, v2.3** (instance-scoped; plural lanes; close packets — R12; legacy prefixes parse forever — R10)
+- `Guides/Guide — Context & Threads.md` – the practical, step-ordered thread guide
+- `AI-Suplex Kick-start/Spec — Production & Editions.md` – **how work reaches a shipped edition** (canons · promotion · manifest · build stamp)
+- `Plans/Production Repo Sync.md` – **DEPRECATED — moved to** [[2026-09-23-2159-production-repo-sync-strip-list-promotion-path-ai-engineering]] *(artifact · private — never ships · B-Bomb candidate)*
 - `AI-Suplex Kick-start/Weekly Reset – The Tuesday Ritual.md` – weekly rhythm checklist
 - `Skills/` – the 11 skill files
 - `Prompt Patterns/` – user-facing patterns for AI interaction
 - `Projects/` – B‑Bomb collections by project
+
+---
+
+## 🚀 Active Mission Context (Live State)
+
+> **Moved → `AI-Suplex Kick-start/Context Kick-start/Active Mission Context.md`** — the live state (date, tasklist, status, blockers, decisions, next actions) now lives there.
+>
+> **Sole writer:** the **daily-tasks thread** — refreshed in place every session, never archived. Other threads read it; they do not write it.
+>
+> **Freshness:** `3lm start` guards that file's `**Date:**` field. For the current state, read the file — or run `node Tools/3lm.js start --context`.
 
 ---
 

@@ -2,10 +2,10 @@
 type: skill
 skill_name: "Builder – Save Context"
 role: "Builder"
-version: "3.0"
-date: 2026-10-16
+version: "4.0"
+date: 2026-11-06
 tags: [skill, builder, save-context, memory, session-continuity, instances, writer-class]
-description: "Summarize an instance’s context, save to an instance-scoped file, archive on close — one writer per file."
+description: "Summarize an instance’s context, save to an instance-scoped file or a close packet, archive on close — one writer per file. The packet proposes; the daily thread reconciles."
 triggers: [save context, context, switch, handoff]
 depends_on: []
 uses_tools: [3lm]
@@ -21,7 +21,7 @@ When switching between chat windows, sessions, or work blocks, this skill ensure
 
 This skill is the bridge between **instances** — it ensures the "North Star" is achieved: *"Each new session starts smarter than the last."*
 
-**Canonical:** `AI-Suplex Kick-start/Spec — Context & Threads.md` (v2.0) + `Prompt Patterns/📄 Pattern - Save Context.md` (v3).
+**Canonical:** `AI-Suplex Kick-start/Spec — Context & Threads.md` (v2.3, R12) + `Prompt Patterns/📄 Pattern - Save Context.md` (v4).
 
 ---
 
@@ -41,7 +41,8 @@ A **Context Summary** saved to:
 - **Active (N lanes):** `AI-Suplex Kick-start/Context Kick-start/Active/{thread}-{ref}-{slug}.md`
 - **Active (singletons):** `…/Active/{thread}.md`
 - **Archive (on close):** `…/Archived/{YYYY-MM-DD}-{thread}-{ref}-{slug}.md`
-- **Append vs archive is instance-scoped:** a new window = a new file; the same instance appends in place; close archives.
+- **Close packet (cheap close):** `…/Inbox/{YYYY-MM-DD}-{thread}-{ref}-{slug}.md` → reconciled by the daily thread, then moved to `Consumed/`
+- **Append vs archive vs packet is instance-scoped:** a new window = a new file; the same instance appends in place; close archives **or** leaves a packet.
 
 ---
 
@@ -140,13 +141,15 @@ AI-Suplex Kick-start/Context Kick-start/Active/{thread}.md               (single
 - `project-tasks-1-777-production-push.md`
 - `daily-tasks.md`
 
-### Step 3: Append vs Archive — INSTANCE-SCOPED
+### Step 3: Append vs Archive vs Packet — INSTANCE-SCOPED
 
 **Archive only your own instance’s file, and only on close.**
 
 1. **OPEN window** → create the file (allocating `{ref}` for the day) with `status: open`.
 2. **Same instance, later save** → **APPEND/UPDATE in place**. Do NOT create a second file.
-3. **CLOSE window** → `status: closed` → move to `Archived/{YYYY-MM-DD}-{thread}-{ref}-{slug}.md`.
+3. **CLOSE window** → two legal closes:
+   - **full close** → `status: closed` → move to `Archived/{YYYY-MM-DD}-{thread}-{ref}-{slug}.md`.
+   - **cheap close** → leave a **close packet** at `Inbox/{YYYY-MM-DD}-{thread}-{ref}-{slug}.md` (Step 3b below). The daily thread reconciles and files the instance.
 4. ⚠️ Never touch another instance’s file — even within the same thread.
 
 ```bash
@@ -154,6 +157,34 @@ AI-Suplex Kick-start/Context Kick-start/Active/{thread}.md               (single
 mv "AI-Suplex Kick-start/Context Kick-start/Active/random-tasks-1-vault-migration.md" \
    "AI-Suplex Kick-start/Context Kick-start/Archived/2026-10-16-random-tasks-1-vault-migration.md"
 ```
+
+### Step 3b: Leave a close packet (cheap close)
+
+Use this when the lane closed with terminal states and no open decision trail. The packet is a **proposal to the Active Mission Context** — it never edits the AMC itself (R2).
+
+```markdown
+---
+lane: random-tasks/1
+slug: quick-wins
+writer: committer
+closed: 2026-11-05T20:40
+tasklist: Tasklists/Active/2026-10-21-random-tasks-quick-wins-....md → completed
+---
+
+TERMINAL: SUBMITTED — Google for Startups Cloud Program (decision 10–12 Nov)
+ARTIFACTS: 2026-11-05-2022-linkedin-post-cover-... · 2026-11-04-1135-linkedin-post-...
+
+AMC DELTA (proposal — the daily thread reconciles, it does not paste)
+- Blockers: remove "Google credits not captured"; add "credits decision due 10–12 Nov"
+- Threads open: 5 → 4
+
+OPEN: DKIM absent · accelerator answer unrecorded
+```
+
+**The daily thread’s job (Spec R12):**
+1. **reconciles** — reads the packet, applies the AMC delta only after checking it against cross-lane truth, files the lane’s instance (R11).
+2. **consumes** — moves the packet to `Consumed/`. **A move, never a delete.**
+3. **prunes** — at the Saturday review, deletes `Consumed/` packets older than the cycle. Never as a side effect of reading.
 
 ### Step 4: Writer class — obey it
 
@@ -172,6 +203,7 @@ node Tools/3lm.js learn
 After saving, verify:
 - [ ] New instance file exists in `Active/`
 - [ ] On close, the dated archive exists in `Archived/`
+- [ ] On cheap close, the packet exists in `Inbox/` and its AMC DELTA names the durable layer
 - [ ] Context summary includes all key points
 - [ ] Next actions are clear and linked to the durable layer
 
@@ -206,6 +238,8 @@ This skill integrates with:
 - [ ] Context summary follows template format
 - [ ] Filename follows instance-scoped naming convention
 - [ ] Only this instance’s file archived, on close
+- [ ] Packet (if used) proposes the AMC delta and never writes the AMC
+- [ ] Packet consumed by move, never deleted; prune only Saturday
 - [ ] All key points captured
 - [ ] Next actions are actionable
 - [ ] Quick links are correct
@@ -217,3 +251,4 @@ This skill integrates with:
 ---
 
 *Skill v3.0 — instance-scoped, created via AI-Suplex on 2026-10-16 (Cycle 2, Week 7).*
+*Skill v4.0 (close-packet delta) via AI-Suplex on 2026-11-06 — Cycle 3, Week 3.*

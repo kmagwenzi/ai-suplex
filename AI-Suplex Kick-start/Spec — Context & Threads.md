@@ -1,22 +1,22 @@
 ---
 type: spec
 title: "Spec — Context & Threads"
-version: 2.1
+version: 2.3
 date: 2026-10-18
-revised: 2026-10-18
+revised: 2026-11-06
 edition: 7-7-7
 status: active
 cycle: 2
 week: 7
 focus: ai-engineering
-tags: [spec, context, threads, instances, parallelism, write-scope, producer-committer, cloudroom, as-mc, save-context, architecture]
-supersedes: "v1.0 (2026-09-23) — preserved in git history and summarised in §1"
-authority_note: "RATIFIED + CANONICAL 2026-10-16. The sweep (§9) landed; AGENTS.md -> Execution Threads (4) mirrors this spec exactly."
-key_insights: "Threads are lanes; instances are windows. project-tasks and random-tasks run N concurrent instances, each owning ONE ephemeral, instance-scoped context file; daily-tasks and realist stay single. The context file stops being memory and becomes a session slot — durable state lives in Memory/, Projects/*Spec.md and the project tasklist. A writer class (producer vs committer) lets Cloudroom cloud agents run against the vault without forking the one memory."
-next_actions: "v2.1 (2026-10-18): plural lane names (project-tasks · random-tasks) with legacy prefixes parsed forever. v2.0 landed 2026-10-16 and shipped to 777 as v2.7.0."
+tags: [spec, context, threads, instances, parallelism, write-scope, producer-committer, cloudroom, as-mc, save-context, architecture, close-packet, inbox, consumed]
+supersedes: "v2.2 (2026-11-03) — R11 the archive sweep. v1.0 (2026-09-23) — preserved in git history and summarised in §1"
+authority_note: "RATIFIED + CANONICAL 2026-10-16. The sweep (§9) landed; AGENTS.md -> Execution Threads (4) mirrors this spec exactly. v2.3 (2026-11-06): the close packet (R12) — a closing lane proposes; the daily thread reconciles and consumes."
+key_insights: "Threads are lanes; instances are windows. project-tasks and random-tasks run N concurrent instances, each owning ONE ephemeral, instance-scoped context file; daily-tasks and realist stay single. The context file stops being memory and becomes a session slot — durable state lives in Memory/, Projects/*Spec.md and the project tasklist. A writer class (producer vs committer) lets Cloudroom cloud agents run against the vault without forking the one memory. v2.3 adds the close packet: a closing lane may leave a twelve-line receipt in Inbox/ and let the daily-tasks thread reconcile it into the Active Mission Context, turning 'read a brief and guess' into 'apply a diff'."
+next_actions: "v2.3 (2026-11-06): R12 — the close packet (Inbox/ → Consumed/); R4 and R11 gain the packet path. v2.2 (2026-11-03): R11 — the archive sweep runs at daily-tasks session start, after the Live State refresh. v2.1 (2026-10-18): plural lane names (project-tasks · random-tasks) with legacy prefixes parsed forever. v2.0 landed 2026-10-16 and shipped to 777 as v2.7.0."
 ---
 
-# 🧵 Spec — Context & Threads (v2.0)
+# 🧵 Spec — Context & Threads (v2.3)
 
 **Definition-level.** The rules an agent must follow to run the thread model correctly — *without reading a chat log.*
 
@@ -28,6 +28,10 @@ next_actions: "v2.1 (2026-10-18): plural lane names (project-tasks · random-tas
 > This spec is **authoritative**; it mirrors `AGENTS.md` exactly. v1.0 (2026-09-23) is preserved in git history and summarised in §1.
 >
 > **v2.1 — 2026-10-18 (the pluralisation delta):** lanes are **plural nouns** — `project-tasks` (was `long-running-tasks`) and `random-tasks` (was `random-task`). **Both legacy prefixes parse forever** (R10); only new files take the new prefix. No structural change to the thread model.
+>
+> **v2.2 — 2026-11-03 (the sweep delta):** closing a lane is the **daily-tasks thread's** job, not the closing window's. R11 — the archive sweep runs at session start, after the Live State refresh.
+>
+> **v2.3 — 2026-11-06 (the close-packet delta):** a closing lane may leave a **close packet** in `Context Kick-start/Inbox/` instead of a full context file. The daily thread **reconciles** the packet into the Active Mission Context and **consumes** it (a move to `Consumed/`, never a delete). The packet **proposes** — the AMC keeps its single writer (R2). New rule **R12**; R4 and R11 gain the packet path.
 
 ---
 
@@ -37,6 +41,10 @@ next_actions: "v2.1 (2026-10-18): plural lane names (project-tasks · random-tas
 **v2.0:** **threads are lanes; instances are windows.** `project-tasks` and `random-tasks` run **N concurrent instances** — each owning **one ephemeral, instance-scoped context file**. `daily-tasks` and `realist` stay single.
 
 **v2.1:** **lanes are plural nouns.** `long-running-tasks` → **`project-tasks`**; `random-task` → **`random-tasks`**. Legacy prefixes are parsed forever, written never (R10).
+
+**v2.2:** the archive sweep belongs to the daily-tasks thread (R11).
+
+**v2.3:** a closing lane may leave a **close packet** in `Inbox/`; the daily thread reconciles and consumes it (R12).
 
 And the deeper shift: **the context file stops being memory.** It becomes a **session slot** — cheap, regenerable, archived on close. Durable state lives in `Memory/`, `Projects/*Spec.md`, and the project tasklist.
 
@@ -145,6 +153,8 @@ Context Kick-start/Active/
 
 The v2.1 "first save of the day archives, later saves append" rule is **retired.** Append is now scoped to the instance; a **new window is a new file**, not an append.
 
+**Two ways to close:** a lane may **archive its own file** on close (the table above), or leave a **close packet** in `Inbox/` and let the daily thread file the instance (R12). Both are legal — the packet is the **cheap close**, the file is the **full close**.
+
 ### R5 — Write-scope partitioning (one tree, one branch)
 
 **The vault stays on one tree and one branch.** Threads are partitioned by **write-scope**, not by branching the vault's memory.
@@ -220,11 +230,88 @@ A prefix rename is **additive**. The tooling accepts both tokens; only **new** f
 
 **Test the legacy path, not just the new one.** A migration that only asserts the new prefix proves nothing about the files it may have orphaned.
 
+### R11 — The archive sweep belongs to daily-tasks session start *(new in v2.2)*
+
+**A closed lane is archived by the daily-tasks thread at session start — not by the window that closed it.**
+
+| | |
+|---|---|
+| **What** | Move closed work out of the working set: **the tasklist and its related instance**, and **drain `Context Kick-start/Inbox/`** (R12 — reconcile each close packet into the AMC, then move it to `Consumed/`). Completed/closed tasklists `Tasklists/Active/` → `Tasklists/Archive/`; any `status: closed` instance file a window left in `Active/` → `Context Kick-start/Archived/` (a safety net for R4). |
+| **Pairing** | An instance's tasklist is matched by `instance_slug`. **Archive the related tasklist if it exists** — even when the instance is already archived (R4). A completed tasklist with no live instance is still sweepable on its own. |
+| **Who** | the **daily-tasks** thread — the only session thread. One sweeper, serialized (R6). |
+| **When** | **session start**, **after** the Live State refresh (the Active Mission Context read + `3lm start --context`), **before** the first work item. |
+| **Precondition** | the lane's work is **committed** and its tasklist is `status: completed` (or explicitly closed). **Never sweep an open lane.** |
+| **Idempotent** | re-running the sweep finds nothing; it never touches an open lane. |
+
+**The tasklist is half the lane.** A closed instance filed while its tasklist stays in `Active/` leaves a dead lane behind — the sweep always files the **related tasklist too, when one exists.**
+
+**Why deferral, not close-time archiving:** closing a lane should be cheap and should not require the closing window to know the archive rules. A **single, predictable** sweep keeps `Active/` meaning *"what ran since the last daily start"* — and avoids N windows performing partial archives. The closing window still **closes** (sets the tasklist `status: completed`); the daily start **files** it.
+
+> **Boundary with R4.** R4 governs an instance **context file** — it archives itself on close. R11 governs the **tasklist** (and any already-closed file left behind). They do not overlap: a tasklist is not "another instance's context file."
+
+> **Naming the state:** a lane is sweepable only when its tasklist is **`status: completed`**. "Ready", "reviewed", "looks done" are not states.
+
+### R12 — The close packet *(new in v2.3)*
+
+A closing lane may leave a **close packet** in `Context Kick-start/Inbox/` instead of writing a full context file. The packet is a **proposal to the Active Mission Context**; the daily-tasks thread is the one that **reconciles** it.
+
+| Folder | Purpose |
+|---|---|
+| `Context Kick-start/Inbox/` | close packets awaiting the daily-tasks thread |
+| `Context Kick-start/Consumed/` | applied packets, kept until the weekly prune |
+
+**Packet name:** `Inbox/{YYYY-MM-DD}-{thread}-{ref}-{slug}.md` — the date makes a stale packet obvious before anyone opens it.
+
+**The packet is a receipt, not a narrative.** Fixed fields, no prose:
+
+```markdown
+---
+lane: random-tasks/1
+slug: quick-wins
+writer: committer
+closed: 2026-11-05T20:40
+tasklist: Tasklists/Active/2026-10-21-random-tasks-quick-wins-....md → completed
+---
+
+TERMINAL: SUBMITTED — Google for Startups Cloud Program (decision 10–12 Nov)
+TERMINAL: CLEARED — mail-host blocker (MX on Zoho, verified)
+ARTIFACTS: 2026-11-05-2022-linkedin-post-cover-... · 2026-11-04-1135-linkedin-post-...
+
+AMC DELTA (proposal — the daily thread reconciles, it does not paste)
+- Blockers: remove "Google credits not captured"; add "credits decision due 10–12 Nov"
+- Threads open: 5 → 4
+- Next actions: add "post LinkedIn + reply 2h" before "credits decision"
+- Counter: unchanged (25)
+
+OPEN: DKIM absent · Interledger closes 11 Nov · accelerator answer unrecorded
+```
+
+**The three states:**
+
+| State | Actor | Action |
+|---|---|---|
+| **leaves** | the closing lane | writes the packet to `Inbox/`; sets its instance file `status: closed` (R4) |
+| **reconciles** | daily-tasks thread, at session start | reads the packet, applies the AMC delta **only after checking it against cross-lane truth**, then files the lane's instance (R11) |
+| **consumes** | daily-tasks thread, same session start | moves the packet to `Consumed/` |
+
+**Rules:**
+
+1. **A packet proposes; the daily thread writes.** The AMC has one writer (R2). The packet is the *input*; it never edits the AMC itself, even if the closing lane is a committer.
+2. **Consumption is a move, never a deletion.** Two windows can read the same packet; only a move records that it was taken. Delete-on-read leaves no trace.
+3. **Consumption is idempotent.** A daily start that already drained the inbox finds nothing — the move makes the second run a no-op.
+4. **Pruning is a reviewed act.** The Saturday review deletes `Consumed/` packets older than the cycle. Never delete as a side effect of reading.
+5. **The packet is disposable — its references are not.** `TERMINAL` and `ARTIFACTS` lines must name the durable layer (artifact / tasklist / spec). Artifacts keep their `instance:` frontmatter, so the packet can be pruned without orphaning evidence.
+6. **`Inbox/` and `Consumed/` are outside the thread model.** They hold no `status: open` instance, so `3lm threads --list` and the staleness guard ignore them. Only `Active/` counts.
+
+**When to packet vs. when to file:** a quick-wins lane that closed with terminal states and no open questions leaves a packet. A lane with a long, still-relevant decision trail writes the full context file and archives it (R4). The packet is the **cheap close**; the file is the **full close**.
+
+**Why a packet at all:** the AMC is written by the daily thread, but the daily thread has no reliable input from other lanes, so it infers. The packet turns "read a brief and guess" into "apply a diff" — in twelve lines instead of the five-section context file.
+
 ---
 
 ## 4 · The context file contract
 
-Produced by `Prompt Patterns/📄 Pattern - Save Context.md` (v3, instance-aware).
+Produced by `Prompt Patterns/📄 Pattern - Save Context.md` (v4, instance-aware, close-packet).
 
 **Frontmatter:**
 
@@ -266,6 +353,8 @@ parent: null                 # prior instance file when resumed
 >
 > ⚠️ **The projection is excluded from the staleness scan.** `3lm`'s guard takes the newest `.md` in `Active/` (`3lm.js:221–243`); a regenerated `_instances.md` would otherwise **mask a genuinely stale brief**. The builder must filter it (§9 #7). Selection globs (`{thread}-*`) already exclude it — only the guard needs the fix.
 
+**Close packets live outside the thread model.** `Context Kick-start/Inbox/` and `Context Kick-start/Consumed/` hold no open instance, so the projection (`threads --list`) and the staleness guard read **`Active/` only**. `3lm start --context` does not surface packets — the daily thread drains them explicitly at session start (R11/R12).
+
 **Kickstart resolution:**
 
 | Form | Behaviour |
@@ -293,6 +382,9 @@ parent: null                 # prior instance file when resumed
 | Two windows both claiming `ref 1` | No allocator | R9 |
 | "Done" that was never committed | Treating the file as closure | R6 |
 | The audit becoming a content factory | The Realist producing instead of prescribing | R7 |
+| A consumed packet re-applied on a later start | Delete-on-read leaves no trace of consumption | R12 |
+| A lane's delta silently overwriting AMC truth | The closing lane writing the AMC itself | R2, R12 |
+| A packet mistaken for an open instance | `Inbox/`/`Consumed/` read by the guard or the projection | R12 |
 
 ---
 
@@ -306,6 +398,7 @@ parent: null                 # prior instance file when resumed
 6. The Realist **prescribes**; the Orchestrator and Architect **produce**.
 7. A **producer** never writes `Memory/`; a **committer** lands it.
 8. **One file, one writer** — sections never span instances.
+9. A close packet is **consumed by a move**, never by deletion; pruning is a reviewed act (R12).
 
 ---
 
@@ -334,10 +427,28 @@ parent: null                 # prior instance file when resumed
 
 ---
 
+## 10 · The close-packet sweep — implementation plan (v2.3)
+
+> **Status: 🔄 in progress — 2026-11-06.**
+
+| # | Artifact | Change | Owner |
+|---|---|---|---|
+| 1 | `AI-Suplex Kick-start/Spec — Context & Threads.md` | **→ v2.3** — R12 + R4/R11 deltas + §5/§6/§7/§10 | Architect |
+| 2 | `Prompt Patterns/📄 Pattern - Save Context.md` | **→ v4** — close-packet path + packet template | Builder |
+| 3 | `Prompt Patterns/AI-Suplex Commands/⚡ Command — Save Context.md` | repair stale v2/R1–R7 text + packet path | Builder |
+| 4 | `Skills/Builder – Save Context.md` | **→ v4** — packet template + reconcile/consume/prune | Builder |
+| 5 | `Tools/3lm.js` | `threads --list` + staleness guard **ignore `Inbox/` and `Consumed/`** | Builder |
+| 6 | `AGENTS.md` → *Execution Threads (4)* | mirror R12 | daily-tasks thread |
+| 7 | `Guides/Guide — Context & Threads.md` | packet walkthrough | Builder |
+
+**Migration note:** no retro-split. Existing `Archived/` files stay as they are; packets are written going forward. The reference packet is `random-tasks/1` (2026-11-05, Google credits + LinkedIn launch).
+
+---
+
 ## 🔗 Related
 
 - `AGENTS.md` → *Execution Threads (4)* — the canonical rule set this spec mirrors
-- `Prompt Patterns/📄 Pattern - Save Context.md` (v3) — the mechanism
+- `Prompt Patterns/📄 Pattern - Save Context.md` (v4) — the mechanism (full close + packet close)
 - `Prompt Patterns/📄 Pattern - Kickstart.md` — the loader
 - `Guides/Guide — Context & Threads.md` — the practical companion
 - `Projects/AI-Suplex Ultra Edition/Spec — AI-Suplex Mission Control (AS MC).md` — the operator that allocates refs and serializes sync
@@ -346,3 +457,4 @@ parent: null                 # prior instance file when resumed
 ---
 *Spec v2.1 (pluralisation delta) via AI-Suplex on 2026-10-18 — Cycle 2, Week 7 · ai-engineering: `project-tasks` · `random-tasks`, legacy prefixes parse forever.*
 *Spec v2.0 ratified + canonical 2026-10-16. Sweep landed; shipped as v2.7.0. v1.0 captured 2026-09-23. TWABAM ⚡*
+*Spec v2.3 (close-packet delta) via AI-Suplex on 2026-11-06 — Cycle 3, Week 3 · ai-engineering: R12, `Inbox/` → `Consumed/`.*
