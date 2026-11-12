@@ -1,9 +1,9 @@
 ---
 type: spec
 title: "Spec — Context & Threads"
-version: 2.3
+version: 2.4
 date: 2026-10-18
-revised: 2026-11-06
+revised: 2026-11-11
 edition: 7-7-7
 status: active
 cycle: 2
@@ -45,6 +45,18 @@ next_actions: "v2.3 (2026-11-06): R12 — the close packet (Inbox/ → Consumed/
 **v2.2:** the archive sweep belongs to the daily-tasks thread (R11).
 
 **v2.3:** a closing lane may leave a **close packet** in `Inbox/`; the daily thread reconciles and consumes it (R12).
+
+**v2.4:** **client-facing "Workspace".** Nothing on disk changes — the `thread:` frontmatter key, the `{thread}-{ref}-{slug}` filename, and the parse regex stay exactly as they are. What a human reads now says **Workspace**:
+
+| Internal (unchanged) | Client-facing |
+|---|---|
+| thread lane | **Workspace type** |
+| thread instance | **Workspace** |
+| context file | **Workspace brief** |
+| close packet | **Completion handoff** |
+| producer / committer | **Contributor agent / Trusted local agent** |
+
+Two commands enforce the create/execute split: **`Define Workspace`** creates the brief; **`Kickstart Workspace`** loads and runs it. The 777 lean-webui surfaces all of it on a **`/workspaces`** tab, and the MCP prompt surface grew **7 → 9** (`contract.json` 1.1.0). No rule changed — R1–R12 are untouched.
 
 And the deeper shift: **the context file stops being memory.** It becomes a **session slot** — cheap, regenerable, archived on close. Durable state lives in `Memory/`, `Projects/*Spec.md`, and the project tasklist.
 
@@ -450,6 +462,8 @@ parent: null                 # prior instance file when resumed
 - `AGENTS.md` → *Execution Threads (4)* — the canonical rule set this spec mirrors
 - `Prompt Patterns/📄 Pattern - Save Context.md` (v4) — the mechanism (full close + packet close)
 - `Prompt Patterns/📄 Pattern - Kickstart.md` — the loader
+- `Prompt Patterns/AI-Suplex Commands/⚡ Command — Define Workspace.md` + `⚡ Command — Kickstart Workspace.md` — the client-facing create/run commands (v2.4)
+- `Projects/AI-Suplex 777/2026-11-11-workspaces-tab-design.md` — the /workspaces tab design (v2.4)
 - `Guides/Guide — Context & Threads.md` — the practical companion
 - `Projects/AI-Suplex Ultra Edition/Spec — AI-Suplex Mission Control (AS MC).md` — the operator that allocates refs and serializes sync
 - `Artifacts/2026-2027/Cycle 2/Week 7/2026-10-15-1503-cloudroom-as-mc-fit-and-saas-opportunity-ai-engineering.md` — the producer/committer constraint (R8)
@@ -458,3 +472,4 @@ parent: null                 # prior instance file when resumed
 *Spec v2.1 (pluralisation delta) via AI-Suplex on 2026-10-18 — Cycle 2, Week 7 · ai-engineering: `project-tasks` · `random-tasks`, legacy prefixes parse forever.*
 *Spec v2.0 ratified + canonical 2026-10-16. Sweep landed; shipped as v2.7.0. v1.0 captured 2026-09-23. TWABAM ⚡*
 *Spec v2.3 (close-packet delta) via AI-Suplex on 2026-11-06 — Cycle 3, Week 3 · ai-engineering: R12, `Inbox/` → `Consumed/`.*
+*Spec v2.4 (client-facing Workspace delta) via AI-Suplex on 2026-11-11 — Cycle 3, Week 4 · digital-products: Workspace terminology, Define/Kickstart Workspace, /workspaces tab.*

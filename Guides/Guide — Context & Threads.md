@@ -1,7 +1,7 @@
 ---
 type: guide
 title: "Guide — Context & Threads"
-version: 3.0
+version: 3.1
 date: 2026-11-06
 edition: 7-7-7
 status: active
@@ -34,6 +34,8 @@ next_actions: "Use during the Weekly Reset and at every instance close; pair wit
 | **Random tasks** | one-off jobs — config, tooling, docs, PRDs | **N** | `random-tasks-{ref}-{slug}.md` |
 | **Realist** | the twice-weekly execution audit | 1 | *(5-line log to `Reviews/Realist/` — no context file)* |
 
+> **Client-facing: "Workspace".** The thread model is unchanged on disk — but in the 777 console, the docs, and the commands, a *thread* is a **Workspace**, a *thread lane* is a **Workspace type**, a *context file* is a **Workspace brief**, and a *close packet* is a **Completion handoff**. Two commands bookend it: **`Define Workspace`** (create) and **`Kickstart Workspace`** (load + run). The console's **`/workspaces`** tab lists them.
+
 ---
 
 ## 1️⃣ Opening an instance
@@ -43,6 +45,7 @@ next_actions: "Use during the Weekly Reset and at every instance close; pair wit
    ```
    AI-Suplex: Kickstart(Random Tasks: vault-migration)
    ```
+   Client-facing: **`Kickstart Workspace(Quick Task: vault-migration)`** — the same loader, "Workspace" wording.
    Or the fast path: `node Tools/3lm.js start --context`. N lanes: list → one loads · many ask.
 3. **Point at a tasklist.** Long-running work uses a **long-running tasklist** (`Tasklists/Active/`); daily work uses that day's tasklist.
 4. **Open the session** (daily-tasks only):
@@ -185,6 +188,7 @@ node Tools/3lm.js threads --list                     # list open instances
 node Tools/3lm.js add-lessons --source artifact ...  # capture + memory loop
 node Tools/3lm.js index
 # AI-Suplex: Save Context  → Thread + Instance       # switch windows
+# AI-Suplex: Define Workspace / Kickstart Workspace    # create / run a workspace (client-facing)
 # …or cheap close → leave a packet in Inbox/           # R12 — the daily thread reconciles
 node Tools/3lm.js end && node Tools/3lm.js learn && node Tools/3lm.js index
 node Tools/3lm.js sync "Session End — <thread>/<instance>"   # close
@@ -203,3 +207,4 @@ node Tools/3lm.js sync "Session End — <thread>/<instance>"   # close
 ---
 *Guide v2.0 captured via AI-Suplex on 2026-10-16 (Cycle 2, Week 7). TWABAM ⚡*
 *Guide v3.0 (close-packet delta) via AI-Suplex on 2026-11-06 — Cycle 3, Week 3.*
+*Guide v3.1 (client-facing Workspace delta) via AI-Suplex on 2026-11-11 — Cycle 3, Week 4.*
