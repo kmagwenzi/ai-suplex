@@ -85,8 +85,8 @@ tasklist: false             # true only when Create tasklist: YES
 Check off quick wins from the daily hustle.
 
 ## Tasks
-- [ ] T-001 — Publish LinkedIn post
-- [ ] T-002 — Add Google Cloud API key for kmagwenzi@ai-suplex
+- [ ] T-001 — Draft the launch post
+- [ ] T-002 — Export the quarterly report
 
 ## What the AI needs to know next
 - Complete only the tasks listed above.

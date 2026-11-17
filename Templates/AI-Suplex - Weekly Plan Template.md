@@ -104,11 +104,11 @@ tags:
 ## 🔗 Quick Links
 
 - [[🦸AI-Suplex 7‑7‑7 – Command Center]]
-- [[AI-Suplex-777/Tasklists/]]
-- [[AI-Suplex-777/Focuses.md|Focus Areas]]
-- [[AI-Suplex-777/MOCs/]]
-- [[AI-Suplex-777/Trackers/]]
-- [[AI-Suplex-777/Plans/Cycle {{X}} Plan.md|Cycle {{X}} Plan]]
+- [[Tasklists/]]
+- [[Focuses.md|Focus Areas]]
+- [[MOCs/]]
+- [[Trackers/]]
+- [[Plans/Cycle {{X}} Plan.md|Cycle {{X}} Plan]]
 
 ---
 

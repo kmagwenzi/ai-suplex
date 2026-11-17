@@ -168,10 +168,10 @@ LIMIT 10
 
 **Quick links:**
 
-- [[AI-Suplex-777/MOCs|All MOCs]]
-- [[AI-Suplex-777/Trackers|All Trackers]]
-- [[AI-Suplex-777/Tasklists|Tasklists]]
-- [[AI-Suplex-777/Reviews/<Period>/Weekly|Weekly Reviews]]
+- [[MOCs|All MOCs]]
+- [[Trackers|All Trackers]]
+- [[Tasklists|Tasklists]]
+- [[Reviews/<Period>/Weekly|Weekly Reviews]]
 
 ---
 
@@ -179,8 +179,8 @@ LIMIT 10
 
 | Tool                                             | Description                                      |
 | ------------------------------------------------ | ------------------------------------------------ |
-| [[AI-Suplex-777/Command Center\|Command Center]] | You are here                                     |
-| [[AI-Suplex-777/Focuses\|Focuses]]               | Manage your focus areas                          |
+| [[Command Center\|Command Center]] | You are here                                     |
+| [[Focuses\|Focuses]]               | Manage your focus areas                          |
 | `MOCs/`                                          | Maps of Content (one per focus)                  |
 | `Trackers/`                                      | Progress trackers (one per focus)                |
 | `Skills/`                                        | AI agent blueprints                              |

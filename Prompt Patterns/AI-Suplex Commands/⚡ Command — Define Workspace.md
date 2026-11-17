@@ -23,12 +23,12 @@ WORKSPACE:
   - Outcome: All selected quick wins are completed or explicitly blocked with a next action.
 
 TASKS:
-1. Publish LinkedIn post
-2. Add Google Cloud API key for kmagwenzi@ai-suplex
-3. Call Mr Evans
-4. Send Mr Evans the links:
-   - https://app.wqr.co.zw
-   - https://ai-suplex.co.zw
+1. Draft the launch post
+2. Export the quarterly report
+3. Book the supplier call
+4. Send the supplier the links:
+   - https://example.com/product
+   - https://example.com/docs
 
 SETTINGS:
   - Create tasklist: NO

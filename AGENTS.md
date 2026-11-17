@@ -539,7 +539,7 @@ If the Hustler hasn't run the ritual in a while, gently surface it. The rhythm i
 - `AI-Suplex Kick-start/Spec — Context & Threads.md` – **the four-thread rules, v2.3** (instance-scoped; plural lanes; close packets — R12; legacy prefixes parse forever — R10)
 - `Guides/Guide — Context & Threads.md` – the practical, step-ordered thread guide
 - `AI-Suplex Kick-start/Spec — Production & Editions.md` – **how work reaches a shipped edition** (canons · promotion · manifest · build stamp)
-- `Plans/Production Repo Sync.md` – **DEPRECATED — moved to** [[2026-09-23-2159-production-repo-sync-strip-list-promotion-path-ai-engineering]] *(artifact · private — never ships · B-Bomb candidate)*
+- `Plans/` – **private strategy — never ships** (the release playbook lives with the maintainer, not in this repo)
 - `AI-Suplex Kick-start/Weekly Reset – The Tuesday Ritual.md` – weekly rhythm checklist
 - `Skills/` – the 11 skill files
 - `Prompt Patterns/` – user-facing patterns for AI interaction

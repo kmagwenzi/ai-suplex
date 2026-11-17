@@ -30,7 +30,8 @@
     "Tools/skill-install.js",
     "Tools/rituals.sh",
     "Tools/manifest.json",
-    "Tools/manifest.schema.json"
+    "Tools/manifest.schema.json",
+    "Tools/lib/**"
   ],
   "exclude": [
     "Tools/ultra/**",
@@ -62,7 +63,6 @@
     "Projects/**",
     "Mappings/**",
     ".obsidian/**",
-    ".github/**",
     "**/.env",
     "**/*.key"
   ],

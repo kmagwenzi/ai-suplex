@@ -58,7 +58,7 @@ Source:
 --- To be replaced with actual source ---
 # Use one or more source properties that work together:
 - Raw Content: [Paste your raw to-do list, project requirements, or mission description here] (required)
-- File Reference: [[AI-Suplex-777/Tasklists/2026-04-12-ai-suplex-core-&-777-launch-ai-suplex-tasklist]] for context (optional)
+- File Reference: [[Tasklists/2026-04-12-ai-suplex-core-&-777-launch-ai-suplex-tasklist]] for context (optional)
 - Chat Reference: e.g., Previous output from a conversation with an AI assistant (optional)
 --- To be replaced with actual source ---
 </content>
