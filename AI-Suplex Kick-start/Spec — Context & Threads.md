@@ -172,7 +172,7 @@ The v2.1 "first save of the day archives, later saves append" rule is **retired.
 **The vault stays on one tree and one branch.** Threads are partitioned by **write-scope**, not by branching the vault's memory.
 
 > [!important] Worktrees were considered and **rejected** (v1.0, reaffirmed v2.0)
-> A git worktree — or a Cloudroom sandbox branch — per agent looks tidy and breaks the premise. The vault's value is that **memory is shared**; a branch per thread forks `Memory/`, the knowledge graph, and the index, so each thread compounds against a different truth and the graph becomes N partial graphs.
+> A git worktree — or a Cloudroom sandbox branch — per agent looks tidy and breaks the premise. The vault's value is that **memory is shared**; a branch per thread forks `Memory/` and the index, so each thread compounds against a different truth and the index becomes N partial indices.
 >
 > **Partition the writing, never the memory.**
 

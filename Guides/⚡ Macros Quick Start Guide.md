@@ -225,7 +225,7 @@ When: After editing focus definitions or MOC descriptions
 
 ### 22. 🔄 Sweeper – Refresh B-Bomb Index
 ```
-What: Scans all B-Bombs and indexes them in the vault index + knowledge graph (title, focus, tags, summary, link)
+What: Scans all B-Bombs and indexes them in the vault index (title, focus, tags, summary, link)
 Prompts: None
 Output: Each B-Bomb gets an index entry: b-bomb: "TITLE: ... FOCUS: ... SUMMARY: ..."
 When: After creating new B-Bombs, or if the index falls out of sync

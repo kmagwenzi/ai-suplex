@@ -385,7 +385,7 @@ When you see `AI-Suplex: <command>` followed by `CONTENT` and/or `ADDITIONAL`:
 
 > **Deep Ultra 🦸 Mode** — one mechanic, three voices (arcade 🎮 · operative 🕶️ default · pro 📋).
 > The **FINAL BOSS is the constant** across all three. Ultra-only — it never ships in the 777 production repo.
-> Deterministic runtime: `node Tools/deep-ultra.js latest --dry`. Guide: `Guides/Guide — Run Deep Ultra Mode.md`.
+> Ultra-harness only — deep-ultra.js and its guide live in the Ultra repo, not this 777 repo.
 
 ### Source Types (CONTENT)
 

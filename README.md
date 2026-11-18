@@ -58,15 +58,6 @@ $ node Tools/3lm.js start
 
 <sub>**Example output** — a demo vault a few sessions in (trimmed). Every lesson listed was learned in an earlier session. **That is the whole product.**</sub>
 
-<!-- 📸 SCREENSHOT SLOT · graph — save the PNG as Assets/graph.png, then uncomment:
-
-<p align="center">
-  <img src="Assets/graph.png" width="820" alt="The knowledge graph as a node-link view — artifacts, insights and lessons as nodes, relationships typed as supports, contradicts, supersedes, produced." />
-  <br/>
-  <sub><b>It connects.</b> Every artifact, insight and lesson becomes a node; every relationship carries a type — <code>supports</code> · <code>contradicts</code> · <code>supersedes</code> · <code>produced</code>.</sub>
-</p>
-
--->
 
 ## 👋 How to use this
 
@@ -172,15 +163,6 @@ ai-suplex/
 └── install.sh · install.ps1 · package.json
 ```
 
-<!-- 📸 SCREENSHOT SLOT · vault — save the PNG as Assets/vault.png, then uncomment:
-
-<p align="center">
-  <img src="Assets/vault.png" width="820" alt="The vault open in Obsidian — the artifacts tree, a focus MOC, and the tracker side by side." />
-  <br/>
-  <sub><b>File-first.</b> Not a database you query — folders and markdown you can open, read and diff. The vault <i>is</i> the memory.</sub>
-</p>
-
--->
 
 ## Open-core
 

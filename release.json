@@ -65,7 +65,16 @@
     "Mappings/**",
     ".obsidian/**",
     "**/.env",
-    "**/*.key"
+    "**/*.key",
+    "AI-Suplex Kick-start/AGENTS — Reference Appendix.md",
+    "AI-Suplex Kick-start/AI-Suplex High Stakes Production Build — Documentation.md",
+    "AI-Suplex Kick-start/AI-Suplex Ultra Edition — Documentation.md",
+    "AI-Suplex Kick-start/Projects Folder – Documentation.md",
+    "AI-Suplex Kick-start/Spec — MCP Contract (mcp v1).md",
+    "AI-Suplex Kick-start/Spec — Production & Editions.md",
+    "AI-Suplex Kick-start/Spec — Productization (777 vs Ultra).md",
+    "AI-Suplex Kick-start/The AI-Suplex Workflow.md",
+    "AI-Suplex Kick-start/☁️ AI-Suplex CI-CD Operations.md"
   ],
   "strip_sections": [
     {

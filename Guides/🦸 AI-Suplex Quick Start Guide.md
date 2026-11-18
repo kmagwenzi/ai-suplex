@@ -120,9 +120,9 @@ A **thread is a lane; an instance is a window.** Four lanes keep parallel agent 
 
 ## 🆙 Editions
 
-> **Core Edition has been retired.** The **7-7-7 Edition** is the only edition — 20 Prompt Patterns, 14 AI Skills, focus areas & MOCs, cycle/week tracking, the 3lm memory loop, and Commander buttons pre-configured.
+> **AI-Suplex 777** (this repo) is **free** — the complete execution framework: tasklists, sessions, the 3lm memory loop, Skills, Prompt Patterns, and Commander buttons pre-configured.
 >
-> **Ladder:** the open-source repo is **free**. The packaged 7-7-7 Edition is **$29** on Selar (`selar.com/270lq55ke0`); **Ultra (~$149)** is the paid harness upgrade. Selar is the only storefront.
+> **Ladder:** the 777 framework is **free**. **AI-Suplex Ultra** is the paid intelligence layer — knowledge graph, projection, Opportunity Mapper, Deep Ultra Mode, shell and fleet — at **$50 (Zimbabwe) · $100 (Africa) · $150 (Global)**. Selar is the only storefront.
 
 ---
 

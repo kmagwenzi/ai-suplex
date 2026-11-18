@@ -1,7 +1,7 @@
 # AI-Suplex Memory Index
 
 TWABAM ⚡! This file is the quick lookup map for the AI-Suplex memory system.
-Last refreshed: 2026-11-17-2026
+Last refreshed: 2026-11-18-1729
 
 ## Core Memory Files
 
@@ -17,16 +17,16 @@ Last refreshed: 2026-11-17-2026
 
 ## Procedural Files
 - procedural/effective-pipeline.md
-- procedural/agent_access.md
 - procedural/3lm-daily-session-workflow.md
-- procedural/agent_terminal_decision.md
+- procedural/agent_access.md
 - procedural/anythingllm_evaluation.md
-- procedural/client_interface.md
 - procedural/client_interface_tools.md
+- procedural/agent_terminal_decision.md
+- procedural/productization_strategy.md
+- procedural/client_interface.md
 - procedural/cycle_review.md
 - procedural/docling_evaluation.md
 - procedural/lesson_to_procedure.md
-- procedural/productization_strategy.md
 - procedural/promotion_rules.md
 - procedural/session_end.md
 - procedural/session_start.md
