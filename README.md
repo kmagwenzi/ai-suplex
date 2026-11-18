@@ -150,14 +150,14 @@ node Tools/3lm.js start --context
 ```
 ai-suplex/
 ├── AGENTS.md              ← how any agent operates this vault
-├── Skills/                ← 13 AI skills
+├── Skills/                ← 14 AI skills
 ├── Prompt Patterns/       ← patterns + AI-Suplex Commands/ (one-line triggers)
 ├── Scripts/               ← Commander macros
 ├── Templates/             ← session templates
 ├── Tools/                 ← 3lm · asmc · vault-index · approvals · rituals
 ├── Memory/                ← episodic · semantic · procedural · lessons
 ├── Guides/                ← workflow guides
-├── AI-Suplex Kick-start/  ← methodology + the Deep Ultra persona
+├── AI-Suplex Kick-start/  ← methodology · worker roles · architecture · the two personas
 ├── Assets/                ← logo + screenshots
 ├── Tests/                 ← smoke test
 └── install.sh · install.ps1 · package.json
@@ -166,7 +166,11 @@ ai-suplex/
 
 ## Open-core
 
-The **library** (this repo) is free and open source. The **harness** — the scheduled, gated, self-driving layer — is **AI-Suplex Ultra** (code name: Deep Ultra 🦸). [Preview it](https://ai-suplex-ultra-preview.netlify.app/).
+**AI-Suplex 777** (this repo) is **free** — the complete execution framework: tasklists, sessions, the 3lm memory loop, skills, patterns, and the human approval gate.
+
+**AI-Suplex Ultra** is the paid intelligence layer — the knowledge graph, projection, Opportunity Mapper, Deep Ultra Mode, shell, and fleet — at **$50 (Zimbabwe) · $100 (Africa) · $150 (Global)**. [Preview it](https://ai-suplex-ultra-preview.netlify.app/).
+
+One verb separates the two: **777 records, Ultra reasons.** No Ultra faculty ships in 777, and the free install needs nothing beyond Node 20.
 
 ## License
 
