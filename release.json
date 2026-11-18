@@ -7,6 +7,7 @@
     "README.md",
     "WELCOME.md",
     "LICENSE",
+    "KNOWN-ISSUES.md",
     "Focuses.md",
     "package.json",
     "AI-Suplex Kick-start/**",
@@ -67,7 +68,10 @@
     "**/*.key"
   ],
   "strip_sections": [
-    { "file": "AI-Suplex Kick-start/Context Kick-start/Active Mission Context.md", "section": "Active Mission Context (Live State)" }
+    {
+      "file": "AI-Suplex Kick-start/Context Kick-start/Active Mission Context.md",
+      "section": "Active Mission Context (Live State)"
+    }
   ],
   "ultra_note": "The knowledge graph, router, projection layer, wiki, opportunity mapper, and Deep Ultra Mode are AI-Suplex Ultra (paid) faculties — they never ship in 777. They live under Tools/ultra/ in the dev vault and in the Ultra harness repo (Spec — Productization 777 vs Ultra §3.1, §9).",
   "strip_list": "v1.0"
