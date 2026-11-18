@@ -1,30 +1,34 @@
-# AI-Suplex Procedural Memory — Agent Terminal Decision
+# AI-Suplex Procedural Memory — Fork-Target Selection
 
-## Decision
-**cmux (manaflow-ai, 21.5k stars, MIT)** is the starting point for the Agent Terminal product.
+## Purpose
+How to choose an open-source base to fork and productise — the criteria that decide whether a codebase is worth building a branded product on.
 
-## Rationale
+## Selection Criteria
 
-| Factor | cmux | Why It Won |
-|--------|------|-----------|
-| **License** | MIT | Fork, rebrand, sell freely. No commercial license fee. |
-| **Stars/Community** | 21.5k | Large community, proven adoption, active development |
-| **macOS-native** | ✅ Ghostty-based | Primary target: developers running AI agents on macOS |
-| **Brand potential** | High | "Agent Terminal" product name, full rebrand |
+| Factor | What to verify |
+|--------|----------------|
+| **License** | Permissive (MIT/Apache) → fork, rebrand, sell freely. Copyleft (AGPL/GPL) → check distribution obligations before forking |
+| **Community** | Stars, active commits, healthy maintainer base — adoption is a maintenance signal |
+| **Platform fit** | Runs natively where your users are (desktop, terminal, macOS/Linux/Windows) |
+| **Brand potential** | Can it be fully rebranded without the base's identity leaking through? |
+| **Reference implementations** | Adjacent projects that already solved a hard sub-feature — reimplementable under a permissive license |
 
-## What Agent Terminal Becomes
+## The Fork Pattern
 
-A branded fork of cmux — a terminal for managing multiple AI-Suplex client sessions:
-- One tab per client vault
-- Pre-configured with 3lm CLI
-- Quick-switch between client workspaces
-- Notifications when sessions complete
-- AI-Suplex branding, colors, name
+Permissive base → fork → specialise → brand → sell. Choose the base for its mechanics, not its name; the product is the specialisation, not the code.
 
-##herdr as Reference
+## What a forked product becomes
 
-herdr (5.1k stars, AGPL) serves as the reference design for agent state detection features (blocked/working/done states, socket API). MIT reimplementation of those features is possible if needed.
+- One workspace per client or project.
+- Pre-configured with your framework's CLI.
+- Quick-switch between workspaces.
+- Notifications when long tasks complete.
+- Your branding, colours, name.
 
-## Status
+## Operating Rule
 
-**DECIDED.** cmux is the fork target. Agent Terminal is the product name.
+> **A fork decision is a maintenance commitment.** Check the license first, the community second, and the exit cost third. Never fork a project you would not maintain alone.
+
+---
+
+*Genericised 2026-11-18 — specific fork-target names and the product name removed; the selection method remains.*

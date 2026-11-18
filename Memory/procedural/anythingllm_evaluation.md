@@ -52,9 +52,9 @@ AnythingLLM is the **query interface.** AI-Suplex is the **memory engine.** They
 ### 1. Cross-Session Q&A
 
 ```
-Question: "What did I decide about the CortexMem architecture?"
-AI-Suplex (manual): Browse memory/semantic/project_rules.md → read line about CortexMem
-AnythingLLM: Ask naturally → "CortexMem is an optional bridge for selected high-value context. 
+Question: "What did I decide about the optional bridge layer?"
+AI-Suplex (manual): Browse memory/semantic/project_rules.md → read the bridge note
+AnythingLLM: Ask naturally → "The bridge is an optional layer for selected high-value context. 
   The markdown vault is canonical. Only 5 use cases: decisions, constraints, preferences, 
   summaries, bridge continuity."
 ```

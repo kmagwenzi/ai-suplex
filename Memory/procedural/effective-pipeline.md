@@ -41,7 +41,7 @@ graph TD
     F --> G[Architect: Session End Report]
     G --> H[3lm: Write Episode]
     H --> I[3lm: Learn - Extract Lessons]
-    I --> J{Save Context?}
+    I --> J{Context Switch?}
     J -->|Yes| K[Summarize to Context Kickstart]
     J -->|No| L[Continue Session]
     K --> M[Next Session: 3lm start loads everything]
@@ -97,7 +97,7 @@ graph TD
 
 **Key Rule:** 3lm runs at the END of each daily session. Not weekly. Not monthly. Daily.
 
-### Step 6: Save Context Protocol
+### Step 6: Context Switch Protocol
 
 When switching between chat windows or sessions:
 
@@ -168,7 +168,7 @@ status: active
 Tasklists/Active/
 ├── 2026-06-21-launch-week-tasklist.md      ← Weekly plan
 ├── 2026-06-21-prelaunch-execution-tasklist.md  ← Daily (Sat)
-├── 2026-06-22-ibm-wqr-tasklist.md          ← Daily (Sun)
+├── 2026-06-22-example-tasklist.md          ← Daily (Sun)
 └── ...
 
 Sessions/Active/Start/
@@ -178,7 +178,7 @@ Sessions/Active/Start/
 
 Memory/episodic/<Period>/Cycle-1/Week-1/
 ├── 2026-06-21-prelaunch.md                 ← Episode (Sat)
-├── 2026-06-22-ibm-wqr.md                   ← Episode (Sun)
+├── 2026-06-22-example.md                   ← Episode (Sun)
 └── ...
 
 AI-Suplex Kick-start/Context Kick-start/Active/
@@ -211,7 +211,7 @@ This is achieved by:
 2. Episodic memory accumulation
 3. Lesson extraction after each session
 4. Promotion of stable patterns to semantic/procedural
-5. Save Context protocol (summarize + save)
+5. Context switching protocol (summarize + save)
 
 ---
 

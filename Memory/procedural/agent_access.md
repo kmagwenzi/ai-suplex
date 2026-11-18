@@ -84,7 +84,7 @@ Run: node scripts/3lm/3lm.js index
 - **Vault is canonical** — Agent operates on markdown files directly, not through an API abstraction
 - **3lm is the entry point** — All memory operations go through 3lm or direct file I/O
 - **No plugin required** — The agent doesn't need Obsidian plugins. The filesystem is the interface
-- **CortexMem is optional** — Agent can use `cm` for fast bridge capture if available, but it's not required
+- **A bridge CLI is optional** — an agent may use a fast capture helper if present, but it is never required
 - **Agent writes, human reviews** — Agent-generated files (episodes, lessons) are human-readable. Review before promotion
 
 ## Notes

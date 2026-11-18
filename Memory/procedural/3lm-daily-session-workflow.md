@@ -55,7 +55,7 @@ The weekly tasklist is the plan. Daily tasklists are the execution units. Each d
 ```
 Saturday night:  3lm end → writes episode "Sat 21: Prelaunch"
 Sunday morning:  3lm start → loads Sat episode → "I remember yesterday"
-Sunday night:    3lm end → writes episode "Sun 22: IBM + WQR"
+Sunday night:    3lm end → writes episode "Sun 22: study + build"
 Monday morning:  3lm start → loads Sat+Sun episodes → "I remember the weekend"
 ...
 Saturday morning: 3lm start → loads ALL WEEK → "I remember everything"
@@ -103,19 +103,19 @@ node Tools/3lm.js index
 Tasklists/Active/
 ├── 2026-06-21-launch-week-tasklist.md      ← Weekly plan
 ├── 2026-06-21-prelaunch-execution-tasklist.md  ← Daily (Sat)
-├── 2026-06-22-ibm-wqr-tasklist.md          ← Daily (Sun)
+├── 2026-06-22-example-tasklist.md          ← Daily (Sun)
 ├── 2026-06-23-family-business-tasklist.md   ← Daily (Mon)
 └── ...
 
 Sessions/Active/Start/
 ├── 2026-06-21-launch-week-session.md       ← Weekly session
 ├── 2026-06-21-prelaunch-execution.md       ← Daily session (Sat)
-├── 2026-06-22-ibm-wqr-session.md           ← Daily session (Sun)
+├── 2026-06-22-example-session.md           ← Daily session (Sun)
 └── ...
 
 Memory/episodic/<Period>/Cycle-1/Week-1/
 ├── 2026-06-21-prelaunch.md                 ← Episode (Sat)
-├── 2026-06-22-ibm-wqr.md                   ← Episode (Sun)
+├── 2026-06-22-example.md                   ← Episode (Sun)
 └── ...
 ```
 
