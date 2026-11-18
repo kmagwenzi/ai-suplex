@@ -196,7 +196,7 @@ AI-Suplex-777/
 5. **Template‑Driven Consistency** – Repeatable patterns ensure quality outputs
 6. **Self‑Improving Memory** – The 3‑Layer Memory stack compounds knowledge across sessions. Episodic → Semantic → Procedural. Every session starts smarter than the last.
 
-> **Memory Reference:** See `AI-Suplex Kick-start/🧠 AI-Suplex 3-Layer Memory System.md` for the complete memory architecture, CLI commands, and promotion rules.
+> **Memory Reference:** See `AI-Suplex Kick-start/Architecture Spec.md` for the complete memory architecture, CLI commands, and promotion rules.
 
 ---
 

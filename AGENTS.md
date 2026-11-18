@@ -84,7 +84,7 @@ AI-Suplex executes across **four parallel threads**. A **thread is a lane**; an 
 
 ## 🧠 The 3‑Layer Memory Stack
 
-**The defining feature of AI‑Suplex 7‑7‑7.** The vault has a **file-first, markdown-first memory stack** that compounds knowledge across sessions. See `🧠 AI-Suplex 3-Layer Memory System.md` in Kick-start for the full spec.
+**The defining feature of AI‑Suplex 7‑7‑7.** The vault has a **file-first, markdown-first memory stack** that compounds knowledge across sessions. See `Architecture Spec.md` in Kick-start for the full spec.
 
 ---
 
@@ -442,7 +442,6 @@ ADDITIONAL: Save to Artifacts/<Period>/Cycle 1/Week 5/
 
 ## 📝 Examples of AI Assistance
 
-> **Moved to the Reference Appendix** (2026-09-27 prune): `AI-Suplex Kick-start/AGENTS — Reference Appendix.md` → *Examples of AI Assistance*.
 > Five worked examples: tasklist generation · session start prompt · weekly review · quality check · pattern-based request.
 
 ## 🧹 Sweeper Scripts (Not AI, but Good to Know)
@@ -538,7 +537,6 @@ If the Hustler hasn't run the ritual in a while, gently surface it. The rhythm i
 - `AI-Suplex Kick-start/The Realist Persona/` – the execution-audit persona (twice weekly)
 - `AI-Suplex Kick-start/Spec — Context & Threads.md` – **the four-thread rules, v2.3** (instance-scoped; plural lanes; close packets — R12; legacy prefixes parse forever — R10)
 - `Guides/Guide — Context & Threads.md` – the practical, step-ordered thread guide
-- `AI-Suplex Kick-start/Spec — Production & Editions.md` – **how work reaches a shipped edition** (canons · promotion · manifest · build stamp)
 - `Plans/` – **private strategy — never ships** (the release playbook lives with the maintainer, not in this repo)
 - `AI-Suplex Kick-start/Weekly Reset – The Tuesday Ritual.md` – weekly rhythm checklist
 - `Skills/` – the 11 skill files

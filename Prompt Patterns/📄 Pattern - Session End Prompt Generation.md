@@ -20,7 +20,7 @@
 <prompt-pattern>
 CONTEXT: Generate a complete AI-Suplex Session End prompt for a completed session
 - External Source 1: AI-Suplex-777/Skills/Architect – Session End Prompt Generator
-- External Source 2 [optional]: AI-Suplex-777/AI-Suplex Kick-start/AI-Suplex - Session-Management-Protocol
+- External Source 2 [optional]: AI-Suplex-777/AI-Suplex Kick-start/Spec — Context & Threads
 - Inline Source: Capturing session completion data and learnings for reporting
 
 TEMPLATE: AI-Suplex-777/Templates/AI-Suplex - Session End Prompt Template
@@ -72,7 +72,7 @@ Source: Use one or more source properties that work together:
 ```yaml
 <prompt-pattern>
 Context: Generate a complete AI-Suplex Session End prompt for a completed session
-- External Source 1: AI-Suplex-777/AI-Suplex Kick-start/AI-Suplex - Session-Management-Protocol
+- External Source 1: AI-Suplex-777/AI-Suplex Kick-start/Spec — Context & Threads
 - External Source 2: AI-Suplex-777/AI-Suplex Kick-start/👥 AI‑Suplex Worker Roles – 7‑7‑7 Edition
 - Inline Source: Capturing session completion data and learnings for reporting
 
@@ -127,7 +127,7 @@ Response_Protocol:
 ## 💡 **Why This Pattern Works**
 
 1. **Exact Role Assignment** – Specifies "Act as Architect" for consistent output [^2]
-2. **Protocol Compliance** – Follows the session end structure from the Session-Management-Protocol [^1]
+2. **Protocol Compliance** – Follows the session end structure from the Spec — Context & Threads [^1]
 3. **Complete Fields** – Ensures all required sections (Rating, Status, Insights, Actions, Blockers) are included
 4. **Next Step Guidance** – Includes Response_Protocol for generating the actual session end report
 
@@ -138,6 +138,6 @@ Response_Protocol:
 
 ---
 #### Sources
-[^1]: [[AI-Suplex - Session-Management-Protocol]]
+[^1]: [[Spec — Context & Threads]]
 [^2]: [[👥 AI‑Suplex Worker Roles – 7‑7‑7 Edition]]
 [^3]: [[Architect – Session End Prompt Generator]]

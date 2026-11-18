@@ -22,7 +22,7 @@
 <prompt-pattern>
 CONTEXT: Generate a complete AI-Suplex Session End Report from session completion data
 - External Source 1: AI-Suplex-777/Skills/Builder – Session End Report Generator
-- External Source 2 [optional]: AI-Suplex-777/AI-Suplex Kick-start/AI-Suplex - Session-Management-Protocol
+- External Source 2 [optional]: AI-Suplex-777/AI-Suplex Kick-start/Spec — Context & Threads
 - Inline Source: Transforming session completion data into structured reports for tracking and analysis
 
 
@@ -120,7 +120,7 @@ Source: Use one or more source properties that work together:
 ```yaml
 <prompt-pattern>
 Context: Generate a complete AI-Suplex Session End Report from session completion data
-- External Source 1: AI-Suplex-777/AI-Suplex Kick-start/AI-Suplex - Session-Management-Protocol
+- External Source 1: AI-Suplex-777/AI-Suplex Kick-start/Spec — Context & Threads
 - External Source 2: AI-Suplex-777/AI-Suplex Kick-start/👥 AI‑Suplex Worker Roles – 7‑7‑7 Edition
 - Inline Source: Transforming session completion data into structured reports for tracking and analysis
 
