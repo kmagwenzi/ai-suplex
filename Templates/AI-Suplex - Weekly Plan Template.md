@@ -103,7 +103,7 @@ tags:
 
 ## 🔗 Quick Links
 
-- [[🦸AI-Suplex 7‑7‑7 – Command Center]]
+- [[AI-Suplex 7‑7‑7 – Command Center]]
 - [[Tasklists/]]
 - [[Focuses.md|Focus Areas]]
 - [[MOCs/]]

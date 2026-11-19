@@ -164,7 +164,7 @@ tags:
 
 ## 🗺️ **QUICK LINKS**
 
-- [[🦸AI-Suplex 7‑7‑7 – Command Center]]
+- [[AI-Suplex 7‑7‑7 – Command Center]]
 - [[Focuses.md|Focus Areas]]
 - [[Trackers/]]
 - [[MOCs/]]

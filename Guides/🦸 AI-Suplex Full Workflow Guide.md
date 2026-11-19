@@ -165,8 +165,8 @@ Not every artifact becomes a B-Bomb. Promote when something is **reusable, refer
 2. Fill the prompts: title, description, content, product potential rating (1-10)
 
 **AI-assisted promotion:**
-1. Type `AI-Suplex: B-Bomb Promotion`
-2. Point it at your artifact: *"Scan Artifacts/<Period>/Cycle X/Week Y/ for B-Bomb candidates"*
+1. Type `AI-Suplex: B-Bomb Promotion`   
+2. Point it at your artifact: `*Scan Artifacts/<Period>/Cycle X/Week Y/ for B-Bomb candidates*`
 3. The AI identifies candidates, ranks by innovation quotient, and drafts promotion content
 
 **After promoting:** Run 🔄 **Refresh B-Bomb Index** to re-index.
@@ -256,12 +256,12 @@ Session End Report
 
 A **thread is a lane; an instance is a window.** When more than one chat window is open — or a cloud agent is working alongside you — each window owns its **own** context file.
 
-| Thread | Use it for | Instances | Context file |
-|---|---|---|---|
-| **Daily tasks** | the day's execution — the main one | 1 | `daily-tasks.md` |
-| **Project tasks** | a build that spans sessions | N | `project-tasks-{ref}-{slug}.md` |
-| **Random tasks** | one-off jobs — config, docs, PRDs | N | `random-tasks-{ref}-{slug}.md` |
-| **Realist** | the twice-weekly execution audit | 1 | *(5-line log to `Reviews/Realist/`)* |
+| Thread            | Use it for                         | Instances | Context file                         |
+| ----------------- | ---------------------------------- | --------- | ------------------------------------ |
+| **Daily tasks**   | the day's execution — the main one | 1         | `daily-tasks.md`                     |
+| **Project tasks** | a build that spans sessions        | N         | `project-tasks-{ref}-{slug}.md`      |
+| **Random tasks**  | one-off jobs — config, docs, PRDs  | N         | `random-tasks-{ref}-{slug}.md`       |
+| **Realist**       | the twice-weekly execution audit   | 1         | *(5-line log to `Reviews/Realist/`)* |
 
 **The rules that matter:**
 
@@ -283,13 +283,13 @@ node Tools/3lm.js threads --list --write   # open instances → _instances.md (g
 
 At the end of each week, run these in order:
 
-| Step | Tool | What |
-|---|---|---|
-| 1 | 📊 **Enhance MOCs/Trackers** | Injects recent sessions into dashboards |
-| 2 | 📊 **Aggregate Weekly Data** | Compiles all week's data into one source file |
-| 3 | `3lm promote --min 70` + `3lm revise` | Promote winning patterns, reconcile contradictions |
-| 4 | 🔄 **Weekly Review** | Generates structured weekly review |
-| 5 | *Optional:* `Orchestrator – Weekly Review` skill | AI-powered analysis of the aggregated data |
+| Step | Tool                                             | What                                               |
+| ---- | ------------------------------------------------ | -------------------------------------------------- |
+| 1    | 📊 **Enhance MOCs/Trackers**                     | Injects recent sessions into dashboards            |
+| 2    | 📊 **Aggregate Weekly Data**                     | Compiles all week's data into one source file      |
+| 3    | `3lm promote --min 70` + `3lm revise`            | Promote winning patterns, reconcile contradictions |
+| 4    | 🔄 **Weekly Review**                             | Generates structured weekly review                 |
+| 5    | *Optional:* `Orchestrator – Weekly Review` skill | AI-powered analysis of the aggregated data         |
 
 **For the AI-assisted weekly review:**
 1. Run 📊 **Aggregate Weekly Data** — a source file opens automatically
@@ -323,29 +323,29 @@ Sunday    — Rest or light work
 
 ## 🧭 Which Tool When?
 
-| I want to... | Use this |
-|---|---|
-| Map a 7-week cycle | `AI-Suplex: Cycle Plan` → `Plans/<Period>/Cycle X/Cycle X Plan.md` |
-| Plan this week's work | `AI-Suplex: Weekly Plan` → `Plans/<Period>/Cycle X/Week Y/` |
-| Generate a session tasklist | `AI-Suplex: Tasklist Generation` → `Tasklists/` |
-| Start a focused session | 🚀 **Start** (macro) or `AI-Suplex: Session Start` |
-| Save work-in-progress | 📄 **Artifact** (macro) or `AI-Suplex: Artifact Capture` |
-| Log a quick learning | 💡 **Insight** (macro) |
-| Mark work as reusable/sellable | 💣 **B-Bomb** (macro) or `AI-Suplex: B-Bomb Promotion` |
-| End a session | 🏁 **End** (macro) or `AI-Suplex: Session End Report` |
-| Write session to episodic memory | `3lm end` (CLI) |
-| Extract lessons from a session | `3lm learn` (CLI) |
-| Promote winning patterns (score 70+) | `3lm promote --min 70` (CLI) |
-| Check for memory contradictions | `3lm revise` (CLI) |
-| Refresh the memory lookup manifest | `3lm index` (CLI) |
-| See memory stack health | `3lm status` (CLI) |
-| List open context instances | `3lm threads --list` (CLI) |
-| Save context / switch windows | `AI-Suplex: Save Context` |
-| Update dashboards | 📊 **Enhance MOCs/Trackers** (macro) |
-| Prepare data for AI review | 📊 **Aggregate Weekly Data** (macro) |
-| Generate a weekly report | 🔄 **Weekly Review** (macro) + `Orchestrator – Weekly Review` (skill) |
-| Set up folders for a new cycle | 📁 **Ensure (Cycle)** (macro) |
-| Review a completed cycle | 🔄 **Generate Review** (macro) + `AI-Suplex: Cycle Review` |
+| I want to...                         | Use this                                                              |
+| ------------------------------------ | --------------------------------------------------------------------- |
+| Map a 7-week cycle                   | `AI-Suplex: Cycle Plan` → `Plans/<Period>/Cycle X/Cycle X Plan.md`    |
+| Plan this week's work                | `AI-Suplex: Weekly Plan` → `Plans/<Period>/Cycle X/Week Y/`           |
+| Generate a session tasklist          | `AI-Suplex: Tasklist Generation` → `Tasklists/`                       |
+| Start a focused session              | 🚀 **Start** (macro) or `AI-Suplex: Session Start`                    |
+| Save work-in-progress                | 📄 **Artifact** (macro) or `AI-Suplex: Artifact Capture`              |
+| Log a quick learning                 | 💡 **Insight** (macro)                                                |
+| Mark work as reusable/sellable       | 💣 **B-Bomb** (macro) or `AI-Suplex: B-Bomb Promotion`                |
+| End a session                        | 🏁 **End** (macro) or `AI-Suplex: Session End Report`                 |
+| Write session to episodic memory     | `3lm end` (CLI)                                                       |
+| Extract lessons from a session       | `3lm learn` (CLI)                                                     |
+| Promote winning patterns (score 70+) | `3lm promote --min 70` (CLI)                                          |
+| Check for memory contradictions      | `3lm revise` (CLI)                                                    |
+| Refresh the memory lookup manifest   | `3lm index` (CLI)                                                     |
+| See memory stack health              | `3lm status` (CLI)                                                    |
+| List open context instances          | `3lm threads --list` (CLI)                                            |
+| Save context / switch windows        | `AI-Suplex: Save Context`                                             |
+| Update dashboards                    | 📊 **Enhance MOCs/Trackers** (macro)                                  |
+| Prepare data for AI review           | 📊 **Aggregate Weekly Data** (macro)                                  |
+| Generate a weekly report             | 🔄 **Weekly Review** (macro) + `Orchestrator – Weekly Review` (skill) |
+| Set up folders for a new cycle       | 📁 **Ensure (Cycle)** (macro)                                         |
+| Review a completed cycle             | 🔄 **Generate Review** (macro) + `AI-Suplex: Cycle Review`            |
 
 ---
 

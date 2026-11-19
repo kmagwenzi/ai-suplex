@@ -33,7 +33,7 @@ next_actions: {{VALUE:Next Action (one sentence)}}
 ### External Resources
 - [[{{VALUE:Focus-Display-Name}} MOC]]
 - [[{{VALUE:Focus-Display-Name}} Tracker]]
-- [[🦸AI-Suplex 7‑7‑7 – Command Center]]
+- [[AI-Suplex 7‑7‑7 – Command Center]]
 
 ## 🧠 Learnings & Insights
 *What did you learn while creating this artifact?*

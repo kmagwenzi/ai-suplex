@@ -42,7 +42,7 @@ product_potential: {{VALUE:Product Potential (optional)}}
 **Documentation:** /10
 
 ## Integration Points
-- **[[🦸AI-Suplex 7‑7‑7 – Command Center]]**
+- **[[AI-Suplex 7‑7‑7 – Command Center]]**
 - **[[${focus-display-name} MOC]]**
 - **[[${focus-display-name} Tracker]]**
 - **Created during session:** 
