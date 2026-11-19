@@ -1,9 +1,9 @@
 ---
 type: spec
 title: "Spec — Context & Threads"
-version: 2.4
+version: 2.5
 date: 2026-10-18
-revised: 2026-11-11
+revised: 2026-11-19
 edition: 7-7-7
 status: active
 cycle: 2
@@ -16,7 +16,7 @@ key_insights: "Threads are lanes; instances are windows. project-tasks and rando
 next_actions: "v2.3 (2026-11-06): R12 — the close packet (Inbox/ → Consumed/); R4 and R11 gain the packet path. v2.2 (2026-11-03): R11 — the archive sweep runs at daily-tasks session start, after the Live State refresh. v2.1 (2026-10-18): plural lane names (project-tasks · random-tasks) with legacy prefixes parsed forever. v2.0 landed 2026-10-16 and shipped to 777 as v2.7.0."
 ---
 
-# 🧵 Spec — Context & Threads (v2.3)
+# 🧵 Spec — Context & Threads (v2.5)
 
 **Definition-level.** The rules an agent must follow to run the thread model correctly — *without reading a chat log.*
 
@@ -47,6 +47,8 @@ next_actions: "v2.3 (2026-11-06): R12 — the close packet (Inbox/ → Consumed/
 **v2.3:** a closing lane may leave a **close packet** in `Inbox/`; the daily thread reconciles and consumes it (R12).
 
 **v2.4:** **client-facing "Workspace".** Nothing on disk changes — the `thread:` frontmatter key, the `{thread}-{ref}-{slug}` filename, and the parse regex stay exactly as they are. What a human reads now says **Workspace**:
+
+**v2.5:** **close = packet, then archive.** A lane writes the close packet to `Inbox/` — its `archived:` field naming the file it will archive — before it archives its own file (R4 + R12).
 
 | Internal (unchanged) | Client-facing |
 |---|---|
@@ -165,7 +167,7 @@ Context Kick-start/Active/
 
 The v2.1 "first save of the day archives, later saves append" rule is **retired.** Append is now scoped to the instance; a **new window is a new file**, not an append.
 
-**Two ways to close:** a lane may **archive its own file** on close (the table above), or leave a **close packet** in `Inbox/` and let the daily thread file the instance (R12). Both are legal — the packet is the **cheap close**, the file is the **full close**.
+**Close = packet, then archive.** A lane first writes a **close packet** to `Inbox/` whose `archived:` field names the file it is about to archive (R12), then moves its own file to that exact `Archived/{YYYY-MM-DD}-{thread}-{ref}-{slug}.md` path (the table above). The packet is the receipt; the archive is the move the receipt records.
 
 ### R5 — Write-scope partitioning (one tree, one branch)
 
@@ -265,7 +267,7 @@ A prefix rename is **additive**. The tooling accepts both tokens; only **new** f
 
 ### R12 — The close packet *(new in v2.3)*
 
-A closing lane may leave a **close packet** in `Context Kick-start/Inbox/` instead of writing a full context file. The packet is a **proposal to the Active Mission Context**; the daily-tasks thread is the one that **reconciles** it.
+A closing lane **writes a close packet** to `Context Kick-start/Inbox/` before it archives — the packet's `archived:` field names the file it is about to archive (R4). The packet is a **proposal to the Active Mission Context**; the daily-tasks thread is the one that **reconciles** it.
 
 | Folder | Purpose |
 |---|---|
@@ -283,6 +285,7 @@ slug: quick-wins
 writer: committer
 closed: 2026-11-05T20:40
 tasklist: Tasklists/Active/2026-10-21-random-tasks-quick-wins-....md → completed
+archived: Context Kick-start/Archived/2026-11-05-random-tasks-1-quick-wins.md
 ---
 
 TERMINAL: SUBMITTED — Google for Startups Cloud Program (decision 10–12 Nov)
@@ -302,7 +305,7 @@ OPEN: DKIM absent · Interledger closes 11 Nov · accelerator answer unrecorded
 
 | State | Actor | Action |
 |---|---|---|
-| **leaves** | the closing lane | writes the packet to `Inbox/`; sets its instance file `status: closed` (R4) |
+| **leaves** | the closing lane | writes the packet to `Inbox/` naming the archive path, sets `status: closed`, then archives the instance file to that path (R4) |
 | **reconciles** | daily-tasks thread, at session start | reads the packet, applies the AMC delta **only after checking it against cross-lane truth**, then files the lane's instance (R11) |
 | **consumes** | daily-tasks thread, same session start | moves the packet to `Consumed/` |
 
@@ -473,3 +476,4 @@ parent: null                 # prior instance file when resumed
 *Spec v2.0 ratified + canonical 2026-10-16. Sweep landed; shipped as v2.7.0. v1.0 captured 2026-09-23. TWABAM ⚡*
 *Spec v2.3 (close-packet delta) via AI-Suplex on 2026-11-06 — Cycle 3, Week 3 · ai-engineering: R12, `Inbox/` → `Consumed/`.*
 *Spec v2.4 (client-facing Workspace delta) via AI-Suplex on 2026-11-11 — Cycle 3, Week 4 · digital-products: Workspace terminology, Define/Kickstart Workspace, /workspaces tab.*
+*Spec v2.5 (packet-then-archive delta) via AI-Suplex on 2026-11-19 — Cycle 3, Week 5 · ai-engineering: close = packet then archive; the packet names the archived file (R4 + R12).*
