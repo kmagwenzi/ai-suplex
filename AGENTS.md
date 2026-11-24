@@ -281,6 +281,7 @@ The `Skills/` folder contains 12 markdown files. Each file teaches you (the AI) 
 | `Builder – Session End Report Generator.md`      | Builder      | Generates formatted session-end markdown reports from raw session data       |
 | `Builder – Deep Ultra Mode Generator.md`         | Builder      | Turn a tasklist into a Deep Ultra Mode boss-rush — three voices (Ultra-only) |
 | `Builder – Save Context.md`                      | Builder      | Save Context protocol — summarize, save, archive, enable next session        |
+| `Builder – Close Workspace.md`                   | Builder      | Close Workspace protocol — file the brief, deposit a packet, archive, name the next step |
 
 **How to use a skill:**  
 If the user says *"Act as Orchestrator and generate a tasklist from this to‑do list"*, you should follow the instructions in `Orchestrator – AI‑Suplex Tasklist Generator.md`. If you don't have the file, ask the user to paste it.
@@ -367,6 +368,9 @@ When you see `AI-Suplex: <command>` followed by `CONTENT` and/or `ADDITIONAL`:
 | `AI-Suplex: Artifact Capture(file)`        | `AI-Suplex Commands/⚡ Command — Artifact Capture(Non Markdown).md` | Builder      |
 | `AI-Suplex: Artifact Capture(youtube)`     | `AI-Suplex Commands/⚡ Command — Artifact Capture (YouTube).md`     | Builder      |
 | `AI-Suplex: Kickstart`                 | `AI-Suplex Commands/⚡ Command — Kickstart.md`               | Builder      |
+| `AI-Suplex: Define Workspace`           | `AI-Suplex Commands/⚡ Command — Define Workspace.md`           | Builder      |
+| `AI-Suplex: Kickstart Workspace`        | `AI-Suplex Commands/⚡ Command — Kickstart Workspace.md`        | Builder      |
+| `AI-Suplex: Close Workspace`            | `AI-Suplex Commands/⚡ Command — Close Workspace.md`            | Builder      |
 | `AI-Suplex: Session End Report`            | `AI-Suplex Commands/⚡ Command — Session End Report.md`             | Architect    |
 | `AI-Suplex: Session Start`                 | `📄 Pattern - Session Start Prompt Generation.md`                  | Architect    |
 | `AI-Suplex: Save Context`                  | `AI-Suplex Commands/⚡ Command — Save Context.md`                   | Builder      |

@@ -22,6 +22,9 @@ That's it! No macros to learn, no folders to navigate.
 | **Artifact Capture**     | Saving work-in-progress as structured artifacts  | `📄 Pattern - Artifact Capture.md`                |
 | **B-Bomb Promotion**     | Polishing work for productization                | `📄 Pattern - B-Bomb Promotion.md`                |
 | **Batch Insights**       | Capturing multiple learnings                     | `📄 Pattern - Batch Insight Generation.md`        |
+| **Define Workspace**     | Create a workspace brief (one lane, one writer)  | `📄 Pattern - Define Workspace.md`                |
+| **Kickstart Workspace**  | Load and run a defined workspace                 | `📄 Pattern - Kickstart Workspace.md`             |
+| **Close Workspace**      | File + archive a finished workspace              | `📄 Pattern - Close Workspace.md`                 |
 
 ## 🎯 Your First 5 Minutes with Patterns
 

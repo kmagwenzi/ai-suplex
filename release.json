@@ -30,6 +30,7 @@
     "Tools/skill-generate.js",
     "Tools/skill-install.js",
     "Tools/rituals.sh",
+    "Tools/workspaces.js",
     "Tools/manifest.json",
     "Tools/manifest.schema.json",
     "Tools/lib/**"

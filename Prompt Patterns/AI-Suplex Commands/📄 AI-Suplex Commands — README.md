@@ -45,6 +45,9 @@ ADDITIONAL: <instructions>
 | `AI-Suplex: Session End Report` | `📄 Pattern - Session End Report.md` | Architect | Full session report with memory loop |
 | `AI-Suplex: Session Start` | `📄 Pattern - Session Start Prompt Generation.md` | Architect | Session start prompt from tasklist |
 | `AI-Suplex: Save Context` | `⚡ Command — Save Context.md` | Builder | Thread-owned context file (`{prefix}cycle-X-week-Y-…`); archives only its own predecessor; AGENTS.md untouched unless the daily-tasks thread |
+| `AI-Suplex: Define Workspace` | `⚡ Command — Define Workspace.md` | Builder | Create a workspace brief (type → lane → ref → slug); never runs |
+| `AI-Suplex: Kickstart Workspace` | `⚡ Command — Kickstart Workspace.md` | Builder | Load and run a defined workspace; never creates |
+| `AI-Suplex: Close Workspace` | `⚡ Command — Close Workspace.md` | Builder | File the brief, deposit a close packet, archive tasklist + context file, name the next step |
 | `AI-Suplex: Tasklist Generation` | `📄 Pattern - Tasklist Generation.md` | Orchestrator | Structured tasklist from to-dos |
 | `AI-Suplex: Weekly Review` | `⚡ Command — Weekly Review.md` | Orchestrator | Weekly review with metrics |
 | `AI-Suplex: B-Bomb Promotion` | `📄 Pattern - B-Bomb Promotion.md` | Builder | B-Bomb from polished artifact |
